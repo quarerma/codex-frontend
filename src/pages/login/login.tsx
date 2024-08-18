@@ -30,12 +30,12 @@ export default function SignUpPage() {
           CODEX
         </h1>
       </div>
-      <div className="min-h-[85vh] w-screen text-white bg-[#2C2C2C] flex  justify-center items-center">
-        <div className="bg-[#272727] relative rounded-[30px] xl:w-3/12 lg:w-1/4 md:w-2/5  sm:w-1/2 w-3/4 m-4 flex flex-col  items-center ">
+      <div className="min-h-[85vh] font-inter w-screen text-white bg-[#2C2C2C] flex  justify-center items-center">
+        <div className="bg-[#272727] relative rounded-[30px] xl:w-3/12 lg:w-1/4 md:w-2/5  sm:w-1/2 w-full m-5  flex flex-col  items-center ">
           <h1 className=" -top-5 absolute  w-full text-center md:text-4xl text-3xl">LOGIN</h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="px-4 w-full flex flex-col space-y-12 mt-16 mb-10  items-center"
+            className="px-4 w-full flex flex-col space-y-10 mt-16 mb-10  items-center"
           >
             <div className="w-full">
               <input type="text" className={`${inputClassName}`} placeholder="Username" {...register('username')} />

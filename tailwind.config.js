@@ -13,6 +13,9 @@ export default {
         DEFAULT: '0 2px 4px var(--tw-shadow-color)',
         lg: '0 8px 16px var(--tw-shadow-color)',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
     },
   },
   plugins: [
@@ -23,7 +26,7 @@ export default {
             textShadow: value,
           }),
         },
-        { values: theme('textShadow') },
+        { values: theme('textShadow') }
       );
     }),
   ],
