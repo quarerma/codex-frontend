@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import './index.css';
 import LoginPage from './pages/login/login';
+import SignUpPage from './pages/signup/signup';
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       // redirect to login page
       <Navigate to="/login" replace />
     ),
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
   },
 ]);
 
