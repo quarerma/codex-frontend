@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { loginschema, LoginSchema } from '../../schemas/login.schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '../../components/ui/button';
 
 export default function SignUpPage() {
   const {
@@ -52,12 +53,13 @@ export default function SignUpPage() {
               <label className="text-red-500 text-sm">{errors.password?.message}</label>
             </div>
 
-            <button
+            <Button
               type="submit"
-              className="bg-[#bd9d33] hover:bg-[#bd91007d] duration-200 transition-colors text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
+              className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
+              variant={'default'}
             >
               Log In
-            </button>
+            </Button>
           </form>
           <div className="w-11/12 h-[1px] bg-[#3B3B3B] mb-5"></div>
           <Link
