@@ -22,23 +22,29 @@ export default function SignUpPage() {
   };
   return (
     <div className="w-screen h-screen">
-      <div className="w-screen text-white   text-center flex items-center justify-center bg-[#BD9000] h-[15vh] shadow-inner-custom ">
+      <div className="w-screen text-white  bg-[#f7d770] h-[15vh] shadow-inner-custom">
         <h1
           style={{ textShadow: '0px 11px 8.3px rgba(0, 0, 0, 0.25)' }}
-          className="lg:text-[100px] md:text-[70px] text-[50px] tracking-[0.5em] italic font-semibold"
+          className="lg:text-[100px] h-full md:text-[70px] text-[50px] tracking-[0.3em] font-semibold flex items-center italic justify-center"
         >
           CODEX
         </h1>
       </div>
-      <div className="min-h-[85vh] font-inter w-screen text-white bg-[#2C2C2C] flex  justify-center items-center">
-        <div className="bg-[#272727] relative rounded-[30px] xl:w-3/12 lg:w-1/4 md:w-2/5  sm:w-1/2 w-full m-5  flex flex-col  items-center ">
+      <div className="min-h-[85vh] font-inter w-screen text-white bg-[#272727] flex   justify-center items-center">
+        <div className="bg-[#2C2C2C]  relative rounded-[30px] xl:w-2/12 lg:w-1/4 md:w-2/5  sm:w-1/2 w-full m-5  flex flex-col  items-center ">
           <h1 className=" -top-5 absolute  w-full text-center md:text-4xl text-3xl">LOGIN</h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="px-4 w-full flex flex-col space-y-10 mt-16 mb-10  items-center"
+            className="px-4 w-full flex flex-col space-y-10 mt-16 mb-5  items-center"
           >
             <div className="w-full">
-              <input type="text" className={`${inputClassName}`} placeholder="Username" {...register('username')} />
+              <input
+                autoComplete="false"
+                type="text"
+                className={`${inputClassName}`}
+                placeholder="Username"
+                {...register('username')}
+              />
               <label className="text-red-500 text-sm">{errors.username?.message}</label>
             </div>
             <div className="w-full">
@@ -48,7 +54,7 @@ export default function SignUpPage() {
 
             <button
               type="submit"
-              className="bg-[#BD9000] hover:bg-[#bd91007d] duration-200 transition-colors text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
+              className="bg-[#bd9d33] hover:bg-[#bd91007d] duration-200 transition-colors text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
             >
               Log In
             </button>
