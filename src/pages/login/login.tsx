@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginschema, LoginSchema } from '../../schemas/login.schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import LoginSignup from '../../components/login-signup';
+import axios from 'axios';
+import { useState } from 'react';
+import { login } from '../../api/auth/user';
+import { useCookies } from 'react-cookie';
 
 export default function LoginPage() {
   const {
@@ -16,9 +20,33 @@ export default function LoginPage() {
     resolver: zodResolver(loginschema),
   });
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log(data);
+  const [loading, setLoading] = useState(false);
+  const [loginError, setError] = useState('');
+  const [cookie, setCookie] = useCookies(['jwt']);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: LoginSchema) => {
+    try {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await login(data);
+      // 4 seconds delay
+      setCookie('jwt', response.data, {
+        path: '/',
+        secure: true,
+      });
+    } catch (error) {
+      console.log(error);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 401) {
+          setError('Invalid username or password');
+          console.log(loginError);
+        }
+      }
+    }
     reset();
+    setLoading(false);
+    navigate('/');
   };
   return (
     <LoginSignup>
@@ -39,9 +67,22 @@ export default function LoginPage() {
           <label className="text-red-500 text-sm">{errors.password?.message}</label>
         </div>
 
-        <Button type="submit" className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]" variant={'default'}>
-          Log In
-        </Button>
+        {loading ? (
+          <div className="w-full h-10 flex justify-center items-center">
+            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[#3B3B3B]"></div>
+          </div>
+        ) : (
+          <div className="w-full flex flex-col items-center gap-y-4">
+            <Button
+              type="submit"
+              className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
+              variant={'default'}
+            >
+              Log In
+            </Button>
+            {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
+          </div>
+        )}
       </form>
       <div className="w-11/12 h-[1px] bg-border mb-5"></div>
       <Link

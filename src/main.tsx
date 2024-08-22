@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/',
+    path: '*',
     element: (
       // redirect to login page
       <Navigate to="/login" replace />

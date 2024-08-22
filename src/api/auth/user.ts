@@ -17,3 +17,13 @@ export async function signUp(data: SignUpSchema) {
     throw error;
   }
 }
+
+export async function login(data: { username: string; password: string }) {
+  try {
+    const response = axios.post(`${API_URL}auth/auth-login`, data);
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
