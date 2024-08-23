@@ -40,7 +40,7 @@ export default function SignUpPage() {
       setError(message);
     }
     setLoading(false);
-    // reset();
+    reset();
   };
 
   return (

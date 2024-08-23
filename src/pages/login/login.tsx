@@ -45,6 +45,7 @@ export default function LoginPage() {
       }
     }
     reset();
+    cookie.jwt;
     setLoading(false);
     navigate('/');
   };
