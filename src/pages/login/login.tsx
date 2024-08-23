@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
-import LoginSignup from '../../components/login-signup';
+import LoginSignup from '../../components/global/login-signup';
 import axios from 'axios';
 import { useState } from 'react';
 import { login } from '../../api/auth/user';

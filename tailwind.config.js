@@ -16,7 +16,12 @@ module.exports = {
         'custom-drop': '0 0 8.3px 0 rgba(0, 0, 0, 0.25)',
         'inner-custom': 'inset 0 0 13.5px 15px rgba(0, 0, 0, 0.25)',
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
       colors: {
+        'dark-bg': '#09090B',
+        'dark-bg-secondary': '#0e0c0a',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

@@ -9,8 +9,8 @@ export default function LoginSignup({ children }: { children: React.ReactNode })
           CODEX
         </h1>
       </div>
-      <div className="min-h-[85vh] py-10 max-w-screen  font-inter text-white bg-[#09090B] flex  justify-center items-center">
-        <div className="bg-[#0C0A09] border-4 border-border  relative rounded-[30px] xl:w-[27%] lg:w-[32%] md:w-2/5  sm:w-1/2 w-full m-4 flex flex-col  items-center ">
+      <div className="min-h-[85vh] py-10 max-w-screen  font-inter text-white bg-dark-bg flex  justify-center items-center">
+        <div className="bg-dark-bg-secondary border-4 border-border  relative rounded-[30px] xl:w-[27%] lg:w-[32%] md:w-2/5  sm:w-1/2 w-full m-4 flex flex-col  items-center ">
           {children}
         </div>
       </div>

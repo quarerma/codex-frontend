@@ -6,6 +6,7 @@ import LoginPage from './pages/login/login';
 import SignUpPage from './pages/signup/signup';
 import HomePage from './pages/home/home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import AdminLandingPage from './pages/admin/landing';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,6 +43,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <HomePage />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/dashboard',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <AdminLandingPage />
       </QueryClientProvider>
     ),
   },

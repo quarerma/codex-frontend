@@ -4,7 +4,7 @@ import { signupSchema, SignUpSchema } from '../../schemas/signup.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
-import LoginSignup from '../../components/login-signup';
+import LoginSignup from '../../components/global/login-signup';
 import { signUp } from '../../api/auth/user';
 
 import { useState } from 'react';

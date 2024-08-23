@@ -1,7 +1,10 @@
 import { getUserById } from '../../api/auth/user';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from '../../types/user';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+/* <ReactQueryDevtools initialIsOpen={false} /> */
+
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   const queryClient = useQueryClient();
@@ -15,7 +18,7 @@ export default function HomePage() {
   return (
     <div>
       <h1>{user?.username}</h1>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <Link to={'/admin/dashboard'}>Admin</Link>
     </div>
   );
 }
