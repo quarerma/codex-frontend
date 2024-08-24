@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AdminLandingPage from './pages/admin/landing';
 import ViewCampaigns from './pages/view-campaigns/view-campaigns';
 import ViewCharacters from './pages/view-characters/view-character';
+import CreateCampaign from './pages/create-campaign/create-campaign';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,6 +70,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ViewCharacters />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/create-campaign',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <CreateCampaign />
       </QueryClientProvider>
     ),
   },
