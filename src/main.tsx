@@ -7,6 +7,8 @@ import SignUpPage from './pages/signup/signup';
 import HomePage from './pages/home/home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AdminLandingPage from './pages/admin/landing';
+import ViewCampaigns from './pages/view-campaigns/view-campaigns';
+import ViewCharacters from './pages/view-characters/view-character';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,10 +49,26 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/campaigns',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ViewCampaigns />
+      </QueryClientProvider>
+    ),
+  },
+  {
     path: '/admin/dashboard',
     element: (
       <QueryClientProvider client={queryClient}>
         <AdminLandingPage />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/characters',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ViewCharacters />
       </QueryClientProvider>
     ),
   },

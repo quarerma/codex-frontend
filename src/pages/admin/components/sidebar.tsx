@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaTools, FaUser, FaBabyCarriage } from 'react-icons/fa';
-import { GiMagicSwirl, GiWarAxe, GiSwordwoman, GiNotebook } from 'react-icons/gi';
+import { GiMagicSwirl, GiWarAxe, GiSwordwoman, GiNotebook, GiMedicines } from 'react-icons/gi';
 import { RiLogoutBoxLine, RiDashboardFill } from 'react-icons/ri';
 import { TbSwords, TbSword } from 'react-icons/tb';
 import { LuDices } from 'react-icons/lu';
@@ -69,6 +69,11 @@ export default function Sidebar() {
       name: 'Rituais',
       url: '/admin/rituals',
       imageComponent: <BsMagic />,
+    },
+    {
+      name: 'Condições',
+      url: '/admin/conditions',
+      imageComponent: <GiMedicines />,
     },
   ];
 
