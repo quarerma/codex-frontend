@@ -67,10 +67,10 @@ export default function CreateClass() {
       const response = await createClass(data, proficiencies);
 
       console.log(response);
+      reset();
     } catch (error) {
       console.error(error);
     }
-    reset();
   };
 
   return (
