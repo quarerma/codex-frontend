@@ -68,6 +68,8 @@ export default function CreateClass() {
 
       console.log(response);
       reset();
+      setSelectedProficiencies([]);
+      setCurrentProficiency('default');
     } catch (error) {
       console.error(error);
     }
