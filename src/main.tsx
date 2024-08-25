@@ -11,6 +11,7 @@ import ViewCampaigns from './pages/view-campaigns/view-campaigns';
 import ViewCharacters from './pages/view-characters/view-character';
 import CreateCampaign from './pages/create-campaign/create-campaign';
 import ManageUsers from './pages/admin/user/manage-users';
+import ManageClasses from './pages/admin/classes/manage-classes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageUsers />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/classes',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageClasses />
       </QueryClientProvider>
     ),
   },

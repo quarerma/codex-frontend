@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import Sidebar from '../components/sidebar';
 import { getAllUsers } from '../../../api/fetch/user';
 import { useState } from 'react';
 import { Button } from '../../../components/ui/button';
@@ -12,6 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '../../../components/ui/table';
+import AdminPageSetup from '../components/admin-page';
 
 export default function ManageUsers() {
   const [searchUsers, setSearchUsers] = useState(false);
@@ -23,8 +23,7 @@ export default function ManageUsers() {
   });
 
   return (
-    <div className="max-w-screen min-h-screen bg-dark-bg font-inter text-foreground flex">
-      <Sidebar />
+    <AdminPageSetup>
       <div className="flex flex-col gap-y-5 p-10 w-full">
         <div className="w-full flex flex-col items-center justify-center py-10 ">
           <div className="flex flex-col bg-dark-bg-secondary w-full p-5 border-2 border-border gap-y-10">
@@ -59,6 +58,6 @@ export default function ManageUsers() {
           </Button>
         </div>
       </div>
-    </div>
+    </AdminPageSetup>
   );
 }

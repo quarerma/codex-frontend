@@ -73,7 +73,7 @@ export default function LoginPage() {
           <label className="text-red-500 text-sm">{errors.username?.message}</label>
         </div>
         <div className="w-full">
-          <Input type="password" className="rounded-[15px]" placeholder="Email" {...register('password')} />
+          <Input type="password" className="rounded-[15px]" placeholder="Senha" {...register('password')} />
           <label className="text-red-500 text-sm">{errors.password?.message}</label>
         </div>
 
