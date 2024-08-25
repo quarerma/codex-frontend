@@ -5,7 +5,6 @@ import { Input } from '../../../components/ui/input';
 import { Textarea } from '../../../components/ui/textarea';
 import { Button } from '../../../components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Proficiency } from '../../../types/class';
 import { useState } from 'react';
 import { createClass } from '../../../api/fetch/classes';
 
@@ -71,7 +70,7 @@ export default function CreateClass() {
     } catch (error) {
       console.error(error);
     }
-    // reset();
+    reset();
   };
 
   return (
