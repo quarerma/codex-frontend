@@ -6,11 +6,20 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import LoginSignup from '../../components/global/login-signup';
 import axios from 'axios';
-import { useState } from 'react';
-import { login } from '../../api/auth/user';
+import { useEffect, useState } from 'react';
+import { login } from '../../api/auth/authorization';
+import Cookies from 'js-cookie';
 import { useCookies } from 'react-cookie';
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const jwt = Cookies.get('jwt');
+    if (jwt) {
+      navigate('/');
+    }
+  }, [navigate]);
+
   const {
     register,
     handleSubmit,
@@ -23,7 +32,6 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [loginError, setError] = useState('');
   const [cookie, setCookie] = useCookies(['jwt']);
-  const navigate = useNavigate();
 
   const onSubmit = async (data: LoginSchema) => {
     try {
@@ -49,6 +57,7 @@ export default function LoginPage() {
     setLoading(false);
     navigate('/');
   };
+
   return (
     <LoginSignup>
       <h1 className=" -top-5 absolute font-bold w-full text-center md:text-4xl text-3xl">LOGIN</h1>

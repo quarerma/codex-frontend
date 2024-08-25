@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useNavigate } from 'react-router-dom';
-import { getUserById } from '../../api/auth/user';
+import { getUserById } from '../../api/fetch/user';
 import { useEffect } from 'react';
 import Sidebar from './components/sidebar';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
-import { getUserById } from '../../api/auth/user';
+import { getUserById } from '../../api/fetch/user';
 import Cookies from 'js-cookie';
 
 export default function Navbar() {

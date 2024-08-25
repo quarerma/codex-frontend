@@ -1,16 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signupSchema, SignUpSchema } from '../../schemas/signup.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../components/ui/input';
 import { Button } from '../../components/ui/button';
 import LoginSignup from '../../components/global/login-signup';
-import { signUp } from '../../api/auth/user';
+import { signUp } from '../../api/auth/authorization';
 
 import { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -41,6 +42,7 @@ export default function SignUpPage() {
     }
     setLoading(false);
     reset();
+    navigate('/login');
   };
 
   return (

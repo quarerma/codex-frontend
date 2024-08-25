@@ -10,6 +10,7 @@ import AdminLandingPage from './pages/admin/landing';
 import ViewCampaigns from './pages/view-campaigns/view-campaigns';
 import ViewCharacters from './pages/view-characters/view-character';
 import CreateCampaign from './pages/create-campaign/create-campaign';
+import ManageUsers from './pages/admin/user/manage-users';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -78,6 +79,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <CreateCampaign />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/users',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageUsers />
       </QueryClientProvider>
     ),
   },

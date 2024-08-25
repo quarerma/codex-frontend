@@ -40,24 +40,34 @@ export default function CreateCampaign() {
   return (
     <div className="max-w-screen min-h-screen text-inter text-foreground bg-dark-bg space-y-10">
       <Navbar />
-      <div className="px-20 relative">
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-5 relative">
-          <h1 className="text-4xl font-bold">Criar campanha</h1>
+      <div className="px-20 relative space-y-10">
+        <h1 className="text-4xl font-bold">Criar campanha</h1>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col space-y-8 relative bg-dark-bg-secondary border-4 p-5 -mb-5 rounded-xl border-border "
+        >
           <div>
-            <Input placeholder="Nome" className="w-1/4" {...register('name')} />
+            <h1 className="mb-4 text-2xl font-medium">Nome:</h1>
+            <Input placeholder="Preencha com o nome da campanha" className="w-1/4 ml-3" {...register('name')} />
             {errors.name && <span>{errors.name.message}</span>}
           </div>
           <div>
-            <Input type="password" placeholder="Senha" className="w-1/4" {...register('password')} />
+            <h1 className="mb-4 text-2xl font-medium">Senha:</h1>
+            <Input type="password" placeholder="Crie uma senha" className="w-1/4 ml-3" {...register('password')} />
             {errors.password && <span>{errors.password.message}</span>}
           </div>
           <div>
-            <Textarea placeholder="Descrição" className="w-3/4 h-[200px] resize-none" {...register('description')} />
+            <h1 className="mb-4 text-2xl font-medium">Descrição:</h1>
+            <Textarea
+              placeholder="Adicinar descrição..."
+              className="w-[85%] h-[200px] resize-none ml-3"
+              {...register('description')}
+            />
             {errors.description && <span>{errors.description.message}</span>}
           </div>
 
-          <div className="flex w-3/4 justify-end">
-            <Button type="submit" className="self-end text-2xl rounded-xl">
+          <div className="flex mr-10 py-10 justify-end">
+            <Button type="submit" variant={'default'} size={'lg'}>
               Create Campaign
             </Button>
           </div>
