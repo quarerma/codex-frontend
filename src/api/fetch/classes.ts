@@ -23,3 +23,18 @@ export async function createClass(data: CreateClassSchema, proficiencies: string
     throw error;
   }
 }
+
+export async function getClasses(): Promise<ClassModel[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}classes`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return response.data as ClassModel[];
+  } catch (error) {
+    throw error;
+  }
+}

@@ -9,13 +9,13 @@ export type ClassModel = {
   initialSanity: number;
   initialEffort: number;
   initialFeats: string[];
-  proficiencies: Proficiency[];
+  proficiencies: string[];
 };
 
-export enum Proficiency {
-  SIMPLE = 'Armas simples',
-  TACTICAL = 'Arnas táticas',
-  HEAVY = 'Armas pesadas',
-  LIGHT_ARMOR = 'Armaduras leves',
-  HEAVY_ARMOR = 'Armaduras pesadas',
-}
+export const equipmentProficience = [
+  { label: 'Armas simples', value: 'SIMPLE' },
+  { label: 'Armas táticas', value: 'TATICAL' },
+  { label: 'Armas pesadas', value: 'HEAVY' },
+  { label: 'Armaduras leves', value: 'LIGHT_ARMOR' },
+  { label: 'Armaduras pesadas', value: 'HEAVY_ARMOR' },
+];

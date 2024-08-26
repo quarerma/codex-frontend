@@ -7,14 +7,7 @@ import { Button } from '../../../components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { createClass } from '../../../api/fetch/classes';
-
-const proficiencies = [
-  { label: 'Armas simples', value: 'SIMPLE' },
-  { label: 'Armas táticas', value: 'TATICAL' },
-  { label: 'Armas pesadas', value: 'HEAVY' },
-  { label: 'Armaduras leves', value: 'LIGHT_ARMOR' },
-  { label: 'Armaduras pesadas', value: 'HEAVY_ARMOR' },
-];
+import { equipmentProficience } from '../../../types/class';
 
 interface FormFieldProps {
   label: string;
@@ -37,6 +30,7 @@ const FormField = ({ label, placeholder, register, name, type = 'text', isTextar
 );
 
 export default function CreateClass() {
+  const proficiencies = equipmentProficience;
   const [selectedProficiencies, setSelectedProficiencies] = useState<{ label: string; value: string }[]>([]);
   const [currentProficiency, setCurrentProficiency] = useState<string | 'default'>('default');
 

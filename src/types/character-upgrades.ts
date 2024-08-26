@@ -1,0 +1,20 @@
+export const character_upgrades = [
+  { label: 'Bônus de Perícia', value: 'PERICIA' },
+  { label: 'Número de Perícias', value: 'NUM_DE_PERICIA' },
+  { label: 'Atributo', value: 'ATRIBUTO' },
+  { label: 'Defesa', value: 'DEFESA' },
+  { label: 'Proficiência', value: 'PROFICIENCIA' },
+  { label: 'Resistência', value: 'RESISTENCIA' },
+  // { GERAL, FÍSICO, SANGUE, MORTE, CONHECIMENTO, ENERGIA, MEDO, TESTES }
+  { label: 'Margem de Crítico', value: 'MARGEM_DE_CRITICO' },
+  { label: 'Multiplicador de Crítico', value: 'MULTIPLCADOR_CRITICO' },
+  { label: 'Limite de Pontos de Esforço', value: 'LIMITE_PE' },
+  { label: 'Vida por Nível', value: 'VIDA_P_NEX' },
+  { label: 'Vida Máxima', value: 'VIDA_MAX' },
+  { label: 'Pontos de Esforço por Nível', value: 'PE_P_NEX' },
+  { label: 'Pontos de Esforço Máximo', value: 'PE_MAX' },
+  { label: 'Dado Extra de Dano (melee)', value: 'DADO_EXTRA_DE_DANO_MELEE' },
+  { label: 'Dex no Dano (disparo)', value: 'DEX_NO_DANO' },
+  { label: 'Int no Dano (fogo)', value: 'INT_NO_DANO' },
+  { label: 'Deslocamento', value: 'DESLOCAMENTO' },
+];
