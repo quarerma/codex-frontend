@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createSubClassSchema, CreateSubClassSchema } from '../../../schemas/create.subclass';
 import { Input } from '../../../components/ui/input';
-import { Textarea } from '../../../components/ui/textarea';
+
 import { Button } from '../../../components/ui/button';
 import { createSubclass, getSubclasses } from '../../../api/fetch/subclass';
 import ReactQuill from 'react-quill';
@@ -22,14 +22,7 @@ export default function CreateSubClasses() {
     queryFn: () => getSubclasses(),
   });
 
-  const {
-    handleSubmit,
-    register,
-    reset,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<CreateSubClassSchema>({
+  const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSubClassSchema>({
     resolver: zodResolver(createSubClassSchema),
   });
   const description = watch('description'); // Para observar mudanças no campo
