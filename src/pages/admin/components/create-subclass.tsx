@@ -64,7 +64,9 @@ export default function CreateSubClasses() {
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Classe:</h1>
           <select className="p-2 border-2 bg-card border-border rounded ml-5" {...register('classId')}>
-            <option value="">Selecione uma classe</option>
+            <option value="" disabled>
+              Selecione uma classe
+            </option>
             {classes?.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.name}

@@ -13,6 +13,7 @@ import CreateCampaign from './pages/create-campaign/create-campaign';
 import ManageUsers from './pages/admin/user/manage-users';
 import ManageClasses from './pages/admin/classes/manage-classes';
 import ManageSubclasses from './pages/admin/subclasses/manage-subclasses';
+import ManageFeats from './pages/admin/feats/manage-feats';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageSubclasses />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/feats',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageFeats />
       </QueryClientProvider>
     ),
   },

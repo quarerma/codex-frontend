@@ -1,4 +1,4 @@
-import { CharacterUpgrade, Element } from '../schemas/create.feat';
+import { Element } from './elements';
 
 export type Feat = {
   id: string;
