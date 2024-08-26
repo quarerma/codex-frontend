@@ -5,9 +5,11 @@ import { Input } from '../../../components/ui/input';
 import { Textarea } from '../../../components/ui/textarea';
 import { Button } from '../../../components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createClass } from '../../../api/fetch/classes';
 import { equipmentProficience } from '../../../types/class';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface FormFieldProps {
   label: string;
@@ -47,9 +49,16 @@ export default function CreateClass() {
     setSelectedProficiencies(selectedProficiencies.filter((p) => p.value !== value));
   };
 
-  const { reset, handleSubmit, register } = useForm<CreateClassSchema>({
+  const { reset, handleSubmit, register, watch, setValue } = useForm<CreateClassSchema>({
     resolver: zodResolver(createClassSchema),
   });
+
+  const description = watch('description'); // Para observar mudanças no campo
+
+  // UseEffect para registrar o campo quando o componente monta
+  useEffect(() => {
+    register('description', { required: true });
+  }, [register]);
 
   const onSubmit = async (data: CreateClassSchema) => {
     try {
@@ -74,13 +83,14 @@ export default function CreateClass() {
       <h1 className="text-3xl font-bold">Criar nova classe</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
         <FormField label="Nome:" placeholder="Preencha o nome da classe..." register={register} name="name" />
-        <FormField
-          label="Descrição:"
-          placeholder="Adicione a descrição da classe..."
-          register={register}
-          name="description"
-          isTextarea
-        />
+        <div className="space-y-2 group  h-[300px]">
+          <h1 className="group-focus-within:text-primary">Descrição:</h1>
+          <ReactQuill
+            className="ml-2 h-[220px]"
+            value={description}
+            onChange={(content) => setValue('description', content)}
+          />
+        </div>
         <FormField
           label="Pontos de Vida Iniciais:"
           placeholder="Preencha os pontos de vida iniciais..."
@@ -143,7 +153,7 @@ export default function CreateClass() {
             Adicionar
           </Button>
           <div className="mt-4">
-            <h3>Proficiencias Selecionadas:</h3>
+            <h3>Proficiências Selecionadas:</h3>
             <ol className="mt-2 ml-5">
               {selectedProficiencies.map((proficiency) => (
                 <li key={proficiency.value} className="flex flex-col w-[40%]">

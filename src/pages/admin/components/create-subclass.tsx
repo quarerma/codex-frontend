@@ -7,6 +7,9 @@ import { Input } from '../../../components/ui/input';
 import { Textarea } from '../../../components/ui/textarea';
 import { Button } from '../../../components/ui/button';
 import { createSubclass, getSubclasses } from '../../../api/fetch/subclass';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useEffect } from 'react';
 
 export default function CreateSubClasses() {
   const { data: classes } = useQuery({
@@ -14,7 +17,7 @@ export default function CreateSubClasses() {
     queryFn: () => getClasses(),
   });
 
-  const { data: subclasses, refetch } = useQuery({
+  const { data: subclasses } = useQuery({
     queryKey: ['subclasses'],
     queryFn: () => getSubclasses(),
   });
@@ -23,22 +26,31 @@ export default function CreateSubClasses() {
     handleSubmit,
     register,
     reset,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<CreateSubClassSchema>({
     resolver: zodResolver(createSubClassSchema),
   });
+  const description = watch('description'); // Para observar mudanças no campo
+
+  // UseEffect para registrar o campo quando o componente monta
+  useEffect(() => {
+    register('description', { required: true });
+  }, [register]);
 
   const onSubmit = async (data: CreateSubClassSchema) => {
     try {
+      console.log(data);
       const response = await createSubclass(data);
 
       console.log(response);
       reset();
-      refetch();
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
       <h1 className="text-3xl font-bold">Criar nova sub classe</h1>
@@ -48,12 +60,12 @@ export default function CreateSubClasses() {
           <h1 className="group-focus-within:text-primary">Nome:</h1>
           <Input type="text" placeholder="Preencha o nome da subclasse" className="ml-2" {...register('name')} />
         </div>
-        <div className="space-y-2 group">
+        <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <Textarea
-            placeholder="Preencha a descrição da subclasse"
-            className="ml-2 h-[200px]"
-            {...register('description')}
+          <ReactQuill
+            className="ml-2 h-[180px]"
+            value={description}
+            onChange={(content) => setValue('description', content)}
           />
         </div>
         <div className="space-y-2 group">
@@ -78,6 +90,7 @@ export default function CreateSubClasses() {
           <h1 className="text-3xl font-bold">{subclass.name}</h1>
           <p>{subclass.description}</p>
           <p>{subclass.class.name}</p>
+          <p dangerouslySetInnerHTML={{ __html: subclass.class.description }}></p>
         </div>
       ))}
     </div>
