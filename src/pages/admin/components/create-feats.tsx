@@ -4,12 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../../components/ui/input';
 import ReactQuill from 'react-quill';
 import { useEffect, useState, useCallback } from 'react';
-import { character_upgrades } from '../../../types/character-upgrades';
+import { Atributes, character_upgrades, CharacterUpgrade } from '../../../types/character-upgrades';
 import { Button } from '../../../components/ui/button';
 import { elementValues } from '../../../types/elements';
 import { quillModule } from '../../../../lib/utils';
 import { createGeneralFeat, getGeneralFeats } from '../../../api/fetch/featst';
 import { useQuery } from '@tanstack/react-query';
+import UpgradeList from './upgradeList';
 
 const getElementColor = (element: string) => {
   switch (element) {
@@ -59,11 +60,12 @@ export default function CreateFeats() {
     },
   });
 
-  const { data: feats, refetch } = useQuery({
-    queryKey: ['general-feats'],
-    queryFn: () => getGeneralFeats(),
-  });
+  // const { data: feats, refetch } = useQuery({
+  //   queryKey: ['general-feats'],
+  //   queryFn: () => getGeneralFeats(),
+  // });
   const characterUpgrades = character_upgrades;
+  const atributes = Atributes;
 
   const [elementColor, setElementColor] = useState({
     text: 'text-border',
@@ -73,36 +75,55 @@ export default function CreateFeats() {
   useEffect(() => {
     setElementColor(getElementColor(watch('element')));
   }, [watch('element')]);
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: string }[]>([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
+    { label: string; value: CharacterUpgrade; require: string }[]
+  >([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
-  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<{ label: string; value: string }[]>([]);
+  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<
+    { label: string; value: CharacterUpgrade; require: string }[]
+  >([]);
   const [currentAfinityUpgrade, setCurrentAfinityUpgrade] = useState<string | 'default'>('default');
 
   const handleAddAfinityUpgrade = (e: React.FormEvent) => {
     e.preventDefault();
     const selected = characterUpgrades.find((p) => p.value === currentAfinityUpgrade);
-    if (selected && !selectedAfinityUpgrades.some((p) => p.value === selected.value)) {
-      setSelectedAfinityUpgrades([...selectedAfinityUpgrades, selected]);
+    if (selected && !selectedAfinityUpgrades.some((p) => p.value.type === selected.value)) {
+      const object = {
+        label: selected?.label,
+        value: {
+          type: selected?.value,
+        },
+        require: selected.require,
+      };
+      setSelectedAfinityUpgrades([...selectedAfinityUpgrades, object]);
+
       setCurrentAfinityUpgrade('default');
     }
   };
 
   const handleRemoveAfinityUpgrade = (value: string) => {
-    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((p) => p.value !== value));
+    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((p) => p.value.type !== value));
   };
 
   const handleAddUpgrade = (e: React.FormEvent) => {
     e.preventDefault();
     const selected = characterUpgrades.find((p) => p.value === currentCharacterUpgrade);
-    if (selected && !selectedCharacterUpgrades.some((p) => p.value === selected.value)) {
-      setSelectedCharacterUpgrades([...selectedCharacterUpgrades, selected]);
+    if (selected) {
+      const object = {
+        label: selected?.label,
+        value: {
+          type: selected?.value,
+        },
+        require: selected.require,
+      };
+      setSelectedCharacterUpgrades([...selectedCharacterUpgrades, object]);
       setCurrentCharacterUpgrade('default');
     }
   };
 
   const handleRemoveUpgrade = (value: string) => {
-    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((p) => p.value !== value));
+    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((p) => p.value.type !== value));
   };
 
   const description = watch('description');
@@ -123,12 +144,12 @@ export default function CreateFeats() {
   const onSubmit = async (data: CreateFeatSchema) => {
     try {
       clearEmptyFields(data);
-      console.log(data);
+      console.log(data, selectedCharacterUpgrades, selectedAfinityUpgrades);
 
-      const response = await createGeneralFeat(data);
-      console.log(response);
-      reset();
-      refetch();
+      // const response = await createGeneralFeat(data);
+      // console.log(response);
+      // reset();
+      // refetch();
     } catch (error) {
       console.error(error);
     }
@@ -180,25 +201,10 @@ export default function CreateFeats() {
           <Button size={'sm'} variant={'ghost'} onClick={handleAddUpgrade} className="ml-2">
             Adicionar
           </Button>
-
-          <ol className="mt-2 ml-5">
-            {selectedCharacterUpgrades.map((upgrades) => (
-              <li key={upgrades.value} className="flex flex-col w-[40%]">
-                <div className="flex w-full justify-between text-start">
-                  <span className="text-lg text-secondary-foreground">{upgrades.label}</span>
-                  <Button
-                    size={'sm'}
-                    variant={'link'}
-                    onClick={() => handleRemoveUpgrade(upgrades.value)}
-                    className="ml-2 text-[0.7rem] text-primary right-0"
-                  >
-                    Remover
-                  </Button>
-                </div>
-                <div className="w-full h-[1px] bg-muted"></div>
-              </li>
-            ))}
-          </ol>
+          <UpgradeList
+            selectedCharacterUpgrades={selectedCharacterUpgrades}
+            handleRemoveUpgrade={handleRemoveUpgrade}
+          />
         </div>
         <div className="space-y-2">
           <h1 className={`${elementColor.text}`}>Elemento:</h1>
@@ -239,24 +245,10 @@ export default function CreateFeats() {
                 Adicionar
               </Button>
 
-              <ol className="mt-2 ml-5">
-                {selectedAfinityUpgrades.map((upgrades) => (
-                  <li key={upgrades.value} className="flex flex-col w-[40%]">
-                    <div className="flex w-full justify-between text-start">
-                      <span className="text-lg text-secondary-foreground">{upgrades.label}</span>
-                      <Button
-                        size={'sm'}
-                        variant={'link'}
-                        onClick={() => handleRemoveAfinityUpgrade(upgrades.value)}
-                        className="ml-2 text-[0.7rem] text-primary right-0"
-                      >
-                        Remover
-                      </Button>
-                    </div>
-                    <div className="w-full h-[1px] bg-muted"></div>
-                  </li>
-                ))}
-              </ol>
+              <UpgradeList
+                selectedCharacterUpgrades={selectedAfinityUpgrades}
+                handleRemoveUpgrade={handleRemoveAfinityUpgrade}
+              />
             </div>
           </div>
         )}
@@ -266,7 +258,7 @@ export default function CreateFeats() {
           </Button>
         </div>
       </form>
-      {feats && (
+      {/* {feats && (
         <div className="space-y-5">
           <h1 className="text-2xl font-bold">Poderes criados</h1>
           <ul className="space-y-5">
@@ -284,7 +276,7 @@ export default function CreateFeats() {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

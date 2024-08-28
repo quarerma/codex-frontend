@@ -15,13 +15,13 @@ export default function AdminLandingPage() {
   });
 
   // check using useMutation
+  const navigate = useNavigate();
   useEffect(() => {
     if (user === undefined) return;
     if (user?.role !== 'ADMIN') {
       alert('You are not an admin');
 
       // redirect
-      const navigate = useNavigate();
       navigate('/');
     }
   }, [user]);
