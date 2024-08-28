@@ -75,6 +75,9 @@ export default function CreateFeats() {
   useEffect(() => {
     setElementColor(getElementColor(watch('element')));
   }, [watch('element')]);
+
+  const [pendindUpgrades, setPendingUpgrades] = useState<{ label: string; value: CharacterUpgrade }[]>([]);
+
   const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
     { label: string; value: CharacterUpgrade; require: string }[]
   >([]);
@@ -204,6 +207,7 @@ export default function CreateFeats() {
           <UpgradeList
             selectedCharacterUpgrades={selectedCharacterUpgrades}
             handleRemoveUpgrade={handleRemoveUpgrade}
+            setPendingUpgrades={setPendingUpgrades}
           />
         </div>
         <div className="space-y-2">
@@ -246,6 +250,7 @@ export default function CreateFeats() {
               </Button>
 
               <UpgradeList
+                setPendingUpgrades={setPendingUpgrades}
                 selectedCharacterUpgrades={selectedAfinityUpgrades}
                 handleRemoveUpgrade={handleRemoveAfinityUpgrade}
               />
