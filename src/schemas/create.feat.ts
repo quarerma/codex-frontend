@@ -7,8 +7,9 @@ export const createFeatSchema = z.object({
   characterUpgrade: z
     .array(
       z.object({
-        upgradeTarget: z.string(),
-        upgradeValue: z.number(),
+        type: z.string(),
+        upgradeTarget: z.string().optional(),
+        upgradeValue: z.number().optional(),
       })
     )
     .optional(),
@@ -17,8 +18,9 @@ export const createFeatSchema = z.object({
   afinityUpgrades: z
     .array(
       z.object({
-        upgradeTarget: z.string(),
-        upgradeValue: z.number(),
+        type: z.string(),
+        upgradeTarget: z.string().optional(),
+        upgradeValue: z.number().optional(),
       })
     )
     .optional(),

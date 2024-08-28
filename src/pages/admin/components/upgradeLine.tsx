@@ -5,7 +5,7 @@ import { Input } from '../../../components/ui/input';
 import { equipmentProficience } from '../../../types/class';
 
 interface UpgradeLineProps {
-  value: {
+  upgrade: {
     label: string;
     require: string;
     value: {
@@ -13,137 +13,120 @@ interface UpgradeLineProps {
       upgradeTarget?: string;
       type: string;
     };
+    isCompleted: boolean;
   };
-  handleRemoveUpgrade: (type: string) => void;
-  setPendingUpgrades: React.Dispatch<React.SetStateAction<{ label: string; value: CharacterUpgrade }[]>>;
+  handleRemoveUpgrade: (type: number) => void;
+  index: number;
 }
 
 interface TextInputProps {
-  value: CharacterUpgrade;
+  upgrade: CharacterUpgrade;
   onChange: (value: string) => void;
   setIsModified: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface NumberInputProps {
-  value: CharacterUpgrade;
+  upgrade: CharacterUpgrade;
   onChange: (value: number) => void;
   setIsModified: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function UpgradeLine({ value, handleRemoveUpgrade, setPendingUpgrades }: UpgradeLineProps) {
+export default function UpgradeLine({ upgrade, handleRemoveUpgrade, index }: UpgradeLineProps) {
   const [isModified, setIsModified] = useState(false);
   useEffect(() => {
     if (!isModified) return;
     setIsModified(false);
-    switch (value.require) {
+    switch (upgrade.require) {
       case 'number':
-        if (!value.value.upgradeValue) {
-          const pending = {
-            label: value.label,
-            value: value.value,
-          };
-          setPendingUpgrades((prev) => [...prev, pending]);
+        if (!upgrade.value.upgradeValue) {
+          upgrade.isCompleted = false;
+        } else {
+          upgrade.isCompleted = true;
         }
         break;
       case 'string':
-        if (!value.value.upgradeTarget) {
-          const pending = {
-            label: value.label,
-            value: value.value,
-          };
-          setPendingUpgrades((prev) => [...prev, pending]);
+        if (!upgrade.value.upgradeTarget) {
+          upgrade.isCompleted = false;
+        } else {
+          upgrade.isCompleted = true;
         }
         break;
       case 'both':
-        if (!value.value.upgradeTarget || !value.value.upgradeValue) {
-          const pending = {
-            label: value.label,
-            value: value.value,
-          };
-          setPendingUpgrades((prev) => [...prev, pending]);
+        if (!upgrade.value.upgradeValue || !upgrade.value.upgradeTarget) {
+          upgrade.isCompleted = false;
+        } else {
+          upgrade.isCompleted = true;
         }
         break;
 
       default:
         break;
     }
-  }, [value, isModified]);
+    console.log(upgrade);
+  }, [upgrade, isModified]);
   return (
-    <div className="flex items-center w-full mt-2">
-      <span className="text-xl text-secondary-foreground mr-2">{value.label}</span>
-      <div className="flex items-center ml-auto">
-        {value.require === 'number' ? (
-          <div className="w-full flex justify-end">
-            <NumberInput
-              setIsModified={setIsModified}
-              value={value.value}
-              onChange={(upgradeValue) => {
-                setPendingUpgrades((prev) =>
-                  prev.map((item) =>
-                    item.value.type === value.value.type ? { ...item, value: { ...item.value, upgradeValue } } : item
-                  )
-                );
-              }}
-            />
-          </div>
-        ) : value.require === 'string' ? (
-          <TextInput
-            setIsModified={setIsModified}
-            value={value.value}
-            onChange={(upgradeTarget) => {
-              setPendingUpgrades((prev) =>
-                prev.map((item) =>
-                  item.value.type === value.value.type ? { ...item, value: { ...item.value, upgradeTarget } } : item
-                )
-              );
-            }}
-          />
-        ) : (
-          value.require === 'both' && (
-            <div className="flex items-center justify-end space-x-2">
-              <TextInput
-                setIsModified={setIsModified}
-                value={value.value}
-                onChange={(upgradeTarget) => {
-                  setPendingUpgrades((prev) =>
-                    prev.map((item) =>
-                      item.value.type === value.value.type ? { ...item, value: { ...item.value, upgradeTarget } } : item
-                    )
-                  );
-                }}
-              />
+    <div className="flex flex-col items-center w-full mt-2">
+      <div className="flex items-center w-full">
+        <span className="text-xl text-secondary-foreground mr-2">{upgrade.label}</span>
+        <div className="flex items-center ml-auto">
+          {upgrade.require === 'number' ? (
+            <div className="w-full flex justify-end">
               <NumberInput
                 setIsModified={setIsModified}
-                value={value.value}
-                onChange={(upgradeValue) => {
-                  setPendingUpgrades((prev) =>
-                    prev.map((item) =>
-                      item.value.type === value.value.type ? { ...item, value: { ...item.value, upgradeValue } } : item
-                    )
-                  );
+                upgrade={upgrade.value}
+                onChange={(value) => {
+                  upgrade.value.upgradeValue = value;
                 }}
               />
             </div>
-          )
-        )}
-        <Button
-          size="sm"
-          variant="link"
-          onClick={() => handleRemoveUpgrade(value.value.type)}
-          className="text-[0.7rem] text-primary ml-auto"
-        >
-          Remover
-        </Button>
+          ) : upgrade.require === 'string' ? (
+            <TextInput
+              setIsModified={setIsModified}
+              upgrade={upgrade.value}
+              onChange={(value) => {
+                upgrade.value.upgradeTarget = value;
+              }}
+            />
+          ) : (
+            upgrade.require === 'both' && (
+              <div className="flex items-center justify-end space-x-2">
+                <TextInput
+                  setIsModified={setIsModified}
+                  upgrade={upgrade.value}
+                  onChange={(value) => {
+                    upgrade.value.upgradeTarget = value;
+                  }}
+                />
+                <NumberInput
+                  setIsModified={setIsModified}
+                  upgrade={upgrade.value}
+                  onChange={(value) => {
+                    upgrade.value.upgradeValue = value;
+                  }}
+                />
+              </div>
+            )
+          )}
+          <Button
+            size="sm"
+            variant="link"
+            // remova pelo index
+            onClick={() => handleRemoveUpgrade(index)}
+            className="text-[0.7rem] text-primary ml-auto"
+          >
+            Remover
+          </Button>
+        </div>
       </div>
-      <div className="h-[1px] bg-muted mt-2"></div>
+      <div className="h-[1px] w-full bg-muted mt-2"></div>
     </div>
   );
 }
 
-function NumberInput({ value, onChange, setIsModified }: NumberInputProps) {
+function NumberInput({ upgrade, setIsModified }: NumberInputProps) {
   const [inputValue, setInputValue] = useState<number>();
   useEffect(() => {
-    value.upgradeValue = inputValue;
+    upgrade.upgradeValue = inputValue;
     setIsModified && setIsModified(true);
   }, [inputValue]);
   return (
@@ -158,23 +141,24 @@ function NumberInput({ value, onChange, setIsModified }: NumberInputProps) {
   );
 }
 
-function TextInput({ value, onChange, setIsModified }: TextInputProps) {
+function TextInput({ upgrade, onChange, setIsModified }: TextInputProps) {
   const atributes = Atributes;
   const proficiencies = equipmentProficience;
-  switch (value.type) {
+  switch (upgrade.type) {
     case 'ATRIBUTO':
       const [selectedAtribute, setSelectedAtribute] = useState<string>('');
 
       useEffect(() => {
-        value.upgradeTarget = selectedAtribute;
+        upgrade.upgradeTarget = selectedAtribute;
         setIsModified(true);
       }, [selectedAtribute]);
       return (
         <select
+          value={selectedAtribute}
           className="p-2 border-2  bg-card border-border rounded ml-auto "
           onChange={(e) => setSelectedAtribute(e.target.value as string)}
         >
-          <option value="default" disabled>
+          <option value="" disabled>
             Atributos
           </option>
           {atributes.map((atribute) => (
@@ -188,7 +172,7 @@ function TextInput({ value, onChange, setIsModified }: TextInputProps) {
       const [selectedProficiency, setSelectedProficiency] = useState<string>('');
 
       useEffect(() => {
-        value.upgradeTarget = selectedProficiency;
+        upgrade.upgradeTarget = selectedProficiency;
         setIsModified(true);
       }, [selectedProficiency]);
       return (
@@ -209,12 +193,17 @@ function TextInput({ value, onChange, setIsModified }: TextInputProps) {
       );
 
     default:
+      const [inputValue, setInputValue] = useState<string>();
+      useEffect(() => {
+        upgrade.upgradeTarget = inputValue;
+        setIsModified(true);
+      }, [inputValue]);
       return (
         <Input
-          placeholder={value.type}
+          placeholder={upgrade.type}
           className="p-2 border-2 w-[50%] bg-card border-border rounded ml-5 "
           onChange={(e) => {
-            onChange(e.target.value);
+            setInputValue(e.target.value);
           }}
         />
       );

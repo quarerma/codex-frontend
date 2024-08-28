@@ -3,7 +3,7 @@ import { createFeatSchema, CreateFeatSchema } from '../../../schemas/create.feat
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../../components/ui/input';
 import ReactQuill from 'react-quill';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Atributes, character_upgrades, CharacterUpgrade } from '../../../types/character-upgrades';
 import { Button } from '../../../components/ui/button';
 import { elementValues } from '../../../types/elements';
@@ -11,6 +11,7 @@ import { quillModule } from '../../../../lib/utils';
 import { createGeneralFeat, getGeneralFeats } from '../../../api/fetch/featst';
 import { useQuery } from '@tanstack/react-query';
 import UpgradeList from './upgradeList';
+import { set } from 'zod';
 
 const getElementColor = (element: string) => {
   switch (element) {
@@ -60,10 +61,11 @@ export default function CreateFeats() {
     },
   });
 
-  // const { data: feats, refetch } = useQuery({
-  //   queryKey: ['general-feats'],
-  //   queryFn: () => getGeneralFeats(),
-  // });
+  const { data: feats, refetch } = useQuery({
+    queryKey: ['general-feats'],
+    queryFn: () => getGeneralFeats(),
+  });
+
   const characterUpgrades = character_upgrades;
   const atributes = Atributes;
 
@@ -76,15 +78,13 @@ export default function CreateFeats() {
     setElementColor(getElementColor(watch('element')));
   }, [watch('element')]);
 
-  const [pendindUpgrades, setPendingUpgrades] = useState<{ label: string; value: CharacterUpgrade }[]>([]);
-
   const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string }[]
+    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
   >([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
   const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string }[]
+    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
   >([]);
   const [currentAfinityUpgrade, setCurrentAfinityUpgrade] = useState<string | 'default'>('default');
 
@@ -98,6 +98,7 @@ export default function CreateFeats() {
           type: selected?.value,
         },
         require: selected.require,
+        isCompleted: false,
       };
       setSelectedAfinityUpgrades([...selectedAfinityUpgrades, object]);
 
@@ -105,8 +106,8 @@ export default function CreateFeats() {
     }
   };
 
-  const handleRemoveAfinityUpgrade = (value: string) => {
-    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((p) => p.value.type !== value));
+  const handleRemoveAfinityUpgrade = (index: number) => {
+    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((p, i) => i !== index));
   };
 
   const handleAddUpgrade = (e: React.FormEvent) => {
@@ -119,14 +120,15 @@ export default function CreateFeats() {
           type: selected?.value,
         },
         require: selected.require,
+        isCompleted: false,
       };
       setSelectedCharacterUpgrades([...selectedCharacterUpgrades, object]);
       setCurrentCharacterUpgrade('default');
     }
   };
 
-  const handleRemoveUpgrade = (value: string) => {
-    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((p) => p.value.type !== value));
+  const handleRemoveUpgrade = (index: number) => {
+    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((p, i) => i !== index));
   };
 
   const description = watch('description');
@@ -144,15 +146,34 @@ export default function CreateFeats() {
     }
   };
 
+  const [pending, setPending] = useState<string[]>();
   const onSubmit = async (data: CreateFeatSchema) => {
     try {
+      setPending(undefined);
       clearEmptyFields(data);
-      console.log(data, selectedCharacterUpgrades, selectedAfinityUpgrades);
+      // check if the selected upgrades are completed, add the non-completed label to the pending
+      const pendingUpgrades = selectedCharacterUpgrades.filter((p) => !p.isCompleted).map((p) => p.label);
+      // check for afinity upgrades
+      const pendingAfinityUpgrades = selectedAfinityUpgrades.filter((p) => !p.isCompleted).map((p) => p.label);
+      pendingUpgrades.push(...pendingAfinityUpgrades);
 
-      // const response = await createGeneralFeat(data);
-      // console.log(response);
-      // reset();
-      // refetch();
+      if (pendingUpgrades.length > 0) {
+        setPending(pendingUpgrades);
+        return;
+      }
+
+      data.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
+      data.afinityUpgrades = selectedAfinityUpgrades.map((p) => p.value);
+
+      console.log(data);
+      const response = await createGeneralFeat(data);
+      console.log(response);
+
+      setSelectedCharacterUpgrades([]);
+      setSelectedAfinityUpgrades([]);
+
+      reset();
+      refetch();
     } catch (error) {
       console.error(error);
     }
@@ -178,12 +199,7 @@ export default function CreateFeats() {
         </div>
         <div className="space-y-2 group ">
           <h1 className="group-focus-within:text-primary">Pré-requisitos:</h1>
-          <Input
-            type="text"
-            placeholder="Preencha o nome da subclasse"
-            className="ml-2"
-            {...register('prerequisites')}
-          />
+          <Input type="text" placeholder="Preencha os pré-requisitos" className="ml-2" {...register('prerequisites')} />
         </div>
         <div className="z-50">
           <h1 className="mb-5">Modificações no personagem</h1>
@@ -207,7 +223,6 @@ export default function CreateFeats() {
           <UpgradeList
             selectedCharacterUpgrades={selectedCharacterUpgrades}
             handleRemoveUpgrade={handleRemoveUpgrade}
-            setPendingUpgrades={setPendingUpgrades}
           />
         </div>
         <div className="space-y-2">
@@ -250,20 +265,24 @@ export default function CreateFeats() {
               </Button>
 
               <UpgradeList
-                setPendingUpgrades={setPendingUpgrades}
                 selectedCharacterUpgrades={selectedAfinityUpgrades}
                 handleRemoveUpgrade={handleRemoveAfinityUpgrade}
               />
             </div>
           </div>
         )}
-        <div className="flex w-full justify-center">
+        <div className="flex flex-col w-full items-center  justify-center">
           <Button type="submit" className="w-1/4">
             Criar Poder
           </Button>
+          {pending && (
+            <p className="text-red-500 text-lg mt-2">
+              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
+            </p>
+          )}
         </div>
       </form>
-      {/* {feats && (
+      {feats && (
         <div className="space-y-5">
           <h1 className="text-2xl font-bold">Poderes criados</h1>
           <ul className="space-y-5">
@@ -281,7 +300,7 @@ export default function CreateFeats() {
             ))}
           </ul>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

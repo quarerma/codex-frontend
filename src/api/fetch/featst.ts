@@ -30,7 +30,6 @@ export async function getGeneralFeats(): Promise<Feat[]> {
       },
     });
 
-    console.log(response.data);
     return response.data as Feat[];
   } catch (error) {
     throw error;
