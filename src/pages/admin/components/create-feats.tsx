@@ -4,14 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../../components/ui/input';
 import ReactQuill from 'react-quill';
 import { useEffect, useState } from 'react';
-import { Atributes, character_upgrades, CharacterUpgrade } from '../../../types/character-upgrades';
+import { character_upgrades, CharacterUpgrade } from '../../../types/character-upgrades';
 import { Button } from '../../../components/ui/button';
 import { elementValues } from '../../../types/elements';
 import { quillModule } from '../../../../lib/utils';
 import { createGeneralFeat, getGeneralFeats } from '../../../api/fetch/featst';
 import { useQuery } from '@tanstack/react-query';
 import UpgradeList from './upgradeList';
-import { set } from 'zod';
 
 const getElementColor = (element: string) => {
   switch (element) {
@@ -67,7 +66,6 @@ export default function CreateFeats() {
   });
 
   const characterUpgrades = character_upgrades;
-  const atributes = Atributes;
 
   const [elementColor, setElementColor] = useState({
     text: 'text-border',
@@ -107,7 +105,7 @@ export default function CreateFeats() {
   };
 
   const handleRemoveAfinityUpgrade = (index: number) => {
-    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((p, i) => i !== index));
+    setSelectedAfinityUpgrades(selectedAfinityUpgrades.filter((_, i) => i !== index));
   };
 
   const handleAddUpgrade = (e: React.FormEvent) => {
@@ -128,7 +126,7 @@ export default function CreateFeats() {
   };
 
   const handleRemoveUpgrade = (index: number) => {
-    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((p, i) => i !== index));
+    setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((_, i) => i !== index));
   };
 
   const description = watch('description');

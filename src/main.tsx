@@ -14,6 +14,7 @@ import ManageUsers from './pages/admin/user/manage-users';
 import ManageClasses from './pages/admin/classes/manage-classes';
 import ManageSubclasses from './pages/admin/subclasses/manage-subclasses';
 import ManageFeats from './pages/admin/feats/manage-feats';
+import ManageSkills from './pages/admin/skills/manage-skills';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -114,6 +115,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageFeats />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/skills',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageSkills />
       </QueryClientProvider>
     ),
   },

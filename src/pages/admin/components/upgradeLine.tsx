@@ -141,7 +141,7 @@ function NumberInput({ upgrade, setIsModified }: NumberInputProps) {
   );
 }
 
-function TextInput({ upgrade, onChange, setIsModified }: TextInputProps) {
+function TextInput({ upgrade, setIsModified }: TextInputProps) {
   const atributes = Atributes;
   const proficiencies = equipmentProficience;
   switch (upgrade.type) {
