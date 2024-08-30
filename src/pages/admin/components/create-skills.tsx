@@ -9,10 +9,20 @@ import { useEffect } from 'react';
 import { createSkillSchema, CreateSkillSchema } from '../../../schemas/create.skill';
 import { Atributes } from '../../../types/character-upgrades';
 import { Checkbox } from '../../../components/ui/checkbox';
+import { createSkill } from '../../../api/fetch/skills';
+import { useQueryClient } from '@tanstack/react-query';
+import { quillModule } from '../../../../lib/utils';
 
 export default function CreateSkills() {
   const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSkillSchema>({
     resolver: zodResolver(createSkillSchema),
+    defaultValues: {
+      atribute: '',
+      needs_kit: false,
+      carry_peanalty: false,
+      only_trained: false,
+      is_custom: false,
+    },
   });
   const description = watch('description'); // Para observar mudanças no campo
   const atribute = Atributes;
@@ -22,31 +32,33 @@ export default function CreateSkills() {
     register('description', { required: true });
   }, [register]);
 
-  // imprima todos os watch
-  useEffect(() => {
-    console.log(watch('needs_kit'));
-  }, [watch('needs_kit')]);
+  const queryClient = useQueryClient();
   const onSubmit = async (data: CreateSkillSchema) => {
     try {
-      console.log(data);
+      const response = await createSkill(data);
+      console.log(response);
+      reset();
+      // add the skill to the query
+      queryClient.setQueryData(['skills'], (old: any) => [...old, response]);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar nova sub classe</h1>
+    <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full text-foreground rounded-2xl h-fit border-2 border-border">
+      <h1 className="text-3xl font-bold">Criar nova perícia</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Nome:</h1>
-          <Input type="text" placeholder="Preencha o nome da subclasse" className="ml-2" {...register('name')} />
+          <Input type="text" placeholder="Preencha o nome da perícia" className="ml-2" {...register('name')} />
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
           <ReactQuill
             className="ml-2 h-[180px]"
+            modules={quillModule}
             value={description}
             onChange={(content) => setValue('description', content)}
           />
@@ -57,7 +69,9 @@ export default function CreateSkills() {
               Atributos
             </option>
             {atribute.map((atribute) => (
-              <option key={atribute.value}>{atribute.label}</option>
+              <option key={atribute.value} value={atribute.value}>
+                {atribute.label}
+              </option>
             ))}
           </select>
         </div>
