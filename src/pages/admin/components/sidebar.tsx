@@ -7,6 +7,8 @@ import { LuDices } from 'react-icons/lu';
 import { BsMagic } from 'react-icons/bs';
 import { useState } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
+import { useQueryClient } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 
 export default function Sidebar() {
   const linksMap = [
@@ -77,6 +79,14 @@ export default function Sidebar() {
     },
   ];
 
+  const queryClient = useQueryClient();
+  const handleLogOut = () => {
+    // empty all queries
+    queryClient.clear();
+
+    Cookies.remove('jwt');
+  };
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -118,6 +128,7 @@ export default function Sidebar() {
           ))}
           <Link
             to={'/login'}
+            onClick={handleLogOut}
             className="flex items-center gap-x-2  mt-10 mb-10 text-2xl duration-300 transition-colors hover:text-primary-foreground font-semibold  "
           >
             <RiLogoutBoxLine /> Sair
@@ -136,6 +147,7 @@ export default function Sidebar() {
           ))}
           <Link
             to={'/login'}
+            onClick={handleLogOut}
             className="flex items-center gap-x-2  mt-10 mb-10  duration-300 transition-colors hover:text-primary-foreground font-semibold  "
           >
             <RiLogoutBoxLine />

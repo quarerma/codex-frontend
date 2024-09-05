@@ -18,10 +18,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Campaign } from '../../../types/campaign';
 
 export const JoinCampaignSchema = z.object({
-  campaignId: z.string(),
-  password: z.string(),
+  campaignId: z.string().min(1),
+  password: z.string().min(1),
 });
-
 export type JoinCampaignSchema = z.infer<typeof JoinCampaignSchema>;
 export default function JoinCampaignButton() {
   const queryClient = useQueryClient();

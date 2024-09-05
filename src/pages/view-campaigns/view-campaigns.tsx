@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import NavBar from '../../components/global/navbar';
 import CreateCampaignButton from './components/create.campaign.button';
 import { getUserCampaigns } from '../../api/fetch/campaigns';
@@ -7,13 +7,10 @@ import JoinCampaignButton from './components/join.campaign.button';
 import { useState, useEffect } from 'react';
 import { Campaign } from '../../types/campaign';
 import { getUserById } from '../../api/fetch/user';
-import { Input } from '../../components/ui/input';
 import { FaSearch } from 'react-icons/fa';
-import { z } from 'zod';
 import CampaignPortrait from './components/campaign.portrait';
 
 export default function ViewCampaigns() {
-  const queryClient = useQueryClient();
   const { data: campaigns } = useQuery({
     queryKey: ['campaigns'],
     queryFn: () => getUserCampaigns(),
@@ -56,7 +53,7 @@ export default function ViewCampaigns() {
         <JoinCampaignButton />
         <CreateCampaignButton />
       </div>
-      <div className="grid grid-cols-3   auto-rows-[200px] gap-10 ml-20 mr-20">
+      <div className="grid grid-cols-3   auto-rows-[200px] gap-14 ml-20 mr-20">
         {filteredCampaigns.map((campaign: Campaign, index: number) => (
           <div key={index} className="flex  justify-center">
             <CampaignPortrait campaign={campaign} isDMing={campaign.owner.id === user?.id} />
