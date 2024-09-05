@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AdminPageSetup from '../components/admin-page';
 import CreateSkills from '../components/create-skills';
 import ReadSkills from '../components/read-skills';
@@ -6,9 +6,6 @@ import { Button } from '../../../components/ui/button';
 
 export default function ManageSkills() {
   const [activeComponent, setActiveComponent] = useState('create');
-
-  const createSkillsRef = useRef<HTMLDivElement>(null);
-  const readSkillsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Atualiza o componente ativo baseado no hash da URL
@@ -54,8 +51,8 @@ export default function ManageSkills() {
             Visualizar Perícias
           </Button>
         </div>
-        <div ref={readSkillsRef}>{activeComponent === 'read' && <ReadSkills />}</div>
-        <div ref={createSkillsRef}>{activeComponent === 'create' && <CreateSkills />}</div>
+        {activeComponent === 'read' && <ReadSkills />}
+        {activeComponent === 'create' && <CreateSkills />}
       </div>
     </AdminPageSetup>
   );
