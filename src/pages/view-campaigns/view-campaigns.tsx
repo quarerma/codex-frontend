@@ -9,6 +9,8 @@ import { Campaign } from '../../types/campaign';
 import { getUserById } from '../../api/fetch/user';
 import { Input } from '../../components/ui/input';
 import { FaSearch } from 'react-icons/fa';
+import { z } from 'zod';
+import CampaignPortrait from './components/campaign.portrait';
 
 export default function ViewCampaigns() {
   const queryClient = useQueryClient();
@@ -26,11 +28,6 @@ export default function ViewCampaigns() {
   const [filteredCampaigns, setFilteredCampaigns] = useState<Campaign[]>([]);
 
   useEffect(() => {
-    const cachedCampaigns = queryClient.getQueryData<Campaign[]>(['campaigns']);
-    console.log(cachedCampaigns);
-  }, [campaigns, queryClient]);
-
-  useEffect(() => {
     if (campaigns) {
       setFilteredCampaigns(
         campaigns.filter((campaign) => campaign.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -42,7 +39,7 @@ export default function ViewCampaigns() {
     <div className="max-w-screen min-h-screen font-inter bg-dark-bg space-y-10">
       <NavBar />
 
-      <div className="flex justify-between items-center text-foreground ml-20 mr-20 ">
+      <div className="flex justify-between items-center text-foreground ml-20 pb-10 mr-20 ">
         <div className="flex ">
           <div className=" flex-col border-b-2 border-border">
             <input
@@ -50,7 +47,7 @@ export default function ViewCampaigns() {
               placeholder="Buscar por nome..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className=" placeholder:text-white text-3xl  bg-transparent w-full focus:outline-none"
+              className=" placeholder:text-foreground placeholder:text-4xl placeholder:font-extrabold text-3xl  bg-transparent w-full focus:outline-none"
             />
             <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
           </div>
@@ -59,14 +56,13 @@ export default function ViewCampaigns() {
         <JoinCampaignButton />
         <CreateCampaignButton />
       </div>
-
-      {filteredCampaigns.map((campaign: Campaign, index: number) => (
-        <div key={index} className="px-20 text-primary">
-          <h1>{campaign.name}</h1>
-          <p>{campaign.description}</p>
-          {user && campaign.owner.id === user.id ? <p>Mestrando</p> : <p>Mestre: {campaign.owner.username}</p>}
-        </div>
-      ))}
+      <div className="grid grid-cols-3   auto-rows-[200px] gap-10 ml-20 mr-20">
+        {filteredCampaigns.map((campaign: Campaign, index: number) => (
+          <div key={index} className="flex  justify-center">
+            <CampaignPortrait campaign={campaign} isDMing={campaign.owner.id === user?.id} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

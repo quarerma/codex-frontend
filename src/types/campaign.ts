@@ -1,6 +1,6 @@
 export type Campaign = {
   id: string;
-  createdAt: string;
+  createdAt: Date;
   name: string;
   description: string;
   owner: {
