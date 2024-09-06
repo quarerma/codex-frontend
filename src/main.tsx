@@ -15,6 +15,7 @@ import ManageClasses from './pages/admin/classes/manage-classes';
 import ManageSubclasses from './pages/admin/subclasses/manage-subclasses';
 import ManageFeats from './pages/admin/feats/manage-feats';
 import ManageSkills from './pages/admin/skills/manage-skills';
+import ManageOrigins from './pages/admin/origin/manage.origin';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -123,6 +124,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageSkills />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: 'admin/origins',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageOrigins />
       </QueryClientProvider>
     ),
   },

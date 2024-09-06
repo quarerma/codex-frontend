@@ -1,15 +1,14 @@
 import { useForm, UseFormRegister } from 'react-hook-form';
-import { createClassSchema, CreateClassSchema } from '../../../schemas/create.class';
-
-import { Input } from '../../../components/ui/input';
-import { Textarea } from '../../../components/ui/textarea';
-import { Button } from '../../../components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import { createClass } from '../../../api/fetch/classes';
-import { equipmentProficience } from '../../../types/class';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { Textarea } from '../../../../components/ui/textarea';
+import { Input } from '../../../../components/ui/input';
+import { createClassSchema, CreateClassSchema } from '../../../../schemas/create.class';
+import { equipmentProficience } from '../../../../types/class';
+import { createClass } from '../../../../api/fetch/classes';
+import { Button } from '../../../../components/ui/button';
 
 interface FormFieldProps {
   label: string;

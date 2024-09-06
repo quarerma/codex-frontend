@@ -1,5 +1,5 @@
 import AdminPageSetup from '../components/admin-page';
-import CreateSubClasses from '../components/create-subclass';
+import CreateSubClasses from './components/create-subclass';
 
 export default function ManageSubclasses() {
   return (

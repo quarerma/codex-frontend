@@ -1,16 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { createFeatSchema, CreateFeatSchema } from '../../../schemas/create.feat';
+import { createFeatSchema, CreateFeatSchema } from '../../../../schemas/create.feat';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '../../../components/ui/input';
+import { Input } from '../../../../components/ui/input';
 import ReactQuill from 'react-quill';
 import { useEffect, useState } from 'react';
-import { character_upgrades, CharacterUpgrade } from '../../../types/character-upgrades';
-import { Button } from '../../../components/ui/button';
-import { elementValues } from '../../../types/elements';
-import { quillModule } from '../../../../lib/utils';
-import { createGeneralFeat, getGeneralFeats } from '../../../api/fetch/featst';
+import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
+import { Button } from '../../../../components/ui/button';
+import { elementValues } from '../../../../types/elements';
+import { quillModule } from '../../../../../lib/utils';
+import { createGeneralFeat, getGeneralFeats } from '../../../../api/fetch/featst';
 import { useQuery } from '@tanstack/react-query';
-import UpgradeList from './upgradeList';
+import UpgradeList from '../../components/upgradeList';
 
 const getElementColor = (element: string) => {
   switch (element) {

@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import AdminPageSetup from '../components/admin-page';
 
 import { Button } from '../../../components/ui/button';
-import ReadSkills from './components/read-skills';
-import CreateSkills from './components/create-skills';
+import CreateOrigin from './components/create-origin';
+import ReadOrigins from './components/read-origins';
 
-export default function ManageSkills() {
+export default function ManageOrigins() {
   const [activeComponent, setActiveComponent] = useState('create');
 
   useEffect(() => {
     // Atualiza o componente ativo baseado no hash da URL
     const hash = window.location.hash.substring(1);
-    if (hash === 'read-skills') {
+    if (hash === 'read-origins') {
       setActiveComponent('read');
     } else {
       setActiveComponent('create');
@@ -21,9 +21,9 @@ export default function ManageSkills() {
   // Atualiza o hash da URL quando o componente ativo mudar
   useEffect(() => {
     if (activeComponent === 'read') {
-      window.location.hash = '#read-skills';
+      window.location.hash = '#read-origins';
     } else if (activeComponent === 'create') {
-      window.location.hash = '#create-skills';
+      window.location.hash = '#create-origins';
     }
   }, [activeComponent]);
 
@@ -40,7 +40,7 @@ export default function ManageSkills() {
                 : 'bg-transparent border-none'
             }`}
           >
-            Criar Perícia
+            Criar Origem
           </Button>
           <Button
             variant={'outline'}
@@ -49,11 +49,11 @@ export default function ManageSkills() {
               activeComponent === 'read' ? 'bg-dark-bg-secondary ' : 'bg-transparent border-none'
             }`}
           >
-            Visualizar Perícias
+            Visualizar Origens
           </Button>
         </div>
-        {activeComponent === 'read' && <ReadSkills />}
-        {activeComponent === 'create' && <CreateSkills />}
+        {activeComponent === 'read' && <ReadOrigins />}
+        {activeComponent === 'create' && <CreateOrigin />}
       </div>
     </AdminPageSetup>
   );

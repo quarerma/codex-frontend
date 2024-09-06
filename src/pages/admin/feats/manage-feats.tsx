@@ -1,5 +1,5 @@
 import AdminPageSetup from '../components/admin-page';
-import CreateFeats from '../components/create-feats';
+import CreateFeats from './components/create-feats';
 
 export default function ManageFeats() {
   return (

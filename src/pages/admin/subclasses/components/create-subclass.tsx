@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { getClasses } from '../../../api/fetch/classes';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createSubClassSchema, CreateSubClassSchema } from '../../../schemas/create.subclass';
-import { Input } from '../../../components/ui/input';
 
-import { Button } from '../../../components/ui/button';
-import { createSubclass, getSubclasses } from '../../../api/fetch/subclass';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect } from 'react';
+import { getClasses } from '../../../../api/fetch/classes';
+import { createSubclass, getSubclasses } from '../../../../api/fetch/subclass';
+import { CreateSubClassSchema, createSubClassSchema } from '../../../../schemas/create.subclass';
+import { Input } from '../../../../components/ui/input';
+import { Button } from '../../../../components/ui/button';
 
 export default function CreateSubClasses() {
   const { data: classes } = useQuery({
