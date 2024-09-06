@@ -7,20 +7,16 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect } from 'react';
 import { getClasses } from '../../../../api/fetch/classes';
-import { createSubclass, getSubclasses } from '../../../../api/fetch/subclass';
+import { createSubclass } from '../../../../api/fetch/subclass';
 import { CreateSubClassSchema, createSubClassSchema } from '../../../../schemas/create.subclass';
 import { Input } from '../../../../components/ui/input';
 import { Button } from '../../../../components/ui/button';
+import { quillModule } from '../../../../../lib/utils';
 
 export default function CreateSubClasses() {
   const { data: classes } = useQuery({
     queryKey: ['classes'],
     queryFn: () => getClasses(),
-  });
-
-  const { data: subclasses } = useQuery({
-    queryKey: ['subclasses'],
-    queryFn: () => getSubclasses(),
   });
 
   const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSubClassSchema>({
@@ -59,6 +55,7 @@ export default function CreateSubClasses() {
           <ReactQuill
             className="ml-2 h-[180px]"
             value={description}
+            modules={quillModule}
             onChange={(content) => setValue('description', content)}
           />
         </div>
@@ -81,14 +78,6 @@ export default function CreateSubClasses() {
           </Button>
         </div>
       </form>
-      {subclasses?.map((subclass) => (
-        <div key={subclass.id} className="border-2 border-border p-5 text-xl space-y-10">
-          <h1 className="text-3xl font-bold">{subclass.name}</h1>
-          <p>{subclass.description}</p>
-          <p>{subclass.class.name}</p>
-          <p dangerouslySetInnerHTML={{ __html: subclass.class.description }}></p>
-        </div>
-      ))}
     </div>
   );
 }

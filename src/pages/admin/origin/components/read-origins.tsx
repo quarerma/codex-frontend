@@ -46,7 +46,7 @@ export default function ReadOrigins() {
           <p className="p-5 text-xl">Nenhuma habilidade encontrada.</p>
         ) : (
           filteredOrigins.map((origin, index) => (
-            <div key={index} className="space-y-5 p-5 border-b border-border">
+            <div key={index} className="space-y-5 p-5 border-2 border-border">
               <div>
                 <h2 className="text-2xl font-bold">{origin.name}</h2>
               </div>

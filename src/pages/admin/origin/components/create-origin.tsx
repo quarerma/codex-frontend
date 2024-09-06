@@ -3,58 +3,17 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../../../components/ui/input';
 import ReactQuill from 'react-quill';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
 import { Button } from '../../../../components/ui/button';
-import { elementValues } from '../../../../types/elements';
 import { quillModule } from '../../../../../lib/utils';
 
-import UpgradeList from '../../components/upgradeList';
 import { createOriginSchema, CreateOriginSchema } from '../../../../schemas/create.origin';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getSkills } from '../../../../api/fetch/skills';
 import { createOrigin } from '../../../../api/fetch/origins';
 import { Origin } from '../../../../types/origin';
-
-const getElementColor = (element: string) => {
-  switch (element) {
-    case 'REALITY':
-      return {
-        text: '',
-        border: 'border-border',
-      };
-    case 'FEAR':
-      return {
-        text: 'text-cyan-100',
-        border: 'border-cyan-100',
-      };
-    case 'BLOOD':
-      return {
-        text: 'text-red-900',
-        border: 'border-red-900',
-      };
-    case 'DEATH':
-      return {
-        text: 'text-gray-500',
-        border: 'border-gray-500',
-      };
-    case 'ENERGY':
-      return {
-        text: 'text-purple-700',
-        border: 'border-purple-700',
-      };
-    case 'KNOWLEDGE':
-      return {
-        text: 'text-primary',
-        border: 'border-primary',
-      };
-    default:
-      return {
-        text: 'text-border',
-        border: 'border-border',
-      };
-  }
-};
+import FeatCreation from '../../../../components/global/create-feat-simplified';
 
 export default function CreateOrigin() {
   const { handleSubmit, register, reset, watch, setValue } = useForm<CreateOriginSchema>({
@@ -68,19 +27,10 @@ export default function CreateOrigin() {
 
   const characterUpgrades = character_upgrades;
 
-  const [elementColor, setElementColor] = useState({
-    text: 'text-border',
-    border: 'border-border',
-  });
-
   const { data: skills } = useQuery({
     queryKey: ['skills'],
     queryFn: getSkills,
   });
-
-  useEffect(() => {
-    setElementColor(getElementColor(watch('feat.element')));
-  }, [watch('feat.element')]);
 
   const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
     { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
@@ -131,6 +81,7 @@ export default function CreateOrigin() {
       data.feat.afinity = undefined;
     }
   };
+  const queryClient = useQueryClient();
 
   const [pending, setPending] = useState<string[]>();
   const onSubmit = async (data: CreateOriginSchema) => {
@@ -150,7 +101,6 @@ export default function CreateOrigin() {
       data.feat.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
 
       const response = await createOrigin(data);
-      const queryClient = useQueryClient();
 
       const origins: Origin[] | undefined = queryClient.getQueryData(['origins']);
 
@@ -230,62 +180,17 @@ export default function CreateOrigin() {
           </ol>
         </div>
 
-        <div className="space-y-2 group">
-          <h1 className="group-focus-within:text-primary">Nome do Poder da Origem:</h1>
-          <Input
-            type="text"
-            placeholder="Preencha o nome do Poder da Origem "
-            className="ml-2"
-            {...register('feat.name')}
-          />
-        </div>
-        <div className="space-y-2 group  h-[250px]">
-          <h1 className="group-focus-within:text-primary">Descrição do Poder da Origem:</h1>
-          <ReactQuill
-            value={watch('feat.description')}
-            className="ml-2 h-[180px]"
-            onChange={(content) => setValue('feat.description', content)}
-            modules={quillModule}
-          />
-        </div>
-
-        <div className="z-50">
-          <h1 className="mb-5">Modificações no personagem</h1>
-          <select
-            value={currentCharacterUpgrade}
-            onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5 "
-          >
-            <option value="default" disabled>
-              Modificações
-            </option>
-            {characterUpgrades.map((c) => (
-              <option key={c.value} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-          <Button size={'sm'} variant={'ghost'} onClick={handleAddUpgrade} className="ml-2">
-            Adicionar
-          </Button>
-          <UpgradeList
-            selectedCharacterUpgrades={selectedCharacterUpgrades}
-            handleRemoveUpgrade={handleRemoveUpgrade}
-          />
-        </div>
-        <div className="space-y-2">
-          <h1 className={`${elementColor.text}`}>Elemento:</h1>
-          <select
-            className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`}
-            {...register('feat.element')}
-          >
-            {elementValues?.map((c) => (
-              <option key={c.label} value={c.value}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <FeatCreation
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          currentCharacterUpgrade={currentCharacterUpgrade}
+          setCurrentCharacterUpgrade={setCurrentCharacterUpgrade}
+          handleAddUpgrade={handleAddUpgrade}
+          handleRemoveUpgrade={handleRemoveUpgrade}
+          selectedCharacterUpgrades={selectedCharacterUpgrades}
+          characterUpgrades={characterUpgrades}
+        />
 
         <div className="flex flex-col w-full items-center  justify-center">
           <Button type="submit" className="w-1/4">

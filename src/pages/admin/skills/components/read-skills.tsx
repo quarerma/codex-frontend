@@ -100,7 +100,7 @@ export default function ReadSkills() {
           <p className="p-5 text-xl">Nenhuma habilidade encontrada.</p>
         ) : (
           filteredSkills.map((skill) => (
-            <div key={skill.name} className="space-y-5 p-5 border-b border-border">
+            <div key={skill.name} className="space-y-5 p-5 border-2 border-border">
               <div>
                 <h2 className="text-2xl font-semibold">{skill.name}</h2>
                 {skill.atribute && <p className="text-sm mt-2">Atributo: {formatAtribute(skill.atribute)}</p>}
