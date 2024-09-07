@@ -1,13 +1,9 @@
 import { z } from 'zod';
 import FeatCreation from '../../../../components/global/create-feat-simplified';
-import CreateFeats from '../../feats/components/create-feats';
-import { sub } from 'date-fns';
 import { Button } from '../../../../components/ui/button';
 import { Input } from '../../../../components/ui/input';
-import ReactQuill from 'react-quill';
-import { quillModule } from '../../../../../lib/utils';
 import { useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { createFeatSchema } from '../../../../schemas/create.feat';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -94,7 +90,7 @@ export default function AssignFeatSubclass() {
 
       reset();
       refetch();
-      console.log(watch());
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
