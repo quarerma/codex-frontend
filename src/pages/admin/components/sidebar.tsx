@@ -97,7 +97,7 @@ export default function Sidebar() {
       }}
       className={`${
         isSidebarOpen ? 'w-96' : 'w-[120px]'
-      } max-h-screen relative overflow-y-scroll duration-500   bg-dark-bg-secondary font-inter border-r-4 border-border text-foreground`}
+      } max-h-screen relative overflow-y-scroll duration-500   bg-dark-bg-secondary font-oswald border-r-4 border-border text-foreground`}
     >
       <div className={`absolute right-0 items-center z-50 px-5 py-3 duration-300 ${isSidebarOpen ? 'rotate-180' : ''}`}>
         <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-3xl">

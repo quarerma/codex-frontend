@@ -29,7 +29,7 @@ export default function ManageSkills() {
 
   return (
     <AdminPageSetup>
-      <div className="w-full flex flex-col p-20 font-inter">
+      <div className="w-full flex flex-col p-20 font-oswald">
         <div className="ml-6 sticky -mb-1 ">
           <Button
             variant={'outline'}

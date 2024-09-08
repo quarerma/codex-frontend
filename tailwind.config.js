@@ -17,7 +17,7 @@ module.exports = {
         'inner-custom': 'inset 0 0 13.5px 15px rgba(0, 0, 0, 0.25)',
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
       },
       colors: {
         'dark-bg': '#09090B',

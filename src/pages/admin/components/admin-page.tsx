@@ -23,7 +23,7 @@ export default function AdminPageSetup({ children }: React.PropsWithChildren) {
   }, [user]);
 
   return (
-    <div className="max-w-screen font-inter  min-h-screen bg-dark-bg text-foreground flex">
+    <div className="max-w-screen font-oswald  min-h-screen bg-dark-bg text-foreground flex">
       <Sidebar />
       <div className="w-full max-h-screen overflow-auto">{children}</div>
     </div>

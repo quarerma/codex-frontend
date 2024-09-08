@@ -11,7 +11,7 @@ export default function CampaignPortrait({ campaign, isDMing }: CampaignPortrait
   return (
     <Link
       to={`${campaign.id}`}
-      className="bg-dark-bg-secondary w-[95%] hover:drop-shadow-[0_4px_50px_rgba(255,255,0,0.37)] hover:scale-105 duration-300 text-sm flex flex-col space-y-3  rounded-2xl border border-primary text-foreground font-inter px-5 py-5"
+      className="bg-dark-bg-secondary w-[95%] hover:drop-shadow-[0_4px_50px_rgba(255,255,0,0.37)] hover:scale-105 duration-300 text-sm flex flex-col space-y-3  rounded-2xl border border-primary text-foreground font-oswald px-5 py-5"
     >
       <div className="flex-grow space-y-4">
         <div className="space-y-1">

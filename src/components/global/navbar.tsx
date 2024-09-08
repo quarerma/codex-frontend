@@ -34,7 +34,7 @@ export default function Navbar() {
   validateUser();
   return (
     <>
-      <div className="w-screen h-[100px] font-semibold text-foreground items-center px-20 text-[1.9rem] font-inter sticky top-0 bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
+      <div className="w-screen h-[100px] font-semibold text-foreground items-center px-20 text-[1.9rem] font-oswald sticky top-0 bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
         <Link to={'/'} className=" text-5xl font-extrabold tracking-widest  hover:text-primary-foreground duration-300">
           CODEX
         </Link>

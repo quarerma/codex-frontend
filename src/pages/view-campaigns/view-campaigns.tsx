@@ -33,7 +33,7 @@ export default function ViewCampaigns() {
   }, [searchTerm, campaigns]);
 
   return (
-    <div className="max-w-screen min-h-screen font-inter bg-dark-bg space-y-10">
+    <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
       <NavBar />
 
       <div className="flex justify-between items-center text-foreground ml-20 pb-10 mr-20 ">

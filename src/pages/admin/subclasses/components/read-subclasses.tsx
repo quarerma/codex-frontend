@@ -40,7 +40,7 @@ export default function ReadSubClasses() {
   }, [searchTerm, subclasses]);
 
   return (
-    <div className="bg-dark-bg-secondary font-inter p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
+    <div className="bg-dark-bg-secondary font-oswald p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
       <h1 className="text-3xl font-bold">Visualizar Perícias</h1>
 
       <div className="flex flex-col space-y-5">
