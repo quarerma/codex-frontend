@@ -14,6 +14,7 @@ export const createClassSchema = z.object({
   initialHealth: z.coerce.number().gte(0),
   initialSanity: z.coerce.number().gte(0),
   initialEffort: z.coerce.number().gte(0),
+  number_of_skills: z.coerce.number().gte(0),
 });
 
 export type CreateClassSchema = z.infer<typeof createClassSchema>;

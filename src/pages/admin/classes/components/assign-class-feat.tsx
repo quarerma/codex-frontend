@@ -1,37 +1,39 @@
 import { z } from 'zod';
 import FeatCreation from '../../../../components/global/create-feat-simplified';
 import { Button } from '../../../../components/ui/button';
-import { Input } from '../../../../components/ui/input';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { createFeatSchema } from '../../../../schemas/create.feat';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
-import { assignFeat, getSubclasses } from '../../../../api/fetch/subclass';
 
-const createSubClassFeatSchema = z.object({
-  subclassId: z.string().min(1),
-  levelRequired: z.coerce.number(),
+import { assignFeat, getClasses } from '../../../../api/fetch/classes';
+import { Checkbox } from '../../../../components/ui/checkbox';
+import { Input } from '../../../../components/ui/input';
+
+const createClassFeatSchema = z.object({
+  classId: z.string().min(1),
+  isInitialLevel: z.boolean(),
   feat: createFeatSchema,
 });
 
-export type CreateSubClassFeatSchema = z.infer<typeof createSubClassFeatSchema>;
+export type CreateClassFeatSchema = z.infer<typeof createClassFeatSchema>;
 
-export default function AssignFeatSubclass() {
-  const { handleSubmit, register, reset, watch, setValue } = useForm<CreateSubClassFeatSchema>({
-    resolver: zodResolver(createSubClassFeatSchema),
+export default function AssignClassFeat() {
+  const { handleSubmit, register, reset, watch, setValue } = useForm<CreateClassFeatSchema>({
+    resolver: zodResolver(createClassFeatSchema),
     defaultValues: {
       feat: {
         element: 'REALITY',
       },
-      subclassId: '',
     },
   });
 
-  const { data: subclasses, refetch } = useQuery({
-    queryKey: ['subclasses'],
-    queryFn: getSubclasses,
+  const { data: classes = [] } = useQuery({
+    queryKey: ['classes'],
+    queryFn: getClasses,
   });
 
   const characterUpgrades = character_upgrades;
@@ -62,7 +64,7 @@ export default function AssignFeatSubclass() {
     setSelectedCharacterUpgrades(selectedCharacterUpgrades.filter((_, i) => i !== index));
   };
 
-  const clearEmptyFields = (data: CreateSubClassFeatSchema) => {
+  const clearEmptyFields = (data: CreateClassFeatSchema) => {
     if (!data.feat.prerequisites) {
       data.feat.prerequisites = undefined;
     }
@@ -72,7 +74,7 @@ export default function AssignFeatSubclass() {
   };
 
   const [pending, setPending] = useState<string[]>();
-  const onSubmit = async (data: CreateSubClassFeatSchema) => {
+  const onSubmit = async (data: CreateClassFeatSchema) => {
     try {
       setPending(undefined);
       clearEmptyFields(data);
@@ -87,11 +89,10 @@ export default function AssignFeatSubclass() {
       data.feat.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
 
       const response = await assignFeat(data);
+      console.log(response);
       setSelectedCharacterUpgrades([]);
 
       reset();
-      refetch();
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -99,16 +100,16 @@ export default function AssignFeatSubclass() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Atribuir Poder à Subclasse</h1>
+      <h1 className="text-3xl font-bold">Atribuir Poder à Classe</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
         <div className="space-y-2 group">
-          <h1 className="group-focus-within:text-primary">Selecione a subclasse:</h1>
-          <select {...register('subclassId')} className="p-2 border-2 bg-card border-border rounded ml-5 ">
-            <option value="" disabled>
+          <h1 className="group-focus-within:text-primary">Selecione a Classe:</h1>
+          <select {...register('classId')} className="p-2 border-2 bg-card border-border rounded ml-5 ">
+            <option value="default" disabled>
               Subclasses
             </option>
-            {subclasses?.map((c, index) => (
+            {classes?.map((c, index) => (
               <option key={index} value={c.id}>
                 {c.name}
               </option>
@@ -116,13 +117,17 @@ export default function AssignFeatSubclass() {
           </select>
         </div>
         <div className="space-y-2 group">
-          <h1 className="group-focus-within:text-primary">Selecione o nível do poder:</h1>
-          <Input
-            type="text"
-            placeholder="Preencha o nível necessário"
-            className="ml-2 w-fit"
-            {...register('levelRequired')}
+          <h1 className="group-focus-within:text-primary">Poder inicial:</h1>
+          <Checkbox
+            className="ml-2 "
+            {...register('isInitialLevel')}
+            onCheckedChange={(checked) => setValue('isInitialLevel', Boolean(checked))}
           />
+          {watch('isInitialLevel') == true ? (
+            <p className=" text-sm mt-2">Este poder será atribuído ao personagem no nível inicial</p>
+          ) : (
+            <p className=" text-sm mt-2">Este poder será atribuído ao personagem em um nível específico</p>
+          )}
         </div>
 
         <FeatCreation
@@ -136,10 +141,19 @@ export default function AssignFeatSubclass() {
           selectedCharacterUpgrades={selectedCharacterUpgrades}
           characterUpgrades={characterUpgrades}
         />
+        <div className="space-y-2 group">
+          <h1 className="group-focus-within:text-primary">Pré-requisitos:</h1>
+          <Input
+            type="text"
+            placeholder="Preencha o pré-requisito"
+            className="ml-2"
+            {...register('feat.prerequisites')}
+          />
+        </div>
 
         <div className="flex flex-col w-full items-center  justify-center">
           <Button type="submit" className="w-1/4">
-            Criar Poder de subclasse
+            Criar Poder de Classe
           </Button>
           {pending && (
             <p className="text-red-500 text-lg mt-2">

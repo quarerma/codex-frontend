@@ -26,6 +26,8 @@ export default function ManageSubclasses() {
       window.location.hash = '#read-subclasses';
     } else if (activeComponent === 'create') {
       window.location.hash = '#create-subclasses';
+    } else if (activeComponent === 'add-feats') {
+      window.location.hash = '#add-feats';
     }
   }, [activeComponent]);
 

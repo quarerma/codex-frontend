@@ -21,6 +21,9 @@ export default function CreateSubClasses() {
 
   const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSubClassSchema>({
     resolver: zodResolver(createSubClassSchema),
+    defaultValues: {
+      classId: '',
+    },
   });
   const description = watch('description'); // Para observar mudanças no campo
 

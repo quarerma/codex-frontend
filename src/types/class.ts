@@ -2,6 +2,7 @@ export type ClassModel = {
   id: string;
   name: string;
   description: string;
+  number_of_skills: number;
   hitPointsPerLevel: number;
   SanityPointsPerLevel: number;
   effortPointsPerLevel: number;

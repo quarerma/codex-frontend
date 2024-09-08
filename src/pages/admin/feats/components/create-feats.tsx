@@ -8,11 +8,12 @@ import { character_upgrades, CharacterUpgrade } from '../../../../types/characte
 import { Button } from '../../../../components/ui/button';
 import { elementValues } from '../../../../types/elements';
 import { quillModule } from '../../../../../lib/utils';
-import { createGeneralFeat, getGeneralFeats } from '../../../../api/fetch/featst';
-import { useQuery } from '@tanstack/react-query';
-import UpgradeList from '../../components/upgradeList';
+import { createGeneralFeat } from '../../../../api/fetch/featst';
 
-const getElementColor = (element: string) => {
+import UpgradeList from '../../components/upgradeList';
+import { useQueryClient } from '@tanstack/react-query';
+
+export const getElementColor = (element: string) => {
   switch (element) {
     case 'REALITY':
       return {
@@ -58,11 +59,6 @@ export default function CreateFeats() {
     defaultValues: {
       element: 'REALITY',
     },
-  });
-
-  const { data: feats, refetch } = useQuery({
-    queryKey: ['general-feats'],
-    queryFn: () => getGeneralFeats(),
   });
 
   const characterUpgrades = character_upgrades;
@@ -145,6 +141,7 @@ export default function CreateFeats() {
   };
 
   const [pending, setPending] = useState<string[]>();
+  const queryClient = useQueryClient();
   const onSubmit = async (data: CreateFeatSchema) => {
     try {
       setPending(undefined);
@@ -165,13 +162,15 @@ export default function CreateFeats() {
 
       console.log(data);
       const response = await createGeneralFeat(data);
-      console.log(response);
+
+      const previousData = queryClient.getQueryData(['feats']);
+
+      queryClient.setQueryData(['feats'], [...(previousData as any), response]);
 
       setSelectedCharacterUpgrades([]);
       setSelectedAfinityUpgrades([]);
 
       reset();
-      refetch();
     } catch (error) {
       console.error(error);
     }
@@ -280,25 +279,6 @@ export default function CreateFeats() {
           )}
         </div>
       </form>
-      {feats && (
-        <div className="space-y-5">
-          <h1 className="text-2xl font-bold">Poderes criados</h1>
-          <ul className="space-y-5">
-            {feats.map((feat) => (
-              <li key={feat.id} className="border-2 border-border p-5 space-y-2">
-                <h1 className="text-xl font-bold">{feat.name}</h1>
-                <p>Elemento: {feat.element}</p>
-                <p dangerouslySetInnerHTML={{ __html: feat.description }}></p>
-                {feat.afinity && (
-                  <p>
-                    <strong>Afinidade</strong>: {feat.afinity}
-                  </p>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   );
 }

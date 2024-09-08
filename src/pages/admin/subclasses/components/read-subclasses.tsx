@@ -35,13 +35,16 @@ export default function ReadSubClasses() {
     if (searchTerm) {
       filtered = filtered.filter((skill) => skill.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
+    if (selectedClass !== 'all' && selectedClass) {
+      filtered = filtered.filter((subclass) => subclass.class.name === selectedClass);
+    }
 
     setFilteredSubclasses(filtered);
-  }, [searchTerm, subclasses]);
+  }, [searchTerm, subclasses, selectedClass]);
 
   return (
     <div className="bg-dark-bg-secondary font-oswald p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
-      <h1 className="text-3xl font-bold">Visualizar Perícias</h1>
+      <h1 className="text-3xl font-bold">Visualizar Subclasses</h1>
 
       <div className="flex flex-col space-y-5">
         <h2 className="text-2xl">Filtro:</h2>
@@ -57,7 +60,7 @@ export default function ReadSubClasses() {
         <div className="flex flex-col space-y-2">
           <Select onValueChange={setSelectedClass} value={selectedClass}>
             <SelectTrigger className="w-[300px]">
-              <SelectValue placeholder="Selecione um atributo" />
+              <SelectValue placeholder="Selecione uma classe" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

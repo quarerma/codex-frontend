@@ -91,6 +91,13 @@ export default function CreateClass() {
           />
         </div>
         <FormField
+          label="Perícias iniciais:"
+          placeholder="Preencha com o número absoluto"
+          register={register}
+          name="number_of_skills"
+          type="text"
+        />
+        <FormField
           label="Pontos de Vida Iniciais:"
           placeholder="Preencha os pontos de vida iniciais..."
           register={register}
