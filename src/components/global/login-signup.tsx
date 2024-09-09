@@ -1,7 +1,7 @@
 export default function LoginSignup({ children }: { children: React.ReactNode }) {
   return (
     <div className="max-w-screen min-h-screen ">
-      <div className="max-w-screen text-primary-foreground  bg-primary h-[15vh] shadow-inner-custom">
+      <div className="max-w-screen text-primary-foreground font-oswald bg-primary h-[15vh] shadow-inner-custom">
         <h1
           style={{ textShadow: '0px 11px 8.3px rgba(0, 0, 0, 0.25)' }}
           className="lg:text-[90px] h-full  text-[70px] tracking-[0.3em] font-semibold flex items-center italic justify-center"

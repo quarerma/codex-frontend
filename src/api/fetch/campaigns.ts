@@ -48,3 +48,18 @@ export async function joinCampaign(data: { campaignId: string; password: string 
     throw error;
   }
 }
+
+export async function getUserCampaignsAsPlayer(): Promise<Campaign[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}user/campaigns-player`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
