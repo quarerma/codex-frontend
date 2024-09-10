@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { CreateComponentProps } from '../props/create-component';
 import { Checkbox } from '../../../components/ui/checkbox';
+import { AiFillQuestionCircle } from 'react-icons/ai';
+import * as Dialog from '@radix-ui/react-dialog';
 
 export default function AtributesRegister({ register, setValue, watch }: CreateComponentProps) {
   useEffect(() => {
@@ -8,20 +10,28 @@ export default function AtributesRegister({ register, setValue, watch }: CreateC
   }, [watch('strenght'), watch('intelligence'), watch('vigor'), watch('agility'), watch('presence')]);
 
   const [useLevelCap, setUseLevelCap] = useState(true);
+  const [points, setPoints] = useState(9);
+  const [summary, setSummary] = useState(
+    watch('strenght') + watch('intelligence') + watch('vitality') + watch('dexterity') + watch('presence')
+  );
 
   const handleDecrement = (attribute: string) => {
     const value = watch(attribute);
-    if (value > 0) {
+    const attributes = ['strenght', 'intelligence', 'vitality', 'dexterity', 'presence'];
+
+    const countOfAtributesEqualToZero = attributes.filter((attr) => watch(attr) === 0).length;
+
+    // Se o valor do atributo atual for maior que 0 e não houver mais de um atributo com valor 0, decremente.
+    if (value > 0 && (countOfAtributesEqualToZero < 1 || watch(attribute) > 1)) {
       setValue(attribute, value - 1);
+      setSummary(summary - 1);
     }
   };
 
   const handleIncrement = (attribute: string) => {
     const value = watch(attribute);
-    const summary =
-      watch('strenght') + watch('intelligence') + watch('vitality') + watch('dexterity') + watch('presence');
-    console.log(summary);
-    if ((value < 3 && summary < 9) || useLevelCap) {
+    if ((value < 3 && summary < points) || !useLevelCap) {
+      setSummary(summary + 1);
       // Assuming max is 3
       setValue(attribute, value + 1);
     }
@@ -60,14 +70,32 @@ export default function AtributesRegister({ register, setValue, watch }: CreateC
   return (
     <div className="flex ">
       <div className="flex flex-col space-y-10 font-extralight mr-auto">
+        <div className="flex -mt-5 -mb-5 items-center gap-x-2">
+          <h1>
+            Pontos disponíveis: {summary} / {points}
+          </h1>
+          <Dialog.Root>
+            <div className="relative flex items-center">
+              <Dialog.Trigger className="text-primary text-xl cursor-pointer">
+                <AiFillQuestionCircle />
+              </Dialog.Trigger>
+              <Dialog.Content className="absolute top-0 w-[300px] left-full ml-2 p-4 bg-black border border-primary rounded-2xl shadow-lg">
+                <p className="text-lg">
+                  O sistema conta com aumento automático de atributos provenientes de itens, maldições e poderes.
+                  Portanto é recomendado que você não adicione manualmente pontos que não os garantidos por nível.
+                </p>
+              </Dialog.Content>
+            </div>
+          </Dialog.Root>
+        </div>
         {renderAttribute('Força', 'strenght')}
         {renderAttribute('Agilidade', 'dexterity')}
         {renderAttribute('Intelecto', 'intelligence')}
         {renderAttribute('Vigor', 'vitality')}
         {renderAttribute('Presença', 'presence')}
         <div className="-mt-10 -mb-5 flex gap-x-5 items-center text-lg font-light">
-          <Checkbox onCheckedChange={(value) => setUseLevelCap(Boolean(value))} />
-          Não usar valores recomendados (não recomendado)
+          <Checkbox defaultChecked={true} onCheckedChange={(value) => setUseLevelCap(Boolean(value))} />
+          Usar valores recomendados (recomendado)
         </div>
       </div>
       <p className="font-normal h-full flex mt-20 ml-auto mr-auto leading-10 text-center w-[40%] text-4xl">
