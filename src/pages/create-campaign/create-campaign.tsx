@@ -49,12 +49,12 @@ export default function CreateCampaign() {
           <div>
             <h1 className="mb-4 text-2xl font-medium">Nome:</h1>
             <Input placeholder="Preencha com o nome da campanha" className="w-1/4 ml-3" {...register('name')} />
-            {errors.name && <span>{errors.name.message}</span>}
+            {errors.name && <span className="text-red mt-2">{errors.name.message}</span>}
           </div>
           <div>
             <h1 className="mb-4 text-2xl font-medium">Senha:</h1>
             <Input type="password" placeholder="Crie uma senha" className="w-1/4 ml-3" {...register('password')} />
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <span className="text-red mt-2">{errors.password.message}</span>}
           </div>
           <div>
             <h1 className="mb-4 text-2xl font-medium">Descrição:</h1>
@@ -63,7 +63,7 @@ export default function CreateCampaign() {
               className="w-[85%] h-[200px] resize-none ml-3"
               {...register('description')}
             />
-            {errors.description && <span>{errors.description.message}</span>}
+            {errors.description && <span className="text-red mt-2">{errors.description.message}</span>}
           </div>
 
           <div className="flex mr-10 py-10 justify-end">

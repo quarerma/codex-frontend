@@ -3,7 +3,6 @@ import { CreateComponentProps } from '../props/create-component';
 import { getUserCampaignsAsPlayer } from '../../../api/fetch/campaigns';
 import { useEffect, useState } from 'react';
 import { Campaign } from '../../../types/campaign';
-import { Button } from '../../../components/ui/button';
 
 export default function CampaignsRegister({ watch, setValue }: CreateComponentProps) {
   const { data: campaigns } = useQuery({
@@ -22,7 +21,7 @@ export default function CampaignsRegister({ watch, setValue }: CreateComponentPr
 
   if (!watch('campaignId')) {
     return (
-      <div className="grid grid-cols-4 auto-rows-[200px] font-light items-center gap-x-12">
+      <div className="grid grid-cols-4 auto-rows-[250px] font-light items-center gap-x-12">
         {campaigns?.map((campaign, index) => (
           <div
             key={index}
@@ -38,7 +37,7 @@ export default function CampaignsRegister({ watch, setValue }: CreateComponentPr
                 <div className="w-full h-[2px] bg-muted"></div>
               </div>
               <h1>Mestre: {campaign.owner.username}</h1>
-              <h1 className="xl:text-base lg:text-sm">{campaign.description}</h1>
+              <h1 className="xl:text-sm">{campaign.description}</h1>
             </div>
             <div className="w-full justify-center flex">
               <button className="text-foreground text-sm w-fit text-center font-semibold px-10 py-1 rounded-xl bg-dark-bg-secondary border-[1px] border-primary">

@@ -9,7 +9,7 @@ export const createCampaignSchema = z.object({
     .min(3, {
       message: 'Description must be at least 3 characters long',
     })
-    .max(100, { message: 'Descrição deve conter ao máximo 200 caracteres' }),
+    .max(200, { message: 'Descrição deve conter ao máximo 200 caracteres' }),
 
   password: z.string().min(6, {
     message: 'Password must be at least 6 characters long',

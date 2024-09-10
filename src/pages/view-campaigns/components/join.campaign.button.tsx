@@ -40,6 +40,8 @@ export default function JoinCampaignButton() {
         queryClient.setQueryData(['campaigns'], [...cacheData, response]);
       }
 
+      queryClient.invalidateQueries({ queryKey: ['campaigns-player'] });
+
       reset({
         campaignId: '',
         password: '',
