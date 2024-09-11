@@ -12,7 +12,7 @@ export default function ReadInitialFeats({ classId }: InitialFeatProps) {
   });
 
   return (
-    <ul className="flex flex-col space-y-5 ">
+    <ul className="list-disc pl-6 flex flex-col space-y-5 ">
       {initialFeats.map((feat) => (
         <li key={feat.id}>
           <h1 className="font-normal text-xl">{feat.name}</h1>

@@ -5,21 +5,21 @@ import { ClassModel, equipmentProficience } from '../../../../types/class';
 import { Input } from '../../../../components/ui/input';
 import ReadInitialFeats from './initial-class-feats';
 
+const proficiencies = equipmentProficience;
+export function formatProficiencie(value: string) {
+  const index = proficiencies.findIndex((proficiency) => proficiency.value === value);
+
+  return proficiencies[index].label;
+}
 export default function ReadClasses() {
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
     queryFn: getClasses,
   });
 
-  const proficiencies = equipmentProficience;
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredSubclasses, setFilteredSubclasses] = useState<ClassModel[]>(classes);
 
-  function formatProficiencie(value: string) {
-    const index = proficiencies.findIndex((proficiency) => proficiency.value === value);
-
-    return proficiencies[index].label;
-  }
   useEffect(() => {
     let filtered = classes;
 

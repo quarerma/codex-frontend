@@ -40,7 +40,7 @@ export default function CreateCampaign() {
   return (
     <div className="max-w-screen min-h-screen text-inter text-foreground bg-dark-bg space-y-10">
       <Navbar />
-      <div className="px-20 relative space-y-10">
+      <div className="px-20  relative space-y-10">
         <h1 className="text-4xl font-bold">Criar campanha</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}

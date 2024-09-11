@@ -8,7 +8,7 @@ export default function ViewCharacters() {
   return (
     <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
       <NavBar />
-      <div className="flex justify-between items-center text-foreground   ml-20 pb-10 mr-20 ">
+      <div className="flex justify-between  items-center text-foreground   ml-20 pb-10 mr-20 ">
         <div className="flex ">
           <div className=" flex-col border-b-2 border-border">
             <input
