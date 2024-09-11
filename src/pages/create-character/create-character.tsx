@@ -9,6 +9,7 @@ import CampaignsRegister from './components/campaigns-register';
 import { getUserCampaignsAsPlayer } from '../../api/fetch/campaigns';
 import JoinCampaignButton from '../view-campaigns/components/join.campaign.button';
 import AtributesRegister from './components/atributes-register';
+import OriginRegister from './components/origin-register';
 
 export default function CreateCharacter() {
   const creationNavBar = [
@@ -60,7 +61,7 @@ export default function CreateCharacter() {
       case 1:
         return <AtributesRegister register={register} watch={watch} setValue={setValue} />;
       case 2:
-        return <div>ORIGEM</div>;
+        return <OriginRegister register={register} watch={watch} setValue={setValue} />;
       case 3:
         return <div>CLASSE</div>;
       case 4:
