@@ -14,6 +14,8 @@ import {
   SelectValue,
 } from '../../../../components/ui/select';
 
+import SubclassModel from './subclass-model';
+
 export default function ReadSubClasses() {
   const { data: subclasses = [] } = useQuery({
     queryKey: ['subclasses'],
@@ -82,26 +84,8 @@ export default function ReadSubClasses() {
 
       <div className="border-2 border-border">
         {filteredSubclasses?.map((subclass) => (
-          <div key={subclass.id} className="border-2 border-border p-5 text-xl space-y-10">
-            <h1 className="text-3xl font-bold">{subclass.name}</h1>
-            <p>{subclass.description}</p>
-            <p>{subclass.class.name}</p>
-            <p dangerouslySetInnerHTML={{ __html: subclass.class.description }}></p>
-
-            <div>
-              Poderes de Subclasse:
-              <ul>
-                {subclass.subclassFeats.map((feat, index) => (
-                  <li className="text-sm mt-2" key={index}>
-                    <h1 className="text-red-500 ">Nex {feat.levelRequired === 20 ? 99 : feat.levelRequired * 5}%:</h1>
-                    <div className="flex flex-col space-y-2 ">
-                      <h1>{feat.feat.name}:</h1>
-                      <p dangerouslySetInnerHTML={{ __html: feat.feat.description }}></p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="border-b-2 border-border" key={subclass.id}>
+            <SubclassModel {...subclass} />
           </div>
         ))}
       </div>
