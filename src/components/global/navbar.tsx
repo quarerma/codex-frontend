@@ -33,7 +33,7 @@ export default function Navbar() {
 
   validateUser();
   return (
-    <header className="sticky top-0  z-10 w-screen h-[100px] font-semibold text-foreground items-center px-20 text-[1.9rem] font-oswald  bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
+    <header className="sticky top-0   w-screen h-[100px] font-semibold text-foreground items-center px-20 text-[1.9rem] font-oswald  bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
       <Link to={'/'} className=" text-5xl font-extrabold tracking-widest  hover:text-primary-foreground duration-300">
         CODEX
       </Link>

@@ -8,6 +8,7 @@ import { Button } from '../../../components/ui/button';
 import { useCharacterCreation } from '../create-character';
 import { useQuery } from '@tanstack/react-query';
 import { getClassSubClasses } from '../../../api/fetch/classes';
+import SubclassPick from './subclasses-picker';
 
 interface ClassProps {
   classModel: ClassModel;
@@ -99,6 +100,8 @@ export function ClassFocus({ classModel, setValue }: ClassProps) {
     queryKey: ['subclasses', classModel.id],
     queryFn: () => getClassSubClasses(classModel.id),
   });
+
+  const { selectedSubclass, setSelectedSubclass } = useCharacterCreation();
   return (
     <div className="text-3xl bg-dark-bg-secondary border-[3px] w-[50%] border-border p-5 flex flex-col rounded-2xl space-y-10">
       <div className="space-y-5">
@@ -113,12 +116,36 @@ export function ClassFocus({ classModel, setValue }: ClassProps) {
         ></p>
       </div>
       <div className="flex flex-col space-y-5">
-        <h1 className="text-2xl">Subclasses:</h1>
-        <ul className="list-inside list-disc ml-2">
-          {subclasses.map((subclass, index) => (
-            <li key={index}>{subclass.name}</li>
-          ))}
-        </ul>
+        {selectedSubclass ? (
+          <div className="flex flex-col space-y-2">
+            <h3 className="font-bold text-center underline text-2xl">Subclasse:</h3>
+            <h1 className="text-2xl font-semibold">{selectedSubclass.name}</h1>
+            <p className="text-lg" dangerouslySetInnerHTML={{ __html: selectedSubclass.description }}></p>
+            <div className="flex justify-center">
+              <Button
+                onClick={() => {
+                  setSelectedSubclass(null);
+                  setValue('subclassId', undefined);
+                }}
+                className="w-[50%] text-xl mt-2"
+                variant={'secondary'}
+              >
+                Mudar Subclasse
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h1 className="text-3xl text-center font-bold mb-5">Subclasses:</h1>
+            <ul className=" ml-2 space-y-2">
+              {subclasses.map((subclass, index) => (
+                <li key={index}>
+                  <SubclassPick subclass={subclass} setValue={setValue} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

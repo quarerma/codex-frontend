@@ -33,10 +33,13 @@ export default function ClassesRegister({ setValue, watch }: CreateComponentProp
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const { selectedClass, setSelectedClass } = useCharacterCreation();
+  const { selectedClass, setSelectedClass, setSelectedSubclass } = useCharacterCreation();
 
   const unSelectClass = () => {
     setSelectedClass(null);
+    setValue('classId', undefined);
+    setValue('subclassId', undefined);
+    setSelectedSubclass(null);
   };
 
   return selectedClass ? (
@@ -53,7 +56,7 @@ export default function ClassesRegister({ setValue, watch }: CreateComponentProp
       <p className="w-[40%] text-2xl leading-10  ml-10 font-light ">
         Sua classe representa o treinamento que você recebeu na Ordem para enfrentar os horrores do Outro Lado. Em
         termos de jogo, é o seu traço mais essencial, pois define suas habilidades e seu papel no grupo de
-        investigadores. O <strong>Ordem ParanOrmal RPG</strong> apresenta três classes, cada uma representando um
+        investigadores. O <strong>Ordem Paranormal RPG</strong> apresenta três classes, cada uma representando um
         arquétipo distinto de heróis em histórias de terror e suspense:
         <br />
         <br />

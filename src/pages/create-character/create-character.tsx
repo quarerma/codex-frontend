@@ -14,6 +14,7 @@ import { Origin } from '../../types/origin';
 import { Campaign } from '../../types/campaign';
 import ClassesRegister from './components/classes-register';
 import { ClassModel } from '../../types/class';
+import { Subclass } from '../../types/sublass';
 
 const CharacterCreationContext = createContext<
   | {
@@ -23,6 +24,8 @@ const CharacterCreationContext = createContext<
       setSelectedOrigin: (origin: Origin | null) => void;
       selectedClass: ClassModel | null;
       setSelectedClass: (classModel: ClassModel | null) => void;
+      selectedSubclass: Subclass | null;
+      setSelectedSubclass: (subclass: Subclass | null) => void;
     }
   | undefined
 >(undefined);
@@ -39,6 +42,7 @@ export default function CreateCharacter() {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [selectedOrigin, setSelectedOrigin] = useState<Origin | null>(null);
   const [selectedClass, setSelectedClass] = useState<ClassModel | null>(null);
+  const [selectedSubclass, setSelectedSubclass] = useState<Subclass | null>(null);
 
   const creationNavBar = [
     { name: 'Campanha', value: 0 },
@@ -104,6 +108,8 @@ export default function CreateCharacter() {
   return (
     <CharacterCreationContext.Provider
       value={{
+        selectedSubclass,
+        setSelectedSubclass,
         selectedCampaign,
         setSelectedCampaign,
         selectedOrigin,
