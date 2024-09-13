@@ -15,6 +15,8 @@ import { Campaign } from '../../types/campaign';
 import ClassesRegister from './components/classes-register';
 import { ClassModel } from '../../types/class';
 import { Subclass } from '../../types/sublass';
+import FeatsRegister from './components/feats-register';
+import { Feat } from '../../types/feat';
 
 const CharacterCreationContext = createContext<
   | {
@@ -26,6 +28,8 @@ const CharacterCreationContext = createContext<
       setSelectedClass: (classModel: ClassModel | null) => void;
       selectedSubclass: Subclass | null;
       setSelectedSubclass: (subclass: Subclass | null) => void;
+      selectedFeats: Feat[] | null;
+      setSelectedFeats: (feats: Feat[] | null) => void;
     }
   | undefined
 >(undefined);
@@ -43,6 +47,7 @@ export default function CreateCharacter() {
   const [selectedOrigin, setSelectedOrigin] = useState<Origin | null>(null);
   const [selectedClass, setSelectedClass] = useState<ClassModel | null>(null);
   const [selectedSubclass, setSelectedSubclass] = useState<Subclass | null>(null);
+  const [selectedFeats, setSelectedFeats] = useState<Feat[] | null>(null);
 
   const creationNavBar = [
     { name: 'Campanha', value: 0 },
@@ -77,6 +82,10 @@ export default function CreateCharacter() {
   });
 
   useEffect(() => {
+    console.log(watch());
+  }, [watch('featsId')]);
+
+  useEffect(() => {
     if (user) {
       setValue('ownerId', user.id);
     }
@@ -97,7 +106,7 @@ export default function CreateCharacter() {
       case 3:
         return <ClassesRegister register={register} watch={watch} setValue={setValue} />;
       case 4:
-        return <div>PODERES</div>;
+        return <FeatsRegister register={register} watch={watch} setValue={setValue} />;
       case 5:
         return <div>RITUAIS</div>;
       default:
@@ -116,6 +125,8 @@ export default function CreateCharacter() {
         setSelectedOrigin,
         selectedClass,
         setSelectedClass,
+        selectedFeats,
+        setSelectedFeats,
       }}
     >
       <div className="max-w-screen min-h-screen overflow-x-hidden  font-oswald text-foreground flex flex-col bg-dark-bg space-y-10">
