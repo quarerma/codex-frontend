@@ -1,76 +1,292 @@
 import { useQuery } from '@tanstack/react-query';
 import { CreateComponentProps } from '../props/create-component';
-import { getGeneralFeats } from '../../../api/fetch/featst';
+import {
+  getClassFeats,
+  getFilteredSubClassFeats,
+  getFilteresClassFeats,
+  getNonCustomFeats,
+  getSubClassFeats,
+} from '../../../api/fetch/featst';
 import FeatPicker from './feats-picker';
 import { useEffect, useState } from 'react';
+import { useCharacterCreation } from '../create-character';
+import { Feat } from '../../../types/feat';
 
-export default function FeatsRegister({ setValue, watch, register }: CreateComponentProps) {
-  const { data: feats = [] } = useQuery({
+import { elementValues } from '../../../types/elements';
+
+import { FaSearch, FaTrash } from 'react-icons/fa';
+
+import { getClasses } from '../../../api/fetch/classes';
+import { getSubclasses } from '../../../api/fetch/subclass';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '../../../components/ui/select';
+
+export default function FeatsRegister({ setValue, watch }: CreateComponentProps) {
+  const { data: non_custom_feats = [] } = useQuery({
     queryKey: ['feats'],
-    queryFn: getGeneralFeats,
+    queryFn: getNonCustomFeats,
   });
 
-  const [showScrollButton, setShowScrollButton] = useState(false);
+  const { data: classes = [] } = useQuery({
+    queryKey: ['classes'],
+    queryFn: getClasses,
+  });
+
+  const { data: subclasses = [] } = useQuery({
+    queryKey: ['subclasses'],
+    queryFn: getSubclasses,
+  });
+
+  const getClassColor = (className: string) => {
+    switch (className) {
+      case 'Combatente':
+        return 'bg-red-500';
+      case 'Especialista':
+        return 'bg-green-500';
+      case 'Ocultista':
+        return 'bg-blue-500';
+      default:
+        return 'bg-gray-500'; // Valor padrão caso a classe não corresponda a nenhum caso
+    }
+  };
+
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filteredFeats, setFilteredFeats] = useState<Feat[]>(non_custom_feats);
+  const [selectedElement, setSelectedElement] = useState<string>('all');
+  const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass'>('all');
+  const [selectedClass, setSelectedClass] = useState<string>('all');
+  const [selectedSubclass, setSelectedSubclass] = useState<string>('all');
+
+  const { selectedFeats, setSelectedFeats } = useCharacterCreation();
+
+  // Queries para otimizar cada filtro no switch
+  const { data: classFeats, isLoading: isClassFeatsLoading } = useQuery({
+    queryKey: ['classFeats', selectedClass],
+    queryFn: () => (selectedClass === 'all' ? getClassFeats() : getFilteresClassFeats(selectedClass)),
+    enabled: selectedFilter === 'class', // Só roda a query se o filtro for 'class'
+  });
+
+  const { data: subclassFeats, isLoading: isSubclassFeatsLoading } = useQuery({
+    queryKey: ['subclassFeats', selectedSubclass],
+    queryFn: () => (selectedSubclass === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclass)),
+    enabled: selectedFilter === 'subclass', // Só roda a query se o filtro for 'subclass'
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
+    let filtered = non_custom_feats;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    if (searchTerm) {
+      filtered = filtered.filter((feat) => feat.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switch (selectedFilter) {
+      case 'element':
+        if (selectedElement !== 'all' && selectedElement) {
+          filtered = filtered.filter((feat) => feat.element === selectedElement);
+        }
+        break;
+      case 'class':
+        if (!isClassFeatsLoading && classFeats) {
+          filtered = classFeats;
+        }
+        break;
+      case 'subclass':
+        if (!isSubclassFeatsLoading && subclassFeats) {
+          filtered = subclassFeats;
+        }
+        break;
+      default:
+        break;
+    }
+
+    setFilteredFeats(filtered);
+  }, [
+    searchTerm,
+    non_custom_feats,
+    selectedElement,
+    selectedFilter,
+    classFeats,
+    subclassFeats,
+    isClassFeatsLoading,
+    isSubclassFeatsLoading,
+  ]);
+
+  const unSelectFeat = (feat: Feat) => {
+    const currentFeatsId = watch('featsId') || [];
+    // remove the feat id from the character feats array
+    setValue(
+      'featsId',
+      currentFeatsId.filter((id: string) => id !== feat.id)
+    );
+
+    const pastFeats: Feat[] = selectedFeats || [];
+    // check if the feat is in the array and remove it
+    const updatedFeats = pastFeats.filter((f) => f.id !== feat.id);
+    setSelectedFeats(updatedFeats);
   };
 
   return (
-    <div className="flex justify-center  ">
-      <p className="w-[40%] text-2xl leading-10  ml-10 font-light ">
-        Sua classe representa o treinamento que você recebeu na Ordem para enfrentar os horrores do Outro Lado. Em
-        termos de jogo, é o seu traço mais essencial, pois define suas habilidades e seu papel no grupo de
-        investigadores. O <strong>Ordem Paranormal RPG</strong> apresenta três classes, cada uma representando um
-        arquétipo distinto de heróis em histórias de terror e suspense:
-        <br />
-        <br />
-        <strong className="text-primary">Combatente:</strong> Um mestre em armas brancas e de fogo, sempre na linha de
-        frente da batalha contra o Outro Lado. Jogue com um combatente se quiser ser o escudo do grupo — forte,
-        perigoso, e implacável.
-        <br />
-        <br />
-        <strong className="text-primary">Especialista:</strong> Com uma mente afiada, muita lábia e um arsenal de
-        conhecimentos, o especialista resolve problemas com criatividade. Jogue com um especialista se quiser ser a
-        chave para superar desafios complexos, versátil em qualquer situação.
-        <br />
-        <br />
-        <strong className="text-primary">Ocultista:</strong> Um profundo conhecedor do paranormal, que desvenda os
-        mistérios do Outro Lado e os utiliza em rituais poderosos. Jogue com um ocultista se quiser controlar forças
-        sobrenaturais — mas lembre-se, todo poder vem com um preço.
-        <br />
-        <br />
-        Escolha com sabedoria. Sua classe determinará como você enfrentará os segredos e perigos que espreitam além do
-        véu.
-      </p>
-      <div className="flex flex-col w-[60%] items-center px-40 space-y-5">
-        {feats.map((feat, index) => (
-          <FeatPicker key={index} feat={feat} setValue={setValue} watch={watch} />
-        ))}
+    <div className="flex -mt-10 justify-center">
+      <div
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+        className="w-[40%] text-2xl px-10 max-h-[60vh]  font-light"
+      >
+        <h1 className="text-3xl">Poderes Selecionados:</h1>
+        <ul className="mt-2 ml-5 flex flex-col space-y-5">
+          {selectedFeats ? (
+            selectedFeats.map((feat, index) => (
+              <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
+                <span>{feat.name}</span>
+                <FaTrash
+                  className="text-red-500 cursor-pointer hover:scale-125 duration-300"
+                  onClick={() => unSelectFeat(feat)}
+                />
+              </div>
+            ))
+          ) : (
+            <span className="mt-2 italic">Nenhum poder selecionado</span>
+          )}
+        </ul>
       </div>
-      {showScrollButton && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-5 px-8 py-2 text-2xl bg-primary text-primary-foreground rounded-2xl shadow-lg hover:scale-105 duration-300"
+      <div className="w-[2px] h-[55vh] bg-muted"></div>
+      <div
+        className="flex flex-col w-[60%] space-y-5"
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
+        <div className="flex flex-col space-x-4 px-20">
+          <div className="flex w-full">
+            <div className="flex-col w-full border-b-2 border-border">
+              <input
+                type="text"
+                placeholder="Buscar por nome..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="placeholder:text-foreground placeholder:text-4xl font-extralight text-3xl bg-transparent w-full focus:outline-none"
+              />
+              <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
+            </div>
+            <FaSearch className="text-2xl" />
+          </div>
+          <div className="flex flex-col justify-start mt-2 space-x-5">
+            <div className="flex text-xl space-x-5 items-center">
+              <span>Filtrar por:</span>
+              <span
+                onClick={() => setSelectedFilter('all')}
+                className={`cursor-pointer ${selectedFilter === 'all' && 'underline'} hover:scale-105 duration-200`}
+              >
+                Todos
+              </span>
+              <span
+                onClick={() => setSelectedFilter('class')}
+                className={`cursor-pointer ${selectedFilter === 'class' && 'underline'} hover:scale-105 duration-200`}
+              >
+                Classe
+              </span>
+              <span
+                onClick={() => setSelectedFilter('subclass')}
+                className={`cursor-pointer ${
+                  selectedFilter === 'subclass' && 'underline'
+                } hover:scale-105 duration-200`}
+              >
+                Subclasse
+              </span>
+              <span
+                onClick={() => setSelectedFilter('element')}
+                className={`cursor-pointer ${selectedFilter === 'element' && 'underline'} hover:scale-105 duration-200`}
+              >
+                Outros
+              </span>
+            </div>
+            <div className="mt-3 space-x-5 flex items-center text-lg list-outside list-disc">
+              {selectedFilter === 'element' && (
+                <Select onValueChange={setSelectedElement} value={selectedElement}>
+                  <SelectTrigger className="w-[300px]">
+                    <SelectValue placeholder="Selecione um elemento" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Elementos</SelectLabel>
+                      <SelectItem value="all">Todos Elementos</SelectItem>
+                      {elementValues.map((element) => (
+                        <SelectItem key={element.value} value={element.value}>
+                          {element.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+              {selectedFilter === 'class' && (
+                <Select onValueChange={setSelectedClass} value={selectedClass}>
+                  <SelectTrigger className="w-[300px]">
+                    <SelectValue placeholder="Selecione uma classe" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Classes</SelectLabel>
+                      <SelectItem value="all">Todas Classes</SelectItem>
+                      {classes.map((classes) => (
+                        <SelectItem key={classes.id} value={classes.id}>
+                          <div className="flex space-x-2 items-center">
+                            <div className={`w-2 h-2 rounded-full ${getClassColor(classes.name)}`}></div>
+                            <div>{classes.name}</div>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+              {selectedFilter === 'subclass' && (
+                <Select onValueChange={setSelectedSubclass} value={selectedSubclass}>
+                  <SelectTrigger className="w-[300px]">
+                    <SelectValue placeholder="Selecione uma subclasse" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Subclasses</SelectLabel>
+                      <SelectItem value="all">Todas Subclasses</SelectItem>
+                      {subclasses.map((classes) => (
+                        <SelectItem key={classes.id} value={classes.id}>
+                          <div className="flex space-x-2 items-center">
+                            <div className={`w-2 h-2 rounded-full ${getClassColor(classes.class.name)}`}></div>
+                            <div>{classes.name}</div>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
+          style={{
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
         >
-          Voltar ao Topo
-        </button>
-      )}
+          {filteredFeats.map((feat, index) => (
+            <FeatPicker key={index} feat={feat} setValue={setValue} watch={watch} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -35,3 +35,81 @@ export async function getGeneralFeats(): Promise<Feat[]> {
     throw error;
   }
 }
+export async function getNonCustomFeats(): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/non-custom-feats`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getClassFeats(): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/classes-feats`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getSubClassFeats(): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/subclasses-feats`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getFilteresClassFeats(classId: string): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/filter-class-feats/${classId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getFilteredSubClassFeats(subclassId: string): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/filter-subclass-feats/${subclassId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}

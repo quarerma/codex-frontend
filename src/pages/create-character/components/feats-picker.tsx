@@ -33,7 +33,7 @@ export default function FeatPicker({ feat, setValue, watch }: FeatPickerProps) {
         className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
         onClick={() => setExpanded(!expanded)}
       >
-        <h1 className={`lg:text-3xl md:text-2xl text-base font-semibold`}>{feat.name}</h1>
+        <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
         <button className="lg:text-4xl text-3xl font-bold">
           {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
         </button>
@@ -73,9 +73,13 @@ export default function FeatPicker({ feat, setValue, watch }: FeatPickerProps) {
                 const currentFeatsId = watch('featsId') || [];
                 // push the feat id to the character feats array
                 setValue('featsId', [...currentFeatsId, feat.id]);
-                setSelectedFeats((prevFeats: Feat[] | null) => {
-                  return prevFeats ? [...prevFeats, feat] : [feat];
-                });
+                const pastFeats: Feat[] | [] = selectedFeats || [];
+                // check if the feat is already in the array
+                if (pastFeats.find((f) => f.id === feat.id)) {
+                  return;
+                }
+                pastFeats.push(feat);
+                setSelectedFeats(pastFeats);
               }
             }}
             className="w-[80%]"

@@ -113,7 +113,26 @@ export default function CreateCharacter() {
         return null;
     }
   };
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   return (
     <CharacterCreationContext.Provider
       value={{
@@ -165,6 +184,16 @@ export default function CreateCharacter() {
             </form>
           </>
         )}
+        <div className="w-full flex justify-center ">
+          {showScrollButton && (
+            <button
+              onClick={scrollToTop}
+              className="fixed bottom-5 justify-center px-8 py-2 text-2xl bg-primary text-primary-foreground rounded-2xl shadow-lg hover:scale-105 duration-300"
+            >
+              Voltar ao Topo
+            </button>
+          )}
+        </div>
       </div>
     </CharacterCreationContext.Provider>
   );
