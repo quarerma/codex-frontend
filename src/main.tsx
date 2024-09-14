@@ -17,6 +17,8 @@ import ManageFeats from './pages/admin/feats/manage-feats';
 import ManageSkills from './pages/admin/skills/manage-skills';
 import ManageOrigins from './pages/admin/origin/manage.origin';
 import CreateCharacter from './pages/create-character/create-character';
+import ManageRituals from './pages/admin/rituals/manage-rituals';
+import ManageConditions from './pages/admin/conditions/manage-conditions';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -133,6 +135,22 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageOrigins />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/rituals',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageRituals />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/conditions',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageConditions />
       </QueryClientProvider>
     ),
   },
