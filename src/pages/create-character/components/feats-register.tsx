@@ -165,11 +165,11 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   return (
     <div className="flex -mt-10 justify-center">
       <div
+        className="w-[40%] text-2xl px-10 max-h-[60vh] space-y-10 font-light max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
-        className="w-[40%] text-2xl px-10 max-h-[60vh] space-y-10 font-light"
       >
         <div>
           <h1 className="text-3xl">Poderes Selecionados:</h1>

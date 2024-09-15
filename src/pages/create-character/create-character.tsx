@@ -93,7 +93,7 @@ export default function CreateCharacter() {
       vitality: 1,
       intelligence: 1,
       presence: 1,
-      level: 1,
+      level: 5,
       patent: 'ROOKIE',
     },
   });
@@ -134,7 +134,7 @@ export default function CreateCharacter() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 150) {
         setShowScrollButton(true);
       } else {
         setShowScrollButton(false);

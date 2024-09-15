@@ -11,6 +11,22 @@ export default function AtributesRegister({ register, setValue, watch }: CreateC
     watch('strenght') + watch('intelligence') + watch('vitality') + watch('dexterity') + watch('presence')
   );
 
+  useEffect(() => {
+    const level = watch('level');
+    if (level >= 20) {
+      setPoints(10);
+    }
+    if (level >= 50) {
+      setPoints(11);
+    }
+    if (level >= 85) {
+      setPoints(12);
+    }
+    if (level >= 95) {
+      setPoints(13);
+    }
+  }, [watch('level')]);
+
   const handleDecrement = (attribute: string) => {
     const value = watch(attribute);
     const attributes = ['strenght', 'intelligence', 'vitality', 'dexterity', 'presence'];
@@ -26,7 +42,11 @@ export default function AtributesRegister({ register, setValue, watch }: CreateC
 
   const handleIncrement = (attribute: string) => {
     const value = watch(attribute);
-    if ((value < 3 && summary < points) || !useLevelCap) {
+    const level = watch('level');
+    if (
+      (((level >= 5 && value < 3) || (level >= 50 && value < 5) || (level >= 20 && value < 4)) && summary < points) ||
+      !useLevelCap
+    ) {
       setSummary(summary + 1);
       // Assuming max is 3
       setValue(attribute, value + 1);

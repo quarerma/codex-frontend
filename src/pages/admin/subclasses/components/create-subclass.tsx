@@ -34,10 +34,8 @@ export default function CreateSubClasses() {
 
   const onSubmit = async (data: CreateSubClassSchema) => {
     try {
-      console.log(data);
       const response = await createSubclass(data);
 
-      console.log(response);
       reset();
     } catch (error) {
       console.error(error);

@@ -81,7 +81,19 @@ export default function OriginRegister({ setValue }: CreateComponentProps) {
         agente.
       </p>
       <div className="flex flex-col w-[60%] items-center px-40 space-y-5">
-        {/* Search Bar */}
+        <div className="flex w-full">
+          <div className="flex-col w-full border-b-2 border-border">
+            <input
+              type="text"
+              placeholder="Buscar por nome..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="placeholder:text-foreground placeholder:text-4xl font-extralight text-3xl bg-transparent w-full focus:outline-none"
+            />
+            <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
+          </div>
+          <FaSearch className="text-2xl" />
+        </div>
 
         {filteredOrigins.map((origin, index) => (
           <div key={index} className="w-full">

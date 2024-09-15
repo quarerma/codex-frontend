@@ -12,27 +12,6 @@ export default function ClassesRegister({ setValue, watch }: CreateComponentProp
     queryFn: getClasses,
   });
 
-  const [showScrollButton, setShowScrollButton] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const { selectedClass, setSelectedClass, setSelectedSubclass } = useCharacterCreation();
 
   const unSelectClass = () => {
@@ -83,14 +62,6 @@ export default function ClassesRegister({ setValue, watch }: CreateComponentProp
           <ClassPick key={index} classModel={classObj} setValue={setValue} />
         ))}
       </div>
-      {showScrollButton && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-5 px-8 py-2 text-2xl bg-primary text-primary-foreground rounded-2xl shadow-lg hover:scale-105 duration-300"
-        >
-          Voltar ao Topo
-        </button>
-      )}
     </div>
   );
 }
