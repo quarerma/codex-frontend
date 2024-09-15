@@ -14,7 +14,7 @@ export async function getUserById() {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    console.log(response.data);
+
     return response.data as User;
   } catch (error) {
     throw error;

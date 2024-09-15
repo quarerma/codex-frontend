@@ -111,17 +111,13 @@ export default function CreateRitual() {
       // Atualizar o estado antes da chamada assíncrona
       data.conditions = selectedConditions;
       const response = await createRitual(data);
-      console.log(response);
+
       reset();
     } catch (error) {
       console.error(error);
     }
   };
 
-  // see all changes
-  useEffect(() => {
-    console.log(watch());
-  }, [watch()]);
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
       <h1 className="text-3xl font-bold">Criar novo Ritual</h1>

@@ -33,7 +33,6 @@ export default function ReadFeats() {
   const [selectedElement, setSelectedElement] = useState<string>('');
 
   useEffect(() => {
-    console.log(selectedElement);
     let filtered = feats;
 
     if (searchTerm) {

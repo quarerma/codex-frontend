@@ -37,7 +37,7 @@ export default function CreateSkills() {
   const onSubmit = async (data: CreateSkillSchema) => {
     try {
       const response = await createSkill(data);
-      console.log(response);
+
       reset();
       // add the skill to the query
       queryClient.setQueryData(['skills'], (old: any) => [...old, response]);

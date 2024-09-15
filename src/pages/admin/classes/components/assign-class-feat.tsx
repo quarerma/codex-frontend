@@ -89,7 +89,7 @@ export default function AssignClassFeat() {
       data.feat.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
 
       const response = await assignFeat(data);
-      console.log(response);
+
       setSelectedCharacterUpgrades([]);
 
       reset();

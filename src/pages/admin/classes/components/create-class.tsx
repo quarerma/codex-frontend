@@ -62,13 +62,11 @@ export default function CreateClass() {
   const onSubmit = async (data: CreateClassSchema) => {
     try {
       // Aqui você pode enviar os dados para o backend
-      console.log(data);
+
       const proficiencies = selectedProficiencies.map((proficiency) => proficiency.value);
-      console.log(proficiencies);
 
-      const response = await createClass(data, proficiencies);
+      await createClass(data, proficiencies);
 
-      console.log(response);
       reset();
       setSelectedProficiencies([]);
       setCurrentProficiency('default');

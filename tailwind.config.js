@@ -18,6 +18,7 @@ module.exports = {
       },
       fontFamily: {
         oswald: ['Oswald', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       colors: {
         'dark-bg': '#09090B',

@@ -20,6 +20,7 @@ import { Feat } from '../../types/feat';
 import RitualPicker from './components/rituals-picker';
 import RitualsRegister from './components/rituals-register';
 import { Ritual } from '../../types/ritual';
+import StarterInfoRegister from './components/starter-info-register';
 
 const CharacterCreationContext = createContext<
   | {
@@ -57,11 +58,13 @@ export default function CreateCharacter() {
 
   const creationNavBar = [
     { name: 'Campanha', value: 0 },
-    { name: 'Atributos', value: 1 },
-    { name: 'Origem', value: 2 },
-    { name: 'Classe', value: 3 },
-    { name: 'Poderes', value: 4 },
-    { name: 'Rituais', value: 5 },
+    { name: 'Info Inicial', value: 1 },
+    { name: 'Atributos', value: 2 },
+    { name: 'Origem', value: 3 },
+    { name: 'Classe', value: 4 },
+    { name: 'Poderes', value: 5 },
+    { name: 'Rituais', value: 6 },
+    { name: 'Finalizar', value: 7 },
   ];
 
   const { data: campaigns } = useQuery({
@@ -76,7 +79,13 @@ export default function CreateCharacter() {
     queryFn: async () => getUserById(),
   });
 
-  const { handleSubmit, register, setValue, watch } = useForm<CreateCharacterSchema>({
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<CreateCharacterSchema>({
     resolver: zodResolver(createCharacterSchema),
     defaultValues: {
       strenght: 1,
@@ -84,12 +93,12 @@ export default function CreateCharacter() {
       vitality: 1,
       intelligence: 1,
       presence: 1,
+      level: 1,
+      patent: 'ROOKIE',
     },
   });
 
-  useEffect(() => {
-    console.log(watch());
-  }, [watch('featsId')]);
+  useEffect(() => {}, [watch('featsId')]);
 
   useEffect(() => {
     if (user) {
@@ -106,14 +115,16 @@ export default function CreateCharacter() {
       case 0:
         return <CampaignsRegister register={register} watch={watch} setValue={setValue} />;
       case 1:
-        return <AtributesRegister register={register} watch={watch} setValue={setValue} />;
+        return <StarterInfoRegister register={register} watch={watch} setValue={setValue} />;
       case 2:
-        return <OriginRegister register={register} watch={watch} setValue={setValue} />;
+        return <AtributesRegister register={register} watch={watch} setValue={setValue} />;
       case 3:
-        return <ClassesRegister register={register} watch={watch} setValue={setValue} />;
+        return <OriginRegister register={register} watch={watch} setValue={setValue} />;
       case 4:
-        return <FeatsRegister register={register} watch={watch} setValue={setValue} />;
+        return <ClassesRegister register={register} watch={watch} setValue={setValue} />;
       case 5:
+        return <FeatsRegister register={register} watch={watch} setValue={setValue} />;
+      case 6:
         return <RitualsRegister register={register} watch={watch} setValue={setValue} />;
       default:
         return null;
@@ -139,6 +150,7 @@ export default function CreateCharacter() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
   return (
     <CharacterCreationContext.Provider
       value={{
@@ -189,6 +201,16 @@ export default function CreateCharacter() {
             </div>
             <form className="ml-32 py-10 " onSubmit={handleSubmit(onSubmit)}>
               {getComponent(activeComponent)}
+              {activeComponent == 7 && (
+                <div className="flex items-center justify-center">
+                  <button
+                    type="submit"
+                    className="bg-primary text-primary-foreground px-8 py-2 rounded-2xl shadow-lg hover:scale-105 duration-300"
+                  >
+                    Criar Personagem
+                  </button>
+                </div>
+              )}
             </form>
           </>
         )}

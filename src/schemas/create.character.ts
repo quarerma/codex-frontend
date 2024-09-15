@@ -4,7 +4,7 @@ export const createCharacterSchema = z.object({
   name: z.string().min(1, {
     message: 'O nome é obrigatório',
   }),
-  level: z.number().int().min(1, {
+  level: z.coerce.number().min(1, {
     message: 'O nível é obrigatório e deve ser um número inteiro',
   }),
   patent: z.string().min(1, {

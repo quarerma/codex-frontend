@@ -26,8 +26,8 @@ export default function RitualsRegister({ register, setValue, watch }: CreateCom
 
   const { selectedRituals, setSelectedRituals } = useCharacterCreation();
 
-  function unSelectRituals(ritual: Ritual) {
-    const currentRituals = watch('ritualsId') || [];
+  const unSelectRituals = (ritual: Ritual) => {
+    const currentRituals = watch('ritualsIds') || [];
     // remove the feat id from the character feats array
     setValue(
       'ritualsIds',
@@ -36,9 +36,9 @@ export default function RitualsRegister({ register, setValue, watch }: CreateCom
 
     const pastRituals: Ritual[] = selectedRituals || [];
     // check if the feat is in the array and remove it
-    const updatedFeats = pastRituals.filter((f) => f.id !== ritual.id);
-    setSelectedRituals(updatedFeats);
-  }
+    const updatedRituals = pastRituals.filter((f) => f.id !== ritual.id);
+    setSelectedRituals(updatedRituals);
+  };
 
   const [filteredRituals, setFilteredRituals] = useState<Ritual[]>(rituals);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -48,10 +48,7 @@ export default function RitualsRegister({ register, setValue, watch }: CreateCom
   useEffect(() => {
     let filtered = rituals;
 
-    console.log(selectedLevelToFilter);
     const levelTonumber = Number(selectedLevelToFilter);
-
-    console.log(levelTonumber);
 
     if (searchTerm) {
       filtered = filtered.filter((ritual) => ritual.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -65,8 +62,13 @@ export default function RitualsRegister({ register, setValue, watch }: CreateCom
       filtered = filtered.filter((ritual) => ritual.ritualLevel === levelTonumber);
     }
 
+    // filter the selected rituals from the list
+    const currentRituals = watch('ritualsIds') || [];
+
+    filtered = filtered.filter((ritual) => !currentRituals.includes(ritual.id));
+
     setFilteredRituals(filtered);
-  }, [searchTerm, rituals, selectedElementToFilter, selectedLevelToFilter]);
+  }, [searchTerm, rituals, selectedElementToFilter, selectedLevelToFilter, watch('ritualsIds')]);
 
   return (
     <div className="flex -mt-10 justify-center">
@@ -79,18 +81,18 @@ export default function RitualsRegister({ register, setValue, watch }: CreateCom
       >
         <h1 className="text-3xl">Rituais Selecionados:</h1>
         <ul className="mt-2 ml-5 flex flex-col space-y-5">
-          {selectedRituals ? (
-            selectedRituals.map((feat, index) => (
+          {selectedRituals && selectedRituals.length > 0 ? (
+            selectedRituals.map((ritual, index) => (
               <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
-                <span>{feat.name}</span>
+                <span>{ritual.name}</span>
                 <FaTrash
                   className="text-red-500 cursor-pointer hover:scale-125 duration-300"
-                  onClick={() => unSelectRituals(feat)}
+                  onClick={() => unSelectRituals(ritual)}
                 />
               </div>
             ))
           ) : (
-            <span className="mt-2 italic">Nenhum poder selecionado</span>
+            <span className="mt-2 italic">Nenhum ritual selecionado</span>
           )}
         </ul>
       </div>

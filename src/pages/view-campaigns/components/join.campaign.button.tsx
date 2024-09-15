@@ -33,7 +33,7 @@ export default function JoinCampaignButton() {
       const response = await joinCampaign(data);
 
       const cacheData: Campaign[] | undefined = queryClient.getQueryData(['campaigns']);
-      console.log(cacheData);
+
       if (!cacheData) {
         queryClient.setQueryData(['campaigns'], response);
       } else {
@@ -46,7 +46,6 @@ export default function JoinCampaignButton() {
         campaignId: '',
         password: '',
       });
-      console.log(watch());
     } catch (error) {
       console.log(error);
     }

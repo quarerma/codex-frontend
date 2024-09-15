@@ -11,7 +11,6 @@ import { quillModule } from '../../../../../lib/utils';
 import { createGeneralFeat } from '../../../../api/fetch/featst';
 
 import UpgradeList from '../../components/upgradeList';
-import { useQueryClient } from '@tanstack/react-query';
 
 export const getElementColor = (element: string) => {
   switch (element) {
@@ -148,7 +147,7 @@ export default function CreateFeats() {
   };
 
   const [pending, setPending] = useState<string[]>();
-  const queryClient = useQueryClient();
+
   const onSubmit = async (data: CreateFeatSchema) => {
     try {
       setPending(undefined);
@@ -167,17 +166,11 @@ export default function CreateFeats() {
       data.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
       data.afinityUpgrades = selectedAfinityUpgrades.map((p) => p.value);
 
-      console.log(data);
-      const response = await createGeneralFeat(data);
-
-      const previousData = queryClient.getQueryData(['feats']);
-
-      queryClient.setQueryData(['feats'], [...(previousData as any), response]);
+      await createGeneralFeat(data);
+      reset();
 
       setSelectedCharacterUpgrades([]);
       setSelectedAfinityUpgrades([]);
-
-      reset();
     } catch (error) {
       console.error(error);
     }

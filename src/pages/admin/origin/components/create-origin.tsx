@@ -86,7 +86,6 @@ export default function CreateOrigin() {
   const [pending, setPending] = useState<string[]>();
   const onSubmit = async (data: CreateOriginSchema) => {
     try {
-      console.log(data);
       setPending(undefined);
       clearEmptyFields(data);
 
@@ -120,8 +119,6 @@ export default function CreateOrigin() {
         name: '',
         skills: [],
       });
-
-      console.log(watch());
     } catch (error) {
       console.error(error);
     }

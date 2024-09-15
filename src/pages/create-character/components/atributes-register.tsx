@@ -5,10 +5,6 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 import * as Dialog from '@radix-ui/react-dialog';
 
 export default function AtributesRegister({ register, setValue, watch }: CreateComponentProps) {
-  useEffect(() => {
-    console.log(watch('strenght'), watch('intelligence'), watch('vigor'), watch('agility'), watch('presence'));
-  }, [watch('strenght'), watch('intelligence'), watch('vigor'), watch('agility'), watch('presence')]);
-
   const [useLevelCap, setUseLevelCap] = useState(true);
   const [points, setPoints] = useState(9);
   const [summary, setSummary] = useState(

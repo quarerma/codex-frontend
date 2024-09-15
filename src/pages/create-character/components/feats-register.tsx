@@ -27,6 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../../components/ui/select';
+import SelectedFeats from './feats-selected';
+import DeafultFeats from './feats-selected';
+import { register } from 'module';
 
 export default function FeatsRegister({ setValue, watch }: CreateComponentProps) {
   const { data: non_custom_feats = [] } = useQuery({
@@ -61,21 +64,22 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   const [filteredFeats, setFilteredFeats] = useState<Feat[]>(non_custom_feats);
   const [selectedElement, setSelectedElement] = useState<string>('all');
   const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass'>('all');
-  const [selectedClass, setSelectedClass] = useState<string>('all');
-  const [selectedSubclass, setSelectedSubclass] = useState<string>('all');
+  const [selectedClassFilter, setSelectedClass] = useState<string>('all');
+  const [selectedSubclassFilter, setSelectedSubclass] = useState<string>('all');
 
-  const { selectedFeats, setSelectedFeats } = useCharacterCreation();
+  const { selectedFeats, setSelectedFeats, selectedOrigin, selectedSubclass } = useCharacterCreation();
 
   // Queries para otimizar cada filtro no switch
   const { data: classFeats, isLoading: isClassFeatsLoading } = useQuery({
-    queryKey: ['classFeats', selectedClass],
-    queryFn: () => (selectedClass === 'all' ? getClassFeats() : getFilteresClassFeats(selectedClass)),
+    queryKey: ['classFeats', selectedClassFilter],
+    queryFn: () => (selectedClassFilter === 'all' ? getClassFeats() : getFilteresClassFeats(selectedClassFilter)),
     enabled: selectedFilter === 'class', // Só roda a query se o filtro for 'class'
   });
 
   const { data: subclassFeats, isLoading: isSubclassFeatsLoading } = useQuery({
-    queryKey: ['subclassFeats', selectedSubclass],
-    queryFn: () => (selectedSubclass === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclass)),
+    queryKey: ['subclassFeats', selectedSubclassFilter],
+    queryFn: () =>
+      selectedSubclassFilter === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclassFilter),
     enabled: selectedFilter === 'subclass', // Só roda a query se o filtro for 'subclass'
   });
 
@@ -106,6 +110,28 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
         break;
     }
 
+    // remove the feats that are already selected
+    const currentFeatsId = watch('featsId') || [];
+
+    filtered = filtered.filter((feat) => !currentFeatsId.includes(feat.id));
+
+    if (selectedSubclass) {
+      const subclassFeats = selectedSubclass.subclassFeats;
+      const characterLevel = watch('level');
+
+      const filteredSubclassFeats = subclassFeats.filter(
+        (feat) => feat.levelRequired <= (characterLevel == 99 ? 20 : characterLevel / 5)
+      );
+
+      const subclassFeatsId = filteredSubclassFeats.map((feat) => feat.feat.id);
+
+      filtered = filtered.filter((feat) => !subclassFeatsId.includes(feat.id));
+    }
+    if (selectedOrigin) {
+      const originFeatsId = selectedOrigin.feats.id;
+      filtered = filtered.filter((feat) => !originFeatsId.includes(feat.id));
+    }
+
     setFilteredFeats(filtered);
   }, [
     searchTerm,
@@ -116,6 +142,10 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
     subclassFeats,
     isClassFeatsLoading,
     isSubclassFeatsLoading,
+    selectedSubclass,
+    selectedOrigin,
+    watch('level'),
+    watch('featsId'),
   ]);
 
   const unSelectFeat = (feat: Feat) => {
@@ -139,24 +169,32 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
-        className="w-[40%] text-2xl px-10 max-h-[60vh]  font-light"
+        className="w-[40%] text-2xl px-10 max-h-[60vh] space-y-10 font-light"
       >
-        <h1 className="text-3xl">Poderes Selecionados:</h1>
-        <ul className="mt-2 ml-5 flex flex-col space-y-5">
-          {selectedFeats ? (
-            selectedFeats.map((feat, index) => (
-              <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
-                <span>{feat.name}</span>
-                <FaTrash
-                  className="text-red-500 cursor-pointer hover:scale-125 duration-300"
-                  onClick={() => unSelectFeat(feat)}
-                />
-              </div>
-            ))
-          ) : (
-            <span className="mt-2 italic">Nenhum poder selecionado</span>
-          )}
-        </ul>
+        <div>
+          <h1 className="text-3xl">Poderes Selecionados:</h1>
+          <ul className="mt-2 ml-5 flex flex-col space-y-5">
+            {selectedFeats ? (
+              selectedFeats.map((feat, index) => (
+                <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
+                  <span>{feat.name}</span>
+                  <FaTrash
+                    className="text-red-500 cursor-pointer hover:scale-125 duration-300"
+                    onClick={() => unSelectFeat(feat)}
+                  />
+                </div>
+              ))
+            ) : (
+              <span className="mt-2 italic">Nenhum poder selecionado</span>
+            )}
+          </ul>
+        </div>
+        <div>
+          <h1 className="text-3xl">Poderes Padrão:</h1>
+          <div className="mt-2 ml-5 flex flex-col space-y-5">
+            <DeafultFeats watch={watch} />
+          </div>
+        </div>
       </div>
       <div className="w-[2px] h-[55vh] bg-muted"></div>
       <div
@@ -230,7 +268,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
                 </Select>
               )}
               {selectedFilter === 'class' && (
-                <Select onValueChange={setSelectedClass} value={selectedClass}>
+                <Select onValueChange={setSelectedClass} value={selectedClassFilter}>
                   <SelectTrigger className="w-[300px]">
                     <SelectValue placeholder="Selecione uma classe" />
                   </SelectTrigger>
@@ -251,7 +289,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
                 </Select>
               )}
               {selectedFilter === 'subclass' && (
-                <Select onValueChange={setSelectedSubclass} value={selectedSubclass}>
+                <Select onValueChange={setSelectedSubclass} value={selectedSubclassFilter}>
                   <SelectTrigger className="w-[300px]">
                     <SelectValue placeholder="Selecione uma subclasse" />
                   </SelectTrigger>

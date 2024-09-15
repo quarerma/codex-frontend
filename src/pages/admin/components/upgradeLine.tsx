@@ -62,7 +62,6 @@ export default function UpgradeLine({ upgrade, handleRemoveUpgrade, index }: Upg
       default:
         break;
     }
-    console.log(upgrade);
   }, [upgrade, isModified]);
   return (
     <div className="flex flex-col items-center w-full mt-2">

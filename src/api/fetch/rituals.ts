@@ -29,7 +29,7 @@ export async function getRituals(): Promise<Ritual[]> {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    console.log(response.data);
+
     return response.data as Ritual[];
   } catch (error) {
     throw error;

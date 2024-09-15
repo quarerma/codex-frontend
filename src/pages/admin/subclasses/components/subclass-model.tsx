@@ -36,7 +36,7 @@ export default function SubclassModel(subclass: Subclass) {
             className="text-2xl text-red-500 hover:scale-110 duration-300 cursor-pointer"
           />
         </div>
-        <p>{subclass.description}</p>
+        <p dangerouslySetInnerHTML={{ __html: subclass.description }}></p>
         <div>
           <h2>Poderes de Subclasse:</h2>
           <ul>

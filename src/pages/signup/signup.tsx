@@ -27,10 +27,8 @@ export default function SignUpPage() {
   const onSubmit = async (data: SignUpSchema) => {
     try {
       setLoading(true);
-      console.log(data);
-      const response = await signUp(data);
 
-      console.log(response);
+      await signUp(data);
     } catch (error) {
       let message = 'An error occurred. Please try again later.';
       if (axios.isAxiosError(error)) {
