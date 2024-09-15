@@ -24,31 +24,38 @@ export const getElementColor = (element: string) => {
       return {
         text: 'text-cyan-100',
         border: 'border-cyan-100',
+        bg: 'bg-cyan-100',
+        text_foreground: 'text-black',
       };
     case 'BLOOD':
       return {
         text: 'text-red-900',
         border: 'border-red-900',
+        bg: 'bg-red-900',
       };
     case 'DEATH':
       return {
         text: 'text-gray-500',
         border: 'border-gray-500',
+        bg: 'bg-gray-500',
       };
     case 'ENERGY':
       return {
         text: 'text-purple-700',
         border: 'border-purple-700',
+        bg: 'bg-purple-700',
       };
     case 'KNOWLEDGE':
       return {
         text: 'text-primary',
         border: 'border-primary',
+        bg: 'bg-primary',
       };
     default:
       return {
         text: 'text-border',
         border: 'border-border',
+        bg: 'bg-border',
       };
   }
 };

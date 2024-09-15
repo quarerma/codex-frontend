@@ -17,6 +17,9 @@ import { ClassModel } from '../../types/class';
 import { Subclass } from '../../types/sublass';
 import FeatsRegister from './components/feats-register';
 import { Feat } from '../../types/feat';
+import RitualPicker from './components/rituals-picker';
+import RitualsRegister from './components/rituals-register';
+import { Ritual } from '../../types/ritual';
 
 const CharacterCreationContext = createContext<
   | {
@@ -30,6 +33,8 @@ const CharacterCreationContext = createContext<
       setSelectedSubclass: (subclass: Subclass | null) => void;
       selectedFeats: Feat[] | null;
       setSelectedFeats: (feats: Feat[] | null) => void;
+      selectedRituals: Ritual[] | null;
+      setSelectedRituals: (rituals: Ritual[] | null) => void;
     }
   | undefined
 >(undefined);
@@ -48,6 +53,7 @@ export default function CreateCharacter() {
   const [selectedClass, setSelectedClass] = useState<ClassModel | null>(null);
   const [selectedSubclass, setSelectedSubclass] = useState<Subclass | null>(null);
   const [selectedFeats, setSelectedFeats] = useState<Feat[] | null>(null);
+  const [selectedRituals, setSelectedRituals] = useState<Ritual[] | null>(null);
 
   const creationNavBar = [
     { name: 'Campanha', value: 0 },
@@ -108,7 +114,7 @@ export default function CreateCharacter() {
       case 4:
         return <FeatsRegister register={register} watch={watch} setValue={setValue} />;
       case 5:
-        return <div>RITUAIS</div>;
+        return <RitualsRegister register={register} watch={watch} setValue={setValue} />;
       default:
         return null;
     }
@@ -146,6 +152,8 @@ export default function CreateCharacter() {
         setSelectedClass,
         selectedFeats,
         setSelectedFeats,
+        selectedRituals,
+        setSelectedRituals,
       }}
     >
       <div className="max-w-screen min-h-screen overflow-x-hidden  font-oswald text-foreground flex flex-col bg-dark-bg space-y-10">

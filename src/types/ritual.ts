@@ -13,10 +13,10 @@ export type Ritual = {
 
   ritualLevel: number;
   exectutionTime: string;
-  range: Range;
+  range: string;
   target: string;
   duration: string;
-  element: Element;
+  element: string;
   resistence: string;
 
   is_custom: boolean;
