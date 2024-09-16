@@ -117,8 +117,9 @@ export function ClassFocus({ classModel, setValue }: ClassProps) {
       </div>
       <div className="flex flex-col space-y-5">
         {selectedSubclass ? (
-          <div className="flex flex-col space-y-2">
-            <h3 className="font-bold text-center underline text-2xl">Subclasse:</h3>
+          <div className="flex flex-col space-y-5">
+            <h3 className="font-bold text-center text-2xl">Subclasse Selecionada</h3>
+            <div className="w-full h-[2px]  bg-muted"></div>
             <h1 className="text-2xl font-semibold">{selectedSubclass.name}</h1>
             <p className="text-lg" dangerouslySetInnerHTML={{ __html: selectedSubclass.description }}></p>
             <div className="flex justify-center">
