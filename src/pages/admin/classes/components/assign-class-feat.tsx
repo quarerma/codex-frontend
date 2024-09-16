@@ -28,6 +28,7 @@ export default function AssignClassFeat() {
       feat: {
         element: 'REALITY',
       },
+      isInitialLevel: false,
     },
   });
 

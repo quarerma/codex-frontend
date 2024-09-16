@@ -86,25 +86,25 @@ export default function UpgradeLine({ upgrade, handleRemoveUpgrade, index }: Upg
                 upgrade.value.upgradeTarget = value;
               }}
             />
+          ) : upgrade.require === 'both' ? (
+            <div className="flex items-center justify-end space-x-2">
+              <TextInput
+                setIsModified={setIsModified}
+                upgrade={upgrade.value}
+                onChange={(value) => {
+                  upgrade.value.upgradeTarget = value;
+                }}
+              />
+              <NumberInput
+                setIsModified={setIsModified}
+                upgrade={upgrade.value}
+                onChange={(value) => {
+                  upgrade.value.upgradeValue = value;
+                }}
+              />
+            </div>
           ) : (
-            upgrade.require === 'both' && (
-              <div className="flex items-center justify-end space-x-2">
-                <TextInput
-                  setIsModified={setIsModified}
-                  upgrade={upgrade.value}
-                  onChange={(value) => {
-                    upgrade.value.upgradeTarget = value;
-                  }}
-                />
-                <NumberInput
-                  setIsModified={setIsModified}
-                  upgrade={upgrade.value}
-                  onChange={(value) => {
-                    upgrade.value.upgradeValue = value;
-                  }}
-                />
-              </div>
-            )
+            ((upgrade.isCompleted = true), (<div></div>))
           )}
           <Button
             size="sm"
