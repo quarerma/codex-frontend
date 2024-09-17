@@ -19,6 +19,7 @@ import ManageOrigins from './pages/admin/origin/manage.origin';
 import CreateCharacter from './pages/create-character/create-character';
 import ManageRituals from './pages/admin/rituals/manage-rituals';
 import ManageConditions from './pages/admin/conditions/manage-conditions';
+import CharacterPage from './pages/character-page/character-page';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -167,6 +168,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ViewCampaigns />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/characters/:id',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <CharacterPage />
       </QueryClientProvider>
     ),
   },

@@ -21,6 +21,8 @@ import RitualPicker from './components/rituals-picker';
 import RitualsRegister from './components/rituals-register';
 import { Ritual } from '../../types/ritual';
 import StarterInfoRegister from './components/starter-info-register';
+import { createCharacter } from '../../api/fetch/character';
+import { useNavigate } from 'react-router-dom';
 
 const CharacterCreationContext = createContext<
   | {
@@ -84,6 +86,7 @@ export default function CreateCharacter() {
     register,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<CreateCharacterSchema>({
     resolver: zodResolver(createCharacterSchema),
@@ -106,8 +109,15 @@ export default function CreateCharacter() {
     }
   }, [user, setValue]);
 
+  const navigate = useNavigate();
   const onSubmit = async (data: CreateCharacterSchema) => {
-    console.log(data);
+    try {
+      const response = await createCharacter(data);
+      reset();
+      navigate(`/characters/${response.id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getComponent = (component: number) => {
@@ -199,16 +209,33 @@ export default function CreateCharacter() {
                 </div>
               ))}
             </div>
+            <div className="ml-32 py-10">{getComponent(activeComponent)}</div>
             <form className="ml-32 py-10 " onSubmit={handleSubmit(onSubmit)}>
-              {getComponent(activeComponent)}
               {activeComponent == 7 && (
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center justify-center">
                   <button
                     type="submit"
                     className="bg-primary text-primary-foreground px-8 py-2 rounded-2xl shadow-lg hover:scale-105 duration-300"
                   >
                     Criar Personagem
                   </button>
+                  <div className="flex flex-col spacey-5">
+                    {errors && <h1>{errors.campaignId?.message}</h1>}
+                    {errors && <h1>{errors.classId?.message}</h1>}
+                    {errors && <h1>{errors.dexterity?.message}</h1>}
+                    {errors && <h1>{errors.featsId?.message}</h1>}
+                    {errors && <h1>{errors.intelligence?.message}</h1>}
+                    {errors && <h1>{errors.level?.message}</h1>}
+                    {errors && <h1>{errors.name?.message}</h1>}
+                    {errors && <h1>{errors.originId?.message}</h1>}
+                    {errors && <h1>{errors.ownerId?.message}</h1>}
+                    {errors && <h1>{errors.patent?.message}</h1>}
+                    {errors && <h1>{errors.presence?.message}</h1>}
+                    {errors && <h1>{errors.ritualsIds?.message}</h1>}
+                    {errors && <h1>{errors.strenght?.message}</h1>}
+                    {errors && <h1>{errors.subclassId?.message}</h1>}
+                    {errors && <h1>{errors.vitality?.message}</h1>}
+                  </div>
                 </div>
               )}
             </form>

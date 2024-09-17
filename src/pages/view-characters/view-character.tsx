@@ -1,10 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavBar from '../../components/global/navbar';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { getUserCharacter } from '../../api/fetch/character';
+import { useQuery } from '@tanstack/react-query';
+import CharacterPortrait from './components/character-portrait';
 
 export default function ViewCharacters() {
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const { data: characters = [] } = useQuery({
+    queryKey: ['characters'],
+    queryFn: getUserCharacter,
+  });
+
+  const [filteredCharacters, setFilteredCharacters] = useState(characters);
+
+  useEffect(() => {
+    if (characters) {
+      setFilteredCharacters(
+        characters.filter((character) => character.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+  }, [searchTerm, characters]);
   return (
     <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
       <NavBar />
@@ -28,6 +46,13 @@ export default function ViewCharacters() {
         >
           Criar Personagem
         </Link>
+      </div>
+      <div className="grid grid-cols-3   auto-rows-[200px] gap-14 ml-20 mr-20">
+        {filteredCharacters.map((character, index) => (
+          <div key={index} className="flex w-full  justify-center">
+            <CharacterPortrait character={character} />
+          </div>
+        ))}
       </div>
     </div>
   );
