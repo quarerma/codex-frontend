@@ -28,9 +28,9 @@ export type CharacterUpgrade = {
 };
 
 export const Atributes = [
-  { label: 'Força', value: 'STRENGTH' },
-  { label: 'Agilidade', value: 'DEXTERITY' },
-  { label: 'Vigor', value: 'VITALITY' },
-  { label: 'Inteligência', value: 'INTELLIGENCE' },
-  { label: 'Presença', value: 'PRESENCE' },
+  { label: 'Força', value: 'STRENGTH', short: 'FOR' },
+  { label: 'Agilidade', value: 'DEXTERITY', short: 'AGI' },
+  { label: 'Vigor', value: 'VITALITY', short: 'VIG' },
+  { label: 'Inteligência', value: 'INTELLIGENCE', short: 'INT' },
+  { label: 'Presença', value: 'PRESENCE', short: 'PRE' },
 ];
