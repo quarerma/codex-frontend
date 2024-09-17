@@ -4,7 +4,20 @@ import { CreateCharacterSchema } from '../../schemas/create.character';
 import { Character } from '../../types/character';
 
 const API_URL = process.env.API_URL;
+export async function deleteCharacter(characterId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.delete(`${API_URL}character/${characterId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
 
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 export async function getCharacter(characterId?: string) {
   try {
     const jwt = Cookies.get('jwt');
@@ -14,6 +27,7 @@ export async function getCharacter(characterId?: string) {
       },
     });
 
+    console.log(response.data as Character);
     return response.data as Character;
   } catch (error) {
     throw error;

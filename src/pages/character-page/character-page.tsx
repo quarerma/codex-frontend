@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom';
 import { getUserById } from '../../api/fetch/user';
 import Status from './components/status';
 import CharacterAtributes from './components/atributes';
+
+import CharacterSkills from './components/character-skills';
+
 export default function CharacterPage() {
   const id = useParams().id;
 
@@ -21,10 +24,10 @@ export default function CharacterPage() {
   return (
     character &&
     user && (
-      <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
-        <div className="flex flex-col text-foreground  ml-20  mr-20 ">
-          <div className=" items-center w-full space-x-32 text-2xl flex">
+        <div className="flex flex-col text-foreground max-h-[92vh] overflow-y-hidden ml-20 mr-20">
+          <div className="items-center w-full space-x-32 text-2xl h-[5vh] flex">
             <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Character Page</h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
@@ -42,9 +45,10 @@ export default function CharacterPage() {
               {character?.subclass.name}
             </h1>
           </div>
-          <div className="mt-10 flex space-x-20">
+          <div className="mt-5 flex space-x-28 h-full overflow-hidden overflow-x-hidden">
             <Status character={character} user={user} />
             <CharacterAtributes character={character} />
+            <CharacterSkills character={character} />
           </div>
         </div>
       </div>

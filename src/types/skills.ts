@@ -26,3 +26,10 @@ export type SkillAlterationObject = {
   item?: number;
   otherName?: string;
 };
+
+export const trainingLevels = [
+  { label: '-', value: 'none' },
+  { label: 'Treinado', value: 'trained' },
+  { label: 'Veterano', value: 'veteran' },
+  { label: 'Especialista', value: 'expert' },
+];

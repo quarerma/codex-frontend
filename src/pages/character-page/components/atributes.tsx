@@ -19,12 +19,7 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
       </div>
 
       {/* Linha inferior */}
-      <div
-        className="w-[110%] h-[1px] bg-white"
-        style={{
-          transformOrigin: 'left top',
-        }}
-      ></div>
+      <div className="w-[110%] h-[1px] bg-white"></div>
 
       {/* Linha esquerda */}
       <div
@@ -49,11 +44,17 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
 
 export default function CharacterAtributes({ character }: CharacterAtributesProps) {
   return (
-    <div className="flex flex-col space-y-10">
+    <div
+      className="flex flex-col mt-5 space-y-10  max-h-fit"
+      style={{
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+      }}
+    >
       <AtributeTriangle value={character.atributes.strenght} label="Força" abbreviation="FOR" />
       <AtributeTriangle value={character.atributes.dexterity} label="Agilidade" abbreviation="AGI" />
       <AtributeTriangle value={character.atributes.vitality} label="Vitalidade" abbreviation="VIG" />
-      <AtributeTriangle value={character.atributes.intelligence} label="Inteligência" abbreviation="INT" />
+      <AtributeTriangle value={character.atributes.intelligence} label="Intelecto" abbreviation="INT" />
       <AtributeTriangle value={character.atributes.presence} label="Presença" abbreviation="PRE" />
     </div>
   );

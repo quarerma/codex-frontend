@@ -3,6 +3,8 @@ import { Button } from '../../../components/ui/button';
 import { Atributes, CharacterUpgrade } from '../../../types/character-upgrades';
 import { Input } from '../../../components/ui/input';
 import { equipmentProficience } from '../../../types/class';
+import { getSkills } from '../../../api/fetch/skills';
+import { useQuery } from '@tanstack/react-query';
 
 interface UpgradeLineProps {
   upgrade: {
@@ -167,6 +169,36 @@ function TextInput({ upgrade, setIsModified }: TextInputProps) {
           ))}
         </select>
       );
+    case 'PERICIA':
+      const [selectedSkill, setSelectedSkill] = useState<string>('');
+
+      const { data: skills = [] } = useQuery({
+        queryKey: ['skills'],
+        queryFn: getSkills,
+      });
+
+      useEffect(() => {
+        upgrade.upgradeTarget = selectedSkill;
+        setIsModified(true);
+      }, [selectedSkill]);
+
+      return (
+        <select
+          value={selectedSkill}
+          className="p-2 border-2  bg-card border-border rounded ml-5 "
+          onChange={(e) => setSelectedSkill(e.target.value as string)}
+        >
+          <option value="" disabled>
+            Perícias
+          </option>
+          {skills.map((skill, index) => (
+            <option key={index} value={skill.name}>
+              {skill.name}
+            </option>
+          ))}
+        </select>
+      );
+      break;
     case 'PROFICIENCIA':
       const [selectedProficiency, setSelectedProficiency] = useState<string>('');
 
