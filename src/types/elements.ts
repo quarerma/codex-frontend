@@ -1,5 +1,5 @@
 export const elementValues = [
-  { value: 'REALITY', label: 'Realidade | Comum' },
+  { value: 'REALITY', label: 'Realidade' },
   { value: 'FEAR', label: 'Medo' },
   { value: 'BLOOD', label: 'Sangue' },
   { value: 'DEATH', label: 'Morte' },

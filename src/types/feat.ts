@@ -6,5 +6,8 @@ export type Feat = {
   description: string;
   prerequisites?: string[];
   element?: Element;
+  type: FeatType;
   afinity?: string;
 };
+
+export type FeatType = 'ORIGIN' | 'CLASS' | 'SUBCLASS' | 'GENERAL';

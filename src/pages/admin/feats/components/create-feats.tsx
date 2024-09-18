@@ -28,7 +28,7 @@ export const getElementColor = (element: string) => {
       };
     case 'BLOOD':
       return {
-        text: 'text-red-900',
+        text: 'text-red-700',
         border: 'border-red-900',
         bg: 'bg-red-900',
       };
