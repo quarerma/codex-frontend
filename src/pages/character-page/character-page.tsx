@@ -9,7 +9,7 @@ import CharacterAtributes from './components/atributes';
 import CharacterSkills from './components/character-skills';
 import CharacterFeats from './components/feats/character-feat';
 import { createContext, useContext, useState } from 'react';
-import CharacterRituals from './components/character-rituals';
+import CharacterRituals from './components/rituals/character-rituals';
 import { Character } from '../../types/character';
 
 const CharacterContext = createContext<{

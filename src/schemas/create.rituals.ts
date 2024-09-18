@@ -4,10 +4,6 @@ export const createRitualsSchema = z.object({
   name: z.string(),
   normalCastDescription: z.string(),
   normalCost: z.coerce.number().gte(0),
-  discentCastDescription: z.string(),
-  discentCost: z.coerce.number().gte(0),
-  trueCastDescription: z.string(),
-  trueCost: z.coerce.number().gte(0),
   ritualLevel: z.coerce.number().gte(0),
   exectutionTime: z.string(),
   range: z.string(),
@@ -19,6 +15,10 @@ export const createRitualsSchema = z.object({
   type: z.string(),
   conditions: z.array(z.string()).optional(),
 
+  discentCastDescription: z.string().optional(),
+  discentCost: z.coerce.number().optional(),
+  trueCastDescription: z.string().optional(),
+  trueCost: z.coerce.number().optional(),
   // DamageRitual attributes
   normalCastDamageType: z.string().optional(),
   discentCastDamageType: z.string().optional(),

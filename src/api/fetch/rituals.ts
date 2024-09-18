@@ -30,6 +30,7 @@ export async function getRituals(): Promise<Ritual[]> {
       },
     });
 
+    console.log(response.data);
     return response.data as Ritual[];
   } catch (error) {
     throw error;

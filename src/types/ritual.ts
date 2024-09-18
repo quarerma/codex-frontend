@@ -20,7 +20,13 @@ export type Ritual = {
   resistence: string;
 
   is_custom: boolean;
-  conditions: string[];
+  conditions: {
+    condition: {
+      id: string;
+      name: string;
+      description: string;
+    };
+  }[];
 
   type: string;
   damageRitual: {

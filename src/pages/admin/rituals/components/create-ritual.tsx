@@ -68,14 +68,21 @@ function RitualSelect({ label, options, onChange, name }: RitualSelectProps) {
 function RitualDescription({ label, name, value, onChange }: RitualDescriptionProps) {
   return (
     <div className="space-y-2 group h-[250px]">
-      <h1 className="group-focus-within:text-primary">{label}*</h1>
+      <h1 className="group-focus-within:text-primary">{label}</h1>
       <ReactQuill value={value} className="ml-2 h-[180px]" onChange={onChange} modules={quillModule} />
     </div>
   );
 }
 
 export default function CreateRitual() {
-  const { register, handleSubmit, setValue, watch, reset } = useForm<CreateRitualsSchema>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<CreateRitualsSchema>({
     resolver: zodResolver(createRitualsSchema),
     defaultValues: {
       type: 'EFFECT',
@@ -97,7 +104,7 @@ export default function CreateRitual() {
   const [currentCondition, setCurrentCondition] = useState<string>('default');
 
   const handleAddCondition = () => {
-    if (currentCondition !== 'default') {
+    if (currentCondition !== 'default' && !selectedConditions.includes(currentCondition)) {
       setSelectedConditions((prev) => [...prev, currentCondition]);
     }
   };
@@ -110,7 +117,8 @@ export default function CreateRitual() {
     try {
       // Atualizar o estado antes da chamada assíncrona
       data.conditions = selectedConditions;
-      const response = await createRitual(data);
+
+      await createRitual(data);
 
       reset();
     } catch (error) {
@@ -197,7 +205,7 @@ export default function CreateRitual() {
         <RitualDescription
           label="Descrição da Versão Discente"
           name="discentCastDescription"
-          value={watch('discentCastDescription')}
+          value={watch('discentCastDescription') || ''}
           onChange={(content) => setValue('discentCastDescription', content)}
         />
 
@@ -229,7 +237,7 @@ export default function CreateRitual() {
         <RitualDescription
           label="Descrição da Versão Verdadeira"
           name="trueCastDescription"
-          value={watch('trueCastDescription')}
+          value={watch('trueCastDescription') || ''}
           onChange={(content) => setValue('trueCastDescription', content)}
         />
 
@@ -279,8 +287,8 @@ export default function CreateRitual() {
         </div>
 
         <ol className="flex flex-col mt-2 ml-5">
-          {selectedConditions.map((condition) => (
-            <li>
+          {selectedConditions.map((condition, index) => (
+            <li key={index}>
               <div className="flex justify-between text-secondary-foreground">
                 <p>{conditions.find((c) => c.id === condition)?.name}</p>
                 <button onClick={() => handleRemoveCondition(condition)} className="text-red-500">
