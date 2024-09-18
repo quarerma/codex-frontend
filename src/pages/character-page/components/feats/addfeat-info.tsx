@@ -1,18 +1,17 @@
-import { IoMdArrowDropup } from 'react-icons/io';
-import { Feat } from '../../../types/feat';
-
 import { useState } from 'react';
+import { elementValues } from '../../../../types/elements';
+import { Feat } from '../../../../types/feat';
+import { getElementColor } from '../../../admin/feats/components/create-feats';
+import { IoMdArrowDropup } from 'react-icons/io';
+import { Button } from '../../../../components/ui/button';
+import { useCharacterFeats } from './character-feat';
 
-import { elementValues } from '../../../types/elements';
-import { getElementColor } from '../../admin/feats/components/create-feats';
-import { Button } from '../../../components/ui/button';
-
-interface FeatInfoProps {
+interface AddFeatProps {
   feat: Feat;
-  usingAfinity?: boolean;
 }
 
-export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
+export default function AddFeatInfo({ feat }: AddFeatProps) {
+  const { characterFeats, setCharacterFeats } = useCharacterFeats();
   const [expanded, setExpanded] = useState(false);
 
   const elements = elementValues;
@@ -21,6 +20,15 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
     const index = elements.findIndex((element) => element.value === value);
 
     return elements[index].label;
+  }
+
+  function handleAddFeat() {
+    console.log('Adicionando poder');
+    console.log(feat);
+
+    const newFeats = [...characterFeats, { feat, usingAfinity: false }];
+
+    setCharacterFeats(newFeats);
   }
 
   const elementColor = getElementColor(feat.element || '');
@@ -65,22 +73,8 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
           </div>
         )}
         <div className="flex items-center justify-end pt-5">
-          {feat.afinity && !usingAfinity && (
-            <div className="flex w-full justify-start  ">
-              <Button className="w-fit" onClick={() => {}}>
-                Usar Afinidade
-              </Button>
-            </div>
-          )}
-          {feat.afinity && usingAfinity && (
-            <div className="flex w-full justify-start   ">
-              <Button className="w-fit" onClick={() => {}}>
-                Parar de usar Afinidade
-              </Button>
-            </div>
-          )}
-          <Button variant={'link'} className="text-red-600 font-inter">
-            Excluir Poder
+          <Button onClick={handleAddFeat} variant={'link'} className="text-primary font-inter">
+            Adicionar Poder
           </Button>
         </div>
       </div>

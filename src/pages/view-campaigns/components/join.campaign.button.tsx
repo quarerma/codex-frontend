@@ -24,7 +24,7 @@ export const JoinCampaignSchema = z.object({
 export type JoinCampaignSchema = z.infer<typeof JoinCampaignSchema>;
 export default function JoinCampaignButton() {
   const queryClient = useQueryClient();
-  const { register, reset, handleSubmit, watch } = useForm<JoinCampaignSchema>({
+  const { register, reset, handleSubmit } = useForm<JoinCampaignSchema>({
     resolver: zodResolver(JoinCampaignSchema),
   });
 

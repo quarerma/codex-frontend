@@ -1,8 +1,5 @@
 import { Character } from '../../../types/character';
-
-interface CharacterAtributesProps {
-  character: Character;
-}
+import { useCharacter } from '../character-page';
 
 interface AtributeTriangleProps {
   value: number;
@@ -42,10 +39,11 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
   );
 }
 
-export default function CharacterAtributes({ character }: CharacterAtributesProps) {
+export default function CharacterAtributes() {
+  const { character } = useCharacter();
   return (
     <div
-      className="flex flex-col mt-5 space-y-10  max-h-fit"
+      className="flex flex-col mt-5 space-y-10 pb-10  max-h-fit"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',

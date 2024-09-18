@@ -3,12 +3,10 @@ import { Character } from '../../../types/character';
 import { Atributes } from '../../../types/character-upgrades';
 import { SkillCharacter, trainingLevels } from '../../../types/skills';
 import { FaDiceD20 } from 'react-icons/fa';
+import { useCharacter } from '../character-page';
 
-interface CharacterSkillsProps {
-  character: Character;
-}
-
-export default function CharacterSkills({ character }: CharacterSkillsProps) {
+export default function CharacterSkills() {
+  const { character } = useCharacter();
   const atributes = Atributes;
   const formatAtribute = (atribute: string) => {
     return atributes.find((item) => item.value === atribute)?.short;

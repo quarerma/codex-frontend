@@ -23,12 +23,13 @@ export type Ritual = {
   conditions: string[];
 
   type: string;
+  damageRitual: {
+    normalCastDamageType: string;
+    discentCastDamageType: string;
+    trueCastDamageType: string;
 
-  normalCastDamageType?: string;
-  discentCastDamageType?: string;
-  trueCastDamageType?: string;
-
-  normalCastDamage?: String;
-  discentCastDamage?: String;
-  trueCastDamage?: String;
+    normalCastDamage: string;
+    discentCastDamage: string;
+    trueCastDamage: string;
+  };
 };

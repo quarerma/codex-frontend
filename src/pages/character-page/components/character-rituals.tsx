@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Character } from '../../../types/character';
-import FeatInfo from './feat-info';
+
 import RitualInfo from './rituals-info';
 import {
   Select,
@@ -12,12 +11,10 @@ import {
   SelectValue,
 } from '../../../components/ui/select';
 import { elementValues } from '../../../types/elements';
+import { useCharacter } from '../character-page';
 
-interface CharacterFeatProps {
-  character: Character;
-}
-
-export default function CharacterRituals({ character }: CharacterFeatProps) {
+export default function CharacterRituals() {
+  const { character } = useCharacter();
   const [filteredRituals, setFilteredRituals] = useState(character.rituals);
   const [selectedElementToFilter, setSelectedElementToFilter] = useState<string>('all');
   const [selectedLevelToFilter, setSelectedLevelToFilter] = useState<string>('0');

@@ -12,24 +12,25 @@ import { useEffect, useState } from 'react';
 import { useCharacterCreation } from '../create-character';
 import { Feat } from '../../../types/feat';
 
-import { elementValues } from '../../../types/elements';
-
 import { FaSearch, FaTrash } from 'react-icons/fa';
 
 import { getClasses } from '../../../api/fetch/classes';
 import { getSubclasses } from '../../../api/fetch/subclass';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../components/ui/select';
-import SelectedFeats from './feats-selected';
 import DeafultFeats from './feats-selected';
-import { register } from 'module';
+import { FeatFilter } from '../../../components/global/featfilter';
+
+export const getClassColor = (className: string) => {
+  switch (className) {
+    case 'Combatente':
+      return 'bg-red-500';
+    case 'Especialista':
+      return 'bg-green-500';
+    case 'Ocultista':
+      return 'bg-blue-500';
+    default:
+      return 'bg-gray-500'; // Valor padrão caso a classe não corresponda a nenhum caso
+  }
+};
 
 export default function FeatsRegister({ setValue, watch }: CreateComponentProps) {
   const { data: non_custom_feats = [] } = useQuery({
@@ -46,19 +47,6 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
     queryKey: ['subclasses'],
     queryFn: getSubclasses,
   });
-
-  const getClassColor = (className: string) => {
-    switch (className) {
-      case 'Combatente':
-        return 'bg-red-500';
-      case 'Especialista':
-        return 'bg-green-500';
-      case 'Ocultista':
-        return 'bg-blue-500';
-      default:
-        return 'bg-gray-500'; // Valor padrão caso a classe não corresponda a nenhum caso
-    }
-  };
 
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredFeats, setFilteredFeats] = useState<Feat[]>(non_custom_feats);
@@ -94,6 +82,8 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
       case 'element':
         if (selectedElement !== 'all' && selectedElement) {
           filtered = filtered.filter((feat) => feat.element === selectedElement);
+        } else if (selectedElement === 'all') {
+          filtered = filtered.filter((feat) => feat.element !== 'REALITY');
         }
         break;
       case 'class':
@@ -165,7 +155,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   return (
     <div className="flex -mt-10 justify-center">
       <div
-        className="w-[40%] text-2xl px-10 max-h-[60vh] space-y-10 font-light max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
+        className="w-[40%] text-2xl  font-light max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
@@ -218,99 +208,18 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
             </div>
             <FaSearch className="text-2xl" />
           </div>
-          <div className="flex flex-col justify-start mt-2 space-x-5">
-            <div className="flex text-xl space-x-5 items-center">
-              <span>Filtrar por:</span>
-              <span
-                onClick={() => setSelectedFilter('all')}
-                className={`cursor-pointer ${selectedFilter === 'all' && 'underline'} hover:scale-105 duration-200`}
-              >
-                Todos
-              </span>
-              <span
-                onClick={() => setSelectedFilter('class')}
-                className={`cursor-pointer ${selectedFilter === 'class' && 'underline'} hover:scale-105 duration-200`}
-              >
-                Classe
-              </span>
-              <span
-                onClick={() => setSelectedFilter('subclass')}
-                className={`cursor-pointer ${
-                  selectedFilter === 'subclass' && 'underline'
-                } hover:scale-105 duration-200`}
-              >
-                Subclasse
-              </span>
-              <span
-                onClick={() => setSelectedFilter('element')}
-                className={`cursor-pointer ${selectedFilter === 'element' && 'underline'} hover:scale-105 duration-200`}
-              >
-                Outros
-              </span>
-            </div>
-            <div className="mt-3 space-x-5 flex items-center text-lg list-outside list-disc">
-              {selectedFilter === 'element' && (
-                <Select onValueChange={setSelectedElement} value={selectedElement}>
-                  <SelectTrigger className="w-[300px]">
-                    <SelectValue placeholder="Selecione um elemento" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Elementos</SelectLabel>
-                      <SelectItem value="all">Todos Elementos</SelectItem>
-                      {elementValues.map((element) => (
-                        <SelectItem key={element.value} value={element.value}>
-                          {element.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-              {selectedFilter === 'class' && (
-                <Select onValueChange={setSelectedClass} value={selectedClassFilter}>
-                  <SelectTrigger className="w-[300px]">
-                    <SelectValue placeholder="Selecione uma classe" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Classes</SelectLabel>
-                      <SelectItem value="all">Todas Classes</SelectItem>
-                      {classes.map((classes) => (
-                        <SelectItem key={classes.id} value={classes.id}>
-                          <div className="flex space-x-2 items-center">
-                            <div className={`w-2 h-2 rounded-full ${getClassColor(classes.name)}`}></div>
-                            <div>{classes.name}</div>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-              {selectedFilter === 'subclass' && (
-                <Select onValueChange={setSelectedSubclass} value={selectedSubclassFilter}>
-                  <SelectTrigger className="w-[300px]">
-                    <SelectValue placeholder="Selecione uma subclasse" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Subclasses</SelectLabel>
-                      <SelectItem value="all">Todas Subclasses</SelectItem>
-                      {subclasses.map((classes) => (
-                        <SelectItem key={classes.id} value={classes.id}>
-                          <div className="flex space-x-2 items-center">
-                            <div className={`w-2 h-2 rounded-full ${getClassColor(classes.class.name)}`}></div>
-                            <div>{classes.name}</div>
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-            </div>
-          </div>
+          <FeatFilter
+            selectedFilter={selectedFilter}
+            setSelectedFilter={setSelectedFilter}
+            selectedElement={selectedElement}
+            setSelectedElement={setSelectedElement}
+            selectedClass={selectedClassFilter}
+            setSelectedClass={setSelectedClass}
+            selectedSubclass={selectedSubclassFilter}
+            setSelectedSubclass={setSelectedSubclass}
+            classes={classes}
+            subclasses={subclasses}
+          />
         </div>
 
         <div

@@ -32,13 +32,61 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
 
   const elementColor = getElementColor(ritual.element || '');
 
+  const rollDie = (die: string) => {
+    const [dice, sides] = die.split('d');
+    const diceNumber = Number(dice);
+    const sidesNumber = Number(sides);
+
+    let result = 0;
+
+    for (let i = 0; i < diceNumber; i++) {
+      result += Math.floor(Math.random() * sidesNumber) + 1;
+    }
+
+    console.log(result);
+    return result;
+  };
+
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
       <div
         className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
         onClick={() => setExpanded(!expanded)}
       >
-        <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{ritual.name}</h1>
+        <div className="flex flex-col">
+          <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{ritual.name}</h1>
+          {ritual.type === 'DAMAGE' && (
+            <h1 className="space-x-2 flex">
+              <span>Dano:</span>
+              {ritual.damageRitual.normalCastDamage && (
+                <span
+                  onClick={() => rollDie(ritual.damageRitual.normalCastDamage)}
+                  className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
+                >
+                  {ritual.damageRitual.normalCastDamage}
+                </span>
+              )}
+              {ritual.damageRitual.discentCastDamage && (
+                <span
+                  onClick={() => rollDie(ritual.damageRitual.discentCastDamage)}
+                  className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
+                >
+                  {' '}
+                  | {ritual.damageRitual.discentCastDamage}
+                </span>
+              )}
+              {ritual.damageRitual.trueCastDamage && (
+                <span
+                  onClick={() => rollDie(ritual.damageRitual.trueCastDamage)}
+                  className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
+                >
+                  {' '}
+                  | {ritual.damageRitual.trueCastDamage}
+                </span>
+              )}
+            </h1>
+          )}
+        </div>
         <button className="lg:text-4xl text-3xl font-bold">
           {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
         </button>

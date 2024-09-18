@@ -5,11 +5,12 @@ import { deleteCharacter } from '../../../api/fetch/character';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useCharacter } from '../character-page';
 interface StatusProps {
-  character: Character;
   user: User;
 }
-export default function Status({ character, user }: StatusProps) {
+export default function Status({ user }: StatusProps) {
+  const { character } = useCharacter();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 

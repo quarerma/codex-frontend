@@ -10,4 +10,4 @@ export type Feat = {
   afinity?: string;
 };
 
-export type FeatType = 'ORIGIN' | 'CLASS' | 'SUBCLASS' | 'GENERAL';
+export type FeatType = 'ORIGIN' | 'CLASS' | 'SUBCLASS' | 'GENERAL' | 'CUSTOM';
