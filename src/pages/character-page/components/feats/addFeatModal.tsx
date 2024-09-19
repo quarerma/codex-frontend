@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
 import {
+  getCampaignFeats,
   getClassFeats,
   getFilteredSubClassFeats,
   getFilteresClassFeats,
@@ -15,6 +16,7 @@ import { getSubclasses } from '../../../../api/fetch/subclass';
 import { FaSearch } from 'react-icons/fa';
 import { FeatFilter } from '../../../../components/global/featfilter';
 import { useCharacterFeats } from './character-feat';
+import { useCharacter } from '../../character-page';
 
 export const AddFeatModal = () => {
   const { data: non_custom_feats = [] } = useQuery({
@@ -30,6 +32,12 @@ export const AddFeatModal = () => {
   const { data: subclasses = [] } = useQuery({
     queryKey: ['subclasses'],
     queryFn: getSubclasses,
+  });
+
+  const { character } = useCharacter();
+  const { data: campaignFeats = [] } = useQuery({
+    queryKey: ['campaignFeats', character.campaignId],
+    queryFn: () => getCampaignFeats(character.campaignId),
   });
 
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -75,7 +83,7 @@ export const AddFeatModal = () => {
         }
         break;
       case 'campaign':
-        feats = feats.filter((feat) => feat.type === 'CUSTOM');
+        feats = campaignFeats;
         break;
       case 'element':
         if (selectedElement !== 'all' && selectedElement) {
@@ -108,7 +116,7 @@ export const AddFeatModal = () => {
   ]);
   return (
     <DialogContent
-      className="text-foreground w-screen max-h-[80vh] h-[80vh] font-oswald overflow-y-auto flex flex-col space-y-5   border-primary"
+      className="text-foreground  max-h-[80vh] w-1/3 h-[80vh] font-oswald overflow-y-auto flex flex-col space-y-5   border-primary"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
@@ -142,6 +150,7 @@ export const AddFeatModal = () => {
           setSelectedSubclass={setSelectedSubclass}
           classes={classes}
           subclasses={subclasses}
+          showCampaign={true}
         />
       </div>
       <div className=" flex flex-col space-y-2">

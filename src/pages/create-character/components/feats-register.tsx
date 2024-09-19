@@ -51,7 +51,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredFeats, setFilteredFeats] = useState<Feat[]>(non_custom_feats);
   const [selectedElement, setSelectedElement] = useState<string>('all');
-  const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass'>('all');
+  const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass' | 'campaign'>('all');
   const [selectedClassFilter, setSelectedClass] = useState<string>('all');
   const [selectedSubclassFilter, setSelectedSubclass] = useState<string>('all');
 
@@ -219,6 +219,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
             setSelectedSubclass={setSelectedSubclass}
             classes={classes}
             subclasses={subclasses}
+            showCampaign={false}
           />
         </div>
 

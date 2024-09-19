@@ -43,10 +43,7 @@ export type Character = {
   proficiencies: string[];
   rituals: { ritual: Ritual; ritual_cost: number }[];
 
-  campaign: {
-    id: string;
-    name: string;
-  };
+  campaignId: string;
   num_of_skills: number;
 };
 

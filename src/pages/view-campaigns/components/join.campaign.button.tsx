@@ -55,7 +55,7 @@ export default function JoinCampaignButton() {
       <DialogTrigger className="text-foreground  h-full text-2xl font-semibold px-10 py-1 rounded-xl hover:bg-primary-foreground bg-dark-bg-secondary border-[1px] border-primary">
         Entrar em uma campanha
       </DialogTrigger>
-      <DialogContent className="text-foreground border-primary">
+      <DialogContent className="text-foreground w-fit border-primary">
         <DialogHeader>
           <DialogTitle className="p-2 mb-5 text-3xl">Participar de uma Campanha</DialogTitle>
           <DialogDescription className="space-y-5 flex flex-col items-center">

@@ -113,3 +113,20 @@ export async function getFilteredSubClassFeats(subclassId: string): Promise<Feat
     throw error;
   }
 }
+
+export async function getCampaignFeats(campaignId: string): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}campaigns/campaign-feats/${campaignId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    console.log(response.data);
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}

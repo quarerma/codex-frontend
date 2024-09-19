@@ -29,6 +29,7 @@ export default function CharacterFeats() {
   useEffect(() => {
     let feats = characterFeats;
 
+    console.log(feats);
     if (filter === 'class') {
       feats = feats.filter((feat) => feat.feat.type === 'CLASS');
     } else if (filter === 'subclass') {
@@ -36,7 +37,7 @@ export default function CharacterFeats() {
     } else if (filter === 'origin') {
       feats = feats.filter((feat) => feat.feat.type === 'ORIGIN');
     } else if (filter === 'paranormal') {
-      feats = feats.filter((feat) => feat.feat.type === 'GENERAL' && feat.feat.element !== 'REALITY');
+      feats = feats.filter((feat) => feat.feat.element !== 'REALITY');
     } else if (filter === 'campaign') {
       feats = feats.filter((feat) => feat.feat.type === 'CUSTOM');
     }

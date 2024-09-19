@@ -4,7 +4,7 @@ import { elementValues } from '../../types/elements';
 
 interface FeatFilterProps {
   selectedFilter: string;
-  setSelectedFilter: (value: 'class' | 'all' | 'element' | 'subclass') => void;
+  setSelectedFilter: (value: 'class' | 'all' | 'element' | 'subclass' | 'campaign') => void;
   selectedElement: string;
   setSelectedElement: (value: string) => void;
   selectedClass: string;
@@ -13,6 +13,7 @@ interface FeatFilterProps {
   setSelectedSubclass: (value: string) => void;
   classes: any[];
   subclasses: any[];
+  showCampaign?: boolean;
 }
 
 export const FeatFilter = ({
@@ -26,6 +27,7 @@ export const FeatFilter = ({
   setSelectedSubclass,
   classes,
   subclasses,
+  showCampaign,
 }: FeatFilterProps) => {
   return (
     <div className="flex flex-col justify-start mt-2 space-x-5">
@@ -49,6 +51,15 @@ export const FeatFilter = ({
         >
           Subclasse
         </span>
+        {showCampaign && (
+          <span
+            onClick={() => setSelectedFilter('campaign')}
+            className={`cursor-pointer ${selectedFilter === 'campaign' && 'underline'} hover:scale-105 duration-200`}
+          >
+            Campanha
+          </span>
+        )}
+
         <span
           onClick={() => setSelectedFilter('element')}
           className={`cursor-pointer ${selectedFilter === 'element' && 'underline'} hover:scale-105 duration-200`}
