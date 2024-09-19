@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
 import {
-  getCampaignFeats,
+  getCampaignPossibleFeats,
   getClassFeats,
   getFilteredSubClassFeats,
   getFilteresClassFeats,
-  getNonCustomFeats,
   getSubClassFeats,
-} from '../../../../api/fetch/featst';
+} from '../../../../api/fetch/feats';
 import { Feat } from '../../../../types/feat';
 import { useEffect, useState } from 'react';
 import AddFeatInfo from './addfeat-info';
@@ -19,9 +18,10 @@ import { useCharacterFeats } from './character-feat';
 import { useCharacter } from '../../character-page';
 
 export const AddFeatModal = () => {
-  const { data: non_custom_feats = [] } = useQuery({
+  const { character } = useCharacter();
+  const { data: all_feats = [] } = useQuery({
     queryKey: ['feats'],
-    queryFn: getNonCustomFeats,
+    queryFn: () => getCampaignPossibleFeats(character.campaignId),
   });
 
   const { data: classes = [] } = useQuery({
@@ -34,14 +34,8 @@ export const AddFeatModal = () => {
     queryFn: getSubclasses,
   });
 
-  const { character } = useCharacter();
-  const { data: campaignFeats = [] } = useQuery({
-    queryKey: ['campaignFeats', character.campaignId],
-    queryFn: () => getCampaignFeats(character.campaignId),
-  });
-
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredFeats, setFilteredFeats] = useState<Feat[]>(non_custom_feats);
+  const [filteredFeats, setFilteredFeats] = useState<Feat[]>(all_feats);
   const [selectedElement, setSelectedElement] = useState<string>('all');
   const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass' | 'campaign'>('all');
   const [selectedClassFilter, setSelectedClass] = useState<string>('all');
@@ -64,7 +58,7 @@ export const AddFeatModal = () => {
   });
 
   useEffect(() => {
-    let feats = non_custom_feats;
+    let feats = all_feats;
 
     console.log('Adicionou feat');
     if (searchTerm) {
@@ -83,7 +77,7 @@ export const AddFeatModal = () => {
         }
         break;
       case 'campaign':
-        feats = campaignFeats;
+        feats = feats.filter((feat) => feat.type === 'CUSTOM');
         break;
       case 'element':
         if (selectedElement !== 'all' && selectedElement) {
@@ -104,7 +98,7 @@ export const AddFeatModal = () => {
     feats = feats.filter((feat) => !characterFeats.some((charFeat) => charFeat.feat.id === feat.id));
     setFilteredFeats(feats);
   }, [
-    non_custom_feats,
+    all_feats,
     searchTerm,
     selectedFilter,
     selectedElement,

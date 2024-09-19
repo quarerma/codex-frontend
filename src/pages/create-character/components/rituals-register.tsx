@@ -5,7 +5,6 @@ import RitualPicker from './rituals-picker';
 import { useCharacterCreation } from '../create-character';
 import { FaSearch, FaTrash } from 'react-icons/fa';
 import { Ritual } from '../../../types/ritual';
-import { Feat } from '../../../types/feat';
 import { useEffect, useState } from 'react';
 import {
   Select,
@@ -18,7 +17,7 @@ import {
 } from '../../../components/ui/select';
 import { elementValues } from '../../../types/elements';
 
-export default function RitualsRegister({ register, setValue, watch }: CreateComponentProps) {
+export default function RitualsRegister({ setValue, watch }: CreateComponentProps) {
   const { data: rituals = [] } = useQuery({
     queryKey: ['rituals'],
     queryFn: getRituals,

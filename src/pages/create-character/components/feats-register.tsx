@@ -6,7 +6,7 @@ import {
   getFilteresClassFeats,
   getNonCustomFeats,
   getSubClassFeats,
-} from '../../../api/fetch/featst';
+} from '../../../api/fetch/feats';
 import FeatPicker from './feats-picker';
 import { useEffect, useState } from 'react';
 import { useCharacterCreation } from '../create-character';

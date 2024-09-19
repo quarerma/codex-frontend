@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Input } from '../../../../components/ui/input';
 import { Feat } from '../../../../types/feat';
-import { getGeneralFeats } from '../../../../api/fetch/featst';
+import { getGeneralFeats } from '../../../../api/fetch/feats';
 import { useQuery } from '@tanstack/react-query';
 import { getElementColor } from './create-feats';
 import { elementValues } from '../../../../types/elements';

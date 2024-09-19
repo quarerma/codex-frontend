@@ -4,13 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../../../../components/ui/input';
 import ReactQuill from 'react-quill';
 import { quillModule } from '../../../../../lib/utils';
-import { Button } from '../../../../components/ui/button';
 import { ritualRange } from '../../../../types/range';
 import { elementValues } from '../../../../types/elements';
 import { damageTypes } from '../../../../types/damage';
 import { useQuery } from '@tanstack/react-query';
 import { getConditions } from '../../../../api/fetch/conditions';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createRitual } from '../../../../api/fetch/rituals';
 
 interface RitualInputProps {
@@ -47,7 +46,7 @@ function RitualInput({ label, type, placeholder, register, name, required = fals
   );
 }
 
-function RitualSelect({ label, options, onChange, name }: RitualSelectProps) {
+function RitualSelect({ label, options, onChange }: RitualSelectProps) {
   return (
     <div className="space-y-2 group">
       <h1 className="group-focus-within:text-primary">{label}*</h1>
@@ -65,7 +64,7 @@ function RitualSelect({ label, options, onChange, name }: RitualSelectProps) {
   );
 }
 
-function RitualDescription({ label, name, value, onChange }: RitualDescriptionProps) {
+function RitualDescription({ label, value, onChange }: RitualDescriptionProps) {
   return (
     <div className="space-y-2 group h-[250px]">
       <h1 className="group-focus-within:text-primary">{label}</h1>
@@ -75,14 +74,7 @@ function RitualDescription({ label, name, value, onChange }: RitualDescriptionPr
 }
 
 export default function CreateRitual() {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm<CreateRitualsSchema>({
+  const { register, handleSubmit, setValue, watch, reset } = useForm<CreateRitualsSchema>({
     resolver: zodResolver(createRitualsSchema),
     defaultValues: {
       type: 'EFFECT',

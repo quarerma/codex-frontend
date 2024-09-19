@@ -1,4 +1,3 @@
-import { Character } from '../../../types/character';
 import { useCharacter } from '../character-page';
 
 interface AtributeTriangleProps {

@@ -1,5 +1,4 @@
 import { Trash2Icon } from 'lucide-react';
-import { Character } from '../../../types/character';
 import { User } from '../../../types/user';
 import { deleteCharacter } from '../../../api/fetch/character';
 import { useQueryClient } from '@tanstack/react-query';

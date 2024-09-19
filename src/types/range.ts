@@ -1,4 +1,3 @@
-type Range = 'MELEE' | 'SHORT' | 'MEDIUM' | 'LONG';
 export const weaponRange = [
   { value: 'MELEE', label: 'Corpo a corpo' },
   { value: 'SHORT', label: 'Curto' },

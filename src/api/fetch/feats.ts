@@ -51,6 +51,22 @@ export async function getNonCustomFeats(): Promise<Feat[]> {
   }
 }
 
+export async function getCampaignPossibleFeats(campaignID: string): Promise<Feat[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}feats/campaign-possible-feats/${campaignID}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Feat[];
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getClassFeats(): Promise<Feat[]> {
   try {
     const jwt = Cookies.get('jwt');

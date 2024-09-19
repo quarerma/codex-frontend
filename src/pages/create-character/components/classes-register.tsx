@@ -3,10 +3,9 @@ import { CreateComponentProps } from '../props/create-component';
 import { getClasses } from '../../../api/fetch/classes';
 import ClassPick, { ClassFocus } from './classes-picker';
 import { useCharacterCreation } from '../create-character';
-import { useEffect, useState } from 'react';
 import { Button } from '../../../components/ui/button';
 
-export default function ClassesRegister({ setValue, watch }: CreateComponentProps) {
+export default function ClassesRegister({ setValue }: CreateComponentProps) {
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
     queryFn: getClasses,

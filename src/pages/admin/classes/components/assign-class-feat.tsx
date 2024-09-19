@@ -2,7 +2,7 @@ import { z } from 'zod';
 import FeatCreation from '../../../../components/global/create-feat-simplified';
 import { Button } from '../../../../components/ui/button';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { createFeatSchema } from '../../../../schemas/create.feat';
 import { useForm } from 'react-hook-form';
@@ -89,7 +89,7 @@ export default function AssignClassFeat() {
 
       data.feat.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
 
-      const response = await assignFeat(data);
+      await assignFeat(data);
 
       setSelectedCharacterUpgrades([]);
 

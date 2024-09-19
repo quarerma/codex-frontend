@@ -17,7 +17,6 @@ import { ClassModel } from '../../types/class';
 import { Subclass } from '../../types/sublass';
 import FeatsRegister from './components/feats-register';
 import { Feat } from '../../types/feat';
-import RitualPicker from './components/rituals-picker';
 import RitualsRegister from './components/rituals-register';
 import { Ritual } from '../../types/ritual';
 import StarterInfoRegister from './components/starter-info-register';

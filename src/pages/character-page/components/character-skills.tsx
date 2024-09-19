@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Character } from '../../../types/character';
 import { Atributes } from '../../../types/character-upgrades';
 import { SkillCharacter, trainingLevels } from '../../../types/skills';
 import { FaDiceD20 } from 'react-icons/fa';

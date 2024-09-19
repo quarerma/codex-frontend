@@ -8,7 +8,7 @@ import { character_upgrades, CharacterUpgrade } from '../../../../types/characte
 import { Button } from '../../../../components/ui/button';
 import { elementValues } from '../../../../types/elements';
 import { quillModule } from '../../../../../lib/utils';
-import { createGeneralFeat } from '../../../../api/fetch/featst';
+import { createGeneralFeat } from '../../../../api/fetch/feats';
 
 import UpgradeList from '../../components/upgradeList';
 

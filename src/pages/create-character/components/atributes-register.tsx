@@ -4,7 +4,7 @@ import { Checkbox } from '../../../components/ui/checkbox';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import * as Dialog from '@radix-ui/react-dialog';
 
-export default function AtributesRegister({ register, setValue, watch }: CreateComponentProps) {
+export default function AtributesRegister({ setValue, watch }: CreateComponentProps) {
   const [useLevelCap, setUseLevelCap] = useState(true);
   const [points, setPoints] = useState(9);
   const [summary, setSummary] = useState(
