@@ -15,3 +15,15 @@ export const handType = [
   { value: 'ONE_HANDED', label: 'Uma mão' },
   { value: 'TWO_HANDED', label: 'Duas mãos' },
 ];
+
+export const itemType = [
+  { value: 'ACESSORY', label: 'Acessório' },
+  { value: 'WEAPON', label: 'Arma' },
+  { value: 'ARMOR', label: 'Armadura' },
+  { value: 'OPERATIONAL_EQUIPMENT', label: 'Equipamento Operacional' },
+  { value: 'PARANORMAL_EQUIPMENT', label: 'Equipamento Paranormal' },
+  { value: 'EXPLOSIVE', label: 'Explosivo' },
+  { value: 'CURSED_ITEM', label: 'Item Amaldiçoado' },
+  { value: 'AMMO', label: 'Munição' },
+  { value: 'DEFAULT', label: 'Padrão' },
+];

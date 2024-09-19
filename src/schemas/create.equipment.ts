@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-export const CreateEquimentSchema = z.object({
+export const createEquimentSchema = z.object({
   name: z.string(),
   description: z.string(),
-  weight: z.number(),
-  category: z.number(),
+  weight: z.coerce.number(),
+  category: z.coerce.number(),
   type: z.string(),
   is_custom: z.boolean().default(false),
-  num_of_uses: z.number().default(0),
+  num_of_uses: z.coerce.number().default(0),
   characterUpgrade: z
     .array(
       z.object({
@@ -20,8 +20,8 @@ export const CreateEquimentSchema = z.object({
 
   // Weapon
   damage: z.string().optional(),
-  critical_range: z.number().optional(),
-  critical_multiplier: z.number().optional(),
+  critical_range: z.coerce.number().optional(),
+  critical_multiplier: z.coerce.number().optional(),
   range: z.string().optional(),
   damage_type: z.string().optional(),
   weapon_type: z.string().optional(),
@@ -31,3 +31,5 @@ export const CreateEquimentSchema = z.object({
   // CursedItem
   element: z.string().optional().default(''),
 });
+
+export type CreateEquimentSchema = z.infer<typeof createEquimentSchema>;

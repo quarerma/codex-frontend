@@ -20,6 +20,7 @@ import CreateCharacter from './pages/create-character/create-character';
 import ManageRituals from './pages/admin/rituals/manage-rituals';
 import ManageConditions from './pages/admin/conditions/manage-conditions';
 import CharacterPage from './pages/character-page/character-page';
+import ManageEquipments from './pages/admin/equipment/manage-equipment';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -152,6 +153,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageConditions />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/admin/equipments',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageEquipments />
       </QueryClientProvider>
     ),
   },

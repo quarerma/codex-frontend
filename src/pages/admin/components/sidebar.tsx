@@ -54,7 +54,7 @@ export default function Sidebar() {
     },
     {
       name: 'Equipamentos',
-      url: '/admin/equipment',
+      url: '/admin/equipments',
       imageComponent: <GiWarAxe />,
     },
     {
