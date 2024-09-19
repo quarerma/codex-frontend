@@ -1,7 +1,9 @@
+import { CharacterUpgrade } from './character-upgrades';
+
 export const weaponType = [
   { value: 'MELEE', label: 'Corpo a corpo' },
-  { value: 'BOLT', label: 'Dardo' },
-  { value: 'BULLET', label: 'Bala' },
+  { value: 'BOLT', label: 'Disparo' },
+  { value: 'BULLET', label: 'Fogo' },
 ];
 
 export const weaponCategory = [
@@ -27,3 +29,29 @@ export const itemType = [
   { value: 'AMMO', label: 'Munição' },
   { value: 'DEFAULT', label: 'Padrão' },
 ];
+
+export type Equipment = {
+  id: number;
+  name: string;
+  description: string;
+  is_custom: boolean;
+  characterUpgrades: CharacterUpgrade[];
+  category: string;
+  slots: number;
+  type: string;
+  weight: number;
+  num_of_uses: number;
+  Weapon?: {
+    damage: number;
+    damage_type: string;
+    weapon_type: string;
+    weapon_category: string;
+    hand_type: string;
+    range: number;
+    critical_multiplier: number;
+    critical_range: number;
+  };
+  CusedItem?: {
+    element: string;
+  };
+};

@@ -11,6 +11,7 @@ import CharacterFeats from './components/feats/character-feat';
 import { createContext, useContext, useState } from 'react';
 import CharacterRituals from './components/rituals/character-rituals';
 import { Character } from '../../types/character';
+import CharacterInventory from './components/inventory/character-inventory';
 
 const CharacterContext = createContext<{
   character: Character;
@@ -53,7 +54,7 @@ export default function CharacterPage() {
       case 1:
         return <CharacterRituals />;
       case 2:
-        return null;
+        return <CharacterInventory />;
       case 3:
         return null;
       default:

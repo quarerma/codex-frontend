@@ -14,6 +14,7 @@ import { Button } from '../../../../components/ui/button';
 import { weaponRange } from '../../../../types/range';
 import { damageTypes } from '../../../../types/damage';
 import { elementValues } from '../../../../types/elements';
+import { createEquipment } from '../../../../api/fetch/equipment';
 
 export default function CreateEquip() {
   const { handleSubmit, register, setValue, watch, reset } = useForm<CreateEquimentSchema>({
@@ -62,7 +63,12 @@ export default function CreateEquip() {
     try {
       // API
       console.log(data);
+
+      const response = await createEquipment(data);
+
+      console.log(response);
       reset();
+      setSelectedCharacterUpgrades([]);
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +79,7 @@ export default function CreateEquip() {
       <h1 className="text-3xl font-bold">Criar novo Equipamento</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
         <div className="space-y-2 group">
-          <h1 className="group-focus-within:text-primary">Nome da Equipamento:</h1>
+          <h1 className="group-focus-within:text-primary">Nome do Equipamento:</h1>
           <Input type="text" placeholder="Preencha o nome do equipamento" className="ml-2" {...register('name')} />
         </div>
         <div className="space-y-2 group  h-[250px]">
@@ -86,12 +92,12 @@ export default function CreateEquip() {
           />
         </div>
         <div className="space-y-2 group">
-          <h1 className="group-focus-within:text-primary">Espaços no Invetário:</h1>
-          <Input type="text" placeholder="Preencha o número" className="ml-2" {...register('weight')} />
-        </div>
-        <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Categoria do Equipamento:</h1>
           <Input type="text" placeholder="Preencha como o número. Ex: 1" className="ml-2" {...register('category')} />
+        </div>
+        <div className="space-y-2 group">
+          <h1 className="group-focus-within:text-primary">Espaços no Invetário:</h1>
+          <Input type="text" placeholder="Preencha o número" className="ml-2" {...register('weight')} />
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Número de Usos:</h1>
@@ -152,8 +158,8 @@ export default function CreateEquip() {
               />
             </div>
             <div className="space-y-2 group">
-              <h1 className="group-focus-within:text-primary">Crítico da Arma:</h1>
-              <Input type="text" placeholder="Exemplo: 17" className="ml-2" {...register('critical_range')} />
+              <h1 className="group-focus-within:text-primary">Valor de Crítico da Arma:</h1>
+              <Input type="text" placeholder="Crítico natural é 20" className="ml-2" {...register('critical_range')} />
             </div>
             <div className="space-y-2 group">
               <h1 className="group-focus-within:text-primary">Multiplicador do Crítico:</h1>
@@ -234,7 +240,7 @@ export default function CreateEquip() {
         {watch('type') === 'CURSED_ITEM' && (
           <div className="space-y-2 group">
             <h1 className="group-focus-within:text-primary">Elemento:</h1>
-            <select className="p-2 border-2 bg-card border-border rounded ml-5" {...register('damage_type')}>
+            <select className="p-2 border-2 bg-card border-border rounded ml-5" {...register('element')}>
               <option value="" disabled>
                 Elementos
               </option>
