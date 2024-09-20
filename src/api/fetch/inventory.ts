@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Inventory } from '../../types/inventory';
+import { Inventory, InventorySlot } from '../../types/inventory';
 
 const API_URL = process.env.API_URL;
 
@@ -28,7 +28,7 @@ export async function addInventoryItem(characterId: string, itemId: number) {
       },
     });
 
-    return response;
+    return response.data as InventorySlot;
   } catch (error) {
     throw error;
   }

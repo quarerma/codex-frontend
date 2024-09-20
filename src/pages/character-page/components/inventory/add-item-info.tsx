@@ -5,10 +5,10 @@ import { IoMdArrowDropup } from 'react-icons/io';
 import { elementValues } from '../../../../types/elements';
 import { ritualRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
-import { Equipment, handType, weaponType } from '../../../../types/equipment';
+import { Equipment, handType, weaponCategory, weaponType } from '../../../../types/equipment';
 import { damageTypes } from '../../../../types/damage';
-import { getInventory } from '../../../../api/fetch/inventory';
-import { useQuery } from '@tanstack/react-query';
+import { addInventoryItem } from '../../../../api/fetch/inventory';
+import { useQueryClient } from '@tanstack/react-query';
 import { useCharacter } from '../../character-page';
 
 interface AddItemInfoProps {
@@ -19,10 +19,6 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
   const [expanded, setExpanded] = useState(false);
 
   const { character } = useCharacter();
-  const { data: inventory } = useQuery({
-    queryKey: ['inventory'],
-    queryFn: () => getInventory(character.id),
-  });
 
   const elements = elementValues;
   const range = ritualRange;
@@ -57,20 +53,25 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
     return handType[index].label;
   }
 
-  function handleAddEquipment() {
-    console.log('Adicionando equipamento');
+  function formatWeaponCategory(value: string) {
+    const index = weaponCategory.findIndex((damageType) => damageType.value === value);
 
-    inventory?.slots.push({
-      alterations: [],
-      category: equipment.category,
-      equipment: equipment,
-      id: equipment.id.toString(),
-      is_equipped: true,
-      local_name: equipment.name,
-      uses: equipment.num_of_uses,
-    });
+    return weaponCategory[index].label;
+  }
 
-    console.log(inventory);
+  const queryClient = useQueryClient();
+  async function handleAddEquipment() {
+    try {
+      const response = await addInventoryItem(character.id, equipment.id);
+
+      console.log(response);
+
+      queryClient.invalidateQueries({
+        queryKey: ['inventory', character.id],
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -79,7 +80,7 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
         className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
         onClick={() => setExpanded(!expanded)}
       >
-        <div className="flex flex-col">
+        <div className="flex ">
           <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{equipment.name}</h1>
         </div>
         <button className="lg:text-4xl text-3xl font-bold">
@@ -141,6 +142,8 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
       >
         {equipment.type === 'WEAPON' && (
           <div className="flex  text-white/40 text-base  items-center font-extralight">
+            <span>{formatWeaponCategory(equipment.Weapon?.weapon_category || '')}</span>
+            <div className="w-[10px] ml-2 mr-2  h-[1px] bg-white/40"></div>
             <span>{formatWeaponType(equipment.Weapon?.weapon_type || '')}</span>
             <div className="w-[10px] ml-2 mr-2  h-[1px] bg-white/40"></div>
             <span>{formatWeaponHandType(equipment.Weapon?.hand_type || '')}</span>

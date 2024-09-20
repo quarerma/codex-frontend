@@ -7,9 +7,9 @@ export const weaponType = [
 ];
 
 export const weaponCategory = [
-  { value: 'SIMPLE', label: 'Simples' },
-  { value: 'TATICAL', label: 'Tático' },
-  { value: 'HEAVY', label: 'Pesado' },
+  { value: 'SIMPLE', label: 'Arma Simples' },
+  { value: 'TATICAL', label: 'Arma Tática' },
+  { value: 'HEAVY', label: 'Arma Pesado' },
 ];
 
 export const handType = [

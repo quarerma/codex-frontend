@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCharacter } from '../../character-page';
 import { getInventory } from '../../../../api/fetch/inventory';
-import { credit } from '../../../../types/inventory';
+import { credit, InventorySlot } from '../../../../types/inventory';
 import { patent } from '../../../../types/patent';
 import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
 import AddItemModal from './add-item-modal';
+import ItemInfo from './item-info';
+import { useEffect, useState } from 'react';
 
 const formatPatent = (inventoryPatent: string) => {
   const index = patent.findIndex((patent) => patent.value === inventoryPatent);
@@ -24,6 +26,12 @@ export default function CharacterInventory() {
     queryFn: () => getInventory(character.id),
     enabled: !!character.id,
   });
+
+  const [filteredItems, setFilteredItems] = useState<InventorySlot[]>();
+
+  useEffect(() => {
+    setFilteredItems(inventory?.slots);
+  }, [inventory]);
 
   return (
     inventory && (
@@ -57,10 +65,9 @@ export default function CharacterInventory() {
         </div>
         {inventory.slots.length > 0 ? (
           <div className="flex flex-col space-y-1">
-            {inventory.slots.map((slot) => (
-              <div key={slot.id} className="flex justify-between items-center">
-                <span>{slot.equipment.name}</span>
-                <span>{slot.uses}</span>
+            {filteredItems?.map((slot) => (
+              <div key={slot.id}>
+                <ItemInfo equipment={slot.equipment} />
               </div>
             ))}
           </div>
