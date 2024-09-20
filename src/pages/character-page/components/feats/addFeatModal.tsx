@@ -109,13 +109,7 @@ export const AddFeatModal = () => {
     isSubclassFeatsLoading,
   ]);
   return (
-    <DialogContent
-      className="text-foreground  max-h-[80vh] w-1/3 h-[80vh] font-oswald overflow-y-auto flex flex-col space-y-5   border-primary"
-      style={{
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-      }}
-    >
+    <DialogContent className="text-foreground  max-h-[80vh] w-1/3 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
       <DialogHeader>
         <DialogTitle className="p-2  text-3xl">Adicionar Poder</DialogTitle>
       </DialogHeader>
@@ -147,7 +141,13 @@ export const AddFeatModal = () => {
           showCampaign={true}
         />
       </div>
-      <div className=" flex flex-col space-y-2">
+      <div
+        className=" flex flex-col space-y-2 overflow-auto"
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
         {filteredFeats.length > 0 ? (
           filteredFeats.map((feat) => <AddFeatInfo key={feat.id} feat={feat} />)
         ) : (

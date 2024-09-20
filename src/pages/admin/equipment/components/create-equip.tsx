@@ -62,11 +62,9 @@ export default function CreateEquip() {
   const onSubmit = async (data: CreateEquimentSchema) => {
     try {
       // API
-      console.log(data);
+      data.characterUpgrades = selectedCharacterUpgrades.map((p) => p.value);
 
-      const response = await createEquipment(data);
-
-      console.log(response);
+      await createEquipment(data);
       reset();
       setSelectedCharacterUpgrades([]);
     } catch (error) {

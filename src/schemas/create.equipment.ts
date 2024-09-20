@@ -8,7 +8,7 @@ export const createEquimentSchema = z.object({
   type: z.string(),
   is_custom: z.boolean().default(false),
   num_of_uses: z.coerce.number().default(0),
-  characterUpgrade: z
+  characterUpgrades: z
     .array(
       z.object({
         type: z.string(),

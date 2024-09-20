@@ -4,6 +4,7 @@ import { getInventory } from '../../../../api/fetch/inventory';
 import { credit } from '../../../../types/inventory';
 import { patent } from '../../../../types/patent';
 import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
+import AddItemModal from './add-item-modal';
 
 const formatPatent = (inventoryPatent: string) => {
   const index = patent.findIndex((patent) => patent.value === inventoryPatent);
@@ -51,6 +52,7 @@ export default function CharacterInventory() {
           </span>
           <Dialog>
             <DialogTrigger className="bg-primary text-primary-foreground p-1">+ Adicionar</DialogTrigger>
+            <AddItemModal />
           </Dialog>
         </div>
         {inventory.slots.length > 0 ? (

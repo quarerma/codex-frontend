@@ -2,8 +2,8 @@ import { CharacterUpgrade } from './character-upgrades';
 
 export const weaponType = [
   { value: 'MELEE', label: 'Corpo a corpo' },
-  { value: 'BOLT', label: 'Disparo' },
-  { value: 'BULLET', label: 'Fogo' },
+  { value: 'BOLT', label: 'Arma de Disparo' },
+  { value: 'BULLET', label: 'Arma de fogo' },
 ];
 
 export const weaponCategory = [
@@ -36,8 +36,8 @@ export type Equipment = {
   description: string;
   is_custom: boolean;
   characterUpgrades: CharacterUpgrade[];
-  category: string;
-  slots: number;
+  category: number;
+
   type: string;
   weight: number;
   num_of_uses: number;
@@ -47,11 +47,11 @@ export type Equipment = {
     weapon_type: string;
     weapon_category: string;
     hand_type: string;
-    range: number;
+    range: string;
     critical_multiplier: number;
     critical_range: number;
   };
-  CusedItem?: {
+  CursedItem?: {
     element: string;
   };
 };

@@ -43,15 +43,9 @@ export default function AddRitualsModal() {
     );
 
     setFilteredRituals(filtered);
-  }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals]);
+  }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals, setFilteredRituals]);
   return (
-    <DialogContent
-      className="text-foreground w-screen max-h-[80vh] h-[80vh] font-oswald overflow-y-auto flex flex-col space-y-5   border-primary"
-      style={{
-        msOverflowStyle: 'none',
-        scrollbarWidth: 'none',
-      }}
-    >
+    <DialogContent className="text-foreground w-1/3 max-h-[80vh] h-[80vh] font-oswald  flex flex-col space-y-5   border-primary">
       <DialogHeader>
         <DialogTitle>Adicionar Ritual</DialogTitle>
       </DialogHeader>
@@ -88,7 +82,13 @@ export default function AddRitualsModal() {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex flex-col space-y-1">
+      <div
+        className="flex flex-col space-y-1 max-h-full overflow-auto"
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
         {filteredRituals.map((ritual) => (
           <div key={ritual.id}>
             <AddRitualInfo ritual={ritual} />

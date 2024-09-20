@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { CreateEquimentSchema } from '../../schemas/create.equipment';
+import { Equipment } from '../../types/equipment';
 
 const API_URL = process.env.API_URL;
 export async function getPossibleCampaignEquipment(campaignId: string) {
@@ -12,7 +13,7 @@ export async function getPossibleCampaignEquipment(campaignId: string) {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    return response.data;
+    return response.data as Equipment[];
   } catch (error) {
     throw error;
   }

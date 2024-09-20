@@ -61,67 +61,75 @@ export default function CharacterPage() {
         return null;
     }
   };
+  if (!character || !user)
+    return (
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+        <NavBar />
+        <div className="flex justify-center items-center h-[70vh] space-x-5">
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+
+          <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
   return (
-    character &&
-    user && (
-      <CharacterContext.Provider
-        value={{
-          character: character,
-        }}
-      >
-        <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
-          <NavBar />
-          <div
-            className="flex flex-col text-foreground max-h-[92vh] overflow-y-auto ml-20 mr-20"
-            style={{
-              msOverflowStyle: 'none',
-              scrollbarWidth: 'none',
-            }}
-          >
-            <div className="items-center w-full space-x-32 text-2xl h-[5vh] flex">
-              <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Character Page</h1>
-              <h1 className="flex items-center gap-x-2 font-extralight">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-primary font-light">Origem:</span>
-                {character?.origin.name}
-              </h1>
-              <h1 className="flex items-center gap-x-2 font-extralight">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-primary font-light">Classe:</span>
-                {character?.class.name}
-              </h1>
-              <h1 className="flex items-center gap-x-2 font-extralight">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-primary font-light">Subclasse:</span>
-                {character?.subclass.name}
-              </h1>
-            </div>
-            <div className="mt-5 flex h-full  space-x-28 overflow-x-hidden">
-              <Status user={user} />
-              <CharacterAtributes />
-              <CharacterSkills />
-              <div className="flex flex-col ">
-                <div className="flex justify-between w-fit space-x-10">
-                  {navBar.map((item) => (
-                    <div key={item.value} className="flex flex-col items-center space-y-2">
-                      <h1
-                        onClick={() => setSelected(item.value)}
-                        className={`cursor-pointer text-2xl ${
-                          selected === item.value ? 'text-primary' : 'text-white/30'
-                        }`}
-                      >
-                        {item.name}
-                      </h1>
-                      <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>
-                    </div>
-                  ))}
-                </div>
-                <div className="max-w-[500px] mt-2">{getComponent(selected)}</div>
+    <CharacterContext.Provider
+      value={{
+        character: character,
+      }}
+    >
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+        <NavBar />
+        <div
+          className="flex flex-col text-foreground max-h-[92vh] overflow-y-auto ml-20 mr-20"
+          style={{
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
+          <div className="items-center w-full space-x-32 text-2xl h-[5vh] flex">
+            <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Character Page</h1>
+            <h1 className="flex items-center gap-x-2 font-extralight">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <span className="text-primary font-light">Origem:</span>
+              {character?.origin.name}
+            </h1>
+            <h1 className="flex items-center gap-x-2 font-extralight">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <span className="text-primary font-light">Classe:</span>
+              {character?.class.name}
+            </h1>
+            <h1 className="flex items-center gap-x-2 font-extralight">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <span className="text-primary font-light">Subclasse:</span>
+              {character?.subclass.name}
+            </h1>
+          </div>
+          <div className="mt-5 flex h-full  space-x-28 overflow-x-hidden">
+            <Status user={user} />
+            <CharacterAtributes />
+            <CharacterSkills />
+            <div className="flex flex-col ">
+              <div className="flex justify-between w-fit space-x-10">
+                {navBar.map((item) => (
+                  <div key={item.value} className="flex flex-col items-center space-y-2">
+                    <h1
+                      onClick={() => setSelected(item.value)}
+                      className={`cursor-pointer text-2xl ${
+                        selected === item.value ? 'text-primary' : 'text-white/30'
+                      }`}
+                    >
+                      {item.name}
+                    </h1>
+                    <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>
+                  </div>
+                ))}
               </div>
+              <div className="max-w-[500px] mt-2">{getComponent(selected)}</div>
             </div>
           </div>
         </div>
-      </CharacterContext.Provider>
-    )
+      </div>
+    </CharacterContext.Provider>
   );
 }
