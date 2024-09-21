@@ -81,14 +81,16 @@ export default function CharacterPage() {
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
         <div
-          className="flex flex-col text-foreground max-h-[92vh] overflow-y-auto ml-20 mr-20"
+          className="flex flex-col text-foreground 2xl:max-h-[92vh] xl:max-h-[87vh] overflow-y-auto 2xl:ml-20 2xl:mr-20 xl:ml-10 xl:mr-10 lg:ml-5 lg:mr-5 ml-2 mr-2"
           style={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
           }}
         >
-          <div className="items-center w-full space-x-32 text-2xl h-[5vh] flex">
-            <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Character Page</h1>
+          <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base  h-[5vh] flex">
+            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">
+              Character Page
+            </h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <span className="text-primary font-light">Origem:</span>
@@ -105,27 +107,37 @@ export default function CharacterPage() {
               {character?.subclass.name}
             </h1>
           </div>
-          <div className="mt-5 flex h-full  space-x-28 overflow-x-hidden">
-            <Status user={user} />
-            <CharacterAtributes />
-            <CharacterSkills />
-            <div className="flex flex-col ">
-              <div className="flex justify-between w-fit space-x-10">
-                {navBar.map((item) => (
-                  <div key={item.value} className="flex flex-col items-center space-y-2">
-                    <h1
-                      onClick={() => setSelected(item.value)}
-                      className={`cursor-pointer text-2xl ${
-                        selected === item.value ? 'text-primary' : 'text-white/30'
-                      }`}
-                    >
-                      {item.name}
-                    </h1>
-                    <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>
-                  </div>
-                ))}
+          <div
+            className="mt-5 lg:flex max-lg:flex-col max-lg:gap-y-20 h-full justify-between lg:space-x-20   overflow-x-hidden overflow-y-hidden"
+            style={{
+              msOverflowStyle: 'none',
+              scrollbarWidth: 'none',
+            }}
+          >
+            <div className="flex justify-between space-x-10">
+              <Status user={user} />
+              <CharacterAtributes />
+            </div>
+            <div className="flex justify-between spaxe-x-10 w-full">
+              <CharacterSkills />
+              <div className="flex flex-col ">
+                <div className="flex justify-between w-fit 2xl:space-x-10 xl:space-x-5">
+                  {navBar.map((item) => (
+                    <div key={item.value} className="flex flex-col items-center space-y-2">
+                      <h1
+                        onClick={() => setSelected(item.value)}
+                        className={`cursor-pointer text-2xl ${
+                          selected === item.value ? 'text-primary' : 'text-white/30'
+                        }`}
+                      >
+                        {item.name}
+                      </h1>
+                      <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>
+                    </div>
+                  ))}
+                </div>
+                <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px]  mt-2">{getComponent(selected)}</div>
               </div>
-              <div className="max-w-[500px] mt-2">{getComponent(selected)}</div>
             </div>
           </div>
         </div>

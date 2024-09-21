@@ -5,16 +5,17 @@ import { Link } from 'react-router-dom';
 import { getUserCharacter } from '../../api/fetch/character';
 import { useQuery } from '@tanstack/react-query';
 import CharacterPortrait from './components/character-portrait';
+import { Character } from '../../types/character';
 
 export default function ViewCharacters() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const { data: characters = [] } = useQuery({
+  const { data: characters } = useQuery({
     queryKey: ['characters'],
     queryFn: getUserCharacter,
   });
 
-  const [filteredCharacters, setFilteredCharacters] = useState(characters);
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
 
   useEffect(() => {
     if (characters) {
@@ -22,7 +23,7 @@ export default function ViewCharacters() {
         characters.filter((character) => character.name.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
-  }, [searchTerm]);
+  }, [searchTerm, characters]);
   return (
     <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
       <NavBar />

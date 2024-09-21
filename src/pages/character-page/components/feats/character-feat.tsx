@@ -92,6 +92,8 @@ export default function CharacterFeats() {
           >
             Paranormal
           </h1>
+        </div>
+        <div className="mb-2 flex justify-end">
           <Dialog>
             <DialogTrigger className="bg-primary text-primary-foreground p-1">+ Adicionar</DialogTrigger>
             <AddFeatModal />

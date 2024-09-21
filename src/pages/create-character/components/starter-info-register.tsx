@@ -7,7 +7,7 @@ export default function StarterInfoRegister({ register, watch }: CreateComponent
   const levels = Array.from({ length: 19 }, (_, i) => (i + 1) * 5).concat(99);
 
   return (
-    <div className="flex text-[32px] font-inter font-extralight flex-col justify-center items-center -mt-10 space-y-10">
+    <div className="flex text-[32px] -ml-32  font-inter font-extralight flex-col justify-center items-center -mt-10 space-y-10">
       <div className="flex flex-col justify-center items-center space-y-5">
         <h1>Nome</h1>
         <input

@@ -153,9 +153,9 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   };
 
   return (
-    <div className="flex -mt-10 justify-center">
+    <div className="flex flex-col md:flex-row -mt-10 max-h-[90vh] justify-center overflow-hidden">
       <div
-        className="w-[40%] text-2xl  font-light max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
+        className="w-full md:w-[40%] text-2xl font-light max-h-screen px-5 md:px-20 flex flex-col space-y-5 overflow-auto"
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
@@ -186,15 +186,15 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
           </div>
         </div>
       </div>
-      <div className="w-[2px] h-[55vh] bg-muted"></div>
+      <div className="hidden md:block w-[2px] h-[70vh] bg-muted"></div>
       <div
-        className="flex flex-col w-[60%] space-y-5"
+        className="w-full md:w-[60%] flex flex-col space-y-5 overflow-auto"
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
       >
-        <div className="flex flex-col space-x-4 px-20">
+        <div className="flex flex-col space-x-4 px-5 md:px-20">
           <div className="flex w-full">
             <div className="flex-col w-full border-b-2 border-border">
               <input
@@ -224,7 +224,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
         </div>
 
         <div
-          className="max-h-[60vh] px-20 flex flex-col space-y-5 overflow-auto"
+          className="max-h-[80vh] px-5 md:px-20 flex flex-col space-y-5 overflow-auto"
           style={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',

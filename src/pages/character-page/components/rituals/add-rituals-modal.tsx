@@ -45,7 +45,7 @@ export default function AddRitualsModal() {
     setFilteredRituals(filtered);
   }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals, setFilteredRituals]);
   return (
-    <DialogContent className="text-foreground w-1/3 max-h-[80vh] h-[80vh] font-oswald  flex flex-col space-y-5   border-primary">
+    <DialogContent className="text-foreground 2xl:w-1/3 xl:w-1/2 max-h-[80vh] h-[80vh] font-oswald  flex flex-col space-y-5   border-primary">
       <DialogHeader>
         <DialogTitle>Adicionar Ritual</DialogTitle>
       </DialogHeader>

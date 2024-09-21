@@ -33,9 +33,9 @@ export default function Status({ user }: StatusProps) {
   };
   return (
     <div className="flex flex-col w-fit items-start left-0 ">
-      <div className="flex flex-col pr-32 w-fit border-r border-primary">
+      <div className="flex flex-col 2xl:pr-32 xl:pr-12 md:pr-8 pr-4  w-fit border-r border-primary">
         <div className="flex items-center justify-center gap-x-5">
-          <div className="w-[80px] h-[80px] rounded-full bg-[#D9D9D9]/60"></div>
+          <div className="2xl:w-[80px] 2xl:h-[80px] xl:h-[60px] xl:w-[60px] rounded-full bg-[#D9D9D9]/60"></div>
           <span className="text-4xl font-medium">{character?.name}</span>
           {<Trash2Icon onClick={() => setOpenModal(!openModal)} className="w-6 h-6 text-red-700 cursor-pointer" />}
         </div>

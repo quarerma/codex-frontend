@@ -15,11 +15,11 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
       </div>
 
       {/* Linha inferior */}
-      <div className="w-[110%] h-[1px] bg-white"></div>
+      <div className="w-[100px] h-[1px] bg-white"></div>
 
       {/* Linha esquerda */}
       <div
-        className="w-[110%] h-[1px] bg-white"
+        className="w-[100px] h-[1px] bg-white"
         style={{
           transform: 'rotate(-60deg)',
           transformOrigin: 'left bottom',
@@ -28,7 +28,7 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
 
       {/* Linha direita */}
       <div
-        className="w-[110%] -mt-[1px] h-[1px] bg-white"
+        className="w-[100px] -mt-[1px] h-[1px] bg-white"
         style={{
           transform: 'rotate(60deg)',
           transformOrigin: 'right top',
@@ -42,7 +42,7 @@ export default function CharacterAtributes() {
   const { character } = useCharacter();
   return (
     <div
-      className="flex flex-col mt-5 space-y-10 pb-10  max-h-fit"
+      className="flex max-lg:flex-wrap lg:flex-col w-full mt-5 pb-10 max-h-fit  lg:space-y-2 lg:space-x-0 gap-x-4 gap-y-4 "
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',

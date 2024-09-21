@@ -102,14 +102,14 @@ export const AddFeatModal = () => {
     searchTerm,
     selectedFilter,
     selectedElement,
-    characterFeats, // Agora observando o `characterFeats` ao invés de `character.feats`
+    characterFeats,
     classFeats,
     isClassFeatsLoading,
     subclassFeats,
     isSubclassFeatsLoading,
   ]);
   return (
-    <DialogContent className="text-foreground  max-h-[80vh] w-1/3 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
+    <DialogContent className="text-foreground  max-h-[80vh] 2xl:w-1/3 xl:w-1/2 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
       <DialogHeader>
         <DialogTitle className="p-2  text-3xl">Adicionar Poder</DialogTitle>
       </DialogHeader>

@@ -94,12 +94,19 @@ export default function OriginRegister({ setValue }: CreateComponentProps) {
           </div>
           <FaSearch className="text-2xl" />
         </div>
-
-        {filteredOrigins.map((origin, index) => (
-          <div key={index} className="w-full">
-            <OriginPick setValue={setValue} origin={origin} />
-          </div>
-        ))}
+        <div
+          className="max-h-screen  flex flex-col space-y-5 overflow-auto"
+          style={{
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
+          {filteredOrigins.map((origin, index) => (
+            <div key={index} className="w-full">
+              <OriginPick setValue={setValue} origin={origin} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
