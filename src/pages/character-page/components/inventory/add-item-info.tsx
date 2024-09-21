@@ -3,12 +3,11 @@ import { useState } from 'react';
 import { IoMdArrowDropup } from 'react-icons/io';
 
 import { elementValues } from '../../../../types/elements';
-import { ritualRange } from '../../../../types/range';
+import { weaponRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
 import { Equipment, handType, weaponCategory, weaponType } from '../../../../types/equipment';
 import { damageTypes } from '../../../../types/damage';
 import { addInventoryItem } from '../../../../api/fetch/inventory';
-import { useQueryClient } from '@tanstack/react-query';
 import { useCharacter } from '../../character-page';
 
 interface AddItemInfoProps {
@@ -21,7 +20,7 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
   const { character } = useCharacter();
 
   const elements = elementValues;
-  const range = ritualRange;
+  const range = weaponRange;
 
   function formatElement(value: string) {
     const index = elements.findIndex((element) => element.value === value);
@@ -59,16 +58,11 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
     return weaponCategory[index].label;
   }
 
-  const queryClient = useQueryClient();
   async function handleAddEquipment() {
     try {
       const response = await addInventoryItem(character.id, equipment.id);
 
       console.log(response);
-
-      queryClient.invalidateQueries({
-        queryKey: ['inventory', character.id],
-      });
     } catch (error) {
       console.log(error);
     }

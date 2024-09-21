@@ -3,21 +3,24 @@ import { useState } from 'react';
 import { IoMdArrowDropup } from 'react-icons/io';
 
 import { elementValues } from '../../../../types/elements';
-import { ritualRange } from '../../../../types/range';
+import { ritualRange, weaponRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
-import { Equipment, handType, weaponType } from '../../../../types/equipment';
+import { handType, weaponType } from '../../../../types/equipment';
 import { damageTypes } from '../../../../types/damage';
+import { removeIventoryItem } from '../../../../api/fetch/inventory';
+import { useCharacter } from '../../character-page';
+import { Inventory, InventorySlot } from '../../../../types/inventory';
 
 interface AddItemInfoProps {
-  equipment: Equipment;
+  slot: InventorySlot;
+  onRemoveItem: (slotId: string) => void;
 }
 
-export default function ItemInfo({ equipment }: AddItemInfoProps) {
-  console.log(equipment);
+export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
   const [expanded, setExpanded] = useState(false);
 
   const elements = elementValues;
-  const range = ritualRange;
+  const range = weaponRange;
 
   function formatElement(value: string) {
     const index = elements.findIndex((element) => element.value === value);
@@ -49,21 +52,31 @@ export default function ItemInfo({ equipment }: AddItemInfoProps) {
     return handType[index].label;
   }
 
+  const { character } = useCharacter();
+  async function handleRemoveItem() {
+    try {
+      await removeIventoryItem(slot.id, character.id);
+      onRemoveItem(slot.id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
       <div
         className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
         onClick={() => setExpanded(!expanded)}
       >
-        <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{equipment.name}</h1>
+        <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{slot.equipment.name}</h1>
 
         <div className="flex items-center space-x-2">
           <span>
             <span className="text-primary/50">Categoria: </span>
-            {equipment.category}
+            {slot.equipment.category}
           </span>
           <span>
-            <span className="text-primary/50">Espaços:</span> {equipment.weight}
+            <span className="text-primary/50">Espaços:</span> {slot.equipment.weight}
           </span>
           <button className="lg:text-4xl text-3xl font-bold">
             {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
@@ -77,56 +90,57 @@ export default function ItemInfo({ equipment }: AddItemInfoProps) {
         }`}
       >
         <div className="flex  cursor-pointer   items-center text-sm justify-start space-x-5">
-          {equipment.type === 'WEAPON' && (
+          {slot.equipment.type === 'WEAPON' && (
             <>
               <span>
-                <span className="text-primary/50">Dano:</span> {equipment.Weapon?.damage}
+                <span className="text-primary/50">Dano:</span> {slot.equipment.Weapon?.damage}
               </span>
               <span>
                 <span className="text-primary/50">Crítico:</span> {''}
-                {equipment.Weapon?.critical_range === 20 ? '' : equipment.Weapon?.critical_range + '/'}x
-                {equipment.Weapon?.critical_multiplier}
+                {slot.equipment.Weapon?.critical_range === 20 ? '' : slot.equipment.Weapon?.critical_range + '/'}x
+                {slot.equipment.Weapon?.critical_multiplier}
               </span>
               <span>
-                <span className="text-primary/50">Alcance:</span> {formatRange(equipment.Weapon?.range || '')}
+                <span className="text-primary/50">Alcance:</span> {formatRange(slot.equipment.Weapon?.range || '')}
               </span>
               <span>
                 <span className="text-primary/50">Tipo de Dano:</span>{' '}
-                {formatWeaponDamageType(equipment.Weapon?.damage_type || '')}
+                {formatWeaponDamageType(slot.equipment.Weapon?.damage_type || '')}
               </span>
             </>
           )}
-          {equipment.type === 'ARMOR' && (
+          {slot.equipment.type === 'ARMOR' && (
             <>
               <span>
                 <span className="text-primary/50">Defesa:</span> +
-                {equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
+                {slot.equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
               </span>
             </>
           )}
-          {equipment.type === 'CURSED_ITEM' && (
+          {slot.equipment.type === 'CURSED_ITEM' && (
             <>
               <span>
                 {' '}
-                <span className="text-primary/50">Elemento:</span> {formatElement(equipment.CursedItem?.element || '')}
+                <span className="text-primary/50">Elemento:</span>{' '}
+                {formatElement(slot.equipment.CursedItem?.element || '')}
               </span>
             </>
           )}
         </div>
-        {equipment.type === 'WEAPON' && (
+        {slot.equipment.type === 'WEAPON' && (
           <div className="flex  text-white/40 text-base  items-center font-extralight">
-            <span>{formatWeaponType(equipment.Weapon?.weapon_type || '')}</span>
+            <span>{formatWeaponType(slot.equipment.Weapon?.weapon_type || '')}</span>
             <div className="w-[10px] ml-2 mr-2  h-[1px] bg-white/40"></div>
-            <span>{formatWeaponHandType(equipment.Weapon?.hand_type || '')}</span>
+            <span>{formatWeaponHandType(slot.equipment.Weapon?.hand_type || '')}</span>
           </div>
         )}
 
-        <p dangerouslySetInnerHTML={{ __html: equipment.description }}></p>
+        <p dangerouslySetInnerHTML={{ __html: slot.equipment.description }}></p>
         <div className="flex items-center text-sm justify-between pt-5">
           <Button variant={'link'} className="text-primary font-inter">
             Editar Item
           </Button>
-          <Button variant={'link'} className="text-red-700 font-inter">
+          <Button onClick={handleRemoveItem} variant={'link'} className="text-red-700 font-inter">
             Remover Item
           </Button>
         </div>

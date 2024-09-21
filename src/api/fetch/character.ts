@@ -63,3 +63,18 @@ export async function createCharacter(data: CreateCharacterSchema) {
     throw error;
   }
 }
+
+export async function updateCurrentStat(characterId: string, value: number, stat: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.patch(`${API_URL}character/update-stat/${characterId}/${stat}/${value}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -8,6 +8,8 @@ import { getElementColor } from '../../../admin/feats/components/create-feats';
 import { ritualRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
 import { useCharacterRituals } from './character-rituals';
+import { useCharacter } from '../../character-page';
+import { assignCharacterRitual } from '../../../../api/fetch/character.rituals';
 
 interface RitualInfoProps {
   ritual: Ritual;
@@ -35,13 +37,17 @@ export default function AddRitualInfo({ ritual }: RitualInfoProps) {
 
   const elementColor = getElementColor(ritual.element || '');
 
-  function handleAddRitual() {
-    console.log('Adicionando ritual');
-    console.log(ritual);
+  const { character } = useCharacter();
 
-    const newRituals = [...characterRituals, { ritual, ritual_cost: ritual.normalCost }];
+  async function handleAddRitual() {
+    try {
+      await assignCharacterRitual(character.id, ritual.id);
+      const newRituals = [...characterRituals, { ritual, ritual_cost: ritual.normalCost }];
 
-    setCharacterRituals(newRituals);
+      setCharacterRituals(newRituals);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

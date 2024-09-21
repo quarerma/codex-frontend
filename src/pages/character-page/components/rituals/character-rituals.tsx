@@ -53,7 +53,7 @@ export default function CharacterRituals() {
   return (
     <CharacterRitualsContext.Provider value={{ characterRituals, setCharacterRituals }}>
       <div
-        className="overflow-y-auto   max-h-[75vh] "
+        className="overflow-y-auto   max-h-[70vh] "
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',

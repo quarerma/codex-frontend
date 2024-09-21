@@ -30,8 +30,14 @@ export default function CharacterInventory() {
   const [filteredItems, setFilteredItems] = useState<InventorySlot[]>();
 
   useEffect(() => {
-    setFilteredItems(inventory?.slots);
-  }, [inventory]);
+    if (!filteredItems && inventory?.slots) {
+      setFilteredItems(inventory.slots);
+    }
+  }, [inventory, filteredItems]);
+
+  const handleRemoveItem = (slotId: string) => {
+    setFilteredItems((prevItems) => prevItems?.filter((slot) => slot.id !== slotId));
+  };
 
   return (
     inventory && (
@@ -67,7 +73,7 @@ export default function CharacterInventory() {
           <div className="flex flex-col space-y-1">
             {filteredItems?.map((slot) => (
               <div key={slot.id}>
-                <ItemInfo equipment={slot.equipment} />
+                <ItemInfo slot={slot} onRemoveItem={handleRemoveItem} />
               </div>
             ))}
           </div>

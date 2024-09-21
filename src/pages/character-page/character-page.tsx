@@ -3,7 +3,7 @@ import { getCharacter } from '../../api/fetch/character';
 import NavBar from '../../components/global/navbar';
 import { useParams } from 'react-router-dom';
 import { getUserById } from '../../api/fetch/user';
-import Status from './components/status';
+import Status from './components/stats/status';
 import CharacterAtributes from './components/atributes';
 
 import CharacterSkills from './components/character-skills';
@@ -12,6 +12,7 @@ import { createContext, useContext, useState } from 'react';
 import CharacterRituals from './components/rituals/character-rituals';
 import { Character } from '../../types/character';
 import CharacterInventory from './components/inventory/character-inventory';
+import CharacterAttacks from './components/attacks/character-attacks';
 
 const CharacterContext = createContext<{
   character: Character;
@@ -56,7 +57,7 @@ export default function CharacterPage() {
       case 2:
         return <CharacterInventory />;
       case 3:
-        return null;
+        return <CharacterAttacks />;
       default:
         return null;
     }
@@ -90,6 +91,11 @@ export default function CharacterPage() {
           <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base  h-[5vh] flex">
             <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">
               Character Page
+            </h1>
+            <h1 className="flex items-center gap-x-2 font-extralight">
+              <div className="w-2 h-2 rounded-full bg-primary"></div>
+              <span className="text-primary font-light">Campanha:</span>
+              {character?.campaign.name}
             </h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>

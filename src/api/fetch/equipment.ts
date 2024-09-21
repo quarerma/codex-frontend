@@ -13,6 +13,8 @@ export async function getPossibleCampaignEquipment(campaignId: string) {
         Authorization: `Bearer ${jwt}`,
       },
     });
+
+    console.log(response.data);
     return response.data as Equipment[];
   } catch (error) {
     throw error;

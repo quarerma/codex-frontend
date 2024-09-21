@@ -33,3 +33,18 @@ export async function addInventoryItem(characterId: string, itemId: number) {
     throw error;
   }
 }
+
+export async function removeIventoryItem(slotId: string, characterId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.patch(`${API_URL}inventory/remove-item/${characterId}/${slotId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as InventorySlot;
+  } catch (error) {
+    throw error;
+  }
+}

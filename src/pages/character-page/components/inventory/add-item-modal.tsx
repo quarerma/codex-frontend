@@ -14,45 +14,48 @@ import {
 import { useCharacter } from '../../character-page';
 import AddItemInfo from './add-item-info';
 import { useEffect, useState } from 'react';
-import { itemType } from '../../../../types/equipment';
+import { Equipment, itemType } from '../../../../types/equipment';
 import { FaSearch } from 'react-icons/fa';
 
 export default function AddItemModal() {
   const { character } = useCharacter();
   const { data: equipment = [] } = useQuery({
-    queryKey: ['equipment', character.campaignId],
-    queryFn: () => getPossibleCampaignEquipment(character.campaignId),
+    queryKey: ['equipment', character.campaign.id],
+    queryFn: () => getPossibleCampaignEquipment(character.campaign.id),
   });
 
+  // Initialize filteredEquipment with the equipment data to avoid unnecessary renders
+  const [filteredEquipment, setFilteredEquipment] = useState<Equipment[]>(equipment);
   const [selectedType, setSelectedType] = useState<string>('all');
-  const [filteredEquipment, setFilteredEquipment] = useState(equipment);
   const [itemSource, setItemSource] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  // useEffect to handle filtering logic
   useEffect(() => {
     let filtered = equipment;
 
-    switch (itemSource) {
-      case 'all':
-        filtered = equipment;
-        break;
-      case 'book':
-        filtered = equipment.filter((item) => item.is_custom === false);
-        break;
-      case 'campaign':
-        filtered = equipment.filter((item) => item.is_custom === true);
-        break;
-      default:
-        break;
+    // Filter by itemSource (all, book, campaign)
+    if (itemSource === 'book') {
+      filtered = filtered.filter((item) => !item.is_custom);
+    } else if (itemSource === 'campaign') {
+      filtered = filtered.filter((item) => item.is_custom);
     }
 
-    filtered = filtered.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
-    if (selectedType === 'all') {
-      setFilteredEquipment(filtered);
-    } else {
-      setFilteredEquipment(filtered.filter((item) => item.type === selectedType));
+    // Filter by searchTerm (case-insensitive search)
+    if (searchTerm) {
+      filtered = filtered.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
-  }, [equipment, selectedType, itemSource, searchTerm]);
+
+    // Filter by selectedType (all or specific type)
+    if (selectedType !== 'all') {
+      filtered = filtered.filter((item) => item.type === selectedType);
+    }
+
+    // Update the filtered equipment state only if needed
+    if (JSON.stringify(filtered) !== JSON.stringify(filteredEquipment)) {
+      setFilteredEquipment(filtered);
+    }
+  }, [equipment, selectedType, itemSource, searchTerm, filteredEquipment]);
 
   return (
     <DialogContent className="text-foreground  max-h-[80vh] h-[80vh] w-1/2 font-oswald flex flex-col space-y-2   border-primary">

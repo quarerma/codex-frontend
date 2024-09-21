@@ -7,6 +7,8 @@ import { elementValues } from '../../../../types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
 import { ritualRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
+import { useCharacter } from '../../character-page';
+import { removeCharacterRitual } from '../../../../api/fetch/character.rituals';
 
 interface RitualInfoProps {
   ritual: Ritual;
@@ -54,6 +56,16 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
     console.log(result);
     return result;
   };
+
+  const { character } = useCharacter();
+
+  async function handleRemoveRitual() {
+    try {
+      await removeCharacterRitual(character.id, ritual.id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
@@ -113,7 +125,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
 
       <div
         className={`lg:text-2xl md:text-lg text-base  tracking-wide font-normal flex flex-col space-y-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
-          expanded ? 'max-h-screen  mb-6 ' : 'max-h-0 h-0'
+          expanded ? '  mb-6 ' : 'max-h-0 h-0'
         }`}
       >
         <div className="font-extralight text-lg ">
@@ -157,18 +169,18 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
           <div>
             <h3 className=" text-xl text-center">Condições:</h3>
             {ritual.conditions.map((condition) => (
-              <p key={condition.condition.id} className="text-lg ">
+              <span key={condition.condition.id} className="text-lg ">
                 <span className="underline">{condition.condition.name}:</span>
                 <p
                   className="font-extralight text-base"
                   dangerouslySetInnerHTML={{ __html: condition.condition.description }}
                 ></p>
-              </p>
+              </span>
             ))}
           </div>
         )}
         <div className="flex justify-end">
-          <Button variant={'link'} className="text-red-500">
+          <Button onClick={handleRemoveRitual} variant={'link'} className="text-red-500">
             Remover Ritual
           </Button>
         </div>

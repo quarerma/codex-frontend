@@ -6,6 +6,9 @@ import { useState } from 'react';
 import { elementValues } from '../../../../types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
 import { Button } from '../../../../components/ui/button';
+import { useCharacter } from '../../character-page';
+import { removeCharacterFeat, unUseFeatAffinity, useFeatAffinity } from '../../../../api/fetch/character.feats';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface FeatInfoProps {
   feat: Feat;
@@ -24,6 +27,42 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
   }
 
   const elementColor = getElementColor(feat.element || '');
+
+  const { character } = useCharacter();
+  const queryClient = useQueryClient();
+
+  async function handleRemoveFeat() {
+    try {
+      await removeCharacterFeat(character.id, feat.id);
+      queryClient.invalidateQueries({
+        queryKey: ['character', character.id],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleUseAfinity() {
+    try {
+      await useFeatAffinity(character.id, feat.id);
+      queryClient.invalidateQueries({
+        queryKey: ['character', character.id],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleUnUseAfinity() {
+    try {
+      await unUseFeatAffinity(character.id, feat.id);
+      queryClient.invalidateQueries({
+        queryKey: ['character', character.id],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <div className={`flex h-fit flex-col border-[3px] border-border  `}>
       <div
@@ -67,19 +106,19 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
         <div className="flex items-center justify-end pt-5">
           {feat.afinity && !usingAfinity && (
             <div className="flex w-full justify-start  ">
-              <Button className="w-fit" onClick={() => {}}>
+              <Button className="w-fit" onClick={handleUseAfinity}>
                 Usar Afinidade
               </Button>
             </div>
           )}
           {feat.afinity && usingAfinity && (
             <div className="flex w-full justify-start   ">
-              <Button className="w-fit" onClick={() => {}}>
+              <Button className="w-fit" onClick={handleUnUseAfinity}>
                 Parar de usar Afinidade
               </Button>
             </div>
           )}
-          <Button variant={'link'} className="text-red-600 font-inter">
+          <Button onClick={handleRemoveFeat} variant={'link'} className="text-red-600 font-inter">
             Excluir Poder
           </Button>
         </div>

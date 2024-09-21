@@ -20,8 +20,8 @@ import { useCharacter } from '../../character-page';
 export const AddFeatModal = () => {
   const { character } = useCharacter();
   const { data: all_feats = [] } = useQuery({
-    queryKey: ['feats'],
-    queryFn: () => getCampaignPossibleFeats(character.campaignId),
+    queryKey: ['feats', character.campaign.id],
+    queryFn: () => getCampaignPossibleFeats(character.campaign.id),
   });
 
   const { data: classes = [] } = useQuery({
@@ -35,7 +35,7 @@ export const AddFeatModal = () => {
   });
 
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredFeats, setFilteredFeats] = useState<Feat[]>(all_feats);
+  const [filteredFeats, setFilteredFeats] = useState<Feat[]>([]);
   const [selectedElement, setSelectedElement] = useState<string>('all');
   const [selectedFilter, setSelectedFilter] = useState<'class' | 'all' | 'element' | 'subclass' | 'campaign'>('all');
   const [selectedClassFilter, setSelectedClass] = useState<string>('all');
@@ -60,7 +60,6 @@ export const AddFeatModal = () => {
   useEffect(() => {
     let feats = all_feats;
 
-    console.log('Adicionou feat');
     if (searchTerm) {
       feats = feats.filter((feat) => feat.name.toLowerCase().includes(searchTerm.toLowerCase()));
     }
@@ -95,8 +94,15 @@ export const AddFeatModal = () => {
     }
 
     // Remove feats that the character already has
-    feats = feats.filter((feat) => !characterFeats.some((charFeat) => charFeat.feat.id === feat.id));
-    setFilteredFeats(feats);
+    const filteredFeats = feats.filter((feat) => !characterFeats.some((charFeat) => charFeat.feat.id === feat.id));
+
+    // Only update the state if the filtered feats are actually different to avoid re-render loops
+    setFilteredFeats((prevFilteredFeats) => {
+      if (JSON.stringify(prevFilteredFeats) !== JSON.stringify(filteredFeats)) {
+        return filteredFeats;
+      }
+      return prevFilteredFeats;
+    });
   }, [
     all_feats,
     searchTerm,
@@ -108,6 +114,7 @@ export const AddFeatModal = () => {
     subclassFeats,
     isSubclassFeatsLoading,
   ]);
+
   return (
     <DialogContent className="text-foreground  max-h-[80vh] 2xl:w-1/3 xl:w-1/2 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
       <DialogHeader>

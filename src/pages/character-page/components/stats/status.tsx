@@ -1,10 +1,11 @@
 import { Trash2Icon } from 'lucide-react';
-import { User } from '../../../types/user';
-import { deleteCharacter } from '../../../api/fetch/character';
+import { User } from '../../../../types/user';
+import { deleteCharacter } from '../../../../api/fetch/character';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useCharacter } from '../character-page';
+import { useCharacter } from '../../character-page';
+import StatsInfo from './stats-info';
 interface StatusProps {
   user: User;
 }
@@ -31,6 +32,7 @@ export default function Status({ user }: StatusProps) {
       console.error(error);
     }
   };
+
   return (
     <div className="flex flex-col w-fit items-start left-0 ">
       <div className="flex flex-col 2xl:pr-32 xl:pr-12 md:pr-8 pr-4  w-fit border-r border-primary">
@@ -43,20 +45,14 @@ export default function Status({ user }: StatusProps) {
           Criado por: {character?.owner.id !== user?.id ? 'Você' : `${character?.owner.username}`}{' '}
         </h1>
       </div>
-      <div className="mt-20 text-4xl flex flex-col space-y-10">
-        <div className="flex space-x-10">
-          <div className="flex flex-col items-center space-y-2 justify-center">
-            <h1 className="font-normal text-primary">HP</h1>
-            <div className="text-3xl font-light flex items-center gap-x-2">
-              {character?.current_health} <span className="font-extrabold text-4xl ">/</span> {character?.max_health}
-            </div>
-          </div>
-          <div className="flex flex-col items-center space-y-2 justify-center">
-            <h1 className="font-normal text-primary">PE</h1>
-            <div className="text-3xl font-light  flex items-center gap-x-2">
-              {character?.current_effort} <span className="font-extrabold text-4xl ">/</span> {character?.max_effort}
-            </div>
-          </div>
+      <div className="mt-20 text-3xl flex flex-col space-y-5">
+        <StatsInfo current_value={character?.current_health} max_value={character?.max_health} type="HP" />
+        <StatsInfo current_value={character?.current_effort} max_value={character?.max_effort} type="PE" />
+        <StatsInfo current_value={character?.current_sanity} max_value={character?.max_sanity} type="SAN" />
+        <div className="text-xl flex flex-col">
+          <span className="text-2xl">NEX: {character.level * 5}%</span>
+          <span>Deslocamento: {character?.speed}</span>
+          <span>Defesa: {character?.defense}</span>
         </div>
       </div>
       {openModal && (

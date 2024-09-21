@@ -5,6 +5,8 @@ import { getElementColor } from '../../../admin/feats/components/create-feats';
 import { IoMdArrowDropup } from 'react-icons/io';
 import { Button } from '../../../../components/ui/button';
 import { useCharacterFeats } from './character-feat';
+import { assignCharacterFeat } from '../../../../api/fetch/character.feats';
+import { useCharacter } from '../../character-page';
 
 interface AddFeatProps {
   feat: Feat;
@@ -22,13 +24,17 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
     return elements[index].label;
   }
 
-  function handleAddFeat() {
-    console.log('Adicionando poder');
-    console.log(feat);
+  const { character } = useCharacter();
+  async function handleAddFeat() {
+    try {
+      const newFeats = [...characterFeats, { feat, usingAfinity: false }];
 
-    const newFeats = [...characterFeats, { feat, usingAfinity: false }];
+      setCharacterFeats(newFeats);
 
-    setCharacterFeats(newFeats);
+      await assignCharacterFeat(character.id, feat.id);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const elementColor = getElementColor(feat.element || '');

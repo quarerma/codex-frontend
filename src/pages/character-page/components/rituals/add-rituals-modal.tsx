@@ -31,19 +31,27 @@ export default function AddRitualsModal() {
     let filtered = rituals;
 
     if (selectedElementToFilter !== 'all') {
-      filtered = rituals.filter((ritual) => ritual.element === selectedElementToFilter);
-
-      if (selectedLevelToFilter !== '0') {
-        filtered = rituals.filter((ritual) => ritual.ritualLevel === Number(selectedLevelToFilter));
-      }
+      filtered = filtered.filter((ritual) => ritual.element === selectedElementToFilter);
     }
-    // remove os rituais que já estão na lista
+
+    if (selectedLevelToFilter !== '0') {
+      filtered = filtered.filter((ritual) => ritual.ritualLevel === Number(selectedLevelToFilter));
+    }
+
+    // Remove the rituals that are already in the character's list
     filtered = filtered.filter(
       (ritual) => !characterRituals.find((characterRitual) => characterRitual.ritual.id === ritual.id)
     );
 
-    setFilteredRituals(filtered);
-  }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals, setFilteredRituals]);
+    // Only update the state if the filtered rituals have changed
+    setFilteredRituals((prevFilteredRituals) => {
+      if (JSON.stringify(prevFilteredRituals) !== JSON.stringify(filtered)) {
+        return filtered;
+      }
+      return prevFilteredRituals;
+    });
+  }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals]);
+
   return (
     <DialogContent className="text-foreground 2xl:w-1/3 xl:w-1/2 max-h-[80vh] h-[80vh] font-oswald  flex flex-col space-y-5   border-primary">
       <DialogHeader>
