@@ -93,7 +93,12 @@ export default function AssignClassFeat() {
 
       setSelectedCharacterUpgrades([]);
 
-      reset();
+      reset({
+        feat: {
+          name: '',
+        },
+        isInitialLevel: true,
+      });
     } catch (error) {
       console.error(error);
     }

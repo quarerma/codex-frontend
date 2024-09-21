@@ -22,7 +22,7 @@ export default function ViewCharacters() {
         characters.filter((character) => character.name.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
-  }, [searchTerm, characters]);
+  }, [searchTerm]);
   return (
     <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
       <NavBar />

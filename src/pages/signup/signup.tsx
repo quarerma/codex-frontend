@@ -29,6 +29,8 @@ export default function SignUpPage() {
       setLoading(true);
 
       await signUp(data);
+      reset();
+      navigate('/login');
     } catch (error) {
       let message = 'An error occurred. Please try again later.';
       if (axios.isAxiosError(error)) {
@@ -39,8 +41,6 @@ export default function SignUpPage() {
       setError(message);
     }
     setLoading(false);
-    reset();
-    navigate('/login');
   };
 
   return (

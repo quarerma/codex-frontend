@@ -89,7 +89,13 @@ export default function AssignFeatSubclass() {
       await assignFeat(data);
       setSelectedCharacterUpgrades([]);
 
-      reset();
+      reset({
+        feat: {
+          name: '',
+          description: '',
+        },
+        levelRequired: undefined,
+      });
       refetch();
     } catch (error) {
       console.error(error);

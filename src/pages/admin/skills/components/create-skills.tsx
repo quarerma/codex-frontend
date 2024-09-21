@@ -47,8 +47,8 @@ export default function CreateSkills() {
   };
 
   return (
-    <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full text-foreground rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar nova perícia</h1>
+    <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
+      <h1 className="text-3xl font-bold">Criar nova Perícia</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
         <div className="space-y-2 group">
@@ -76,16 +76,13 @@ export default function CreateSkills() {
             ))}
           </select>
         </div>
+
         <div className="flex ml-5 items-center space-x-2">
-          <Checkbox
-            className="h-[18px] w-[18px]"
-            onCheckedChange={(checked) => setValue('needs_kit', Boolean(checked))}
-          />
+          <Checkbox onCheckedChange={(checked) => setValue('needs_kit', Boolean(checked))} />
           <h1>Precisa de kit</h1>
         </div>
-        <div className="flex ml-5 items-center space-x-2">
+        <div className="flex ml-5  items-center space-x-2">
           <Checkbox
-            className="h-[18px] w-[18px]"
             {...register('carry_peanalty')}
             onCheckedChange={(checked) => setValue('carry_peanalty', Boolean(checked))}
           />
@@ -93,17 +90,13 @@ export default function CreateSkills() {
         </div>
         <div className="flex ml-5 items-center space-x-2">
           <Checkbox
-            className="h-[18px] w-[18px]"
             {...register('only_trained')}
             onCheckedChange={(checked) => setValue('only_trained', Boolean(checked))}
           />
           <h1>Apenas treinado</h1>
         </div>
         <div className="flex ml-5 items-center space-x-2">
-          <Checkbox
-            className="h-[18px] w-[18px]"
-            onCheckedChange={(checked) => setValue('is_custom', Boolean(checked))}
-          />
+          <Checkbox onCheckedChange={(checked) => setValue('is_custom', Boolean(checked))} />
           <h1>Customizada</h1>
         </div>
 

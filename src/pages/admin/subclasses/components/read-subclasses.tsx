@@ -53,7 +53,7 @@ export default function ReadSubClasses() {
 
         <Input
           type="text"
-          placeholder="Buscar por nome da perícia"
+          placeholder="Buscar por nome da subclasse"
           className="p-2 border-2 bg-card border-border rounded  w-full"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

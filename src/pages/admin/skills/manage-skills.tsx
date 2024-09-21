@@ -52,8 +52,8 @@ export default function ManageSkills() {
             Visualizar Perícias
           </Button>
         </div>
-        {activeComponent === 'read' && <ReadSkills />}
         {activeComponent === 'create' && <CreateSkills />}
+        {activeComponent === 'read' && <ReadSkills />}
       </div>
     </AdminPageSetup>
   );

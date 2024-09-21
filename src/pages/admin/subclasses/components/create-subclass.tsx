@@ -36,7 +36,10 @@ export default function CreateSubClasses() {
     try {
       await createSubclass(data);
 
-      reset();
+      reset({
+        description: '',
+        name: '',
+      });
     } catch (error) {
       console.error(error);
     }

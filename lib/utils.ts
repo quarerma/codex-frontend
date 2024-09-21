@@ -9,6 +9,7 @@ export const quillModule = {
   toolbar: [
     [{ font: [] }],
     [{ size: [] }],
+    [{ list: 'ordered' }, { list: 'bullet' }],
     ['bold', 'italic', 'underline'],
     [{ color: [] }, { background: [] }],
     [{ align: [] }],

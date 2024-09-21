@@ -92,8 +92,8 @@ export default function Sidebar() {
   return (
     <div
       style={{
-        msOverflowStyle: 'none', // IE and Edge
-        scrollbarWidth: 'none', // Firefox
+        msOverflowStyle: 'none',
+        scrollbarWidth: 'none',
       }}
       className={`${
         isSidebarOpen ? 'w-96' : 'w-[120px]'
