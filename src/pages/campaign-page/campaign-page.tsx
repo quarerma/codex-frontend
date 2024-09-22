@@ -8,6 +8,7 @@ import CharacterCard from './components/char-card';
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { getUserById } from '../../api/fetch/user';
 import { useEffect, useState } from 'react';
+import DmCampaignPage from './components/dm-campaign-page';
 
 export default function CampaignPage() {
   const { id: campaignId } = useParams();
@@ -29,11 +30,13 @@ export default function CampaignPage() {
   });
 
   const [isUserValid, setIsUserValid] = useState(false);
+  const [isUserDM, setIsUserDM] = useState(false);
 
   useEffect(() => {
     if (user && campaign) {
       if (user.id === campaign.owner.id) {
         setIsUserValid(true);
+        setIsUserDM(true);
       } else {
         const isUserInCampaign = campaign.players.some((player) => player.playerId === user.id);
         if (isUserInCampaign) {
@@ -67,6 +70,10 @@ export default function CampaignPage() {
         </div>
       </div>
     );
+  }
+
+  if (isUserDM) {
+    return <DmCampaignPage />;
   }
 
   const formattedCreatedAt = format(new Date(campaign.createdAt), 'dd/MM/yyyy');
