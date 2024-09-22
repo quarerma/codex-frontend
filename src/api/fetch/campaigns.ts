@@ -2,6 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { CreateCampaignSchema } from '../../schemas/create.campaign';
 import { Campaign } from '../../types/campaign';
+import { Character } from '../../types/character';
 
 const API_URL = process.env.API_URL;
 export async function getUserCampaigns(): Promise<Campaign[]> {
@@ -53,6 +54,36 @@ export async function getUserCampaignsAsPlayer(): Promise<Campaign[]> {
   try {
     const jwt = Cookies.get('jwt');
     const response = await axios.get(`${API_URL}user/campaigns-player`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchCampaign(id?: string): Promise<Campaign> {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}campaigns/byId/${id}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCampaignCharacters(id?: string): Promise<Character[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}campaigns/campaign-characters/${id}`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },

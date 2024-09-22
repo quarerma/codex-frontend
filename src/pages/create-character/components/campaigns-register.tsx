@@ -4,6 +4,7 @@ import { getUserCampaignsAsPlayer } from '../../../api/fetch/campaigns';
 import { Campaign } from '../../../types/campaign';
 import { useCharacterCreation } from '../create-character';
 import { Button } from '../../../components/ui/button';
+import { useParams } from 'react-router-dom';
 
 export default function CampaignsRegister({ setValue }: CreateComponentProps) {
   const { data: campaigns } = useQuery({
@@ -17,8 +18,14 @@ export default function CampaignsRegister({ setValue }: CreateComponentProps) {
     setSelectedCampaign(null);
     setValue('campaignId', '');
   }
+  const campaignId = useParams().campaignId;
 
   if (!selectedCampaign) {
+    if (campaignId) {
+      setValue('campaignId', campaignId);
+      const campaign = campaigns?.find((campaign) => campaign.id === campaignId) || null;
+      setSelectedCampaign(campaign);
+    }
     return (
       <div className="grid grid-cols-4 auto-rows-[300px] font-light items-center gap-x-12">
         {campaigns?.map((campaign: Campaign, index: number) => (

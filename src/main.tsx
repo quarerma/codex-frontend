@@ -21,6 +21,7 @@ import ManageRituals from './pages/admin/rituals/manage-rituals';
 import ManageConditions from './pages/admin/conditions/manage-conditions';
 import CharacterPage from './pages/character-page/character-page';
 import ManageEquipments from './pages/admin/equipment/manage-equipment';
+import CampaignPage from './pages/campaign-page/campaign-page';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -165,6 +166,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: '/create-character/:campaignId',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <CreateCharacter />
+      </QueryClientProvider>
+    ),
+  },
+  {
     path: '/create-character',
     element: (
       <QueryClientProvider client={queryClient}>
@@ -176,7 +185,7 @@ const router = createBrowserRouter([
     path: '/campaigns/:id',
     element: (
       <QueryClientProvider client={queryClient}>
-        <ViewCampaigns />
+        <CampaignPage />
       </QueryClientProvider>
     ),
   },

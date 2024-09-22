@@ -100,8 +100,6 @@ export default function CreateCharacter() {
     },
   });
 
-  useEffect(() => {}, [watch('featsId')]);
-
   useEffect(() => {
     if (user) {
       setValue('ownerId', user.id);

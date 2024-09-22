@@ -7,4 +7,7 @@ export type Campaign = {
     username: string;
     id: string;
   };
+  players: {
+    playerId: string;
+  }[];
 };

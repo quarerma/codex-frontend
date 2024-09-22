@@ -42,7 +42,7 @@ export default function Status({ user }: StatusProps) {
           {<Trash2Icon onClick={() => setOpenModal(!openModal)} className="w-6 h-6 text-red-700 cursor-pointer" />}
         </div>
         <h1 className="font-extralight text-2xl text-center mt-5">
-          Criado por: {character?.owner.id !== user?.id ? 'Você' : `${character?.owner.username}`}{' '}
+          Criado por: {character?.owner.id === user?.id ? 'Você' : `${character?.owner.username}`}{' '}
         </h1>
       </div>
       <div className="mt-20 text-3xl flex flex-col space-y-5">

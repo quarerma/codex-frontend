@@ -46,6 +46,7 @@ export type Character = {
   campaign: {
     id: string;
     name: string;
+    ownerId: string;
   };
   num_of_skills: number;
 };

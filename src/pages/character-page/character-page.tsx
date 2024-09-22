@@ -8,7 +8,7 @@ import CharacterAtributes from './components/atributes';
 
 import CharacterSkills from './components/character-skills';
 import CharacterFeats from './components/feats/character-feat';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import CharacterRituals from './components/rituals/character-rituals';
 import { Character } from '../../types/character';
 import CharacterInventory from './components/inventory/character-inventory';
@@ -62,6 +62,21 @@ export default function CharacterPage() {
         return null;
     }
   };
+  const [isUserValid, setIsUserValid] = useState(false);
+
+  useEffect(() => {
+    if (user && character) {
+      if (user.id === character.owner.id) {
+        setIsUserValid(true);
+      } else {
+        const isUserDM = character.campaign.ownerId === user.id;
+        if (isUserDM) {
+          setIsUserValid(true);
+        }
+      }
+    }
+  }, [user, character]);
+
   if (!character || !user)
     return (
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
@@ -73,6 +88,19 @@ export default function CharacterPage() {
         </div>
       </div>
     );
+
+  if (!isUserValid) {
+    return (
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+        <NavBar />
+        <div className="flex justify-center items-center h-[70vh] space-x-5">
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">
+            Você não tem permissão para acessar essa página
+          </h1>
+        </div>
+      </div>
+    );
+  }
   return (
     <CharacterContext.Provider
       value={{
