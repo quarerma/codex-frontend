@@ -93,7 +93,7 @@ export default function CampaignPage() {
           <h1 className="flex items-center gap-x-2 font-extralight">
             <div className="w-2 h-2 rounded-full bg-primary"></div>
             <span className="text-primary font-light">Mestre:</span>
-            {campaign.owner.username}
+            {campaign?.owner.id === user?.id ? 'Você' : `${campaign?.owner.username}`}{' '}
           </h1>
           <h1 className="flex items-center gap-x-2 font-extralight">
             <div className="w-2 h-2 rounded-full bg-primary"></div>

@@ -1,12 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { getUserById } from '../../api/fetch/user';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProfileModal } from './profile-modal';
+import { authToken } from '../../api/auth/authorization';
 
 export default function Navbar() {
   const location = useLocation();
+
   const [isProfileModalVisible, setIsProfileModalVisible] = useState(false);
   const linksMap = [
     {
@@ -19,27 +21,66 @@ export default function Navbar() {
     },
   ];
 
-  const { data: user } = useQuery({
+  const token = Cookies.get('jwt');
+
+  const { data: user, isLoading: isUserLoading } = useQuery({
     queryKey: ['user'],
-    queryFn: async () => getUserById(),
+    queryFn: getUserById,
+    enabled: !!token,
   });
 
-  function validateUser() {
-    const jwt = Cookies.get('jwt');
-    if (!jwt) {
+  const { data: isAuthenticated, isLoading: isAuthLoading } = useQuery({
+    queryKey: ['auth'],
+    queryFn: async () => {
+      try {
+        await authToken();
+        return true;
+      } catch (error) {
+        console.log('JWT INVÁLIDO');
+        localStorage.removeItem('jwt');
+        window.location.href = '/login';
+        return false;
+      }
+    },
+    enabled: !!token,
+  });
+
+  useEffect(() => {
+    if (!token) {
       window.location.href = '/login';
     }
+  }, [token]);
+
+  if (isUserLoading || isAuthLoading) {
+    return (
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+        <div className="flex justify-center items-center h-[70vh] space-x-5">
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
   }
 
-  validateUser();
+  if (!user || !isAuthenticated) {
+    return (
+      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+        <div className="flex justify-center items-center h-[70vh] space-x-5">
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">
+            Você não tem permissão para acessar essa página
+          </h1>
+        </div>
+      </div>
+    );
+  }
   return (
-    <header className="sticky top-0   w-screen h-[8vh] font-semibold text-foreground items-center px-20 text-[1.9rem] font-oswald  bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
-      <Link to={'/'} className=" text-5xl font-extrabold tracking-widest  hover:text-primary-foreground duration-300">
+    <header className="sticky top-0 w-screen h-[8vh] font-semibold text-foreground items-center px-20 text-[1.9rem] font-oswald bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
+      <Link to={'/'} className="text-5xl font-extrabold tracking-widest hover:text-primary-foreground duration-300">
         CODEX
       </Link>
 
       {linksMap.map((link, index) => (
-        <Link key={index} to={link.url} className={` hover:text-primary duration-300 l `}>
+        <Link key={index} to={link.url} className={`hover:text-primary duration-300 l`}>
           {link.name}
           {location.pathname === link.url && (
             <div className="w-full flex justify-center">
