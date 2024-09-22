@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { CreateComponentProps } from '../props/create-component';
-import { getRituals } from '../../../api/fetch/rituals';
+import { getCampaignPossibleRituals, getRituals } from '../../../api/fetch/rituals';
 import RitualPicker from './rituals-picker';
 import { useCharacterCreation } from '../create-character';
 import { FaSearch, FaTrash } from 'react-icons/fa';
@@ -18,12 +18,12 @@ import {
 import { elementValues } from '../../../types/elements';
 
 export default function RitualsRegister({ setValue, watch }: CreateComponentProps) {
-  const { data: rituals = [] } = useQuery({
-    queryKey: ['rituals'],
-    queryFn: getRituals,
-  });
+  const { selectedRituals, setSelectedRituals, selectedCampaign } = useCharacterCreation();
 
-  const { selectedRituals, setSelectedRituals } = useCharacterCreation();
+  const { data: rituals = [] } = useQuery({
+    queryKey: ['rituals', selectedCampaign?.id],
+    queryFn: () => (selectedCampaign ? getCampaignPossibleRituals(selectedCampaign.id) : getRituals()),
+  });
 
   const unSelectRituals = (ritual: Ritual) => {
     const currentRituals = watch('ritualsIds') || [];

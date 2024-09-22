@@ -34,3 +34,33 @@ export async function getSkills(): Promise<Skills[]> {
     throw error;
   }
 }
+
+export async function createCampaignSkill(data: CreateSkillSchema, campaignId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.post(`${API_URL}campaigns/campaign-skills/${campaignId}`, data, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCampaignSkills(campaignId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}campaigns/campaign-skills/${campaignId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data.customSkills as Skills[];
+  } catch (error) {
+    throw error;
+  }
+}

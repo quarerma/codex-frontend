@@ -12,15 +12,17 @@ import {
 } from '../../../../components/ui/select';
 import { elementValues } from '../../../../types/elements';
 import AddRitualInfo from './add-ritual-info';
-import { getRituals } from '../../../../api/fetch/rituals';
+import { getCampaignPossibleRituals, getRituals } from '../../../../api/fetch/rituals';
 import { useQuery } from '@tanstack/react-query';
+import { useCharacter } from '../../character-page';
 
 export default function AddRitualsModal() {
   const { characterRituals } = useCharacterRituals();
 
+  const { character } = useCharacter();
   const { data: rituals = [] } = useQuery({
-    queryKey: ['rituals'],
-    queryFn: getRituals,
+    queryKey: ['rituals', character.campaign.id],
+    queryFn: () => getCampaignPossibleRituals(character.campaign.id),
   });
 
   const [filteredRituals, setFilteredRituals] = useState(rituals);

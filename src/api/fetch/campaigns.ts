@@ -3,6 +3,10 @@ import Cookies from 'js-cookie';
 import { CreateCampaignSchema } from '../../schemas/create.campaign';
 import { Campaign } from '../../types/campaign';
 import { Character } from '../../types/character';
+import { CreateEquimentSchema } from '../../schemas/create.equipment';
+import { CreateFeatSchema } from '../../schemas/create.feat';
+import { CreateRitualsSchema } from '../../schemas/create.rituals';
+import { CreateSkillSchema } from '../../schemas/create.skill';
 
 const API_URL = process.env.API_URL;
 export async function getUserCampaigns(): Promise<Campaign[]> {

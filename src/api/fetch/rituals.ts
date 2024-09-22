@@ -36,3 +36,49 @@ export async function getRituals(): Promise<Ritual[]> {
     throw error;
   }
 }
+
+export async function getCampaignPossibleRituals(campaignId: string): Promise<Ritual[]> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}ritual/campaign-possible-rituals/${campaignId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Ritual[];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createCampaignRitual(data: CreateRitualsSchema, campaignId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.post(`${API_URL}campaigns/campaign-rituals/${campaignId}`, data, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCampaignRituals(campaignId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}campaigns/campaign-rituals/${campaignId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    return response.data as Ritual[];
+  } catch (error) {
+    throw error;
+  }
+}

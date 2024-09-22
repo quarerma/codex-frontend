@@ -130,17 +130,29 @@ export async function getFilteredSubClassFeats(subclassId: string): Promise<Feat
   }
 }
 
-export async function getCampaignFeats(campaignId: string): Promise<Feat[]> {
+export async function createCampaignFeat(data: CreateFeatSchema, campaignId: string) {
   try {
     const jwt = Cookies.get('jwt');
-
-    const response = await axios.get(`${API_URL}campaigns/campaign-feats/${campaignId}`, {
+    const response = await axios.post(`${API_URL}campaigns/campaign-feats/${campaignId}`, data, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
     });
 
-    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getCampaignFeats(campaignId: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.post(`${API_URL}campaigns/campaign-feats/${campaignId}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
     return response.data as Feat[];
   } catch (error) {
     throw error;

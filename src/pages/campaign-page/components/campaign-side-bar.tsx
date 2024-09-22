@@ -1,63 +1,43 @@
-import { Link } from 'react-router-dom';
-import { FaHome, FaTools, FaUser, FaBabyCarriage } from 'react-icons/fa';
-import { GiMagicSwirl, GiWarAxe, GiSwordwoman, GiNotebook, GiMedicines } from 'react-icons/gi';
-import { RiLogoutBoxLine, RiDashboardFill } from 'react-icons/ri';
-import { TbSwords, TbSword } from 'react-icons/tb';
-import { LuDices } from 'react-icons/lu';
+import { Link, useParams } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import { GiMagicSwirl, GiWarAxe, GiNotebook } from 'react-icons/gi';
+import { RiDashboardFill } from 'react-icons/ri';
 import { BsMagic } from 'react-icons/bs';
 import { useState } from 'react';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { useQueryClient } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
 
 export default function CampaignSideBar() {
+  const { id: campaignId } = useParams();
   const linksMap = [
     {
       name: 'Players',
-      url: 'players',
+      url: `/campaigns/${campaignId}/players`,
       imageComponent: <FaUser />,
     },
 
     {
       name: 'Perícias',
-      url: 'skills',
+      url: `/campaigns/${campaignId}/skills`,
       imageComponent: <GiNotebook />,
     },
 
     {
       name: 'Equipamentos',
-      url: 'equipments',
+      url: `/campaigns/${campaignId}/equipment`,
       imageComponent: <GiWarAxe />,
     },
-    {
-      name: 'Modificações',
-      url: 'modifications',
-      imageComponent: <FaTools />,
-    },
+
     {
       name: 'Poderes',
-      url: '/feats',
+      url: `/campaigns/${campaignId}/feats`,
       imageComponent: <GiMagicSwirl />,
     },
     {
       name: 'Rituais',
-      url: 'rituals',
+      url: `/campaigns/${campaignId}/rituals`,
       imageComponent: <BsMagic />,
     },
-    {
-      name: 'Condições',
-      url: 'conditions',
-      imageComponent: <GiMedicines />,
-    },
   ];
-
-  const queryClient = useQueryClient();
-  const handleLogOut = () => {
-    // empty all queries
-    queryClient.clear();
-
-    Cookies.remove('jwt');
-  };
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -78,8 +58,8 @@ export default function CampaignSideBar() {
       </div>
       <div className="flex flex-col bg-dark-bg-secondary items-center mt-5 gap-y-2 justify-center sticky top-0">
         {isSidebarOpen ? (
-          <Link to={'/admin/dashboard'} className="text-center   hover:text-primary text-3xl font-bold">
-            Dashboard
+          <Link to={`/campaigns/${campaignId}`} className="text-center   hover:text-primary text-3xl font-bold">
+            Principal
           </Link>
         ) : (
           <RiDashboardFill className="text-5xl mt-5 mb-5  hover:text-primary" />
@@ -98,13 +78,6 @@ export default function CampaignSideBar() {
               {link.name}
             </Link>
           ))}
-          <Link
-            to={'/login'}
-            onClick={handleLogOut}
-            className="flex items-center gap-x-2  mt-10 mb-10 text-2xl duration-300 transition-colors hover:text-primary-foreground font-semibold  "
-          >
-            <RiLogoutBoxLine /> Sair
-          </Link>
         </div>
       ) : (
         <div className="flex flex-col justify-center text-[2.35rem] items-center mt-10 gap-y-10 px-5">
@@ -117,13 +90,6 @@ export default function CampaignSideBar() {
               {link.imageComponent}
             </Link>
           ))}
-          <Link
-            to={'/login'}
-            onClick={handleLogOut}
-            className="flex items-center gap-x-2  mt-10 mb-10  duration-300 transition-colors hover:text-primary-foreground font-semibold  "
-          >
-            <RiLogoutBoxLine />
-          </Link>
         </div>
       )}
     </div>

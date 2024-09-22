@@ -3,18 +3,93 @@ import { Atributes } from '../../../types/character-upgrades';
 import { SkillCharacter, trainingLevels } from '../../../types/skills';
 import { FaDiceD20 } from 'react-icons/fa';
 import { useCharacter } from '../character-page';
+import { updateSkillTrainingLevel } from '../../../api/fetch/character.skills';
 
-export default function CharacterSkills() {
+const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
   const atributes = Atributes;
+  const [localSkill, setLocalSkill] = useState<SkillCharacter>(skill); // Estado local para gerenciar a skill
+
   const formatAtribute = (atribute: string) => {
     return atributes.find((item) => item.value === atribute)?.short;
+  };
+
+  const [isEditingTrainingLevel, setIsEditingTrainingLevel] = useState(false);
+
+  const handleTrainingLevelChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTrainingLevel = event.target.value as 'none' | 'expert' | 'trained' | 'veteran';
+
+    const updatedSkill = {
+      ...localSkill,
+      trainingLevel: newTrainingLevel,
+    };
+
+    let baseValue = 0;
+    switch (newTrainingLevel) {
+      case 'none':
+        baseValue = 0;
+        break;
+      case 'trained':
+        baseValue = 5;
+        break;
+      case 'veteran':
+        baseValue = 10;
+        break;
+      case 'expert':
+        baseValue = 15;
+        break;
+      default:
+        throw new Error('Invalid training level');
+    }
+
+    const finalValue = baseValue + skill.alterations.reduce((acc, alteration) => acc + alteration.value, 0);
+
+    updatedSkill.value = finalValue;
+
+    setLocalSkill(updatedSkill);
+    setIsEditingTrainingLevel(false);
+
+    // Atualiza o treinamento e valor no backend
+    await updateSkillTrainingLevel(character.id, skill.name, newTrainingLevel);
   };
 
   const formatTrainingLevels = (trainingLevel: string) => {
     return trainingLevels.find((item) => item.value === trainingLevel)?.label;
   };
 
+  return (
+    <tr className="text-center font-extralight">
+      <td className="text-start px-2 flex items-center space-x-5">
+        <FaDiceD20 className="text-primary mt-1" />
+        <span>{localSkill.name}</span>
+      </td>
+      <td className="text-center px-2">({formatAtribute(localSkill.atribute)})</td>
+      <td className="text-center px-2">
+        {isEditingTrainingLevel ? (
+          <select
+            value={localSkill.trainingLevel}
+            onChange={handleTrainingLevelChange}
+            onBlur={() => setIsEditingTrainingLevel(false)} // Fecha o select ao sair do foco
+            className="border border-gray-300 bg-dark-bg-secondary text-center outline-none rounded"
+            autoFocus
+          >
+            {trainingLevels.map((level) => (
+              <option key={level.value} className="bg-dark-bg-secondary text-foreground" value={level.value}>
+                {level.label}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <span onClick={() => setIsEditingTrainingLevel(true)}>{formatTrainingLevels(localSkill.trainingLevel)}</span>
+        )}
+      </td>
+      <td className="text-center px-2">({localSkill.value})</td>
+    </tr>
+  );
+};
+
+export default function CharacterSkills() {
+  const { character } = useCharacter();
   const [filteredSkills, setFilteredSkills] = useState<SkillCharacter[]>(character.skills);
   const [filterByTrainingLevel, setFilterByTrainingLevel] = useState<boolean>(false);
 
@@ -30,15 +105,15 @@ export default function CharacterSkills() {
 
   return (
     <div
-      className="overflow-y-auto font-inter max-h-[87vh] "
+      className="overflow-y-auto font-inter max-h-[87vh]"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
       }}
     >
-      <table className="w-full text-base ">
-        <thead className="border-0 text-center px-3 ">
-          <tr className="text-lg text-white/30 ">
+      <table className="w-full text-base">
+        <thead className="border-0 text-center px-3">
+          <tr className="text-lg text-white/30">
             <th className="text-center px-2 font-extralight">Perícia</th>
             <th className="text-center px-2 font-extralight">Atributo</th>
             <th
@@ -54,15 +129,7 @@ export default function CharacterSkills() {
         </thead>
         <tbody>
           {filteredSkills.map((skill: SkillCharacter, index: number) => (
-            <tr key={index} className="text-center  font-extralight">
-              <td className="text-start px-2  flex items-center space-x-5">
-                <FaDiceD20 className="text-primary mt-1" />
-                <span>{skill.name}</span>
-              </td>
-              <td className="text-center px-2">({formatAtribute(skill.atribute)})</td>
-              <td className="text-center px-2">{formatTrainingLevels(skill.trainingLevel)}</td>
-              <td className="text-center px-2">({skill.value})</td>
-            </tr>
+            <SkillRow key={index} skill={skill} />
           ))}
         </tbody>
       </table>

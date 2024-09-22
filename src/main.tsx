@@ -22,6 +22,10 @@ import ManageConditions from './pages/admin/conditions/manage-conditions';
 import CharacterPage from './pages/character-page/character-page';
 import ManageEquipments from './pages/admin/equipment/manage-equipment';
 import CampaignPage from './pages/campaign-page/campaign-page';
+import ManageCampaignSkills from './pages/campaign-page/components/skills/manage-skills';
+import ManageCampaignRituals from './pages/campaign-page/components/rituals/manage-rituals';
+import ManageCamapignEquipments from './pages/campaign-page/components/equipment/manage-equipment';
+import ManageCampaignFeats from './pages/campaign-page/components/feats/manage-feats';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -186,6 +190,38 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <CampaignPage />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/campaigns/:id/equipment',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageCamapignEquipments />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/campaigns/:id/rituals',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageCampaignRituals />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/campaigns/:id/skills',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageCampaignSkills />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/campaigns/:id/feats',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageCampaignFeats />
       </QueryClientProvider>
     ),
   },
