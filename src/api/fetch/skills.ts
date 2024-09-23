@@ -64,3 +64,22 @@ export async function getCampaignSkills(campaignId: string) {
     throw error;
   }
 }
+
+export async function getSkillByName(name: string): Promise<Skills> {
+  try {
+    const jwt = Cookies.get('jwt');
+
+    const response = await axios.get(`${API_URL}skill/byName`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+      params: {
+        name: name,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

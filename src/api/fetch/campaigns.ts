@@ -7,6 +7,7 @@ import { CreateEquimentSchema } from '../../schemas/create.equipment';
 import { CreateFeatSchema } from '../../schemas/create.feat';
 import { CreateRitualsSchema } from '../../schemas/create.rituals';
 import { CreateSkillSchema } from '../../schemas/create.skill';
+import { User } from '../../types/user';
 
 const API_URL = process.env.API_URL;
 export async function getUserCampaigns(): Promise<Campaign[]> {
@@ -94,6 +95,22 @@ export async function getCampaignCharacters(id?: string): Promise<Character[]> {
     });
 
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getCampaignPlayers(id: string) {
+  try {
+    const jwt = Cookies.get('jwt');
+    const response = await axios.get(`${API_URL}campaigns/players/${id}`, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    console.log(response.data);
+    return response.data as { joinedAt: Date; player: User }[];
   } catch (error) {
     throw error;
   }

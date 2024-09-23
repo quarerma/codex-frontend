@@ -4,6 +4,9 @@ import { SkillCharacter, trainingLevels } from '../../../types/skills';
 import { FaDiceD20 } from 'react-icons/fa';
 import { useCharacter } from '../character-page';
 import { updateSkillTrainingLevel } from '../../../api/fetch/character.skills';
+import { useQuery } from '@tanstack/react-query';
+import { Dialog, DialogTrigger } from '../../../components/ui/dialog';
+import SkillModal from './skill-dialog';
 
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
@@ -61,7 +64,12 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     <tr className="text-center font-extralight">
       <td className="text-start px-2 flex items-center space-x-5">
         <FaDiceD20 className="text-primary mt-1" />
-        <span>{localSkill.name}</span>
+        <Dialog>
+          <DialogTrigger>
+            <span>{localSkill.name}</span>
+          </DialogTrigger>
+          <SkillModal skill={localSkill} />
+        </Dialog>
       </td>
       <td className="text-center px-2">({formatAtribute(localSkill.atribute)})</td>
       <td className="text-center px-2">

@@ -26,6 +26,7 @@ import ManageCampaignSkills from './pages/campaign-page/components/skills/manage
 import ManageCampaignRituals from './pages/campaign-page/components/rituals/manage-rituals';
 import ManageCamapignEquipments from './pages/campaign-page/components/equipment/manage-equipment';
 import ManageCampaignFeats from './pages/campaign-page/components/feats/manage-feats';
+import ManageCampaignPlayers from './pages/campaign-page/components/players';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -198,6 +199,14 @@ const router = createBrowserRouter([
     element: (
       <QueryClientProvider client={queryClient}>
         <ManageCamapignEquipments />
+      </QueryClientProvider>
+    ),
+  },
+  {
+    path: '/campaigns/:id/players',
+    element: (
+      <QueryClientProvider client={queryClient}>
+        <ManageCampaignPlayers />
       </QueryClientProvider>
     ),
   },
