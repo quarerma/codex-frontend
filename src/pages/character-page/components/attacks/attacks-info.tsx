@@ -29,7 +29,7 @@ export default function AttacksInfo({ attack }: AttacksInfoProps) {
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
       <div
-        className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
+        className="flex justify-between w-full items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex flex-col">

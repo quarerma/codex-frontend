@@ -7,6 +7,7 @@ import { updateSkillTrainingLevel } from '../../../api/fetch/character.skills';
 import { useQuery } from '@tanstack/react-query';
 import { Dialog, DialogTrigger } from '../../../components/ui/dialog';
 import SkillModal from './skill-dialog';
+import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
 
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
@@ -64,12 +65,12 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     <tr className="text-center font-extralight">
       <td className="text-start px-2 flex items-center space-x-5">
         <FaDiceD20 className="text-primary mt-1" />
-        <Dialog>
-          <DialogTrigger>
+        <Sheet>
+          <SheetTrigger>
             <span>{localSkill.name}</span>
-          </DialogTrigger>
+          </SheetTrigger>
           <SkillModal skill={localSkill} />
-        </Dialog>
+        </Sheet>
       </td>
       <td className="text-center px-2">({formatAtribute(localSkill.atribute)})</td>
       <td className="text-center px-2">

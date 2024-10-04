@@ -6,14 +6,14 @@ export default function CharacterAttacks() {
 
   return (
     <div
-      className="overflow-y-auto mt-2 flex flex-col space-y-1 max-h-[75vh]"
+      className="overflow-y-auto mt-2 w-full flex flex-col  space-y-1 max-h-[75vh]"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
       }}
     >
       {character.attacks.map((attack) => (
-        <div key={attack.local_id}>
+        <div key={attack.local_id} className="w-full">
           <AttacksInfo attack={attack} />
         </div>
       ))}

@@ -45,7 +45,7 @@ export default function StatsInfo({ current_value, max_value, type }: StatsProps
   return (
     <div className="flex  items-center space-x-5 justify-between">
       <h1 className="font-normal text-primary">{type}</h1>
-      <div className="text-2xl border-2 border-primary font-light flex items-center pr-2  gap-x-2">
+      <div className="text-2xl border border-primary font-light flex items-center pr-2  gap-x-2">
         <form onSubmit={handleSubmit(onSubmit)} className="flex  items-center  h-fit w-16  justify-center relative">
           <div className="flex justify-start  items-center -left-4">
             <button
@@ -59,7 +59,7 @@ export default function StatsInfo({ current_value, max_value, type }: StatsProps
             type="text"
             {...register('value')}
             placeholder="0"
-            className="text-center focus-visible:ring-0 focus-visible:ring-offset-0 border border-primary "
+            className="text-center focus-visible:ring-0 focus-visible:ring-offset-0 border-0 border-r border-primary  "
           />
           <div className="flex justify-end items-center">
             <button

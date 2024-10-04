@@ -110,7 +110,7 @@ export default function CharacterPage() {
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
         <div
-          className="flex flex-col text-foreground 2xl:max-h-[92vh] xl:max-h-[87vh] overflow-y-auto 2xl:ml-20 2xl:mr-20 xl:ml-10 xl:mr-10 lg:ml-5 lg:mr-5 ml-2 mr-2"
+          className="flex flex-col text-foreground 2xl:max-h-[87vh] xl:max-h-[87vh] overflow-y-auto 2xl:ml-20 2xl:mr-20 xl:ml-10 xl:mr-10 lg:ml-5 lg:mr-5 ml-2 mr-2"
           style={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
@@ -154,8 +154,8 @@ export default function CharacterPage() {
             </div>
             <div className="flex justify-between spaxe-x-10 w-full">
               <CharacterSkills />
-              <div className="flex flex-col ">
-                <div className="flex justify-between w-fit 2xl:space-x-10 xl:space-x-5">
+              <div className="flex flex-col items-center 2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px] w-full ">
+                <div className="flex justify-between  2xl:space-x-10 xl:space-x-5">
                   {navBar.map((item) => (
                     <div key={item.value} className="flex flex-col items-center space-y-2">
                       <h1
@@ -170,7 +170,9 @@ export default function CharacterPage() {
                     </div>
                   ))}
                 </div>
-                <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px]  mt-2">{getComponent(selected)}</div>
+                <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px] w-full  mt-2">
+                  {getComponent(selected)}
+                </div>
               </div>
             </div>
           </div>
