@@ -9,6 +9,9 @@ import { ritualRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
 import { useCharacter } from '../../character-page';
 import { removeCharacterRitual } from '../../../../api/fetch/character.rituals';
+import { toast } from 'sonner';
+import { rollDie } from '../dieRoller/roller';
+import { formatDamageType } from '../../../../components/format/formatters';
 
 interface RitualInfoProps {
   ritual: Ritual;
@@ -34,26 +37,25 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
   }
 
   const elementColor = getElementColor(ritual.element || '');
-  const rollDie = (die: string) => {
-    const parts = die.split('+').map((part) => part.trim());
 
-    console.log('partes', parts);
-    let result = 0;
-
-    parts.forEach((part) => {
-      if (part.includes('d')) {
-        console.log('dado', part);
-        const [dieAmount, dieType] = part.split('d').map(Number);
-        for (let i = 0; i < dieAmount; i++) {
-          result += Math.floor(Math.random() * dieType + 1);
-        }
-      } else {
-        console.log('modfier', part);
-        result += Number(part);
-      }
-    });
-
+  const rollAttack = (die: string, castType: string, damageType: string) => {
+    const result = rollDie(die);
     console.log(result);
+    toast(`${ritual.name} ${castType}`, {
+      classNames: {
+        description: 'text-xl font-light ',
+        title: 'text-xl font-bold w-full ',
+      },
+
+      className: `bg-dark-bg-secondary flex  border ${elementColor.border}  text-foreground`,
+      description: (
+        <div className="flex w-full gap-x-5">
+          <h1>Total</h1>
+          <span>{result.total}</span>
+          <span>{damageType}</span>
+        </div>
+      ),
+    });
     return result;
   };
 
@@ -69,10 +71,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2" onClick={() => setExpanded(!expanded)}>
         <div className="flex flex-col">
           <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{ritual.name}</h1>
           <div className="z-50">
@@ -83,7 +82,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
-                      rollDie(ritual.damageRitual.normalCastDamage);
+                      rollAttack(ritual.damageRitual.normalCastDamage, '', formatDamageType(ritual.damageRitual.normalCastDamageType));
                     }}
                     className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
                   >
@@ -94,7 +93,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
-                      rollDie(ritual.damageRitual.discentCastDamage);
+                      rollAttack(ritual.damageRitual.discentCastDamage, 'Discente', formatDamageType(ritual.damageRitual.discentCastDamageType));
                     }}
                     className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
                   >
@@ -106,7 +105,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
                   <span
                     onClick={(e) => {
                       e.stopPropagation();
-                      rollDie(ritual.damageRitual.trueCastDamage);
+                      rollAttack(ritual.damageRitual.trueCastDamage, 'Verdadeiro', formatDamageType(ritual.damageRitual.trueCastDamageType));
                     }}
                     className="text-primary/40 hover:scale-105 duration-300 hover:text-primary"
                   >
@@ -118,9 +117,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
             )}
           </div>
         </div>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
+        <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
 
       <div
@@ -142,27 +139,18 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
         </div>
 
         <div>
-          <p
-            className="text-[1.1rem] leading-7 font-normal"
-            dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}
-          ></p>
+          <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}></p>
         </div>
         {ritual.discentCastDescription && (
           <div className="text-lg font-bold">
             <h1>Discente (+{ritual.discentCost} PE)</h1>
-            <p
-              className="text-[1.1rem] leading-7 font-normal"
-              dangerouslySetInnerHTML={{ __html: ritual.discentCastDescription }}
-            ></p>
+            <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.discentCastDescription }}></p>
           </div>
         )}
         {ritual.trueCastDescription && (
           <div className="text-lg font-bold">
             <h1>Verdadeiro (+{ritual.trueCost} PE)</h1>
-            <p
-              className="text-[1.1rem] leading-7 font-normal"
-              dangerouslySetInnerHTML={{ __html: ritual.trueCastDescription }}
-            ></p>
+            <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.trueCastDescription }}></p>
           </div>
         )}
         {ritual.conditions.length > 0 && (
@@ -171,10 +159,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
             {ritual.conditions.map((condition) => (
               <span key={condition.condition.id} className="text-lg ">
                 <span className="underline">{condition.condition.name}:</span>
-                <p
-                  className="font-extralight text-base"
-                  dangerouslySetInnerHTML={{ __html: condition.condition.description }}
-                ></p>
+                <p className="font-extralight text-base" dangerouslySetInnerHTML={{ __html: condition.condition.description }}></p>
               </span>
             ))}
           </div>

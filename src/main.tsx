@@ -27,6 +27,7 @@ import ManageCampaignRituals from './pages/campaign-page/components/rituals/mana
 import ManageCamapignEquipments from './pages/campaign-page/components/equipment/manage-equipment';
 import ManageCampaignFeats from './pages/campaign-page/components/feats/manage-feats';
 import ManageCampaignPlayers from './pages/campaign-page/components/players';
+import { Toaster } from 'sonner';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -244,4 +245,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <>
+    <RouterProvider router={router} /> <Toaster />
+  </>
+);

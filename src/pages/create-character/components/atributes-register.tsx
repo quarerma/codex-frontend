@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CreateComponentProps } from '../props/create-component';
 import { Checkbox } from '../../../components/ui/checkbox';
 import { AiFillQuestionCircle } from 'react-icons/ai';
-import * as Dialog from '@radix-ui/react-dialog';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '../../../components/ui/tooltip';
 
 export default function AtributesRegister({ setValue, watch }: CreateComponentProps) {
   const [useLevelCap, setUseLevelCap] = useState(true);
@@ -90,19 +90,24 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
           <h1>
             Pontos disponíveis: {summary} / {points}
           </h1>
-          <Dialog.Root>
-            <div className="relative flex items-center">
-              <Dialog.Trigger className="text-primary text-xl cursor-pointer">
-                <AiFillQuestionCircle />
-              </Dialog.Trigger>
-              <Dialog.Content className="absolute top-0 w-[300px] left-full ml-2 p-4 bg-black border border-primary rounded-2xl shadow-lg">
-                <p className="text-lg">
-                  O sistema conta com aumento automático de atributos provenientes de itens, maldições e poderes.
-                  Portanto é recomendado que você não adicione manualmente pontos que não os garantidos por nível.
-                </p>
-              </Dialog.Content>
-            </div>
-          </Dialog.Root>
+          <TooltipProvider>
+            <Tooltip>
+              <div className="relative flex items-center">
+                <TooltipTrigger className="text-primary text-xl cursor-pointer">
+                  <AiFillQuestionCircle />
+                </TooltipTrigger>
+                <TooltipContent
+                  sideOffset={5}
+                  className="w-[300px]  ml-2 p-4 bg-black border border-primary rounded-xl shadow-lg"
+                >
+                  <p className="text-lg">
+                    O sistema conta com aumento automático de atributos provenientes de itens, maldições e poderes.
+                    Portanto é recomendado que você não adicione manualmente pontos que não os garantidos por nível.
+                  </p>
+                </TooltipContent>
+              </div>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         {renderAttribute('Força', 'strenght')}
         {renderAttribute('Agilidade', 'dexterity')}
