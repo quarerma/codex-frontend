@@ -4,8 +4,6 @@ import { SkillCharacter, trainingLevels } from '../../../types/skills';
 import { FaDiceD20 } from 'react-icons/fa';
 import { useCharacter } from '../character-page';
 import { updateSkillTrainingLevel } from '../../../api/fetch/character.skills';
-import { useQuery } from '@tanstack/react-query';
-import { Dialog, DialogTrigger } from '../../../components/ui/dialog';
 import SkillModal from './skill-dialog';
 import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
 
