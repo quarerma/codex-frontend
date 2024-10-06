@@ -10,7 +10,7 @@ import { Button } from '../../../../components/ui/button';
 import { useCharacter } from '../../character-page';
 import { removeCharacterRitual } from '../../../../api/fetch/character.rituals';
 import { toast } from 'sonner';
-import { rollDie } from '../dieRoller/roller';
+import { rollDamage } from '../dieRoller/roller';
 import { formatDamageType } from '../../../../components/format/formatters';
 
 interface RitualInfoProps {
@@ -39,7 +39,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
   const elementColor = getElementColor(ritual.element || '');
 
   const rollAttack = (die: string, castType: string, damageType: string) => {
-    const result = rollDie(die);
+    const result = rollDamage(die);
     console.log(result);
     toast(`${ritual.name} ${castType}`, {
       classNames: {

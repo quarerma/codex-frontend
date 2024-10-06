@@ -1,4 +1,4 @@
-export function rollDie(dieRoll: string) {
+export function rollDamage(dieRoll: string) {
   const parts = dieRoll.split('+').map((part) => part.trim());
 
   let result = 0;
@@ -7,7 +7,6 @@ export function rollDie(dieRoll: string) {
 
   parts.forEach((part) => {
     if (part.includes('d')) {
-      console.log('dado', part);
       const [dieAmount, dieType] = part.split('d').map(Number);
       results[index] = { die: part, rolls: [] };
       for (let i = 0; i < dieAmount; i++) {
@@ -17,7 +16,6 @@ export function rollDie(dieRoll: string) {
       }
       index++;
     } else {
-      console.log('modfier', part);
       result += Number(part);
     }
   });
@@ -26,4 +24,33 @@ export function rollDie(dieRoll: string) {
 }
 
 // Exemplo de uso
-console.log(rollDie('3d6 + 3d6 + 2d6 + 10 + 2d8'));
+// Exemplo de uso
+export function rollCheck(dieRoll: string) {
+  const parts = dieRoll.split('+').map((part) => part.trim());
+
+  let maxRoll = -Infinity;
+  let index = 0;
+  const results: { [key: number]: { die: string; rolls: number[] } } = {};
+
+  parts.forEach((part) => {
+    if (part.includes('d')) {
+      const [dieAmount, dieType] = part.split('d').map(Number);
+      results[index] = { die: part, rolls: [] };
+      for (let i = 0; i < dieAmount; i++) {
+        const roll = Math.floor(Math.random() * dieType + 1);
+        results[index].rolls.push(roll);
+        if (roll > maxRoll) {
+          maxRoll = roll;
+        }
+      }
+      index++;
+    } else {
+      const modifier = Number(part);
+      if (modifier > maxRoll) {
+        maxRoll = modifier;
+      }
+    }
+  });
+
+  return { max: maxRoll, details: results };
+}

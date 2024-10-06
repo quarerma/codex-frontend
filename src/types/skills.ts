@@ -10,7 +10,7 @@ export type Skills = {
 
 export type SkillCharacter = {
   name: string;
-  atribute: 'STRENGTH' | 'DEXTERITY' | 'VITALITY' | 'INTELLIGENCE' | 'PRESENCE';
+  atribute: 'STRENGHT' | 'DEXTERITY' | 'VITALITY' | 'INTELLIGENCE' | 'PRESENCE';
   value: number;
   trainingLevel: 'none' | 'trained' | 'veteran' | 'expert';
   alterations: SkillAlterationObject[];

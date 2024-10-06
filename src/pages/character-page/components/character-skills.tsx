@@ -9,6 +9,10 @@ import { Dialog, DialogTrigger } from '../../../components/ui/dialog';
 import SkillModal from './skill-dialog';
 import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
 
+import { AtributesJson } from '../../../types/character';
+import { toast } from 'sonner';
+import { rollCheck } from './dieRoller/roller';
+
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
   const atributes = Atributes;
@@ -61,10 +65,21 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     return trainingLevels.find((item) => item.value === trainingLevel)?.label;
   };
 
+  const handleClick = () => {
+    const attributeKey = localSkill.atribute.toLowerCase() as keyof Omit<AtributesJson, 'alterations'>;
+    const attributeValue = character.atributes[attributeKey];
+
+    const result = rollCheck(`${attributeValue}d20 + ${localSkill.value}`);
+    console.log(result);
+    toast(`Perícia: ${localSkill.name}`, {
+      description: `Resultado: ${result.max}`,
+    });
+  };
+
   return (
     <tr className="text-center font-extralight">
       <td className="text-start px-2 flex items-center space-x-5">
-        <FaDiceD20 className="text-primary mt-1" />
+        <FaDiceD20 className="text-primary mt-1 cursor-pointer" onClick={handleClick} />
         <Sheet>
           <SheetTrigger>
             <span>{localSkill.name}</span>
@@ -125,12 +140,7 @@ export default function CharacterSkills() {
           <tr className="text-lg text-white/30">
             <th className="text-center px-2 font-extralight">Perícia</th>
             <th className="text-center px-2 font-extralight">Atributo</th>
-            <th
-              className={`text-center px-2 font-extralight cursor-pointer ${
-                filterByTrainingLevel ? 'text-primary underline' : ''
-              }`}
-              onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}
-            >
+            <th className={`text-center px-2 font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`} onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}>
               Treinamento
             </th>
             <th className="text-center px-2 font-extralight">Bônus</th>
