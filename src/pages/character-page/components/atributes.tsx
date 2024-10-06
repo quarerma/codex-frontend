@@ -48,7 +48,7 @@ export default function CharacterAtributes() {
         scrollbarWidth: 'none',
       }}
     >
-      <AtributeTriangle value={character.atributes.strenght} label="Força" abbreviation="FOR" />
+      <AtributeTriangle value={character.atributes.strength} label="Força" abbreviation="FOR" />
       <AtributeTriangle value={character.atributes.dexterity} label="Agilidade" abbreviation="AGI" />
       <AtributeTriangle value={character.atributes.vitality} label="Vitalidade" abbreviation="VIG" />
       <AtributeTriangle value={character.atributes.intelligence} label="Intelecto" abbreviation="INT" />

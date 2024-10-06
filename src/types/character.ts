@@ -73,7 +73,7 @@ export type AlterationObject = {
 };
 
 export type AtributesJson = {
-  strenght: number;
+  strength: number;
   dexterity: number;
   vitality: number;
   intelligence: number;

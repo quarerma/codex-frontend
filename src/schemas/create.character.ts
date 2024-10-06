@@ -28,7 +28,7 @@ export const createCharacterSchema = z.object({
     message: 'A origem é obrigatória',
   }),
 
-  strenght: z.number().int().min(1, {
+  strength: z.number().int().min(1, {
     message: 'A força é obrigatória e deve ser um número inteiro',
   }),
   dexterity: z.number().int().min(1, {

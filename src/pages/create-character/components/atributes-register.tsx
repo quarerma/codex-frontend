@@ -7,9 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '../../
 export default function AtributesRegister({ setValue, watch }: CreateComponentProps) {
   const [useLevelCap, setUseLevelCap] = useState(true);
   const [points, setPoints] = useState(9);
-  const [summary, setSummary] = useState(
-    watch('strenght') + watch('intelligence') + watch('vitality') + watch('dexterity') + watch('presence')
-  );
+  const [summary, setSummary] = useState(watch('strength') + watch('intelligence') + watch('vitality') + watch('dexterity') + watch('presence'));
 
   useEffect(() => {
     const level = watch('level');
@@ -29,7 +27,7 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
 
   const handleDecrement = (attribute: string) => {
     const value = watch(attribute);
-    const attributes = ['strenght', 'intelligence', 'vitality', 'dexterity', 'presence'];
+    const attributes = ['strength', 'intelligence', 'vitality', 'dexterity', 'presence'];
 
     const countOfAtributesEqualToZero = attributes.filter((attr) => watch(attr) === 0).length;
 
@@ -43,10 +41,7 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
   const handleIncrement = (attribute: string) => {
     const value = watch(attribute);
     const level = watch('level');
-    if (
-      (((level >= 5 && value < 3) || (level >= 50 && value < 5) || (level >= 20 && value < 4)) && summary < points) ||
-      !useLevelCap
-    ) {
+    if ((((level >= 5 && value < 3) || (level >= 50 && value < 5) || (level >= 20 && value < 4)) && summary < points) || !useLevelCap) {
       setSummary(summary + 1);
       // Assuming max is 3
       setValue(attribute, value + 1);
@@ -61,16 +56,10 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
       </div>
 
       <div className="flex justify-center items-center space-x-5 w-1/3">
-        <button
-          onClick={() => handleDecrement(attribute)}
-          className="bg-[#FF4343] text-2xl text-black text-center font-extrabold flex items-center justify-center rounded-full w-6 h-6"
-        >
+        <button onClick={() => handleDecrement(attribute)} className="bg-[#FF4343] text-2xl text-black text-center font-extrabold flex items-center justify-center rounded-full w-6 h-6">
           <div className="w-[50%] h-[1px] bg-black"></div>
         </button>
-        <button
-          onClick={() => handleIncrement(attribute)}
-          className="bg-[#75FF69] text-4xl text-black text-center font-extralight flex items-center justify-center rounded-full w-6 h-6"
-        >
+        <button onClick={() => handleIncrement(attribute)} className="bg-[#75FF69] text-4xl text-black text-center font-extralight flex items-center justify-center rounded-full w-6 h-6">
           +
         </button>
       </div>
@@ -96,20 +85,17 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
                 <TooltipTrigger className="text-primary text-xl cursor-pointer">
                   <AiFillQuestionCircle />
                 </TooltipTrigger>
-                <TooltipContent
-                  sideOffset={5}
-                  className="w-[300px]  ml-2 p-4 bg-black border border-primary rounded-xl shadow-lg"
-                >
+                <TooltipContent sideOffset={5} className="w-[300px]  ml-2 p-4 bg-black border border-primary rounded-xl shadow-lg">
                   <p className="text-lg">
-                    O sistema conta com aumento automático de atributos provenientes de itens, maldições e poderes.
-                    Portanto é recomendado que você não adicione manualmente pontos que não os garantidos por nível.
+                    O sistema conta com aumento automático de atributos provenientes de itens, maldições e poderes. Portanto é recomendado que você não adicione manualmente pontos que não os
+                    garantidos por nível.
                   </p>
                 </TooltipContent>
               </div>
             </Tooltip>
           </TooltipProvider>
         </div>
-        {renderAttribute('Força', 'strenght')}
+        {renderAttribute('Força', 'strength')}
         {renderAttribute('Agilidade', 'dexterity')}
         {renderAttribute('Intelecto', 'intelligence')}
         {renderAttribute('Vigor', 'vitality')}
@@ -120,9 +106,8 @@ export default function AtributesRegister({ setValue, watch }: CreateComponentPr
         </div>
       </div>
       <p className="font-normal h-full flex mt-20 ml-auto mr-auto leading-10 text-center w-[40%] text-4xl">
-        Quando você cria um personagem, todos os seus atributos começam em 1 e você recebe 4 pontos para distribuir
-        entre eles como quiser. Você também pode reduzir um atributo para 0 para receber 1 ponto adicional. O valor
-        máximo inicial que você pode ter em cada atributo é 3.
+        Quando você cria um personagem, todos os seus atributos começam em 1 e você recebe 4 pontos para distribuir entre eles como quiser. Você também pode reduzir um atributo para 0 para receber 1
+        ponto adicional. O valor máximo inicial que você pode ter em cada atributo é 3.
       </p>
     </div>
   );
