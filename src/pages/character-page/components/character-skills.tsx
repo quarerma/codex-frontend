@@ -71,6 +71,12 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     console.log(result);
     toast(`Perícia: ${localSkill.name}`, {
       description: `Resultado: ${result.max}`,
+      position: 'bottom-left',
+      classNames: {
+        toast: 'bg-dark-bg-secondary border border-white text-white text-center w-full flex  ', // centers the text
+        title: 'font-bold text-xl',
+        description: 'font-extralight text-lg',
+      },
     });
   };
 
