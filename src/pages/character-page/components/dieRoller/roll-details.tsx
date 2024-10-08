@@ -1,5 +1,5 @@
 import { formatAtribute, formatTrainingLevel } from '../../../../components/format/formatters';
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
+import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
 import { SkillCharacter } from '../../../../types/skills';
 
 interface SkillCheckDeatilProps {
@@ -15,7 +15,7 @@ export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProp
           Detalhes da rolagem de <span className="font-bold">{skill.name}</span>
         </DialogTitle>
       </DialogHeader>
-      <DialogDescription className="text-xl flex flex-col gap-y-2 w-full">
+      <div className="text-xl flex flex-col gap-y-2 w-full">
         <div>
           <h1>Atributo Utilizado: {formatAtribute(skill.atribute)?.label}</h1>
         </div>
@@ -58,7 +58,7 @@ export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProp
           </div>
         </div>
         {roll?.max && <h1 className="text-2xl font-extrabold  text-end">Total: {roll.max}</h1>}
-      </DialogDescription>
+      </div>
     </DialogContent>
   );
 }

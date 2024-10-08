@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getSkillByName } from '../../../api/fetch/skills';
 import { SkillCharacter } from '../../../types/skills';
-import { SheetContent, SheetDescription, SheetTitle } from '../../../components/ui/sheet';
+import { SheetContent, SheetTitle } from '../../../components/ui/sheet';
 
 interface SkillModalProps {
   skill: SkillCharacter;
@@ -38,7 +38,7 @@ export default function SkillModal({ skill }: SkillModalProps) {
               {skillInfo.only_trained && <span>Apenas Treinado</span>}
             </div>
           </div>
-          <SheetDescription className="text-foreground pb-10">
+          <div className="text-foreground pb-10">
             <p className="text-lg" dangerouslySetInnerHTML={{ __html: skillInfo.description }}></p>
             {skill.alterations.length > 0 && (
               <div className="pb-10">
@@ -64,7 +64,7 @@ export default function SkillModal({ skill }: SkillModalProps) {
                 ))}
               </div>
             )}
-          </SheetDescription>
+          </div>
         </div>
       </SheetContent>
     )
