@@ -1,10 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { DialogOverlay, DialogPortal } from '../../../components/ui/dialog';
 import { getSkillByName } from '../../../api/fetch/skills';
 import { SkillCharacter } from '../../../types/skills';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
-import { spawn } from 'child_process';
 import { SheetContent, SheetDescription, SheetTitle } from '../../../components/ui/sheet';
 
 interface SkillModalProps {
@@ -27,9 +23,7 @@ export default function SkillModal({ skill }: SkillModalProps) {
     skillInfo && (
       <SheetContent
         side={'left'}
-        className={
-          'min-w-[600px] flex font-inter py-5 border-primary text-foreground overflow-y-auto z-50 gap-4 border-r bg-background p-6 shadow-lg duration-200 sm:rounded-lg'
-        }
+        className={'min-w-[600px] flex font-inter py-5 border-primary text-foreground overflow-y-auto z-50 gap-4 border-r bg-background p-6 shadow-lg duration-200 sm:rounded-lg'}
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',

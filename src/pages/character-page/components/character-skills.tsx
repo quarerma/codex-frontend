@@ -10,11 +10,16 @@ import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
 import { AtributesJson } from '../../../types/character';
 import { toast } from 'sonner';
 import { rollCheck } from './dieRoller/roller';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
+import SkillCheckDetailed from './dieRoller/roll-details';
 
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
   const atributes = Atributes;
   const [localSkill, setLocalSkill] = useState<SkillCharacter>(skill); // Estado local para gerenciar a skill
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para gerenciar o dialog
+  const [dialogResult, setDialogResult] = useState<{ max: number; details: { [key: number]: { die: string; rolls: number[] } } }>(); // Armazenar resultado da rolagem
 
   const formatAtribute = (atribute: string) => {
     return atributes.find((item) => item.value === atribute)?.short;
@@ -63,17 +68,46 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     return trainingLevels.find((item) => item.value === trainingLevel)?.label;
   };
 
+  function triggerOpenDialog(result: { max: number; details: { [key: number]: { die: string; rolls: number[] } } }) {
+    setDialogResult(result);
+    setIsDialogOpen(true);
+  }
+
   const handleClick = () => {
     const attributeKey = localSkill.atribute.toLowerCase() as keyof Omit<AtributesJson, 'alterations'>;
     const attributeValue = character.atributes[attributeKey];
 
     const result = rollCheck(`${attributeValue}d20 + ${localSkill.value}`);
     console.log(result);
-    toast(`Perícia: ${localSkill.name}`, {
-      description: `Resultado: ${result.max}`,
-      position: 'bottom-left',
+
+    toast('', {
+      description: (
+        <>
+          <div className="font-oswald ">
+            <h1 className="text-xl tracking-widest">
+              Perícia: <span className="font-medium">{skill.name}</span>
+            </h1>
+            <h1 className="text-lg font-semibold">Resultado: {result.max}</h1>
+          </div>
+
+          <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => toast.dismiss()}>
+            <IoMdCloseCircleOutline />
+          </div>
+        </>
+      ),
+
+      closeButton: false,
+      cancel: false,
+      action: {
+        label: 'Detalhes',
+        onClick: () => triggerOpenDialog(result),
+      },
+      actionButtonStyle: {
+        color: 'text-black',
+      },
+
       classNames: {
-        toast: 'bg-dark-bg-secondary border border-white text-white text-center w-full flex  ', // centers the text
+        toast: 'bg-dark-bg-secondary border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
         title: 'font-bold text-xl',
         description: 'font-extralight text-lg',
       },
@@ -112,6 +146,9 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
         )}
       </td>
       <td className="text-center px-2">({localSkill.value})</td>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <SkillCheckDetailed skill={localSkill} roll={dialogResult} />
+      </Dialog>
     </tr>
   );
 };

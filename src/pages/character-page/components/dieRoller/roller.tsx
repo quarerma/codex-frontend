@@ -31,7 +31,7 @@ export function rollCheck(dieRoll: string) {
   let maxRoll = -Infinity;
   let index = 0;
   const results: { [key: number]: { die: string; rolls: number[] } } = {};
-
+  const modifiers: number[] = [];
   parts.forEach((part) => {
     if (part.includes('d')) {
       const [dieAmount, dieType] = part.split('d').map(Number);
@@ -46,11 +46,10 @@ export function rollCheck(dieRoll: string) {
       index++;
     } else {
       const modifier = Number(part);
-      if (modifier > maxRoll) {
-        maxRoll = modifier;
-      }
+      modifiers.push(modifier);
     }
   });
 
+  maxRoll += modifiers.reduce((acc, mod) => acc + mod, 0);
   return { max: maxRoll, details: results };
 }
