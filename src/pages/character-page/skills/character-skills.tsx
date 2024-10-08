@@ -9,10 +9,10 @@ import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
 
 import { AtributesJson } from '../../../types/character';
 import { toast } from 'sonner';
-import { rollCheck } from './dieRoller/roller';
+import { rollCheck } from '../components/dieRoller/roller';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
-import SkillCheckDetailed from './dieRoller/roll-details';
+import SkillCheckDetailed from '../components/dieRoller/roll-details';
 
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const { character } = useCharacter();
@@ -20,6 +20,7 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   const [localSkill, setLocalSkill] = useState<SkillCharacter>(skill); // Estado local para gerenciar a skill
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para gerenciar o dialog
   const [dialogResult, setDialogResult] = useState<{ max: number; details: { [key: number]: { die: string; rolls: number[] } } }>(); // Armazenar resultado da rolagem
+  const [toastIds, setToastIds] = useState<(number | string)[]>([]);
 
   const formatAtribute = (atribute: string) => {
     return atributes.find((item) => item.value === atribute)?.short;
@@ -68,19 +69,28 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     return trainingLevels.find((item) => item.value === trainingLevel)?.label;
   };
 
-  function triggerOpenDialog(result: { max: number; details: { [key: number]: { die: string; rolls: number[] } } }) {
+  function triggerOpenDialog(result: { max: number; details: { [key: number]: { die: string; rolls: number[] } } }, toastId: number | string) {
+    console.log(toastId);
+    setToastTimersInfinity();
     setDialogResult(result);
     setIsDialogOpen(true);
+    dismissToast(toastId);
   }
+
+  useEffect(() => {
+    if (!isDialogOpen) {
+      console.log('Dialog closed');
+      setToastTimerToDefault();
+    }
+  }, [isDialogOpen]);
 
   const handleClick = () => {
     const attributeKey = localSkill.atribute.toLowerCase() as keyof Omit<AtributesJson, 'alterations'>;
     const attributeValue = character.atributes[attributeKey];
 
     const result = rollCheck(`${attributeValue}d20 + ${localSkill.value}`);
-    console.log(result);
 
-    toast('', {
+    const toastId = toast('', {
       description: (
         <>
           <div className="font-oswald ">
@@ -90,7 +100,7 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
             <h1 className="text-lg font-semibold">Resultado: {result.max}</h1>
           </div>
 
-          <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => toast.dismiss()}>
+          <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
             <IoMdCloseCircleOutline />
           </div>
         </>
@@ -100,20 +110,59 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
       cancel: false,
       action: {
         label: 'Detalhes',
-        onClick: () => triggerOpenDialog(result),
+        onClick: () => triggerOpenDialog(result, toastId),
       },
       actionButtonStyle: {
         color: 'text-black',
       },
 
+      onAutoClose(toast) {
+        dismissToast(toast.id);
+      },
+
+      onDismiss(toast) {
+        dismissToast(toast.id);
+      },
       classNames: {
         toast: 'bg-dark-bg-secondary border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
         title: 'font-bold text-xl',
         description: 'font-extralight text-lg',
       },
     });
+
+    setToastIds((prevToastIds) => [...prevToastIds, toastId]);
   };
 
+  function dismissToast(toastId: number | string) {
+    toast.dismiss(toastId);
+    setToastIds((prevToastIds) => prevToastIds.filter((id) => id !== toastId));
+  }
+
+  function setToastTimersInfinity() {
+    if (toastIds.length <= 0) {
+      return;
+    }
+    toastIds.forEach((id) => {
+      console.log(id);
+      toast('', {
+        id: id,
+        duration: Infinity,
+      });
+    });
+  }
+
+  function setToastTimerToDefault() {
+    if (toastIds.length <= 0) {
+      return;
+    }
+    toastIds.forEach((id) => {
+      console.log(id);
+      toast('', {
+        id: id,
+        duration: 5000,
+      });
+    });
+  }
   return (
     <tr className="text-center font-extralight">
       <td className="text-start px-2 flex items-center space-x-5">

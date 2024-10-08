@@ -25,36 +25,42 @@ export const getElementColor = (element: string) => {
         border: 'border-cyan-100',
         bg: 'bg-cyan-100',
         text_foreground: 'text-black',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(207,250,254,100)]',
       };
     case 'BLOOD':
       return {
         text: 'text-red-700',
         border: 'border-red-900',
         bg: 'bg-red-900',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(127,29,29,100)]',
       };
     case 'DEATH':
       return {
         text: 'text-gray-500',
         border: 'border-gray-500',
         bg: 'bg-gray-500',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(107,114,128,100)]',
       };
     case 'ENERGY':
       return {
         text: 'text-purple-700',
         border: 'border-purple-700',
         bg: 'bg-purple-700',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(126,34,206,100)]',
       };
     case 'KNOWLEDGE':
       return {
         text: 'text-primary',
         border: 'border-primary',
         bg: 'bg-primary',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(232,232,86)]',
       };
     default:
       return {
         text: 'text-border',
         border: 'border-border',
         bg: 'bg-border',
+        drop_shadow: 'drop-shadow-[0_0px_30px_rgba(255,255,255,100)]',
       };
   }
 };
@@ -78,14 +84,10 @@ export default function CreateFeats() {
     setElementColor(getElementColor(watch('element')));
   }, [watch('element')]);
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
-  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentAfinityUpgrade, setCurrentAfinityUpgrade] = useState<string | 'default'>('default');
 
   const handleAddAfinityUpgrade = (e: React.FormEvent) => {
@@ -187,12 +189,7 @@ export default function CreateFeats() {
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[180px]"
-            value={description}
-            onChange={(content) => setValue('description', content)}
-            modules={quillModule}
-          />
+          <ReactQuill className="ml-2 h-[180px]" value={description} onChange={(content) => setValue('description', content)} modules={quillModule} />
         </div>
         <div className="space-y-2 group ">
           <h1 className="group-focus-within:text-primary">Pré-requisitos:</h1>
@@ -200,11 +197,7 @@ export default function CreateFeats() {
         </div>
         <div className="z-50">
           <h1 className="mb-5">Modificações no personagem</h1>
-          <select
-            value={currentCharacterUpgrade}
-            onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5 "
-          >
+          <select value={currentCharacterUpgrade} onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
             <option value="default" disabled>
               Modificações
             </option>
@@ -217,17 +210,11 @@ export default function CreateFeats() {
           <Button size={'sm'} variant={'ghost'} onClick={handleAddUpgrade} className="ml-2">
             Adicionar
           </Button>
-          <UpgradeList
-            selectedCharacterUpgrades={selectedCharacterUpgrades}
-            handleRemoveUpgrade={handleRemoveUpgrade}
-          />
+          <UpgradeList selectedCharacterUpgrades={selectedCharacterUpgrades} handleRemoveUpgrade={handleRemoveUpgrade} />
         </div>
         <div className="space-y-2">
           <h1 className={`${elementColor.text}`}>Elemento:</h1>
-          <select
-            className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`}
-            {...register('element')}
-          >
+          <select className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`} {...register('element')}>
             {elementValues?.map((c) => (
               <option key={c.label} value={c.value}>
                 {c.label}
@@ -243,11 +230,7 @@ export default function CreateFeats() {
             </div>
             <div className="z-50">
               <h1 className="mb-5">Modificações no personagem</h1>
-              <select
-                value={currentAfinityUpgrade}
-                onChange={(e) => setCurrentAfinityUpgrade(e.target.value as string)}
-                className="p-2 border-2 bg-card border-border rounded ml-5 "
-              >
+              <select value={currentAfinityUpgrade} onChange={(e) => setCurrentAfinityUpgrade(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
                 <option value="default" disabled>
                   Modificações
                 </option>
@@ -261,10 +244,7 @@ export default function CreateFeats() {
                 Adicionar
               </Button>
 
-              <UpgradeList
-                selectedCharacterUpgrades={selectedAfinityUpgrades}
-                handleRemoveUpgrade={handleRemoveAfinityUpgrade}
-              />
+              <UpgradeList selectedCharacterUpgrades={selectedAfinityUpgrades} handleRemoveUpgrade={handleRemoveAfinityUpgrade} />
             </div>
           </div>
         )}
@@ -272,11 +252,7 @@ export default function CreateFeats() {
           <Button type="submit" className="w-1/4">
             Criar Poder
           </Button>
-          {pending && (
-            <p className="text-red-500 text-lg mt-2">
-              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
-            </p>
-          )}
+          {pending && <p className="text-red-500 text-lg mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

@@ -3,8 +3,12 @@ import { damageTypes } from '../../types/damage';
 import { trainingLevels } from '../../types/skills';
 
 export function formatDamageType(damage: string) {
-  const index = damageTypes.findIndex((damageType) => damageType.value === damage);
+  let index = -1;
+  index = damageTypes.findIndex((damageType) => damageType.value === damage);
 
+  if (index === -1) {
+    return 'Desconhecido';
+  }
   return damageTypes[index].label;
 }
 

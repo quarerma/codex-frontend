@@ -4,9 +4,9 @@ import NavBar from '../../components/global/navbar';
 import { useParams } from 'react-router-dom';
 import { getUserById } from '../../api/fetch/user';
 import Status from './components/stats/status';
-import CharacterAtributes from './components/atributes';
+import CharacterAtributes from './components/stats/atributes';
 
-import CharacterSkills from './components/character-skills';
+import CharacterSkills from './skills/character-skills';
 import CharacterFeats from './components/feats/character-feat';
 import { createContext, useContext, useEffect, useState } from 'react';
 import CharacterRituals from './components/rituals/character-rituals';
@@ -94,9 +94,7 @@ export default function CharacterPage() {
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">
-            Você não tem permissão para acessar essa página
-          </h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Você não tem permissão para acessar essa página</h1>
         </div>
       </div>
     );
@@ -110,16 +108,14 @@ export default function CharacterPage() {
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
         <div
-          className="flex flex-col text-foreground 2xl:max-h-[87vh] xl:max-h-[87vh] overflow-y-auto 2xl:ml-20 2xl:mr-20 xl:ml-10 xl:mr-10 lg:ml-5 lg:mr-5 ml-2 mr-2"
+          className="flex flex-col text-foreground 2xl:max-h-[92vh] xl:max-h-[87vh] overflow-y-auto 2xl:ml-20 2xl:mr-20 xl:ml-10 xl:mr-10 lg:ml-5 lg:mr-5 ml-2 mr-2"
           style={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
           }}
         >
           <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base  h-[5vh] flex">
-            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">
-              Character Page
-            </h1>
+            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">Character Page</h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <span className="text-primary font-light">Campanha:</span>
@@ -158,21 +154,14 @@ export default function CharacterPage() {
                 <div className="flex justify-between  2xl:space-x-10 xl:space-x-5">
                   {navBar.map((item) => (
                     <div key={item.value} className="flex flex-col items-center space-y-2">
-                      <h1
-                        onClick={() => setSelected(item.value)}
-                        className={`cursor-pointer text-2xl ${
-                          selected === item.value ? 'text-primary' : 'text-white/30'
-                        }`}
-                      >
+                      <h1 onClick={() => setSelected(item.value)} className={`cursor-pointer text-2xl ${selected === item.value ? 'text-primary' : 'text-white/30'}`}>
                         {item.name}
                       </h1>
                       <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>
                     </div>
                   ))}
                 </div>
-                <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px] w-full  mt-2">
-                  {getComponent(selected)}
-                </div>
+                <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px] w-full  mt-2">{getComponent(selected)}</div>
               </div>
             </div>
           </div>

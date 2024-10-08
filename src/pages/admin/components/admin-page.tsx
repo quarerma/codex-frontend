@@ -3,11 +3,12 @@ import { getUserById } from '../../../api/fetch/user';
 import { useEffect } from 'react';
 import Sidebar from './sidebar';
 import { useQuery } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 
 export default function AdminPageSetup({ children }: React.PropsWithChildren) {
   const navigate = useNavigate();
 
-  const token: string | null = localStorage.getItem('jwt');
+  const token: string | undefined = Cookies.get('jwt');
 
   useEffect(() => {
     if (!token) {

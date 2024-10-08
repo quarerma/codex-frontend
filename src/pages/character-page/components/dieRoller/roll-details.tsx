@@ -9,14 +9,16 @@ interface SkillCheckDeatilProps {
 
 export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProps) {
   return (
-    <DialogContent className="text-foreground flex font-light flex-col items-start ">
+    <DialogContent className="text-foreground  flex font-light flex-col items-start ">
       <DialogHeader>
         <DialogTitle className="font-light text-2xl pt-5">
           Detalhes da rolagem de <span className="font-bold">{skill.name}</span>
         </DialogTitle>
       </DialogHeader>
       <DialogDescription className="text-xl flex flex-col gap-y-2 w-full">
-        <h1>Atributo Utilizado: {formatAtribute(skill.atribute)?.label}</h1>
+        <div>
+          <h1>Atributo Utilizado: {formatAtribute(skill.atribute)?.label}</h1>
+        </div>
         {roll && (
           <div>
             {Object.entries(roll.details).map(([key, value]) => (
@@ -30,30 +32,32 @@ export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProp
         )}
         <div className="mt-2">
           <h1 className="font-semibold">Modificador: +{skill.value}</h1>
-          <ul className="list-disc list-inside">
-            <li>Grau de treinamento +{formatTrainingLevel(skill.trainingLevel)?.mod}</li>
-            {skill.alterations.map((alteration, index) => (
-              <li key={index}>
-                {alteration.featName && (
-                  <span>
-                    {alteration.featName} +{alteration.value}
-                  </span>
-                )}
-                {alteration.itemName && (
-                  <span>
-                    {alteration.itemName} +{alteration.value}
-                  </span>
-                )}
-                {alteration.modificationName && (
-                  <span>
-                    {alteration.modificationName} +{alteration.value}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
+          <div>
+            <ul className="list-disc list-inside">
+              <li>Grau de treinamento +{formatTrainingLevel(skill.trainingLevel)?.mod}</li>
+              {skill.alterations.map((alteration, index) => (
+                <li key={index}>
+                  {alteration.featName && (
+                    <span>
+                      {alteration.featName} +{alteration.value}
+                    </span>
+                  )}
+                  {alteration.itemName && (
+                    <span>
+                      {alteration.itemName} +{alteration.value}
+                    </span>
+                  )}
+                  {alteration.modificationName && (
+                    <span>
+                      {alteration.modificationName} +{alteration.value}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        {roll?.max && <h1 className="text-2xl font-extrabold  text-end">Total: {roll.max + skill.value}</h1>}
+        {roll?.max && <h1 className="text-2xl font-extrabold  text-end">Total: {roll.max}</h1>}
       </DialogDescription>
     </DialogContent>
   );

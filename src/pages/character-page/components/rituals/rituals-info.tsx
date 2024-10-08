@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { IoMdArrowDropup } from 'react-icons/io';
+import { IoMdArrowDropup, IoMdCloseCircleOutline } from 'react-icons/io';
 
 import { Ritual } from '../../../../types/ritual';
 import { elementValues } from '../../../../types/elements';
@@ -20,6 +20,45 @@ interface RitualInfoProps {
 
 export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
   const [expanded, setExpanded] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para gerenciar o dialog
+  const [dialogResult, setDialogResult] = useState<{ max: number; details: { [key: number]: { die: string; rolls: number[] } } }>(); // Armazenar resultado da rolagem
+  const [toastIds, setToastIds] = useState<(number | string)[]>([]);
+
+  useEffect(() => {
+    if (!isDialogOpen) {
+      setToastTimerToDefault();
+    }
+  }, [isDialogOpen]);
+
+  function dismissToast(toastId: number | string) {
+    toast.dismiss(toastId);
+    setToastIds((prevToastIds) => prevToastIds.filter((id) => id !== toastId));
+  }
+
+  function setToastTimersInfinity() {
+    if (toastIds.length <= 0) {
+      return;
+    }
+    toastIds.forEach((id) => {
+      toast('', {
+        id: id,
+        duration: Infinity,
+      });
+    });
+  }
+
+  function setToastTimerToDefault() {
+    if (toastIds.length <= 0) {
+      return;
+    }
+    toastIds.forEach((id) => {
+      console.log(id);
+      toast('', {
+        id: id,
+        duration: 5000,
+      });
+    });
+  }
 
   const elements = elementValues;
   const range = ritualRange;
@@ -40,21 +79,42 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
 
   const rollAttack = (die: string, castType: string, damageType: string) => {
     const result = rollDamage(die);
-    console.log(result);
-    toast(`${ritual.name} ${castType}`, {
-      classNames: {
-        description: 'text-xl font-light ',
-        title: 'text-xl font-bold w-full ',
+    console.log(elementColor.drop_shadow);
+    const toastId = toast('', {
+      onAutoClose(toast) {
+        dismissToast(toast.id);
       },
 
-      className: `bg-dark-bg-secondary flex  border ${elementColor.border}  text-foreground`,
+      onDismiss(toast) {
+        dismissToast(toast.id);
+      },
+
+      closeButton: false,
+      cancel: false,
       description: (
-        <div className="flex w-full gap-x-5">
-          <h1>Total</h1>
-          <span>{result.total}</span>
-          <span>{damageType}</span>
-        </div>
+        <>
+          <div className="font-oswald w-full ">
+            <h1 className="text-xl tracking-wide font-medium">
+              {ritual.name} {castType}
+            </h1>
+            <h1 className="text-lg font-light mt-2 w-full ">
+              Total:{' '}
+              <span className="font-bold">
+                {result.total} <span className={`${elementColor.text}`}>( {damageType} )</span>
+              </span>
+            </h1>
+          </div>
+
+          <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
+            <IoMdCloseCircleOutline />
+          </div>
+        </>
       ),
+      classNames: {
+        toast: `bg-dark-bg-secondary border-2 ${elementColor.border} ${elementColor.drop_shadow} text-white  w-full flex flex-1  `, // centers the text// centers the text
+        title: 'font-bold text-xl',
+        description: 'font-extralight text-lg',
+      },
     });
     return result;
   };

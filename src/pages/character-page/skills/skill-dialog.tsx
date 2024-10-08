@@ -31,9 +31,7 @@ export default function SkillModal({ skill }: SkillModalProps) {
       >
         <div className="flex  flex-col space-y-5 ">
           <div className="flex flex-col">
-            <SheetTitle>
-              <h2 className="text-3xl font-bold">{skillInfo.name}</h2>
-            </SheetTitle>
+            <SheetTitle className="text-3xl font-bold">{skillInfo.name}</SheetTitle>
             <div className="flex flex-col text-sm underline text-muted-foreground font-oswald font-normal">
               {skillInfo.carry_peanalty && <span>Penalidade de Carga</span>}
               {skillInfo.needs_kit && <span>Precisa de Kit</span>}
