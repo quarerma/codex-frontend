@@ -6,17 +6,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect } from 'react';
-import { getClasses } from '../../../../api/fetch/classes';
 import { createSubclass } from '../../../../api/fetch/subclass';
 import { CreateSubClassSchema, createSubClassSchema } from '../../../../schemas/create.subclass';
 import { Input } from '../../../../components/ui/input';
 import { Button } from '../../../../components/ui/button';
 import { quillModule } from '../../../../../lib/utils';
+import { get } from '../../../../api/axios';
+import { ClassModel } from '../../../../types/class';
 
 export default function CreateSubClasses() {
   const { data: classes } = useQuery({
     queryKey: ['classes'],
-    queryFn: () => getClasses(),
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSubClassSchema>({
@@ -56,12 +57,7 @@ export default function CreateSubClasses() {
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[180px]"
-            value={description}
-            modules={quillModule}
-            onChange={(content) => setValue('description', content)}
-          />
+          <ReactQuill className="ml-2 h-[180px]" value={description} modules={quillModule} onChange={(content) => setValue('description', content)} />
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Classe:</h1>

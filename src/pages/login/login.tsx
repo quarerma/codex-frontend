@@ -38,6 +38,8 @@ export default function LoginPage() {
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await login(data);
+
+      console.log(response.data);
       // 4 seconds delay
       setCookie('jwt', response.data, {
         path: '/',
@@ -63,13 +65,7 @@ export default function LoginPage() {
       <h1 className=" -top-5 absolute font-bold w-full text-center md:text-4xl text-3xl">LOGIN</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="px-4 w-full flex flex-col space-y-10 mt-16 mb-5  items-center">
         <div className="w-full">
-          <Input
-            autoComplete="false"
-            className="rounded-[15px]"
-            type="text"
-            placeholder="Username"
-            {...register('username')}
-          />
+          <Input autoComplete="false" className="rounded-[15px]" type="text" placeholder="Username" {...register('username')} />
           <label className="text-red-500 text-sm">{errors.username?.message}</label>
         </div>
         <div className="w-full">
@@ -83,11 +79,7 @@ export default function LoginPage() {
           </div>
         ) : (
           <div className="w-full flex flex-col items-center gap-y-4">
-            <Button
-              type="submit"
-              className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
-              variant={'default'}
-            >
+            <Button type="submit" className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]" variant={'default'}>
               Log In
             </Button>
             {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
@@ -95,10 +87,7 @@ export default function LoginPage() {
         )}
       </form>
       <div className="w-11/12 h-[1px] bg-border mb-5"></div>
-      <Link
-        to={'/signup'}
-        className=" hover:scale-110 duration-200 transition-transform  mb-5 text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]"
-      >
+      <Link to={'/signup'} className=" hover:scale-110 duration-200 transition-transform  mb-5 text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]">
         Sign Up
       </Link>
     </LoginSignup>

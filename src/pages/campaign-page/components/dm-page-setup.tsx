@@ -58,9 +58,7 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
       <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">
-            Você não tem permissão para acessar essa página
-          </h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Você não tem permissão para acessar essa página</h1>
         </div>
       </div>
     );
@@ -87,9 +85,7 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
           }}
         >
           <div className="items-center flex w-full px-10  justify-between 2xl:text-2xl xl:text-xl text-base h-[5vh] ">
-            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-4xl xl:text-3xl text-lg">
-              Campaign Page
-            </h1>
+            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-4xl xl:text-3xl text-lg">Campaign Page</h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <span className="text-primary font-light">Campanha:</span>
@@ -104,10 +100,7 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
               <span className="text-primary font-light">Criada em:</span>
               {formattedCreatedAt}
             </h1>
-            <h1
-              onClick={copyToClipboard}
-              className="flex cursor-pointer font-inter items-center gap-x-2 font-extralight"
-            >
+            <h1 onClick={copyToClipboard} className="flex cursor-pointer font-inter items-center gap-x-2 font-extralight">
               <span className="text-white font-light">Copiar Id</span>
               <BsCopy />
             </h1>

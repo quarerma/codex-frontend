@@ -21,18 +21,17 @@ export default function ManageCampaignPlayers() {
   if (isLoading) {
     return (
       <DmPageSetup>
-        <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
-
-        <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
+        <div className="flex">
+          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
+        </div>
       </DmPageSetup>
     );
   }
 
   function findUserCharacters(userId: string) {
     console.log(characters, userId);
-    return characters
-      ?.filter((character) => character.owner.id === userId)
-      .map((character) => character.name) as string[];
+    return characters?.filter((character) => character.owner.id === userId).map((character) => character.name) as string[];
   }
   return (
     <DmPageSetup>
@@ -45,9 +44,7 @@ export default function ManageCampaignPlayers() {
             <div key={player.player.id} className="flex flex-col gap-2 bg-dark-bg-secondary p-4 rounded-lg">
               <div className="flex items-center justify-between px-5 gap-2">
                 <h2 className="text-xl font-bold">Jogador: {player.player.username}</h2>
-                <h1 className="text-xl font-light">
-                  Entrou em: {format(new Date(player.joinedAt), 'dd/MM/yyyy - HH:mm')}
-                </h1>
+                <h1 className="text-xl font-light">Entrou em: {format(new Date(player.joinedAt), 'dd/MM/yyyy - HH:mm')}</h1>
                 <h1>
                   Personagens:
                   {characters &&

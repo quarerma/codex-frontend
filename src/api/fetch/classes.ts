@@ -5,6 +5,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Feat } from '../../types/feat';
 import { Subclass } from '../../types/sublass';
+import { post } from '../axios';
 
 const API_URL = process.env.API_URL;
 
@@ -22,44 +23,6 @@ export async function createClass(data: CreateClassSchema, proficiencies: string
       },
     });
     return response.data as ClassModel;
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function getClasses(): Promise<ClassModel[]> {
-  try {
-    const jwt = Cookies.get('jwt');
-
-    const response = await axios.get(`${API_URL}classes`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    return response.data as ClassModel[];
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function assignFeat(data: CreateClassFeatSchema) {
-  try {
-    const jwt = Cookies.get('jwt');
-    let response;
-    if (data.isInitialLevel) {
-      response = await axios.post(`${API_URL}classes/assign-initial-feat/${data.classId}`, data.feat, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-    } else {
-      response = await axios.post(`${API_URL}classes/assign-feat/${data.classId}`, data.feat, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-    }
-    return response.data;
   } catch (error) {
     throw error;
   }

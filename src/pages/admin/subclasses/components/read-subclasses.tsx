@@ -3,18 +3,11 @@ import { getSubclasses } from '../../../../api/fetch/subclass';
 import { useEffect, useState } from 'react';
 import { Subclass } from '../../../../types/sublass';
 import { Input } from '../../../../components/ui/input';
-import { getClasses } from '../../../../api/fetch/classes';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 
 import SubclassModel from './subclass-model';
+import { ClassModel } from '../../../../types/class';
+import { get } from '../../../../api/axios';
 
 export default function ReadSubClasses() {
   const { data: subclasses = [] } = useQuery({
@@ -24,7 +17,7 @@ export default function ReadSubClasses() {
 
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
-    queryFn: getClasses,
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -76,9 +69,7 @@ export default function ReadSubClasses() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          {selectedClass && (
-            <label className="text-base ml-2 text-primary-foreground font-bold">Subclasses de {selectedClass}</label>
-          )}
+          {selectedClass && <label className="text-base ml-2 text-primary-foreground font-bold">Subclasses de {selectedClass}</label>}
         </div>
       </div>
 

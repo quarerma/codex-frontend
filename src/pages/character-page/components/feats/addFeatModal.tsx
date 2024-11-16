@@ -1,21 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
-import {
-  getCampaignPossibleFeats,
-  getClassFeats,
-  getFilteredSubClassFeats,
-  getFilteresClassFeats,
-  getSubClassFeats,
-} from '../../../../api/fetch/feats';
+import { getCampaignPossibleFeats, getClassFeats, getFilteredSubClassFeats, getFilteresClassFeats, getSubClassFeats } from '../../../../api/fetch/feats';
 import { Feat } from '../../../../types/feat';
 import { useEffect, useState } from 'react';
 import AddFeatInfo from './addfeat-info';
-import { getClasses } from '../../../../api/fetch/classes';
 import { getSubclasses } from '../../../../api/fetch/subclass';
 import { FaSearch } from 'react-icons/fa';
 import { FeatFilter } from '../../../../components/global/featfilter';
 import { useCharacterFeats } from './character-feat';
 import { useCharacter } from '../../character-page';
+import { get } from '../../../../api/axios';
+import { ClassModel } from '../../../../types/class';
 
 export const AddFeatModal = () => {
   const { character } = useCharacter();
@@ -26,7 +21,7 @@ export const AddFeatModal = () => {
 
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
-    queryFn: getClasses,
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const { data: subclasses = [] } = useQuery({
@@ -52,8 +47,7 @@ export const AddFeatModal = () => {
 
   const { data: subclassFeats, isLoading: isSubclassFeatsLoading } = useQuery({
     queryKey: ['subclassFeats', selectedSubclassFilter],
-    queryFn: () =>
-      selectedSubclassFilter === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclassFilter),
+    queryFn: () => (selectedSubclassFilter === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclassFilter)),
     enabled: selectedFilter === 'subclass', // Só roda a query se o filtro for 'subclass'
   });
 
@@ -80,13 +74,9 @@ export const AddFeatModal = () => {
         break;
       case 'element':
         if (selectedElement !== 'all' && selectedElement) {
-          feats = feats.filter(
-            (feat) => feat.element === selectedElement && feat.type !== 'CUSTOM' && feat.type === 'GENERAL'
-          );
+          feats = feats.filter((feat) => feat.element === selectedElement && feat.type !== 'CUSTOM' && feat.type === 'GENERAL');
         } else if (selectedElement === 'all') {
-          feats = feats.filter(
-            (feat) => feat.element !== 'REALITY' && feat.type !== 'CUSTOM' && feat.type === 'GENERAL'
-          );
+          feats = feats.filter((feat) => feat.element !== 'REALITY' && feat.type !== 'CUSTOM' && feat.type === 'GENERAL');
         }
         break;
       default:
@@ -103,17 +93,7 @@ export const AddFeatModal = () => {
       }
       return prevFilteredFeats;
     });
-  }, [
-    all_feats,
-    searchTerm,
-    selectedFilter,
-    selectedElement,
-    characterFeats,
-    classFeats,
-    isClassFeatsLoading,
-    subclassFeats,
-    isSubclassFeatsLoading,
-  ]);
+  }, [all_feats, searchTerm, selectedFilter, selectedElement, characterFeats, classFeats, isClassFeatsLoading, subclassFeats, isSubclassFeatsLoading]);
 
   return (
     <DialogContent className="text-foreground  max-h-[80vh] 2xl:w-1/3 xl:w-1/2 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
@@ -155,11 +135,7 @@ export const AddFeatModal = () => {
           scrollbarWidth: 'none',
         }}
       >
-        {filteredFeats.length > 0 ? (
-          filteredFeats.map((feat) => <AddFeatInfo key={feat.id} feat={feat} />)
-        ) : (
-          <span className=" text-3xl text-center mt-5 mb-5 italic">Nenhum poder encontrado</span>
-        )}
+        {filteredFeats.length > 0 ? filteredFeats.map((feat) => <AddFeatInfo key={feat.id} feat={feat} />) : <span className=" text-3xl text-center mt-5 mb-5 italic">Nenhum poder encontrado</span>}
       </div>
     </DialogContent>
   );

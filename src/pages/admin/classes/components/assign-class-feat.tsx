@@ -9,9 +9,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
 
-import { assignFeat, getClasses } from '../../../../api/fetch/classes';
 import { Checkbox } from '../../../../components/ui/checkbox';
 import { Input } from '../../../../components/ui/input';
+import { get, post } from '../../../../api/axios';
+import { ClassModel } from '../../../../types/class';
 
 const createClassFeatSchema = z.object({
   classId: z.string().min(1),
@@ -34,14 +35,12 @@ export default function AssignClassFeat() {
 
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
-    queryFn: getClasses,
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const characterUpgrades = character_upgrades;
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
   const handleAddUpgrade = (e: React.FormEvent) => {
@@ -75,6 +74,25 @@ export default function AssignClassFeat() {
   };
 
   const [pending, setPending] = useState<string[]>();
+  const assignFeat = async (data: CreateClassFeatSchema) => {
+    try {
+      let response;
+      const params = new URLSearchParams();
+      params.append('classId', (data.classId as string) || '');
+
+      if (data.isInitialLevel) {
+        response = await post('classes/assign-initial-feat', data.feat, params);
+      } else {
+        response = await post('classes/assign-class-feat', data.feat, params);
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Error assigning feat:', error);
+      throw error;
+    }
+  };
+
   const onSubmit = async (data: CreateClassFeatSchema) => {
     try {
       setPending(undefined);
@@ -89,6 +107,7 @@ export default function AssignClassFeat() {
 
       data.feat.characterUpgrade = selectedCharacterUpgrades.map((p) => p.value);
 
+      // Call the fixed `assignFeat` function here
       await assignFeat(data);
 
       setSelectedCharacterUpgrades([]);
@@ -100,7 +119,7 @@ export default function AssignClassFeat() {
         isInitialLevel: true,
       });
     } catch (error) {
-      console.error(error);
+      console.error('Error during form submission:', error);
     }
   };
 
@@ -124,11 +143,7 @@ export default function AssignClassFeat() {
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Poder inicial:</h1>
-          <Checkbox
-            className="ml-2 "
-            {...register('isInitialLevel')}
-            onCheckedChange={(checked) => setValue('isInitialLevel', Boolean(checked))}
-          />
+          <Checkbox className="ml-2 " {...register('isInitialLevel')} onCheckedChange={(checked) => setValue('isInitialLevel', Boolean(checked))} />
           {watch('isInitialLevel') == true ? (
             <p className=" text-sm mt-2">Este poder será atribuído ao personagem no nível inicial</p>
           ) : (
@@ -149,23 +164,14 @@ export default function AssignClassFeat() {
         />
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Pré-requisitos:</h1>
-          <Input
-            type="text"
-            placeholder="Preencha o pré-requisito"
-            className="ml-2"
-            {...register('feat.prerequisites')}
-          />
+          <Input type="text" placeholder="Preencha o pré-requisito" className="ml-2" {...register('feat.prerequisites')} />
         </div>
 
         <div className="flex flex-col w-full items-center  justify-center">
           <Button type="submit" className="w-1/4">
             Criar Poder de Classe
           </Button>
-          {pending && (
-            <p className="text-red-500 text-lg mt-2">
-              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
-            </p>
-          )}
+          {pending && <p className="text-red-500 text-lg mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

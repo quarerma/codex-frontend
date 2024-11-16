@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getClasses } from '../../../../api/fetch/classes';
 import { useEffect, useState } from 'react';
 import { ClassModel, equipmentProficience } from '../../../../types/class';
 import { Input } from '../../../../components/ui/input';
 import ReadInitialFeats from './initial-class-feats';
+import { get } from '../../../../api/axios';
 
 const proficiencies = equipmentProficience;
 export function formatProficiencie(value: string) {
@@ -14,7 +14,7 @@ export function formatProficiencie(value: string) {
 export default function ReadClasses() {
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
-    queryFn: getClasses,
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -35,13 +35,7 @@ export default function ReadClasses() {
       <div className="flex flex-col space-y-5">
         <h2 className="text-2xl">Filtro:</h2>
 
-        <Input
-          type="text"
-          placeholder="Buscar por nome da perícia"
-          className="p-2 border-2 bg-card border-border rounded  w-full"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <Input type="text" placeholder="Buscar por nome da perícia" className="p-2 border-2 bg-card border-border rounded  w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
       {filteredSubclasses.map((classModel, index) => (
         <div key={index} className="space-y-5 p-5 border-2 border-border">
@@ -77,12 +71,7 @@ export default function ReadClasses() {
           </div>
           <div className="flex flex-col ">
             <h1 className="text-xl">Proficiências: </h1>
-            <ul className="list-inside list-disc ml-2">
-              {classModel.proficiencies &&
-                classModel.proficiencies.map((proficiency, index) => (
-                  <li key={index}>{formatProficiencie(proficiency)}</li>
-                ))}
-            </ul>
+            <ul className="list-inside list-disc ml-2">{classModel.proficiencies && classModel.proficiencies.map((proficiency, index) => <li key={index}>{formatProficiencie(proficiency)}</li>)}</ul>
           </div>
           <div className="flex flex-col space-y-2">
             <h1 className="text-2xl font-bold text-rose-600">Poderes Iniciais</h1>

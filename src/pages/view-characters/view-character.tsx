@@ -6,6 +6,7 @@ import { getUserCharacter } from '../../api/fetch/character';
 import { useQuery } from '@tanstack/react-query';
 import CharacterPortrait from './components/character-portrait';
 import { Character } from '../../types/character';
+import PageSetup from '../../components/ui/page-setup';
 
 export default function ViewCharacters() {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -19,15 +20,12 @@ export default function ViewCharacters() {
 
   useEffect(() => {
     if (characters) {
-      setFilteredCharacters(
-        characters.filter((character) => character.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+      setFilteredCharacters(characters.filter((character) => character.name.toLowerCase().includes(searchTerm.toLowerCase())));
     }
   }, [searchTerm, characters]);
   return (
-    <div className="max-w-screen min-h-screen font-oswald bg-dark-bg space-y-10">
-      <NavBar />
-      <div className="flex justify-between  items-center text-foreground   ml-20 pb-10 mr-20 ">
+    <PageSetup className="space-y-10 ">
+      <div className="flex justify-between  items-center text-foreground   ">
         <div className="flex ">
           <div className=" flex-col border-b-2 border-border">
             <input
@@ -48,13 +46,13 @@ export default function ViewCharacters() {
           Criar Personagem
         </Link>
       </div>
-      <div className="grid grid-cols-3   auto-rows-[200px] gap-14 ml-20 mr-20">
+      <div className="grid grid-cols-3 h-screen  auto-rows-[200px] gap-14">
         {filteredCharacters.map((character, index) => (
           <div key={index} className="flex w-full  justify-center">
             <CharacterPortrait character={character} />
           </div>
         ))}
       </div>
-    </div>
+    </PageSetup>
   );
 }

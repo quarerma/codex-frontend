@@ -1,12 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { CreateComponentProps } from '../props/create-component';
-import {
-  getClassFeats,
-  getFilteredSubClassFeats,
-  getFilteresClassFeats,
-  getNonCustomFeats,
-  getSubClassFeats,
-} from '../../../api/fetch/feats';
+import { getClassFeats, getFilteredSubClassFeats, getFilteresClassFeats, getNonCustomFeats, getSubClassFeats } from '../../../api/fetch/feats';
 import FeatPicker from './feats-picker';
 import { useEffect, useState } from 'react';
 import { useCharacterCreation } from '../create-character';
@@ -14,10 +8,11 @@ import { Feat } from '../../../types/feat';
 
 import { FaSearch, FaTrash } from 'react-icons/fa';
 
-import { getClasses } from '../../../api/fetch/classes';
 import { getSubclasses } from '../../../api/fetch/subclass';
 import DeafultFeats from './feats-selected';
 import { FeatFilter } from '../../../components/global/featfilter';
+import { get } from '../../../api/axios';
+import { ClassModel } from '../../../types/class';
 
 export const getClassColor = (className: string) => {
   switch (className) {
@@ -40,7 +35,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
 
   const { data: classes = [] } = useQuery({
     queryKey: ['classes'],
-    queryFn: getClasses,
+    queryFn: async () => (await get('classes')) as ClassModel[],
   });
 
   const { data: subclasses = [] } = useQuery({
@@ -66,8 +61,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
 
   const { data: subclassFeats, isLoading: isSubclassFeatsLoading } = useQuery({
     queryKey: ['subclassFeats', selectedSubclassFilter],
-    queryFn: () =>
-      selectedSubclassFilter === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclassFilter),
+    queryFn: () => (selectedSubclassFilter === 'all' ? getSubClassFeats() : getFilteredSubClassFeats(selectedSubclassFilter)),
     enabled: selectedFilter === 'subclass', // Só roda a query se o filtro for 'subclass'
   });
 
@@ -109,9 +103,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
       const subclassFeats = selectedSubclass.subclassFeats;
       const characterLevel = watch('level');
 
-      const filteredSubclassFeats = subclassFeats.filter(
-        (feat) => feat.levelRequired <= (characterLevel == 99 ? 20 : characterLevel / 5)
-      );
+      const filteredSubclassFeats = subclassFeats.filter((feat) => feat.levelRequired <= (characterLevel == 99 ? 20 : characterLevel / 5));
 
       const subclassFeatsId = filteredSubclassFeats.map((feat) => feat.feat.id);
 
@@ -168,10 +160,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
               selectedFeats.map((feat, index) => (
                 <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
                   <span>{feat.name}</span>
-                  <FaTrash
-                    className="text-red-500 cursor-pointer hover:scale-125 duration-300"
-                    onClick={() => unSelectFeat(feat)}
-                  />
+                  <FaTrash className="text-red-500 cursor-pointer hover:scale-125 duration-300" onClick={() => unSelectFeat(feat)} />
                 </div>
               ))
             ) : (

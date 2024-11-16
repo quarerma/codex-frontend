@@ -42,7 +42,7 @@ export default function CharacterAtributes() {
   const { character } = useCharacter();
   return (
     <div
-      className="flex max-lg:flex-wrap lg:flex-col w-full mt-5 pb-10 max-h-fit  lg:space-y-2 lg:space-x-0 gap-x-4 gap-y-4 "
+      className="flex max-lg:flex-wrap lg:flex-col w-full mt-10 pb-10 max-h-fit  lg:space-y-2 lg:space-x-0 gap-x-4 gap-y-4 "
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',

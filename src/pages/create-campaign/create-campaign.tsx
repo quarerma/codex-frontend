@@ -9,6 +9,7 @@ import { createCampaign } from '../../api/fetch/campaigns';
 import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { Campaign } from '../../types/campaign';
+import PageSetup from '../../components/ui/page-setup';
 
 export default function CreateCampaign() {
   const {
@@ -38,14 +39,10 @@ export default function CreateCampaign() {
     navigate('/campaigns');
   };
   return (
-    <div className="max-w-screen min-h-screen text-inter text-foreground bg-dark-bg space-y-10">
-      <Navbar />
-      <div className="px-20  relative space-y-10">
+    <PageSetup>
+      <div className="relative space-y-10">
         <h1 className="text-4xl font-bold">Criar campanha</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-8 relative bg-dark-bg-secondary border-4 p-5 -mb-5 rounded-xl border-border "
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-8 relative bg-dark-bg-secondary border-4 p-5 -mb-5 rounded-xl border-border ">
           <div>
             <h1 className="mb-4 text-2xl font-medium">Nome:</h1>
             <Input placeholder="Preencha com o nome da campanha" className="w-1/4 ml-3" {...register('name')} />
@@ -58,11 +55,7 @@ export default function CreateCampaign() {
           </div>
           <div>
             <h1 className="mb-4 text-2xl font-medium">Descrição:</h1>
-            <Textarea
-              placeholder="Adicinar descrição..."
-              className="w-[85%] h-[200px] resize-none ml-3"
-              {...register('description')}
-            />
+            <Textarea placeholder="Adicinar descrição..." className="w-[85%] h-[200px] resize-none ml-3" {...register('description')} />
             {errors.description && <span className="text-red mt-2">{errors.description.message}</span>}
           </div>
 
@@ -73,6 +66,6 @@ export default function CreateCampaign() {
           </div>
         </form>
       </div>
-    </div>
+    </PageSetup>
   );
 }
