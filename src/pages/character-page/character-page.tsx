@@ -14,6 +14,8 @@ import { Character } from '../../types/character';
 import CharacterInventory from './components/inventory/character-inventory';
 import CharacterAttacks from './components/attacks/character-attacks';
 import PageSetup from '../../components/ui/page-setup';
+import CharacterPageMobile from './character-page-mobile';
+import { get } from '../../api/axios';
 
 const CharacterContext = createContext<{
   character: Character;
@@ -31,7 +33,12 @@ export default function CharacterPage() {
 
   const { data: character } = useQuery({
     queryKey: ['character', id],
-    queryFn: () => getCharacter(id),
+    queryFn: () => {
+      const params = new URLSearchParams();
+      params.append('id', id as string);
+
+      return get('character', { params });
+    },
   });
 
   const { data: user } = useQuery({
@@ -106,7 +113,7 @@ export default function CharacterPage() {
         character: character,
       }}
     >
-      <PageSetup>
+      <PageSetup className="max-lg:hidden">
         <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base  h-[5vh] flex">
           <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">Character Page</h1>
           <h1 className="flex items-center gap-x-2 font-extralight">
@@ -157,6 +164,11 @@ export default function CharacterPage() {
               <div className="2xl:max-w-[500px] xl:max-w-[400px] max-w-[300px] w-full  mt-2">{getComponent(selected)}</div>
             </div>
           </div>
+        </div>
+      </PageSetup>
+      <PageSetup className="lg:hidden">
+        <div>
+          <CharacterPageMobile />
         </div>
       </PageSetup>
     </CharacterContext.Provider>

@@ -23,7 +23,7 @@ export default function Navbar() {
   });
 
   return (
-    <>
+    <div>
       {/* Desktop Navbar */}
       <div className="max-lg:hidden">
         <header className="sticky top-0 w-screen h-[8vh] font-semibold text-foreground items-center px-20 xl:text-[1.9rem] lg:text-[1.6rem] font-oswald bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
@@ -67,7 +67,7 @@ export default function Navbar() {
 
       {/* Mobile Navbar */}
       <div className="lg:hidden">
-        <header className="sticky top-0 w-full bg-dark-bg-secondary border-b border-primary px-4 py-2 flex items-center justify-between">
+        <header className="sticky top-0 w-full h-[6vh] bg-dark-bg-secondary z-30 border-b border-primary px-4 py-2 flex items-center justify-between">
           {/* Brand */}
           <Link to="/" className="text-3xl font-extrabold tracking-widest text-primary duration-300">
             CODEX
@@ -81,6 +81,6 @@ export default function Navbar() {
           </button>
         </header>
       </div>
-    </>
+    </div>
   );
 }
