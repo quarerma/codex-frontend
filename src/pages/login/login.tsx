@@ -36,7 +36,7 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginSchema) => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       const response = await login(data);
 
       console.log(response.data);
@@ -45,6 +45,9 @@ export default function LoginPage() {
         path: '/',
         secure: true,
       });
+      reset();
+      cookie.jwt;
+      navigate('/');
     } catch (error) {
       console.log(error);
       if (axios.isAxiosError(error)) {
@@ -54,10 +57,7 @@ export default function LoginPage() {
         }
       }
     }
-    reset();
-    cookie.jwt;
     setLoading(false);
-    navigate('/');
   };
 
   return (

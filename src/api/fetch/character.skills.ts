@@ -8,6 +8,7 @@ export async function updateSkillTrainingLevel(characterId: string, skillId: str
     const jwt = Cookies.get('jwt');
     const response = await axios.patch(
       `${API_URL}character/edit-skill-training-level/${characterId}/${skillId}/${traininglevel}`,
+
       {
         headers: {
           Authorization: `Bearer ${jwt}`,

@@ -5,6 +5,8 @@ import { Separator } from '../../../../components/ui/separator';
 import DeleteCharacter from '../utils/delete-character';
 import { Progress } from '../../../../components/ui/progress';
 import { ScrollArea } from '../../../../components/ui/scroll-area';
+import { IoOpenOutline } from 'react-icons/io5';
+import { Popover, PopoverContent, PopoverTrigger } from '../../../../components/ui/popover';
 
 export default function MobileCharacterStatus() {
   const { character } = useCharacter();
@@ -142,26 +144,67 @@ export default function MobileCharacterStatus() {
 }
 
 function StatusInfo({ current, max, label, bgColor, secondaryColor }: { current: number; max: number; label: string; bgColor: string; secondaryColor: string }) {
-  const [currentValue, setCurrentValue] = useState(current);
-  const [tempValue, setTempValue] = useState(10);
+  const [currentValue] = useState(current);
+  const [tempValue] = useState(100);
+  const [open, setOpen] = useState(false);
+  let hoverTimeout: NodeJS.Timeout;
 
   const adjustedMax = max + tempValue;
   const currentPercentage = (currentValue / adjustedMax) * 100;
   const tempPercentage = (tempValue / adjustedMax) * 100;
 
+  const handleMouseEnter = () => {
+    clearTimeout(hoverTimeout);
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    hoverTimeout = setTimeout(() => setOpen(false), 200); // Atraso de 300ms para fechar
+  };
+
   return (
-    <div className="flex flex-col w-full space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-primary w-24">{label}</span>
-        <div className="relative w-full max-w-[300px]">
-          {/* Main Progress Bar */}
-          <Progress value={currentPercentage} secondaryValue={currentPercentage + tempPercentage} className="w-full" insideClassName={bgColor} secondaryClassName={secondaryColor} />
-          {/* Display current / adjustedMax */}
-          <span className="absolute inset-0 flex items-center justify-center text-sm text-wihte font-bold z-20">
-            {currentValue} / {adjustedMax}
-          </span>
-        </div>
-      </div>
+    <div>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={() => setOpen(!open)} // Alternar no clique
+          className="flex w-full items-center cursor-pointer"
+        >
+          <div className="w-32 flex items-center space-x-1">
+            <IoOpenOutline className="text-lg text-white" />
+            <span className="text-primary">{label}</span>
+          </div>
+          <div className="relative w-full max-w-[300px]">
+            <Progress value={currentPercentage} secondaryValue={currentPercentage + tempPercentage} className="w-full" insideClassName={bgColor} secondaryClassName={secondaryColor} />
+            <span className="absolute inset-0 flex items-center justify-center text-sm text-white font-bold z-20">
+              {currentValue} / {adjustedMax}
+            </span>
+          </div>
+        </PopoverTrigger>
+        <PopoverContent
+          onMouseEnter={handleMouseEnter}
+          side="top"
+          onMouseLeave={handleMouseLeave} // Evitar fechamento ao passar o mouse no conteúdo
+          className="flex items-center py-0 justify-between rounded-lg shadow-md h-12"
+        >
+          <div className="flex items-center">
+            <h1 className="text-xs absolute top-0">{label}</h1>
+            <span className="mt-2">
+              {currentValue} / {max}
+            </span>
+          </div>
+          <Separator className="bg-white h-[70%]" orientation="vertical" />
+          <div className="flex items-center">
+            <h1 className="text-xs absolute top-0">Temp</h1>
+            <span className="mt-2">{tempValue}</span>
+          </div>
+          <Separator className="bg-white h-[70%]" orientation="vertical" />
+          <div>
+            <input type="number" className="bg-transparent text-primary w-10 border border-primary outline-none" />
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }
