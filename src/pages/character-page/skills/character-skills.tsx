@@ -164,9 +164,9 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
     });
   }
   return (
-    <tr className="text-center font-extralight">
-      <td className="text-start px-2 flex items-center space-x-5">
-        <FaDiceD20 className="text-primary mt-1 cursor-pointer" onClick={handleClick} />
+    <tr className="text-center  font-extralight">
+      <td className="text-start max-md:mt-2 md:px-2 flex items-center md:space-x-5 space-x-2">
+        <FaDiceD20 className="text-primary  cursor-pointer" onClick={handleClick} />
         <Sheet>
           <SheetTrigger>
             <span>{localSkill.name}</span>
@@ -174,8 +174,8 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
           <SkillModal skill={localSkill} />
         </Sheet>
       </td>
-      <td className="text-center px-2">({formatAtribute(localSkill.atribute)})</td>
-      <td className="text-center px-2">
+      <td className="text-center md:px-2">({formatAtribute(localSkill.atribute)})</td>
+      <td className="text-center md:px-2">
         {isEditingTrainingLevel ? (
           <select
             value={localSkill.trainingLevel}
@@ -225,15 +225,18 @@ export default function CharacterSkills() {
         scrollbarWidth: 'none',
       }}
     >
-      <table className="w-full text-base">
+      <table className="w-full md:text-base  sm:text-sm text-xs">
         <thead className="border-0 text-center px-3">
-          <tr className="text-lg text-white/30">
-            <th className="text-center px-2 font-extralight">Perícia</th>
-            <th className="text-center px-2 font-extralight">Atributo</th>
-            <th className={`text-center px-2 font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`} onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}>
+          <tr className="md:text-lg text-sm text-white/30">
+            <th className="text-center md:px-2 font-extralight">Perícia</th>
+            <th className="text-center md:px-2 font-extralight">Atributo</th>
+            <th
+              className={`text-center md:px-2 font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`}
+              onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}
+            >
               Treinamento
             </th>
-            <th className="text-center px-2 font-extralight">Bônus</th>
+            <th className="text-center md:px-2 font-extralight">Bônus</th>
           </tr>
         </thead>
         <tbody>

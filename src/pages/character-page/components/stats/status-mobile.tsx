@@ -48,7 +48,7 @@ export default function MobileCharacterStatus() {
       {!isOpen && (
         <div className="bg-primary/60 h-[94vh] bottom-0 fixed w-[0.1px] -z-20">
           <button
-            className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-primary text-black rounded-r-md px-1 border-primary-foreground border rounded-tr-xl rounded-br-xl shadow-md text-3xl z-50"
+            className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-primary text-black rounded-r-md px-1 border-primary-foreground border rounded-tr-lg rounded-br-lg shadow-md md:text-3xl text-base z-50"
             onClick={() => setIsOpen(true)}
           >
             <span>{'>'}</span>

@@ -7,7 +7,7 @@ export default function CharacterPageMobile() {
 
   return (
     <div>
-      <div className="px-10">
+      <div className="sm:px-10 px-3">
         <CharacterSkills />
       </div>
       <MobileCharacterStatus />
