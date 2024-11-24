@@ -219,7 +219,7 @@ export default function CharacterSkills() {
 
   return (
     <div
-      className="overflow-y-auto font-inter max-h-[87vh]"
+      className="overflow-y-auto font-inter "
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',

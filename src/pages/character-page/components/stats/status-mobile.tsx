@@ -43,7 +43,7 @@ export default function MobileCharacterStatus() {
   };
 
   return (
-    <div {...handlers} className="fixed top-0 left-0 h-full z-50 w-screen flex">
+    <div {...handlers} className={`fixed top-0 left-0 h-full z-50 flex ${isOpen ? 'w-screen' : 'w-5'}`}>
       {/* Open Drawer */}
       {!isOpen && (
         <div className="bg-primary/60 h-[94vh] bottom-0 fixed w-[0.1px] -z-20">

@@ -167,9 +167,7 @@ export default function CharacterPage() {
         </div>
       </PageSetup>
       <PageSetup className="lg:hidden">
-        <div>
-          <CharacterPageMobile />
-        </div>
+        <CharacterPageMobile />
       </PageSetup>
     </CharacterContext.Provider>
   );

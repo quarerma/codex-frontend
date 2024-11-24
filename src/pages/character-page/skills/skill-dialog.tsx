@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSkillByName } from '../../../api/fetch/skills';
 import { SkillCharacter } from '../../../types/skills';
 import { SheetContent, SheetTitle } from '../../../components/ui/sheet';
+import { get } from '../../../api/axios';
 
 interface SkillModalProps {
   skill: SkillCharacter;
@@ -11,8 +12,10 @@ export default function SkillModal({ skill }: SkillModalProps) {
   const { data: skillInfo, isLoading } = useQuery({
     queryKey: ['skill', skill.name],
     queryFn: async () => {
-      const response = await getSkillByName(skill.name);
-      return response;
+      const params = new URLSearchParams();
+      params.append('name', skill.name);
+
+      return await get('skill/byName', { params });
     },
   });
 
@@ -23,7 +26,7 @@ export default function SkillModal({ skill }: SkillModalProps) {
     skillInfo && (
       <SheetContent
         side={'left'}
-        className={'min-w-[600px] flex font-inter py-5 border-primary text-foreground overflow-y-auto z-50 gap-4 border-r bg-background p-6 shadow-lg duration-200 sm:rounded-lg'}
+        className={'lg:min-w-[600px] w-[350px]   flex font-inter py-5 border-primary text-foreground overflow-y-auto z-50 gap-4 border-r bg-background p-6 shadow-lg duration-200 sm:rounded-lg'}
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
