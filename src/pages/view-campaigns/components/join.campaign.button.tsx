@@ -1,15 +1,6 @@
 import { z } from 'zod';
 import { Button } from '../../../components/ui/button';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '../../../components/ui/dialog';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '../../../components/ui/dialog';
 import { Input } from '../../../components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,7 +21,7 @@ export default function JoinCampaignButton() {
 
   const onSubmit = async (data: JoinCampaignSchema) => {
     try {
-      const response = await joinCampaign(data);
+      const response = await joinCampaign(data as { campaignId: string; password: string });
 
       const cacheData: Campaign[] | undefined = queryClient.getQueryData(['campaigns']);
 

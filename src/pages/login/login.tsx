@@ -37,7 +37,7 @@ export default function LoginPage() {
     try {
       setLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 0));
-      const response = await login(data);
+      const response = await login(data as { username: string; password: string });
 
       console.log(response.data);
       // 4 seconds delay
