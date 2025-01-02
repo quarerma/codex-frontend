@@ -1,5 +1,3 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { CreateCampaignSchema } from '../../schemas/create.campaign';
 import { Campaign } from '../../types/campaign';
 import { Character } from '../../types/character';
@@ -69,7 +67,7 @@ export async function getCampaignPlayers(id: string) {
   try {
     const params = new URLSearchParams({ id });
     const response = await get(`campaigns/players`, { params });
-    return response.data as { joinedAt: Date; player: User }[];
+    return response as { joinedAt: Date; player: User }[];
   } catch (error) {
     throw error;
   }
