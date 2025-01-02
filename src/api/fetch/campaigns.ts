@@ -36,7 +36,7 @@ export async function joinCampaign(data: { campaignId: string; password: string 
 
 export async function getUserCampaignsAsPlayer(): Promise<Campaign[]> {
   try {
-    const response = await get(`user/campaigns-player`);
+    const response = await get(`user/players`);
     return response.data;
   } catch (error) {
     throw error;
@@ -56,7 +56,7 @@ export async function fetchCampaign(id?: string): Promise<Campaign> {
 export async function getCampaignCharacters(id?: string): Promise<Character[]> {
   try {
     const params = new URLSearchParams({ id });
-    const response = await get(`campaigns/campaign-characters`, { params });
+    const response = await get(`campaigns/characters`, { params });
     return response.data;
   } catch (error) {
     throw error;
