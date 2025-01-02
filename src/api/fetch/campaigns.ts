@@ -10,7 +10,8 @@ import { get, post } from '../axios';
 export async function getUserCampaigns(): Promise<Campaign[]> {
   try {
     const response = await get(`user/campaigns`);
-    return response.data;
+
+    return response;
   } catch (error) {
     throw error;
   }
@@ -19,7 +20,7 @@ export async function getUserCampaigns(): Promise<Campaign[]> {
 export async function createCampaign(data: CreateCampaignSchema): Promise<Campaign> {
   try {
     const response = await post(`campaigns/create`, data);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
@@ -28,7 +29,7 @@ export async function createCampaign(data: CreateCampaignSchema): Promise<Campai
 export async function joinCampaign(data: { campaignId: string; password: string }): Promise<Campaign> {
   try {
     const response = await post(`campaigns/join`, data);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
@@ -37,7 +38,7 @@ export async function joinCampaign(data: { campaignId: string; password: string 
 export async function getUserCampaignsAsPlayer(): Promise<Campaign[]> {
   try {
     const response = await get(`user/players`);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
@@ -47,9 +48,10 @@ export async function fetchCampaign(id?: string): Promise<Campaign> {
   try {
     const params = new URLSearchParams({ id });
     const response = await get(`campaigns/byId`, { params });
-    return response.data;
+
+    return response;
   } catch (error) {
-    throw error;
+    console.error(error);
   }
 }
 
@@ -57,7 +59,7 @@ export async function getCampaignCharacters(id?: string): Promise<Character[]> {
   try {
     const params = new URLSearchParams({ id });
     const response = await get(`campaigns/characters`, { params });
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
