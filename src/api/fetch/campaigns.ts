@@ -35,7 +35,7 @@ export async function joinCampaign(data: { campaignId: string; password: string 
 
 export async function getUserCampaignsAsPlayer(): Promise<Campaign[]> {
   try {
-    const response = await get(`user/players`);
+    const response = await get(`user/campaigns-player`);
     return response;
   } catch (error) {
     throw error;

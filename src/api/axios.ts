@@ -37,3 +37,33 @@ export async function post(url: string, data = {}, options = {}) {
     throw error;
   }
 }
+
+export async function axios_delete(url: string, options = {}) {
+  const jwt = Cookies.get('jwt');
+  try {
+    const response = await axiosInstance.delete(url, {
+      ...options,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function patch(url: string, data = {}, options = {}) {
+  const jwt = Cookies.get('jwt');
+  try {
+    const response = await axiosInstance.patch(url, data, {
+      ...options,
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}

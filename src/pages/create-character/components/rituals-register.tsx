@@ -6,15 +6,7 @@ import { useCharacterCreation } from '../create-character';
 import { FaSearch, FaTrash } from 'react-icons/fa';
 import { Ritual } from '../../../types/ritual';
 import { useEffect, useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../components/ui/select';
 import { elementValues } from '../../../types/elements';
 
 export default function RitualsRegister({ setValue, watch }: CreateComponentProps) {
@@ -70,7 +62,7 @@ export default function RitualsRegister({ setValue, watch }: CreateComponentProp
   }, [searchTerm, rituals, selectedElementToFilter, selectedLevelToFilter, watch('ritualsIds')]);
 
   return (
-    <div className="flex -mt-10 justify-center">
+    <div className="flex  justify-center">
       <div
         style={{
           msOverflowStyle: 'none',
@@ -84,10 +76,7 @@ export default function RitualsRegister({ setValue, watch }: CreateComponentProp
             selectedRituals.map((ritual, index) => (
               <div className="border-2 border-muted p-3 flex justify-between items-center" key={index}>
                 <span>{ritual.name}</span>
-                <FaTrash
-                  className="text-red-500 cursor-pointer hover:scale-125 duration-300"
-                  onClick={() => unSelectRituals(ritual)}
-                />
+                <FaTrash className="text-red-500 cursor-pointer hover:scale-125 duration-300" onClick={() => unSelectRituals(ritual)} />
               </div>
             ))
           ) : (

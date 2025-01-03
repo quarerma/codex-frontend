@@ -1,35 +1,17 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { CreateSkillSchema } from '../../schemas/create.skill';
 import { Skills } from '../../types/skills';
-
-const API_URL = process.env.API_URL;
+import { get, post } from '../axios';
 
 export async function createSkill(data: CreateSkillSchema): Promise<Skills> {
   try {
-    const jwt = Cookies.get('jwt');
-
-    const response = await axios.post(`${API_URL}skill`, data, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    return response.data;
+    return (await post('skill', data)) as Skills;
   } catch (error) {
     throw error;
   }
 }
 export async function getSkills(): Promise<Skills[]> {
   try {
-    const jwt = Cookies.get('jwt');
-
-    const response = await axios.get(`${API_URL}skill`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-
-    return response.data;
+    return (await get('skill')) as Skills[];
   } catch (error) {
     throw error;
   }
@@ -37,14 +19,9 @@ export async function getSkills(): Promise<Skills[]> {
 
 export async function createCampaignSkill(data: CreateSkillSchema, campaignId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.post(`${API_URL}campaigns/campaign-skills/${campaignId}`, data, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams({ id: campaignId });
 
-    return response.data;
+    return await post('campaigns/skills', data, { params });
   } catch (error) {
     throw error;
   }
@@ -52,14 +29,9 @@ export async function createCampaignSkill(data: CreateSkillSchema, campaignId: s
 
 export async function getCampaignSkills(campaignId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.get(`${API_URL}campaigns/campaign-skills/${campaignId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams({ id: campaignId });
 
-    return response.data.customSkills as Skills[];
+    return (await get('campaigns/skills', { params })) as Skills[];
   } catch (error) {
     throw error;
   }
@@ -67,18 +39,9 @@ export async function getCampaignSkills(campaignId: string) {
 
 export async function getSkillByName(name: string): Promise<Skills> {
   try {
-    const jwt = Cookies.get('jwt');
+    const params = new URLSearchParams({ name: name });
 
-    const response = await axios.get(`${API_URL}skill/byName`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-      params: {
-        name: name,
-      },
-    });
-
-    return response.data;
+    return (await get('skill/byName', { params })) as Skills;
   } catch (error) {
     throw error;
   }

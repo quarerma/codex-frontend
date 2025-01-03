@@ -1,28 +1,17 @@
-import { CreateClassFeatSchema } from '../../pages/admin/classes/components/assign-class-feat';
 import { CreateClassSchema } from '../../schemas/create.class';
 import { ClassModel } from '../../types/class';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import { Feat } from '../../types/feat';
 import { Subclass } from '../../types/sublass';
-import { post } from '../axios';
-
-const API_URL = process.env.API_URL;
+import { get, post } from '../axios';
 
 export async function createClass(data: CreateClassSchema, proficiencies: string[]): Promise<ClassModel> {
   try {
-    const jwt = Cookies.get('jwt');
-
     const classData = {
       ...data,
       proficiencies,
     };
-    const response = await axios.post(`${API_URL}classes`, classData, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    return response.data as ClassModel;
+
+    return post('classes', classData);
   } catch (error) {
     throw error;
   }
@@ -30,28 +19,20 @@ export async function createClass(data: CreateClassSchema, proficiencies: string
 
 export async function getInitialFeats(classId: string) {
   try {
-    const jwt = Cookies.get('jwt');
+    const params = new URLSearchParams();
+    params.append('classId', classId);
 
-    const response = await axios.get(`${API_URL}classes/initial-feats/${classId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    return response.data as Feat[];
+    return (await get('classes/initial-feats', { params })) as Feat[];
   } catch (error) {
     throw error;
   }
 }
 export async function getClassSubClasses(classId: string) {
   try {
-    const jwt = Cookies.get('jwt');
+    const params = new URLSearchParams();
+    params.append('classId', classId);
 
-    const response = await axios.get(`${API_URL}classes/subclasses/${classId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    return response.data as Subclass[];
+    return (await get('classes/subclasses', { params })) as Subclass[];
   } catch (error) {
     throw error;
   }

@@ -1,19 +1,11 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { Inventory, InventorySlot } from '../../types/inventory';
-
-const API_URL = process.env.API_URL;
+import { Inventory } from '../../types/inventory';
+import { get, patch } from '../axios';
 
 export async function getInventory(characterId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.get(`${API_URL}inventory/${characterId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams({ characterId });
 
-    return response.data as Inventory;
+    return (await get('inventory', { params })) as Inventory;
   } catch (error) {
     throw error;
   }
@@ -21,14 +13,11 @@ export async function getInventory(characterId: string) {
 
 export async function addInventoryItem(characterId: string, itemId: number) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.patch(`${API_URL}inventory/add-item/${characterId}/${itemId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('id', itemId.toString());
 
-    return response.data as InventorySlot;
+    return await patch('inventory/add-item', {}, { params });
   } catch (error) {
     throw error;
   }
@@ -36,14 +25,11 @@ export async function addInventoryItem(characterId: string, itemId: number) {
 
 export async function removeIventoryItem(slotId: string, characterId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.patch(`${API_URL}inventory/remove-item/${characterId}/${slotId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('slotId', slotId);
 
-    return response.data as InventorySlot;
+    return await patch('inventory/remove-item', {}, { params });
   } catch (error) {
     throw error;
   }

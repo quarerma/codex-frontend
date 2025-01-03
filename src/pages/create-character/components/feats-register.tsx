@@ -145,7 +145,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   };
 
   return (
-    <div className="flex flex-col md:flex-row -mt-10 max-h-[90vh] justify-center overflow-hidden">
+    <div className="flex flex-col md:flex-row  max-h-[90vh] justify-center overflow-hidden">
       <div
         className="w-full md:w-[40%] text-2xl font-light max-h-screen px-5 md:px-20 flex flex-col space-y-5 overflow-auto"
         style={{

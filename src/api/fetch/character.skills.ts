@@ -1,22 +1,14 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-
-const API_URL = process.env.API_URL;
+import { patch } from '../axios';
 
 export async function updateSkillTrainingLevel(characterId: string, skillId: string, traininglevel: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.patch(
-      `${API_URL}character/edit-skill-training-level/${characterId}/${skillId}/${traininglevel}`,
+    const params = new URLSearchParams();
 
-      {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
+    params.append('characterId', characterId);
+    params.append('skillId', skillId);
+    params.append('traininglevel', traininglevel);
 
-    return response.data;
+    return await patch(`character/edit-skill-training-level`, {}, { params });
   } catch (error) {
     throw error;
   }

@@ -1,18 +1,11 @@
-import axios from 'axios';
-import Cookies from 'js-cookie';
-
-const API_URL = process.env.API_URL;
+import { axios_delete, patch, post } from '../axios';
 
 export async function assignCharacterFeat(characterId: string, featId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.post(`${API_URL}character/assign-feat/${characterId}/${featId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-
-    return response.data;
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('featId', featId);
+    return await post('character/assign-feat', { params });
   } catch (error) {
     throw error;
   }
@@ -20,14 +13,11 @@ export async function assignCharacterFeat(characterId: string, featId: string) {
 
 export async function removeCharacterFeat(characterId: string, featId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.delete(`${API_URL}character/remove-feat/${characterId}/${featId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('featId', featId);
 
-    return response.data;
+    return await axios_delete('character/remove-feat', { params });
   } catch (error) {
     throw error;
   }
@@ -35,14 +25,11 @@ export async function removeCharacterFeat(characterId: string, featId: string) {
 
 export async function useFeatAffinity(characterId: string, featId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.patch(`${API_URL}character/use-affinity/${characterId}/${featId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('featId', featId);
 
-    return response.data;
+    return await patch('character/use-affinity', { params });
   } catch (error) {
     throw error;
   }
@@ -50,14 +37,11 @@ export async function useFeatAffinity(characterId: string, featId: string) {
 
 export async function unUseFeatAffinity(characterId: string, featId: string) {
   try {
-    const jwt = Cookies.get('jwt');
-    const response = await axios.patch(`${API_URL}character/un-use-affinity/${characterId}/${featId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const params = new URLSearchParams();
+    params.append('characterId', characterId);
+    params.append('featId', featId);
 
-    return response.data;
+    return await patch('character/un-use-affinity', {}, { params });
   } catch (error) {
     throw error;
   }

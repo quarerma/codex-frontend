@@ -177,15 +177,15 @@ export default function CreateCharacter() {
       }}
     >
       <PageSetup className="space-y-5">
-        <h1 className="text-[#E1E1E1]/60   text-5xl tracking-[0.3rem] xl:ml-20 lg:ml-10 font-semibold">Character Builder</h1>
+        <h1 className="text-[#E1E1E1]/60   text-5xl tracking-[0.3rem] xl:pl-20 lg:pl-10 font-semibold">Character Builder</h1>
         {campaigns?.length === 0 ? (
           <div className="flex flex-col justify-center items-center py-20 space-y-10">
             <h1 className="text-3xl">Você não está em nenhuma campanha</h1>
             <JoinCampaignButton />
           </div>
         ) : (
-          <>
-            <div className="flex xl:ml-20 lg:ml-10 justify-between items-center w-full">
+          <div className="flex flex-col ">
+            <div className="flex xl:pl-20 lg:pl-10 justify-between items-center w-full">
               {creationNavBar.map((item, index) => (
                 <div key={index} className="flex items-center w-full font-extralight ">
                   <div className="flex flex-col items-center ">
@@ -194,12 +194,12 @@ export default function CreateCharacter() {
                     </h1>
                     {activeComponent === item.value && <div className="w-4 h-4 rounded-full mt-2 bg-primary  "></div>}
                   </div>
-                  {index !== creationNavBar.length - 1 && <label className="flex-1 h-[1px] bg-white mx-12"></label>}
+                  {index !== creationNavBar.length - 1 && <label className="flex-1 h-[1px] w-[15px]  bg-white mx-8"></label>}
                 </div>
               ))}
             </div>
-            <div className="ml-32 py-10">{getComponent(activeComponent)}</div>
-            <form className="ml-32 py-10 " onSubmit={handleSubmit(onSubmit)}>
+            <div className="pl-32 mt-5">{getComponent(activeComponent)}</div>
+            <form className="pl-32 " onSubmit={handleSubmit(onSubmit)}>
               {activeComponent == 7 && (
                 <div className="flex flex-col items-center justify-center">
                   <button type="submit" className="bg-primary text-primary-foreground px-8 py-2 rounded-2xl shadow-lg hover:scale-105 duration-300">
@@ -225,7 +225,7 @@ export default function CreateCharacter() {
                 </div>
               )}
             </form>
-          </>
+          </div>
         )}
         <div className="w-full flex justify-center ">
           {showScrollButton && (
