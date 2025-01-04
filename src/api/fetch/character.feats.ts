@@ -5,7 +5,7 @@ export async function assignCharacterFeat(characterId: string, featId: string) {
     const params = new URLSearchParams();
     params.append('characterId', characterId);
     params.append('featId', featId);
-    return await post('character/assign-feat', { params });
+    return await post('character/assign-feat', {}, { params });
   } catch (error) {
     throw error;
   }
