@@ -31,7 +31,7 @@ export async function getCampaignSkills(campaignId: string) {
   try {
     const params = new URLSearchParams({ id: campaignId });
 
-    return (await get('campaigns/skills', { params })) as Skills[];
+    return (await get('campaigns/skills', { params })).customSkills as Skills[];
   } catch (error) {
     throw error;
   }

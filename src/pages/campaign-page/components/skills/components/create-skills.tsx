@@ -22,7 +22,7 @@ export default function CreateSkills() {
       needs_kit: false,
       carry_peanalty: false,
       only_trained: false,
-      is_custom: false,
+      is_custom: true,
     },
   });
   const description = watch('description'); // Para observar mudanças no campo
@@ -58,12 +58,7 @@ export default function CreateSkills() {
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[180px]"
-            modules={quillModule}
-            value={description}
-            onChange={(content) => setValue('description', content)}
-          />
+          <ReactQuill className="ml-2 h-[180px]" modules={quillModule} value={description} onChange={(content) => setValue('description', content)} />
         </div>
         <div className="space-y-2 group">
           <select className="p-2 border-2 bg-card border-border rounded ml-5" {...register('atribute')}>
@@ -83,22 +78,12 @@ export default function CreateSkills() {
           <h1>Precisa de kit</h1>
         </div>
         <div className="flex ml-5  items-center space-x-2">
-          <Checkbox
-            {...register('carry_peanalty')}
-            onCheckedChange={(checked) => setValue('carry_peanalty', Boolean(checked))}
-          />
+          <Checkbox {...register('carry_peanalty')} onCheckedChange={(checked) => setValue('carry_peanalty', Boolean(checked))} />
           <h1>Penalidade de carga</h1>
         </div>
         <div className="flex ml-5 items-center space-x-2">
-          <Checkbox
-            {...register('only_trained')}
-            onCheckedChange={(checked) => setValue('only_trained', Boolean(checked))}
-          />
+          <Checkbox {...register('only_trained')} onCheckedChange={(checked) => setValue('only_trained', Boolean(checked))} />
           <h1>Apenas treinado</h1>
-        </div>
-        <div className="flex ml-5 items-center space-x-2">
-          <Checkbox onCheckedChange={(checked) => setValue('is_custom', Boolean(checked))} />
-          <h1>Customizada</h1>
         </div>
 
         <div className="w-full flex justify-center">

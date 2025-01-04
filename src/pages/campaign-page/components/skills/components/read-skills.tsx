@@ -4,15 +4,7 @@ import { Atributes } from '../../../../../types/character-upgrades';
 import { useEffect, useState } from 'react';
 import { Skills } from '../../../../../types/skills';
 import { Input } from '../../../../../components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../../components/ui/select';
 import { useParams } from 'react-router-dom';
 
 export default function ReadSkills() {
@@ -20,6 +12,7 @@ export default function ReadSkills() {
   const { data: skills = [] } = useQuery({
     queryKey: ['skills'],
     queryFn: () => getCampaignSkills(campaignId || ''),
+    placeholderData: [],
   });
 
   const atributes = Atributes;
@@ -81,20 +74,10 @@ export default function ReadSkills() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          {selectedAtribute && (
-            <label className="text-base ml-2 text-primary-foreground font-bold">
-              Filtrando por {formatAtribute(selectedAtribute)}
-            </label>
-          )}
+          {selectedAtribute && <label className="text-base ml-2 text-primary-foreground font-bold">Filtrando por {formatAtribute(selectedAtribute)}</label>}
         </div>
 
-        <Input
-          type="text"
-          placeholder="Buscar por nome da perícia"
-          className="p-2 border-2 bg-card border-border rounded  w-full"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <Input type="text" placeholder="Buscar por nome da perícia" className="p-2 border-2 bg-card border-border rounded  w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
 
       <div className="border-2 border-border">
