@@ -14,7 +14,7 @@ import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { Dialog } from '../../../components/ui/dialog';
 import SkillCheckDetailed from '../components/dieRoller/roll-details';
 
-const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
+const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updatedSkill: SkillCharacter) => void }) => {
   const { character } = useCharacter();
   const atributes = Atributes;
   const [localSkill, setLocalSkill] = useState<SkillCharacter>(skill); // Estado local para gerenciar a skill
@@ -60,9 +60,12 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
 
     setLocalSkill(updatedSkill);
     setIsEditingTrainingLevel(false);
+    onUpdate(updatedSkill);
 
-    // Atualiza o treinamento e valor no backend
+    // Update the backend
     await updateSkillTrainingLevel(character.id, skill.name, newTrainingLevel);
+
+    // Notify parent of the update
   };
 
   const formatTrainingLevels = (trainingLevel: string) => {
@@ -207,22 +210,27 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
 
 export default function CharacterSkills() {
   const { character } = useCharacter();
+  const [skills, setSkills] = useState<SkillCharacter[]>(character.skills);
   const [filteredSkills, setFilteredSkills] = useState<SkillCharacter[]>(character.skills);
   const [filterByTrainingLevel, setFilterByTrainingLevel] = useState<boolean>(false);
 
   useEffect(() => {
-    let skills = character.skills;
-
+    let filteredSkills = skills;
     if (filterByTrainingLevel) {
-      skills = skills.filter((skill) => skill.trainingLevel !== 'none');
+      filteredSkills = skills.filter((skill) => skill.trainingLevel !== 'none');
     }
-    console.log(skills);
-    setFilteredSkills([...skills]);
+    setFilteredSkills([...filteredSkills]);
   }, [character.skills, filterByTrainingLevel]);
+
+  const handleSkillUpdate = (updatedSkill: SkillCharacter) => {
+    setSkills((prevSkills) => prevSkills.map((skill) => (skill.name === updatedSkill.name ? updatedSkill : skill)));
+  };
+
+  const num_of_training_skills = skills.filter((skill) => skill.trainingLevel !== 'none').length;
 
   return (
     <div
-      className="overflow-y-auto font-inter "
+      className="overflow-y-auto font-inter"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
@@ -231,20 +239,21 @@ export default function CharacterSkills() {
       <table className="w-full table-fixed bg-w md:text-base sm:text-sm text-xs">
         <thead className="border-0 text-center px-3">
           <tr className="md:text-lg text-sm text-white/30">
-            <th className="text-center md:px-2 font-extralight w-1/4">Perícia</th>
-            <th className="text-center md:px-2 font-extralight">Atributo</th>
-            <th
-              className={`text-center md:px-2 font-extralight cursor-pointer w-1/4 ${filterByTrainingLevel ? 'text-primary underline' : ''}`}
-              onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}
-            >
+            <th className="text-center font-extralight w-1/4">Perícia</th>
+            <th className="text-center font-extralight">Atributo</th>
+            <th className={`text-center font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`} onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}>
               Treinamento
+              <span className="text-xs">
+                {' '}
+                ({num_of_training_skills} / {character.num_of_skills + character.atributes.intelligence})
+              </span>
             </th>
-            <th className="text-center md:px-2 font-extralight ">Bônus</th>
+            <th className="text-center font-extralight">Bônus</th>
           </tr>
         </thead>
         <tbody>
           {filteredSkills.map((skill: SkillCharacter) => (
-            <SkillRow key={skill.name} skill={skill} />
+            <SkillRow key={skill.name} skill={skill} onUpdate={handleSkillUpdate} />
           ))}
         </tbody>
       </table>
