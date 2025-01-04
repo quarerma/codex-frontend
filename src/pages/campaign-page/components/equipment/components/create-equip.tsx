@@ -24,6 +24,7 @@ export default function CreateEquip() {
     defaultValues: {
       type: '',
       num_of_uses: 0,
+      category: 0,
       critical_range: undefined,
       critical_multiplier: undefined,
       damage: undefined,
@@ -35,9 +36,7 @@ export default function CreateEquip() {
     },
   });
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
   const characterUpgrades = character_upgrades;
   const handleAddUpgrade = (e: React.FormEvent) => {
@@ -85,12 +84,7 @@ export default function CreateEquip() {
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição do equipamento:</h1>
-          <ReactQuill
-            value={watch('description')}
-            className="ml-2 h-[180px]"
-            onChange={(content) => setValue('description', content)}
-            modules={quillModule}
-          />
+          <ReactQuill value={watch('description')} className="ml-2 h-[180px]" onChange={(content) => setValue('description', content)} modules={quillModule} />
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Categoria do Equipamento:</h1>
@@ -102,12 +96,7 @@ export default function CreateEquip() {
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Número de Usos:</h1>
-          <Input
-            type="text"
-            placeholder="Caso tenha usos infinitos, preencha com 0"
-            className="ml-2"
-            {...register('category')}
-          />
+          <Input type="text" placeholder="Caso tenha usos infinitos, preencha com 0" className="ml-2" {...register('num_of_uses')} />
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Tipo de equipamento:</h1>
@@ -124,11 +113,7 @@ export default function CreateEquip() {
         </div>
         <div className="z-50">
           <h1 className="mb-5">Modificações no personagem</h1>
-          <select
-            value={currentCharacterUpgrade}
-            onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5 "
-          >
+          <select value={currentCharacterUpgrade} onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
             <option value="default" disabled>
               Modificações
             </option>
@@ -142,21 +127,13 @@ export default function CreateEquip() {
             Adicionar
           </Button>
 
-          <UpgradeList
-            selectedCharacterUpgrades={selectedCharacterUpgrades}
-            handleRemoveUpgrade={handleRemoveUpgrade}
-          />
+          <UpgradeList selectedCharacterUpgrades={selectedCharacterUpgrades} handleRemoveUpgrade={handleRemoveUpgrade} />
         </div>
         {watch('type') === 'WEAPON' && (
           <div className="flex flex-col space-y-10">
             <div className="space-y-2 group">
               <h1 className="group-focus-within:text-primary">Dano da Arma:</h1>
-              <Input
-                type="text"
-                placeholder="Exemplo: 1d6, caso tenha 2 instancias de dano, preencha com 1d6|1d8"
-                className="ml-2"
-                {...register('damage')}
-              />
+              <Input type="text" placeholder="Exemplo: 1d6, caso tenha 2 instancias de dano, preencha com 1d6|1d8" className="ml-2" {...register('damage')} />
             </div>
             <div className="space-y-2 group">
               <h1 className="group-focus-within:text-primary">Valor de Crítico da Arma:</h1>
@@ -164,12 +141,7 @@ export default function CreateEquip() {
             </div>
             <div className="space-y-2 group">
               <h1 className="group-focus-within:text-primary">Multiplicador do Crítico:</h1>
-              <Input
-                type="text"
-                placeholder="Preencha apenas com o número que multiplicará os dados"
-                className="ml-2"
-                {...register('critical_multiplier')}
-              />
+              <Input type="text" placeholder="Preencha apenas com o número que multiplicará os dados" className="ml-2" {...register('critical_multiplier')} />
             </div>
             <div className="space-y-2 group">
               <h1 className="group-focus-within:text-primary">Tipo de arma:</h1>
