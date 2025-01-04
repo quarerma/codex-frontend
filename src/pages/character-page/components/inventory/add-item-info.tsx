@@ -9,6 +9,7 @@ import { Equipment, handType, weaponCategory, weaponType } from '../../../../typ
 import { damageTypes } from '../../../../types/damage';
 import { addInventoryItem } from '../../../../api/fetch/inventory';
 import { useCharacter } from '../../character-page';
+import { useInventory } from './character-inventory';
 
 interface AddItemInfoProps {
   equipment: Equipment;
@@ -16,6 +17,8 @@ interface AddItemInfoProps {
 
 export default function AddItemInfo({ equipment }: AddItemInfoProps) {
   const [expanded, setExpanded] = useState(false);
+
+  const { setInventory } = useInventory();
 
   const { character } = useCharacter();
 
@@ -62,6 +65,7 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
     try {
       const response = await addInventoryItem(character.id, equipment.id);
 
+      setInventory((prevInventory) => [...prevInventory, response]);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -70,21 +74,13 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
         <div className="flex ">
           <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{equipment.name}</h1>
         </div>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
+        <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
-      <div
-        onClick={() => setExpanded(!expanded)}
-        className="flex lg:px-6 md:px-4 cursor-pointer px-2 pb-4 pt-4 items-center justify-start space-x-5"
-      >
+      <div onClick={() => setExpanded(!expanded)} className="flex lg:px-6 md:px-4 cursor-pointer px-2 pb-4 pt-4 items-center justify-start space-x-5">
         <span>
           <span className="text-primary/50">Categoria: </span>
           {equipment.category}
@@ -96,23 +92,20 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
             </span>
             <span>
               <span className="text-primary/50">Crítico:</span> {''}
-              {equipment.Weapon?.critical_range === 20 ? '' : equipment.Weapon?.critical_range + '/'}x
-              {equipment.Weapon?.critical_multiplier}
+              {equipment.Weapon?.critical_range === 20 ? '' : equipment.Weapon?.critical_range + '/'}x{equipment.Weapon?.critical_multiplier}
             </span>
             <span>
               <span className="text-primary/50">Alcance:</span> {formatRange(equipment.Weapon?.range || '')}
             </span>
             <span>
-              <span className="text-primary/50">Tipo de Dano:</span>{' '}
-              {formatWeaponDamageType(equipment.Weapon?.damage_type || '')}
+              <span className="text-primary/50">Tipo de Dano:</span> {formatWeaponDamageType(equipment.Weapon?.damage_type || '')}
             </span>
           </>
         )}
         {equipment.type === 'ARMOR' && (
           <>
             <span>
-              <span className="text-primary/50">Defesa:</span> +
-              {equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
+              <span className="text-primary/50">Defesa:</span> +{equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
             </span>
           </>
         )}

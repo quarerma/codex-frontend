@@ -11,7 +11,7 @@ import { AtributesJson } from '../../../types/character';
 import { toast } from 'sonner';
 import { rollCheck } from '../components/dieRoller/roller';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../../components/ui/dialog';
+import { Dialog } from '../../../components/ui/dialog';
 import SkillCheckDetailed from '../components/dieRoller/roll-details';
 
 const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
@@ -165,23 +165,24 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
   }
   return (
     <tr className="text-center  font-extralight">
-      <td className="text-start max-md:mt-2 md:px-2 flex items-center md:space-x-5 space-x-2">
-        <FaDiceD20 className="text-primary  cursor-pointer" onClick={handleClick} />
+      <td className="text-start max-md:mt-2 md:px-2 flex items-center md:space-x-5 space-x-2 overflow-hidden">
+        <FaDiceD20 className="text-primary cursor-pointer flex-shrink-0" onClick={handleClick} />
         <Sheet>
           <SheetTrigger>
-            <span>{localSkill.name}</span>
+            <span className="truncate">{localSkill.name}</span>
           </SheetTrigger>
           <SkillModal skill={localSkill} />
         </Sheet>
       </td>
+
       <td className="text-center md:px-2">({formatAtribute(localSkill.atribute)})</td>
-      <td className="text-center md:px-2">
+      <td className="text-center md:px-2 ">
         {isEditingTrainingLevel ? (
           <select
             value={localSkill.trainingLevel}
             onChange={handleTrainingLevelChange}
             onBlur={() => setIsEditingTrainingLevel(false)} // Fecha o select ao sair do foco
-            className="border border-gray-300 bg-dark-bg-secondary text-center outline-none rounded"
+            className="border border-gray-300 bg-dark-bg-secondary text-center outline-none rounded cursor-pointer"
             autoFocus
           >
             {trainingLevels.map((level) => (
@@ -191,7 +192,9 @@ const SkillRow = ({ skill }: { skill: SkillCharacter }) => {
             ))}
           </select>
         ) : (
-          <span onClick={() => setIsEditingTrainingLevel(true)}>{formatTrainingLevels(localSkill.trainingLevel)}</span>
+          <span className="cursor-pointer w-full flex-1 " onClick={() => setIsEditingTrainingLevel(true)}>
+            {formatTrainingLevels(localSkill.trainingLevel)}
+          </span>
         )}
       </td>
       <td className="text-center px-2">({localSkill.value})</td>
@@ -214,7 +217,7 @@ export default function CharacterSkills() {
       skills = skills.filter((skill) => skill.trainingLevel !== 'none');
     }
     console.log(skills);
-    setFilteredSkills(skills);
+    setFilteredSkills([...skills]);
   }, [character.skills, filterByTrainingLevel]);
 
   return (
@@ -225,23 +228,23 @@ export default function CharacterSkills() {
         scrollbarWidth: 'none',
       }}
     >
-      <table className="w-full md:text-base  sm:text-sm text-xs">
+      <table className="w-full table-fixed bg-w md:text-base sm:text-sm text-xs">
         <thead className="border-0 text-center px-3">
           <tr className="md:text-lg text-sm text-white/30">
-            <th className="text-center md:px-2 font-extralight">Perícia</th>
+            <th className="text-center md:px-2 font-extralight w-1/4">Perícia</th>
             <th className="text-center md:px-2 font-extralight">Atributo</th>
             <th
-              className={`text-center md:px-2 font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`}
+              className={`text-center md:px-2 font-extralight cursor-pointer w-1/4 ${filterByTrainingLevel ? 'text-primary underline' : ''}`}
               onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}
             >
               Treinamento
             </th>
-            <th className="text-center md:px-2 font-extralight">Bônus</th>
+            <th className="text-center md:px-2 font-extralight ">Bônus</th>
           </tr>
         </thead>
         <tbody>
-          {filteredSkills.map((skill: SkillCharacter, index: number) => (
-            <SkillRow key={index} skill={skill} />
+          {filteredSkills.map((skill: SkillCharacter) => (
+            <SkillRow key={skill.name} skill={skill} />
           ))}
         </tbody>
       </table>

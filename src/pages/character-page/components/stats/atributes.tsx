@@ -40,6 +40,7 @@ function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
 
 export default function CharacterAtributes() {
   const { character } = useCharacter();
+  console.log(character);
   return (
     <div
       className="flex max-lg:flex-wrap lg:flex-col w-full mt-10 pb-10 max-h-fit  lg:space-y-2 lg:space-x-0 gap-x-4 gap-y-4 "

@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { IoMdArrowDropup } from 'react-icons/io';
 
 import { elementValues } from '../../../../types/elements';
-import { ritualRange, weaponRange } from '../../../../types/range';
+import { weaponRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
-import { handType, weaponType } from '../../../../types/equipment';
-import { damageTypes } from '../../../../types/damage';
+
 import { removeIventoryItem } from '../../../../api/fetch/inventory';
 import { useCharacter } from '../../character-page';
 import { Inventory, InventorySlot } from '../../../../types/inventory';
+import { formatElement, formatRange, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '../../../../components/format/formatters';
 
 interface AddItemInfoProps {
   slot: InventorySlot;
@@ -18,39 +18,6 @@ interface AddItemInfoProps {
 
 export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
   const [expanded, setExpanded] = useState(false);
-
-  const elements = elementValues;
-  const range = weaponRange;
-
-  function formatElement(value: string) {
-    const index = elements.findIndex((element) => element.value === value);
-
-    return elements[index].label;
-  }
-
-  function formatRange(value: string) {
-    const index = range.findIndex((range) => range.value === value);
-
-    return range[index].label;
-  }
-
-  function formatWeaponDamageType(value: string) {
-    const index = damageTypes.findIndex((damageType) => damageType.value === value);
-
-    return damageTypes[index].label;
-  }
-
-  function formatWeaponType(value: string) {
-    const index = weaponType.findIndex((damageType) => damageType.value === value);
-
-    return weaponType[index].label;
-  }
-
-  function formatWeaponHandType(value: string) {
-    const index = handType.findIndex((damageType) => damageType.value === value);
-
-    return handType[index].label;
-  }
 
   const { character } = useCharacter();
   async function handleRemoveItem() {
@@ -64,10 +31,7 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
         <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{slot.equipment.name}</h1>
 
         <div className="flex items-center space-x-2">
@@ -78,9 +42,7 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
           <span>
             <span className="text-primary/50">Espaços:</span> {slot.equipment.weight}
           </span>
-          <button className="lg:text-4xl text-3xl font-bold">
-            {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-          </button>
+          <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
         </div>
       </div>
 
@@ -97,23 +59,20 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
               </span>
               <span>
                 <span className="text-primary/50">Crítico:</span> {''}
-                {slot.equipment.Weapon?.critical_range === 20 ? '' : slot.equipment.Weapon?.critical_range + '/'}x
-                {slot.equipment.Weapon?.critical_multiplier}
+                {slot.equipment.Weapon?.critical_range === 20 ? '' : slot.equipment.Weapon?.critical_range + '/'}x{slot.equipment.Weapon?.critical_multiplier}
               </span>
               <span>
                 <span className="text-primary/50">Alcance:</span> {formatRange(slot.equipment.Weapon?.range || '')}
               </span>
               <span>
-                <span className="text-primary/50">Tipo de Dano:</span>{' '}
-                {formatWeaponDamageType(slot.equipment.Weapon?.damage_type || '')}
+                <span className="text-primary/50">Tipo de Dano:</span> {formatWeaponDamageType(slot.equipment.Weapon?.damage_type || '')}
               </span>
             </>
           )}
           {slot.equipment.type === 'ARMOR' && (
             <>
               <span>
-                <span className="text-primary/50">Defesa:</span> +
-                {slot.equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
+                <span className="text-primary/50">Defesa:</span> +{slot.equipment.characterUpgrades.map((item) => item.type === 'DEFESA' && item.upgradeValue)}
               </span>
             </>
           )}
@@ -121,8 +80,7 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
             <>
               <span>
                 {' '}
-                <span className="text-primary/50">Elemento:</span>{' '}
-                {formatElement(slot.equipment.CursedItem?.element || '')}
+                <span className="text-primary/50">Elemento:</span> {formatElement(slot.equipment.CursedItem?.element || '')}
               </span>
             </>
           )}

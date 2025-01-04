@@ -6,7 +6,7 @@ export async function assignCharacterRitual(characterId: string, ritualId: strin
     params.append('characterId', characterId);
     params.append('ritualId', ritualId);
 
-    return await post('character/assign-ritual', { params });
+    return await post('character/assign-ritual', {}, { params });
   } catch (error) {
     throw error;
   }

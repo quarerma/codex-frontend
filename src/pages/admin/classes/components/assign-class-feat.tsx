@@ -81,9 +81,9 @@ export default function AssignClassFeat() {
       params.append('classId', (data.classId as string) || '');
 
       if (data.isInitialLevel) {
-        response = await post('classes/assign-initial-feat', data.feat, params);
+        response = await post('classes/assign-initial-feat', data.feat, { params });
       } else {
-        response = await post('classes/assign-class-feat', data.feat, params);
+        response = await post('classes/assign-feat', data.feat, { params });
       }
 
       return response;
