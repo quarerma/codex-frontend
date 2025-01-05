@@ -32,7 +32,7 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
       <div className="flex justify-between items-baseline space-x-1 cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
-        <h1 className="lg:text-xl md:text-xl text-base font-semibold">{slot.equipment.name}</h1>
+        <h1 className="lg:text-xl md:text-xl text-base font-semibold">{slot.local_name}</h1>
 
         <div className="flex items-center space-x-2">
           <span>
@@ -93,7 +93,7 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
           </div>
         )}
 
-        <p dangerouslySetInnerHTML={{ __html: slot.equipment.description }}></p>
+        <p dangerouslySetInnerHTML={{ __html: slot.local_description }}></p>
         <div className="flex items-center text-sm justify-between pt-5">
           <Button variant={'link'} className="text-primary font-inter">
             Editar Item
