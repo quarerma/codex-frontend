@@ -49,47 +49,29 @@ export default function CharacterFeats() {
   return (
     <CharacterFeatsContext.Provider value={{ characterFeats, setCharacterFeats }}>
       <div
-        className="overflow-y-auto   max-h-[75vh] "
+        className="overflow-y-auto   max-h-[70vh] "
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
       >
         <div className="flex justify-between space-x-2 items-center font-oswald text-white/90 pl-2 mt-2 mb-2">
-          <h1
-            className={`cursor-pointer ${filter === 'all' && 'text-primary/70 underline'} `}
-            onClick={() => setFilter('all')}
-          >
+          <h1 className={`cursor-pointer ${filter === 'all' && 'text-primary/70 underline'} `} onClick={() => setFilter('all')}>
             Todos
           </h1>
-          <h1
-            className={`cursor-pointer  ${filter === 'class' && 'text-primary/70 underline'}`}
-            onClick={() => setFilter('class')}
-          >
+          <h1 className={`cursor-pointer  ${filter === 'class' && 'text-primary/70 underline'}`} onClick={() => setFilter('class')}>
             Classe
           </h1>
-          <h1
-            className={`cursor-pointer  ${filter === 'subclass' && 'text-primary/70 underline'}`}
-            onClick={() => setFilter('subclass')}
-          >
+          <h1 className={`cursor-pointer  ${filter === 'subclass' && 'text-primary/70 underline'}`} onClick={() => setFilter('subclass')}>
             Subclasse
           </h1>
-          <h1
-            className={`cursor-pointer  ${filter === 'origin' && 'text-primary/70 underline'}`}
-            onClick={() => setFilter('origin')}
-          >
+          <h1 className={`cursor-pointer  ${filter === 'origin' && 'text-primary/70 underline'}`} onClick={() => setFilter('origin')}>
             Origem
           </h1>
-          <h1
-            className={`cursor-pointer  ${filter === 'campaign' && 'text-primary/70 underline'}`}
-            onClick={() => setFilter('campaign')}
-          >
+          <h1 className={`cursor-pointer  ${filter === 'campaign' && 'text-primary/70 underline'}`} onClick={() => setFilter('campaign')}>
             Campanha
           </h1>
-          <h1
-            className={`cursor-pointer  ${filter === 'paranormal' && 'text-primary/70 underline'}`}
-            onClick={() => setFilter('paranormal')}
-          >
+          <h1 className={`cursor-pointer  ${filter === 'paranormal' && 'text-primary/70 underline'}`} onClick={() => setFilter('paranormal')}>
             Paranormal
           </h1>
         </div>

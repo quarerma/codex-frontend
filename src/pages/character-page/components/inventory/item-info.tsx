@@ -31,8 +31,8 @@ export default function ItemInfo({ slot, onRemoveItem }: AddItemInfoProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
-        <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{slot.equipment.name}</h1>
+      <div className="flex justify-between items-baseline space-x-1 cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
+        <h1 className="lg:text-xl md:text-xl text-base font-semibold">{slot.equipment.name}</h1>
 
         <div className="flex items-center space-x-2">
           <span>

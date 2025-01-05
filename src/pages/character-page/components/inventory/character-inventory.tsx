@@ -48,7 +48,7 @@ export default function CharacterInventory() {
     inventory && (
       <InventoryContect.Provider value={{ inventory: inventorySlots, setInventory: setInventorySlots }}>
         <div
-          className="overflow-y-auto mt-2 flex flex-col space-y-1 max-h-[75vh]"
+          className="overflow-y-auto mt-2 flex flex-col space-y-1 max-h-[70vh]"
           style={{
             msOverflowStyle: 'none',
             scrollbarWidth: 'none',
