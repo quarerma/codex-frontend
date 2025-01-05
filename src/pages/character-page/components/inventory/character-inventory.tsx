@@ -35,12 +35,12 @@ export default function CharacterInventory() {
 
   useEffect(() => {
     if (inventory) {
+      console.log(inventory);
       setInventorySlots(inventory?.slots);
     }
   }, [inventory]);
 
   const handleRemoveItem = (slotId: string) => {
-    console.log(slotId);
     setInventorySlots((prev) => prev.filter((slot) => slot.id !== slotId));
   };
 

@@ -21,6 +21,7 @@ export type InventorySlot = {
   uses: number;
   category: number;
   local_name: string;
+  local_description: string;
   is_equipped: boolean;
   alterations: AlterationObject[];
 };
