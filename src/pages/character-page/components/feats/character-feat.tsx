@@ -48,13 +48,7 @@ export default function CharacterFeats() {
   }, [character.feats, filter, characterFeats]);
   return (
     <CharacterFeatsContext.Provider value={{ characterFeats, setCharacterFeats }}>
-      <div
-        className="overflow-y-auto   max-h-[70vh] "
-        style={{
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        }}
-      >
+      <div>
         <div className="flex justify-between space-x-2 items-center font-oswald text-white/90 pl-2 mt-2 mb-2">
           <h1 className={`cursor-pointer ${filter === 'all' && 'text-primary/70 underline'} `} onClick={() => setFilter('all')}>
             Todos
@@ -81,7 +75,13 @@ export default function CharacterFeats() {
             <AddFeatModal />
           </Dialog>
         </div>
-        <div className="flex flex-col space-y-1">
+        <div
+          className="flex flex-col space-y-1 max-h-[65vh] overflow-y-scroll "
+          style={{
+            msOverflowStyle: 'none',
+            scrollbarWidth: 'none',
+          }}
+        >
           {filteredFeats.map((feat) => (
             <div key={feat.feat.id}>
               <FeatInfo feat={feat.feat} usingAfinity={feat.usingAfinity} />

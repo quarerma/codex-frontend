@@ -47,13 +47,7 @@ export default function CharacterInventory() {
   return (
     inventory && (
       <InventoryContect.Provider value={{ inventory: inventorySlots, setInventory: setInventorySlots }}>
-        <div
-          className="overflow-y-auto mt-2 flex flex-col space-y-1 max-h-[70vh]"
-          style={{
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
-        >
+        <div className="mt-2 flex flex-col space-y-1 ">
           <div className="flex text-lg justify-between">
             <span>
               <span className="text-primary">Limite de Itens:</span> 1 2 3 4
@@ -76,7 +70,13 @@ export default function CharacterInventory() {
             </Dialog>
           </div>
           {inventory.slots.length > 0 ? (
-            <div className="flex flex-col space-y-1">
+            <div
+              className="flex flex-col space-y-1 max-h-[65vh] overflow-y-auto"
+              style={{
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
+              }}
+            >
               {inventorySlots?.map((slot) => (
                 <div key={slot.id}>
                   <ItemInfo slot={slot} onRemoveItem={handleRemoveItem} />

@@ -230,13 +230,13 @@ export default function CharacterSkills() {
 
   return (
     <div
-      className="overflow-y-auto font-inter"
+      className="overflow-y-auto flex justify-center w-full font-inter"
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
       }}
     >
-      <table className="w-full table-fixed bg-w md:text-base sm:text-sm text-xs">
+      <table className="w-full table-fixed max-w-[600px]  md:text-base sm:text-sm text-xs">
         <thead className="border-0 text-center px-3">
           <tr className="md:text-lg text-sm text-white/30">
             <th className="text-center font-extralight w-1/4">Perícia</th>

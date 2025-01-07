@@ -1,15 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import RitualInfo from './rituals-info';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 import { elementValues } from '../../../../types/elements';
 import { useCharacter } from '../../character-page';
 import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
@@ -31,7 +23,7 @@ export const useCharacterRituals = () => {
 
 export default function CharacterRituals() {
   const { character } = useCharacter();
-  const [filteredRituals, setFilteredRituals] = useState(character.rituals);
+  const [filteredRituals, setFilteredRituals] = useState([]);
   const [selectedElementToFilter, setSelectedElementToFilter] = useState<string>('all');
   const [selectedLevelToFilter, setSelectedLevelToFilter] = useState<string>('0');
   const [characterRituals, setCharacterRituals] = useState(character.rituals);
@@ -48,17 +40,14 @@ export default function CharacterRituals() {
     if (selectedLevelToFilter !== '0') {
       filtered = filtered.filter((ritual) => ritual.ritual.ritualLevel === levelTonumber);
     }
+
+    // sort by name
+    filtered.sort((a, b) => a.ritual.name.localeCompare(b.ritual.name));
     setFilteredRituals(filtered);
   }, [character.rituals, selectedElementToFilter, selectedLevelToFilter, characterRituals]);
   return (
     <CharacterRitualsContext.Provider value={{ characterRituals, setCharacterRituals }}>
-      <div
-        className="overflow-y-auto   max-h-[70vh] "
-        style={{
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        }}
-      >
+      <div>
         <div className="flex justify-between items-center text-white/90 pl-2 mt-2 mb-2">
           <div className="flex  space-x-5">
             <Select onValueChange={setSelectedElementToFilter} value={selectedElementToFilter}>
@@ -98,7 +87,7 @@ export default function CharacterRituals() {
             <AddRitualsModal />
           </Dialog>
         </div>
-        <div className="flex flex-col space-y-1">
+        <div className="flex flex-col space-y-1 max-h-[65vh] overflow-y-scroll " style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
           {filteredRituals.map((ritual) => (
             <div key={ritual.ritual.id}>
               <RitualInfo ritual={ritual.ritual} ritual_cost={ritual.ritual_cost} />
