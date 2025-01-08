@@ -95,7 +95,6 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
         <div className="flex justify-between items-center cursor-pointer lg:py-6 md:py-4 py-2 lg:px-4 md:px-2 px-1">
           <div className="flex flex-col">
             <div className="lg:text-2xl md:text-xl flex items-center  space-x-2 text-start font-semibold">
-              <AiOutlineInfoCircle size={16} />
               <h1>{ritual.name}</h1>
             </div>
             {ritual.type === 'DAMAGE' && (
@@ -124,18 +123,13 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
             )}
           </div>
         </div>
-        <div className='absolute top-1/2 -translate-y-1/2 right-4 text-red-700 hover:scale-110 duration-300 cursor-pointer hover:scale-105 duration-300" ' onClick={handleRemoveRitual}>
+        <AiOutlineInfoCircle size={16} className="absolute top-1/2 -translate-y-1/2 right-4" />
+        {/* <div className='absolute top-1/2 -translate-y-1/2 right-4 text-red-700 hover:scale-110 duration-300 cursor-pointer hover:scale-105 duration-300" ' onClick={handleRemoveRitual}>
           <Trash2 />
-        </div>
+        </div> */}
       </SheetTrigger>
 
-      <SheetContent
-        style={{
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        }}
-        className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col space-y-5 overflow-x-auto lg:px-8 md:px-4 px-2`}
-      >
+      <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col space-y-5 overflow-x-auto `}>
         <div className="font-extralight text-lg">
           <h3 className={`font-light text-lg w-fit px-1 mb-2 ${elementColor.bg} ${elementColor.text_foreground}`}>
             {formatElement(ritual.element || '')} {ritual.ritualLevel}
@@ -154,14 +148,14 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
         </div>
 
         {ritual.discentCastDescription && (
-          <div className="text-lg font-bold">
+          <div className="text-lg font-semibold">
             <h1>Discente (+{ritual.discentCost} PE)</h1>
             <p className="text-[1.1rem] leading-7" dangerouslySetInnerHTML={{ __html: ritual.discentCastDescription }}></p>
           </div>
         )}
 
         {ritual.trueCastDescription && (
-          <div className="text-lg font-bold">
+          <div className="text-lg font-semibold">
             <h1>Verdadeiro (+{ritual.trueCost} PE)</h1>
             <p className="text-[1.1rem] leading-7" dangerouslySetInnerHTML={{ __html: ritual.trueCastDescription }}></p>
           </div>

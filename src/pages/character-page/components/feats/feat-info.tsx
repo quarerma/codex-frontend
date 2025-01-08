@@ -1,14 +1,12 @@
-import { IoMdArrowDropup } from 'react-icons/io';
 import { Feat } from '../../../../types/feat';
-
-import { useState } from 'react';
-
 import { elementValues } from '../../../../types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
 import { Button } from '../../../../components/ui/button';
 import { useCharacter } from '../../character-page';
 import { removeCharacterFeat, unUseFeatAffinity, useFeatAffinity } from '../../../../api/fetch/character.feats';
 import { useQueryClient } from '@tanstack/react-query';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 interface FeatInfoProps {
   feat: Feat;
@@ -16,8 +14,6 @@ interface FeatInfoProps {
 }
 
 export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
-  const [expanded, setExpanded] = useState(false);
-
   const elements = elementValues;
 
   function formatElement(value: string) {
@@ -64,42 +60,27 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
     }
   }
   return (
-    <div className={`flex h-fit flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
-      </div>
+    <Sheet>
+      <SheetTrigger className="flex w-full flex-col border-[3px] border-border relative group">
+        <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2 ">
+          <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
+        </div>
+        <AiOutlineInfoCircle size={16} className="absolute top-1/2 -translate-y-1/2 right-4" />
+      </SheetTrigger>
 
-      <div
-        className={` font-normal tracking-wide flex flex-col space-y-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-6 px-4 duration-300 transition-max-height  ${
-          expanded ? 'max-h-screen  mb-6 ' : 'max-h-0 h-0'
-        }`}
-      >
-        <div>
-          {feat.element !== 'REALITY' && (
-            <h3 className={`font-extralight text-lg  ${elementColor.text}`}>
-              Elemento: {formatElement(feat.element || '')}
-            </h3>
-          )}
-        </div>
-        <div>
-          <h3 className="font-bold text-2xl">Descrição:</h3>
-          <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
-        </div>
+      <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col  overflow-x-auto `}>
+        <SheetHeader className="font-semibold text-2xl">{feat.name} </SheetHeader>
+        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
+        <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
         {feat.afinity && (
           <div>
-            <h3 className="font-bold text-xl">Afinidade:</h3>
+            <h3 className="font-semibold text-xl">Afinidade:</h3>
             <p className="text-base">{feat.afinity}</p>
           </div>
         )}
         {feat.prerequisites && (
           <div>
-            <h3 className="font-bold text-xl">Pré-requisitos:</h3>
+            <h3 className="font-semibold text-xl">Pré-requisitos:</h3>
             <p className="text-base">{feat.prerequisites}</p>
           </div>
         )}
@@ -122,7 +103,7 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
             Excluir Poder
           </Button>
         </div>
-      </div>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }

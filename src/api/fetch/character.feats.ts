@@ -29,7 +29,7 @@ export async function useFeatAffinity(characterId: string, featId: string) {
     params.append('characterId', characterId);
     params.append('featId', featId);
 
-    return await patch('character/use-affinity', { params });
+    return await patch('character/use-affinity', {}, { params });
   } catch (error) {
     throw error;
   }

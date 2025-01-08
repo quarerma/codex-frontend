@@ -12,13 +12,13 @@ export default function CharacterPortrait({ character }: CampaignPortraitProps) 
     >
       <div className="flex h-full space-x-2  ">
         <div className="flex flex-col items-center  space-y-2 h-full w-fit">
-          <h1 className="font-bold text-2xl">NEX {character.level == 20 ? 99 : character.level * 5}%</h1>
+          <h1 className="font-bold text-base">NEX {character.level == 20 ? 99 : character.level * 5}%</h1>
           <div className="h-[150px] w-[120px] bg-[#D9D9D9]/30"></div>
         </div>
         <div className="space-y-1 h-full flex flex-col  font-bold w-full">
-          <h1 className="text-4xl text-center">{character.name}</h1>
+          <h1 className="text-2xl text-center">{character.name}</h1>
           <div className="flex items-center justify-center h-full">
-            <span className="bottom-0 text-white/40 text-center text-2xl">
+            <span className="bottom-0 text-white/40 text-center text-lg">
               {character.origin.name} | {character.class.name} / {character.subclass.name}
             </span>
           </div>

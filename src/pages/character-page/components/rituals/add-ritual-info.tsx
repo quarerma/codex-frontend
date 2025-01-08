@@ -63,6 +63,10 @@ export default function AddRitualInfo({ ritual }: RitualInfoProps) {
         className={`lg:text-2xl md:text-lg text-base  tracking-wide font-normal flex flex-col space-y-2 overflow-x-auto overflow-y-scroll lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
           expanded ? 'max-h-screen mb-6 ' : 'max-h-0 h-0'
         }`}
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
       >
         <div className="font-extralight text-lg ">
           <h3 className={`font-light text-lg w-fit px-1 mb-2 ${elementColor.bg} ${elementColor.text_foreground} `}>
