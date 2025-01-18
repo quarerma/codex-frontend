@@ -16,6 +16,7 @@ import CharacterAttacks from './components/attacks/character-attacks';
 import PageSetup from '../../components/ui/page-setup';
 import CharacterPageMobile from './character-page-mobile';
 import { get } from '../../api/axios';
+import TipTapEditor from '../../components/global/tiptap';
 
 const CharacterContext = createContext<{
   character: Character;
@@ -107,6 +108,7 @@ export default function CharacterPage() {
       </div>
     );
   }
+
   return (
     <CharacterContext.Provider
       value={{

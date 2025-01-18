@@ -11,9 +11,10 @@ import { AiOutlineInfoCircle } from 'react-icons/ai';
 interface FeatInfoProps {
   feat: Feat;
   usingAfinity?: boolean;
+  requiredLevel?: number;
 }
 
-export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
+export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfoProps) {
   const elements = elementValues;
 
   function formatElement(value: string) {
@@ -63,13 +64,17 @@ export default function FeatInfo({ feat, usingAfinity }: FeatInfoProps) {
     <Sheet>
       <SheetTrigger className="flex w-full flex-col border-[3px] border-border relative group">
         <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2 ">
-          <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
+          <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>
+            {feat.name} {requiredLevel && <span>- {requiredLevel}%</span>}
+          </h1>
         </div>
         <AiOutlineInfoCircle size={16} className="absolute top-1/2 -translate-y-1/2 right-4" />
       </SheetTrigger>
 
       <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col  overflow-x-auto `}>
-        <SheetHeader className="font-semibold text-2xl">{feat.name} </SheetHeader>
+        <SheetHeader className="font-semibold w-full flex text-2xl">
+          {feat.name} {requiredLevel && ` - ${requiredLevel}%`}
+        </SheetHeader>
         <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
         <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
         {feat.afinity && (

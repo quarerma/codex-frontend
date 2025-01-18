@@ -4,7 +4,6 @@ import { Equipment } from './equipment';
 export type Inventory = {
   inventoryId: string;
 
-  currentValue: number;
   maxValue: number;
   alterations: AlterationObject[];
 
@@ -24,6 +23,7 @@ export type InventorySlot = {
   local_description: string;
   is_equipped: boolean;
   alterations: AlterationObject[];
+  weight: number;
 };
 export type Credit = 'LOW' | 'MEDIUM' | 'HIGH' | 'UNLIMITED';
 

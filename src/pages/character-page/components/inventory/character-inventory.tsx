@@ -31,12 +31,18 @@ export default function CharacterInventory() {
     enabled: !!character.id,
   });
 
+  const [currentValue, setCurrentValue] = useState(0);
   const [inventorySlots, setInventorySlots] = useState<InventorySlot[]>([]);
 
   useEffect(() => {
     if (inventory) {
       console.log(inventory);
       setInventorySlots(inventory?.slots);
+      inventory?.slots.forEach((slot) => {
+        if (slot.is_equipped) {
+          setCurrentValue((prev) => prev + slot.weight);
+        }
+      });
     }
   }, [inventory]);
 
@@ -53,7 +59,7 @@ export default function CharacterInventory() {
               <span className="text-primary">Limite de Itens:</span> 1 2 3 4
             </span>
             <span>
-              <span className="text-primary">Carga Máxima:</span> {inventory.currentValue} / {inventory.maxValue}
+              <span className="text-primary">Carga Máxima:</span> {currentValue} / {inventory.maxValue}
             </span>
           </div>
           <div className="flex justify-between items-center">
