@@ -13,7 +13,7 @@ interface AddFeatProps {
 }
 
 export default function AddFeatInfo({ feat }: AddFeatProps) {
-  const { characterFeats, setCharacterFeats } = useCharacterFeats();
+  const { characterFeats, addFeat } = useCharacterFeats();
   const [expanded, setExpanded] = useState(false);
 
   const elements = elementValues;
@@ -27,10 +27,7 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
   const { character } = useCharacter();
   async function handleAddFeat() {
     try {
-      const newFeats = [...characterFeats, { feat, usingAfinity: false }];
-
-      setCharacterFeats(newFeats);
-
+      addFeat({ feat, usingAfinity: false });
       await assignCharacterFeat(character.id, feat.id);
     } catch (error) {
       console.error(error);
@@ -40,14 +37,9 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
   const elementColor = getElementColor(feat.element || '');
   return (
     <div className={`flex h-fit flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2" onClick={() => setExpanded(!expanded)}>
         <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
+        <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
 
       <div
@@ -55,13 +47,7 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
           expanded ? 'max-h-screen  mb-6 ' : 'max-h-0 h-0'
         }`}
       >
-        <div>
-          {feat.element !== 'REALITY' && (
-            <h3 className={`font-extralight text-lg  ${elementColor.text}`}>
-              Elemento: {formatElement(feat.element || '')}
-            </h3>
-          )}
-        </div>
+        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
         <div>
           <h3 className="font-bold text-2xl">Descrição:</h3>
           <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>

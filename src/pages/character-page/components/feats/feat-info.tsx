@@ -7,6 +7,7 @@ import { removeCharacterFeat, unUseFeatAffinity, useFeatAffinity } from '../../.
 import { useQueryClient } from '@tanstack/react-query';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { useCharacterFeats } from './character-feat';
 
 interface FeatInfoProps {
   feat: Feat;
@@ -16,6 +17,8 @@ interface FeatInfoProps {
 
 export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfoProps) {
   const elements = elementValues;
+
+  const { removeFeat } = useCharacterFeats();
 
   function formatElement(value: string) {
     const index = elements.findIndex((element) => element.value === value);
@@ -30,10 +33,10 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
 
   async function handleRemoveFeat() {
     try {
+      removeFeat(feat.id);
       await removeCharacterFeat(character.id, feat.id);
-      queryClient.invalidateQueries({
-        queryKey: ['character', character.id],
-      });
+
+      // remove from array
     } catch (error) {
       console.error(error);
     }
@@ -89,10 +92,10 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
             <p className="text-base">{feat.prerequisites}</p>
           </div>
         )}
-        <div className="flex items-center justify-end pt-5">
+        <div className="flex items-center  pt-5">
           {feat.afinity && !usingAfinity && (
-            <div className="flex w-full justify-start  ">
-              <Button className="w-fit" onClick={handleUseAfinity}>
+            <div className="flex w-full   ">
+              <Button variant="link" className=" text-primary " onClick={handleUseAfinity}>
                 Usar Afinidade
               </Button>
             </div>
@@ -104,9 +107,11 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
               </Button>
             </div>
           )}
-          <Button onClick={handleRemoveFeat} variant={'link'} className="text-red-600 font-inter">
-            Excluir Poder
-          </Button>
+          {(feat.type === 'GENERAL' || feat.type === 'CUSTOM') && (
+            <Button onClick={handleRemoveFeat} variant={'link'} className="text-red-600 font-inter">
+              Excluir Poder
+            </Button>
+          )}
         </div>
       </SheetContent>
     </Sheet>

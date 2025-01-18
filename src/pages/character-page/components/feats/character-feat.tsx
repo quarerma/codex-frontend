@@ -10,7 +10,13 @@ import { useQuery } from '@tanstack/react-query';
 // Context for Character Feats
 const CharacterFeatsContext = createContext<{
   characterFeats: { feat: Feat; usingAfinity: boolean; requiredLevel?: number }[] | undefined;
-}>({ characterFeats: undefined });
+  addFeat: (feat: { feat: Feat; usingAfinity: boolean; requiredLevel?: number }) => void;
+  removeFeat: (featId: string) => void;
+}>({
+  characterFeats: undefined,
+  addFeat: () => {},
+  removeFeat: () => {},
+});
 
 export const useCharacterFeats = () => {
   const context = useContext(CharacterFeatsContext);
@@ -22,10 +28,10 @@ export const useCharacterFeats = () => {
 
 export default function CharacterFeats() {
   const { character } = useCharacter();
-  const [filter, setFilter] = useState<'all' | 'class' | 'subclass' | 'origin' | 'paranormal' | 'campaign'>('all');
+  const [filter, setFilter] = useState<'todos' | 'classe' | 'subclasse' | 'origem' | 'paranormal' | 'campanha'>('todos');
 
   // Fetching character feats
-  const { data: characterFeats = [] } = useQuery({
+  const { data: fetchedCharacterFeats = [] } = useQuery({
     queryKey: ['character-feats', character.id],
     queryFn: async () => {
       const params = new URLSearchParams();
@@ -35,39 +41,54 @@ export default function CharacterFeats() {
     },
   });
 
+  const [localFeats, setLocalFeats] = useState(fetchedCharacterFeats);
+
+  useEffect(() => {
+    setLocalFeats(fetchedCharacterFeats);
+  }, [fetchedCharacterFeats]);
+
+  // Add feat
+  const addFeat = (feat: { feat: Feat; usingAfinity: boolean; requiredLevel?: number }) => {
+    setLocalFeats((prev) => [...prev, feat]);
+  };
+
+  // Remove feat
+  const removeFeat = (featId: string) => {
+    setLocalFeats((prev) => prev.filter((f) => f.feat.id !== featId));
+  };
+
   // Filtering and sorting feats based on filter
   const filteredFeats = useMemo(() => {
-    console.log(characterFeats);
-    let feats = characterFeats;
+    let feats = localFeats;
 
     switch (filter) {
-      case 'class':
+      case 'classe':
         feats = feats.filter((feat) => feat.feat.type === 'CLASS');
         break;
-      case 'subclass':
+      case 'subclasse':
         feats = feats.filter((feat) => feat.feat.type === 'SUBCLASS');
         break;
-      case 'origin':
+      case 'origem':
         feats = feats.filter((feat) => feat.feat.type === 'ORIGIN');
         break;
       case 'paranormal':
         feats = feats.filter((feat) => feat.feat.element !== 'REALITY');
         break;
-      case 'campaign':
+      case 'campanha':
         feats = feats.filter((feat) => feat.feat.type === 'CUSTOM');
         break;
     }
 
     // Sort feats alphabetically by name
     return feats.sort((a, b) => a.feat.name.localeCompare(b.feat.name));
-  }, [filter, characterFeats]);
+  }, [filter, localFeats]);
 
   return (
-    <CharacterFeatsContext.Provider value={{ characterFeats }}>
+    <CharacterFeatsContext.Provider value={{ characterFeats: localFeats, addFeat, removeFeat }}>
       <div>
         {/* Filters */}
         <div className="flex justify-between space-x-2 items-center font-oswald text-white/90 pl-2 mt-2 mb-2">
-          {['all', 'class', 'subclass', 'origin', 'campaign', 'paranormal'].map((type) => (
+          {['todos', 'classe', 'subclasse', 'origem', 'campanha', 'paranormal'].map((type) => (
             <h1 key={type} className={`cursor-pointer text-lg ${filter === type && 'text-primary/70 underline'}`} onClick={() => setFilter(type as typeof filter)}>
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </h1>
@@ -91,7 +112,7 @@ export default function CharacterFeats() {
           }}
         >
           {filteredFeats.map((feat) => (
-            <div key={feat.feat.id}>
+            <div key={feat.feat.id} className="flex justify-between items-center">
               <FeatInfo feat={feat.feat} usingAfinity={feat.usingAfinity} requiredLevel={feat.requiredLevel} />
             </div>
           ))}
