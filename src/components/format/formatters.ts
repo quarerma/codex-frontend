@@ -1,7 +1,7 @@
 import { Atributes } from '../../types/character-upgrades';
 import { damageTypes } from '../../types/damage';
 import { elementValues } from '../../types/elements';
-import { handType, weaponType } from '../../types/equipment';
+import { handType, weaponCategory, weaponType } from '../../types/equipment';
 import { credit } from '../../types/inventory';
 import { patent } from '../../types/patent';
 import { weaponRange } from '../../types/range';
@@ -63,4 +63,10 @@ export function formatWeaponHandType(value: string) {
   const index = handType.findIndex((damageType) => damageType.value === value);
 
   return handType[index].label;
+}
+
+export function formatWeaponCategory(value: string) {
+  const index = weaponCategory.findIndex((damageType) => damageType.value === value);
+
+  return weaponCategory[index].label;
 }

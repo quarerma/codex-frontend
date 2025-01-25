@@ -2,14 +2,12 @@ import { useState } from 'react';
 
 import { IoMdArrowDropup } from 'react-icons/io';
 
-import { elementValues } from '../../../../types/elements';
-import { weaponRange } from '../../../../types/range';
 import { Button } from '../../../../components/ui/button';
-import { Equipment, handType, weaponCategory, weaponType } from '../../../../types/equipment';
-import { damageTypes } from '../../../../types/damage';
+import { Equipment } from '../../../../types/equipment';
 import { addInventoryItem } from '../../../../api/fetch/inventory';
 import { useCharacter } from '../../character-page';
 import { useInventory } from './character-inventory';
+import { formatElement, formatRange, formatWeaponCategory, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '../../../../components/format/formatters';
 
 interface AddItemInfoProps {
   equipment: Equipment;
@@ -18,57 +16,23 @@ interface AddItemInfoProps {
 export default function AddItemInfo({ equipment }: AddItemInfoProps) {
   const [expanded, setExpanded] = useState(false);
 
-  const { setInventory } = useInventory();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { handleAddItem } = useInventory();
 
   const { character } = useCharacter();
 
-  const elements = elementValues;
-  const range = weaponRange;
-
-  function formatElement(value: string) {
-    const index = elements.findIndex((element) => element.value === value);
-
-    return elements[index].label;
-  }
-
-  function formatRange(value: string) {
-    const index = range.findIndex((range) => range.value === value);
-
-    return range[index].label;
-  }
-
-  function formatWeaponDamageType(value: string) {
-    const index = damageTypes.findIndex((damageType) => damageType.value === value);
-
-    return damageTypes[index].label;
-  }
-
-  function formatWeaponType(value: string) {
-    const index = weaponType.findIndex((damageType) => damageType.value === value);
-
-    return weaponType[index].label;
-  }
-
-  function formatWeaponHandType(value: string) {
-    const index = handType.findIndex((damageType) => damageType.value === value);
-
-    return handType[index].label;
-  }
-
-  function formatWeaponCategory(value: string) {
-    const index = weaponCategory.findIndex((damageType) => damageType.value === value);
-
-    return weaponCategory[index].label;
-  }
-
   async function handleAddEquipment() {
     try {
+      setIsLoading(true);
       const response = await addInventoryItem(character.id, equipment.id);
 
-      setInventory((prevInventory) => [...prevInventory, response]);
+      handleAddItem(response);
       console.log(response);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -138,11 +102,15 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
         )}
 
         <p dangerouslySetInnerHTML={{ __html: equipment.description }}></p>
-        <div className="flex items-center text-sm justify-end pt-5">
-          <Button onClick={handleAddEquipment} variant={'link'} className="text-primary font-inter">
-            Adicionar Item
-          </Button>
-        </div>
+        {isLoading ? (
+          <div className="w-4 h-4 rounded-full border-t border-l border-primary animate-spin flex items-center text-sm justify-end pt-5"></div>
+        ) : (
+          <div className="flex items-center text-sm justify-end pt-5">
+            <Button onClick={handleAddEquipment} variant={'link'} className="text-primary font-inter">
+              Adicionar Item
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

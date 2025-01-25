@@ -16,7 +16,7 @@ export type Inventory = {
 export type InventorySlot = {
   id: string;
 
-  equipment: Equipment;
+  equipment?: Equipment;
   uses: number;
   category: number;
   local_name: string;

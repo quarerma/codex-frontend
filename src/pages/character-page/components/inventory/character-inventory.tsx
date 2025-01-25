@@ -8,10 +8,13 @@ import AddItemModal from './add-item-modal';
 import ItemInfo from './item-info';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { formatCredit, formatPatent } from '../../../../components/format/formatters';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../../components/ui/dropdown-menu';
+import { post } from '../../../../api/axios';
 
 const InventoryContect = createContext<{
   inventory: InventorySlot[];
   setInventory: React.Dispatch<React.SetStateAction<InventorySlot[]>>;
+  handleAddItem: (slot: InventorySlot) => void;
 } | null>(null);
 
 export const useInventory = () => {
@@ -25,7 +28,7 @@ export const useInventory = () => {
 export default function CharacterInventory() {
   const { character } = useCharacter();
 
-  const { data: inventory } = useQuery({
+  const { data: inventory, refetch } = useQuery({
     queryKey: ['inventory', character.id],
     queryFn: () => getInventory(character.id),
     enabled: !!character.id,
@@ -33,27 +36,69 @@ export default function CharacterInventory() {
 
   const [currentValue, setCurrentValue] = useState(0);
   const [inventorySlots, setInventorySlots] = useState<InventorySlot[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const updateCurrentValue = (slots: InventorySlot[]) => {
+    const totalWeight = slots.reduce((acc, slot) => (slot.is_equipped ? acc + slot.weight : acc), 0);
+    setCurrentValue(totalWeight);
+  };
 
   useEffect(() => {
     if (inventory) {
-      console.log(inventory);
-      setInventorySlots(inventory?.slots);
-      inventory?.slots.forEach((slot) => {
-        if (slot.is_equipped) {
-          setCurrentValue((prev) => prev + slot.weight);
-        }
-      });
+      setInventorySlots(inventory.slots);
+      updateCurrentValue(inventory.slots);
     }
   }, [inventory]);
 
-  const handleRemoveItem = (slotId: string) => {
-    setInventorySlots((prev) => prev.filter((slot) => slot.id !== slotId));
+  const handleRemoveItem = async (slotId: string) => {
+    setLoading(true);
+    try {
+      setInventorySlots((prev) => prev.filter((slot) => slot.id !== slotId));
+      updateCurrentValue(inventorySlots.filter((slot) => slot.id !== slotId));
+    } catch (error) {
+      console.error('Error removing item:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateItem = (slot: InventorySlot) => {
+    setInventorySlots((prev) => prev.map((s) => (s.id === slot.id ? slot : s)));
+    updateCurrentValue(inventorySlots);
+  };
+
+  const handleAddEmptySlot = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      params.append('characterId', character.id);
+
+      const response = await post('inventory/create-empty-slot', {}, { params });
+      setInventorySlots((prev) => [response, ...prev]);
+      updateCurrentValue([response, ...inventorySlots]);
+    } catch (error) {
+      console.error('Error adding empty slot:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddItem = async (slot: InventorySlot) => {
+    setLoading(true);
+    try {
+      setInventorySlots((prev) => [slot, ...prev]);
+      updateCurrentValue([slot, ...inventorySlots]);
+    } catch (error) {
+      console.error('Error adding item:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     inventory && (
-      <InventoryContect.Provider value={{ inventory: inventorySlots, setInventory: setInventorySlots }}>
-        <div className="mt-2 flex flex-col space-y-1 ">
+      <InventoryContect.Provider value={{ inventory: inventorySlots, setInventory: setInventorySlots, handleAddItem }}>
+        <div className="mt-2 flex flex-col space-y-1">
           <div className="flex text-lg justify-between">
             <span>
               <span className="text-primary">Limite de Itens:</span> 1 2 3 4
@@ -67,15 +112,26 @@ export default function CharacterInventory() {
               <span className="text-primary">Patente:</span> {formatPatent(inventory.patent)}
             </span>
             <span>
-              {' '}
               <span className="text-primary">Limite de Crédito:</span> {formatCredit(inventory.credit)}
             </span>
             <Dialog>
-              <DialogTrigger className="bg-primary text-primary-foreground p-1">+ Adicionar</DialogTrigger>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="bg-primary text-primary-foreground p-1 mr-2">+ Adicionar</DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DialogTrigger className="w-full">
+                    <DropdownMenuItem>
+                      <span>Loja</span>
+                    </DropdownMenuItem>
+                  </DialogTrigger>
+                  <DropdownMenuItem onClick={() => handleAddEmptySlot()}>Item customizado</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               <AddItemModal />
             </Dialog>
           </div>
-          {inventory.slots.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-10 text-lg italic">Atualizando...</div>
+          ) : inventorySlots.length > 0 ? (
             <div
               className="flex flex-col space-y-1 max-h-[65vh] overflow-y-auto"
               style={{
@@ -83,14 +139,14 @@ export default function CharacterInventory() {
                 scrollbarWidth: 'none',
               }}
             >
-              {inventorySlots?.map((slot) => (
+              {inventorySlots.map((slot) => (
                 <div key={slot.id}>
-                  <ItemInfo slot={slot} onRemoveItem={handleRemoveItem} />
+                  <ItemInfo slot={slot} onRemoveItem={handleRemoveItem} onUpdateItem={handleUpdateItem} />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-10 text-3xl italic ">Sem itens</div>
+            <div className="text-center py-10 text-3xl italic">Sem itens</div>
           )}
         </div>
       </InventoryContect.Provider>
