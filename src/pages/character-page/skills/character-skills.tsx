@@ -13,6 +13,7 @@ import { rollCheck } from '../components/dieRoller/roller';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
 import { Dialog } from '../../../components/ui/dialog';
 import SkillCheckDetailed from '../components/dieRoller/roll-details';
+import socket from '../../../api/sockets';
 
 const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updatedSkill: SkillCharacter) => void }) => {
   const { character } = useCharacter();
@@ -92,6 +93,18 @@ const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updat
     const attributeValue = character.atributes[attributeKey];
 
     const result = rollCheck(`${attributeValue}d20 + ${localSkill.value}`);
+
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+    socket.emit('sendMessage', {
+      characterId: character.id,
+      result: Number(result.max),
+      dices: result.details[0].rolls,
+      label: `${localSkill.name}`,
+      characterName: character.name,
+      campaignId: character.campaign.id,
+    });
 
     const toastId = toast('', {
       description: (

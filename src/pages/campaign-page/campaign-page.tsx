@@ -5,11 +5,13 @@ import NavBar from '../../components/global/navbar';
 import { format } from 'date-fns';
 
 import CharacterCard from './components/char-card';
-import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IoIosAddCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io';
 import { getUserById } from '../../api/fetch/user';
 import { useEffect, useState } from 'react';
 import DmCampaignPage from './components/dm-campaign-page';
 import PageSetup from '../../components/ui/page-setup';
+import socket from '../../api/sockets';
+import { toast } from 'sonner';
 
 export default function CampaignPage() {
   const { id: campaignId } = useParams();
@@ -33,6 +35,67 @@ export default function CampaignPage() {
   const [isUserValid, setIsUserValid] = useState(false);
   const [isUserDM, setIsUserDM] = useState(false);
 
+  useEffect(() => {
+    // Log connection status
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    // Join the campaign room
+    socket.emit('joinCampaignRoom', campaignId);
+
+    // Listen for incoming messages
+    socket.on('receiveMessage', (data) => {
+      console.log('Received message:', data);
+      const toastId = toast('', {
+        description: (
+          <>
+            <div className="font-oswald ">
+              <h1 className="text-xl tracking-widest">
+                <span className="font-medium">
+                  {data.characterName} - {data.label}
+                </span>
+              </h1>
+              <h1 className="text-lg font-semibold">Resultado: {data.result}</h1>
+            </div>
+
+            <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
+              <IoMdCloseCircleOutline />
+            </div>
+          </>
+        ),
+
+        closeButton: false,
+        cancel: false,
+
+        actionButtonStyle: {
+          color: 'text-black',
+        },
+
+        onAutoClose(toast) {
+          dismissToast(toast.id);
+        },
+
+        onDismiss(toast) {
+          dismissToast(toast.id);
+        },
+        classNames: {
+          toast: 'bg-dark-bg-secondary border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
+          title: 'font-bold text-xl',
+          description: 'font-extralight text-lg',
+        },
+      });
+    });
+
+    function dismissToast(toastId: number | string) {
+      toast.dismiss(toastId);
+    }
+
+    // Cleanup function to remove the event listener
+    return () => {
+      socket.off('receiveMessage');
+    };
+  }, [campaignId]);
   useEffect(() => {
     if (user && campaign) {
       if (user.id === campaign.owner.id) {
