@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
-  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}', 'public/*.{html,js}'],
   prefix: '',
   theme: {
     container: {
@@ -19,6 +19,7 @@ module.exports = {
       fontFamily: {
         oswald: ['Oswald', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        romannew: ['RomanNewTimes', 'sans'],
       },
       colors: {
         'dark-bg': '#09090B',

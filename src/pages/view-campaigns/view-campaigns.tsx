@@ -50,7 +50,7 @@ export default function ViewCampaigns() {
         <JoinCampaignButton />
         <CreateCampaignButton />
       </div>
-      <div className="grid grid-cols-3  h-screen auto-rows-[200px] gap-14 ">
+      <div className="grid grid-cols-3  h-screen auto-rows-[250px] gap-14 ">
         {filteredCampaigns.map((campaign: Campaign, index: number) => (
           <div key={index} className="flex  justify-center">
             <CampaignPortrait campaign={campaign} isDMing={campaign.owner.id === user?.id} />

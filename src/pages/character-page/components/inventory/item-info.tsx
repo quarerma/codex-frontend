@@ -77,7 +77,7 @@ export default function ItemInfo({ slot, onRemoveItem, onUpdateItem }: AddItemIn
     <Sheet>
       <SheetTrigger className="flex flex-col border-[3px] border-border relative w-full">
         <div className="flex w-full items-center cursor-pointer lg:p-6 md:p-4 p-2">
-          <h1 className="lg:text-xl md:text-xl text-base font-semibold text-left">{slot.local_name}</h1>
+          <h1 className="lg:text-4xl md:text-3xl text-base font-semibold text-left font-romannew">{slot.local_name}</h1>
 
           <div className="flex items-center space-x-2 ml-auto mr-4">
             <span>
@@ -94,8 +94,12 @@ export default function ItemInfo({ slot, onRemoveItem, onUpdateItem }: AddItemIn
       </SheetTrigger>
 
       <SheetContent className={`lg:text-2xl md:text-lg text-base font-normal text-white flex flex-col overflow-x-hidden`}>
-        <SheetHeader className="font-semibold w-full flex text-2xl">
-          {isEditing ? <input type="text" value={editedSlot.local_name} onChange={(e) => handleInputChange(e, 'local_name')} className={`w-full bg-transparent ${labelClass}`} /> : slot.local_name}
+        <SheetHeader className="font-semibold w-full flex text-2xl font-romannew text-4xl">
+          {isEditing ? (
+            <input type="text" value={editedSlot.local_name} onChange={(e) => handleInputChange(e, 'local_name')} className={`w-full bg-transparent font-romannew ${labelClass}`} />
+          ) : (
+            slot.local_name
+          )}
         </SheetHeader>
 
         <div className={`flex items-center text-base space-x-2`}>

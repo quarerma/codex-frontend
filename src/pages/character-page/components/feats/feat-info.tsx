@@ -67,7 +67,7 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
     <Sheet>
       <SheetTrigger className="flex w-full flex-col border-[3px] border-border relative group">
         <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2 ">
-          <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>
+          <h1 className={`lg:text-4xl md:text-2xl text-base font-semibold font-romannew`}>
             {feat.name} {requiredLevel && <span>- {requiredLevel}%</span>}
           </h1>
         </div>
@@ -75,7 +75,7 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
       </SheetTrigger>
 
       <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col  overflow-x-auto `}>
-        <SheetHeader className="font-semibold w-full flex text-2xl">
+        <SheetHeader className="font-semibold w-full flex text-4xl font-romannew">
           {feat.name} {requiredLevel && ` - ${requiredLevel}%`}
         </SheetHeader>
         <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>

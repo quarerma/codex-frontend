@@ -55,7 +55,7 @@ export default function Navbar() {
           {/* Profile */}
           <div onClick={() => setIsProfileModalVisible(!isProfileModalVisible)} className="flex items-center h-full cursor-pointer justify-center gap-x-5">
             <div className="w-[1px] h-[60%] bg-primary"></div>
-            <span className="hover:text-primary text-2xl">{user?.username}</span>
+            <span className="hover:text-primary  font-romannew text-4xl">{user?.username}</span>
             <div className="w-12 h-12 rounded-full bg-primary"></div>
             {user && (
               <div className="w-fit">

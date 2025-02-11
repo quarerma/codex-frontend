@@ -46,7 +46,7 @@ export default function ViewCharacters() {
           Criar Personagem
         </Link>
       </div>
-      <div className="grid grid-cols-4 h-screen  auto-rows-[150px] gap-14">
+      <div className="grid grid-cols-3 h-screen  auto-rows-[200px] gap-14">
         {filteredCharacters.map((character, index) => (
           <div key={index} className="flex w-full  justify-center">
             <CharacterPortrait character={character} />

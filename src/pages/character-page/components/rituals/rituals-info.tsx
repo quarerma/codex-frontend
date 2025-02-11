@@ -10,7 +10,7 @@ import { removeCharacterRitual } from '../../../../api/fetch/character.rituals';
 import { toast } from 'sonner';
 import { rollDamage } from '../dieRoller/roller';
 import { formatDamageType } from '../../../../components/format/formatters';
-import { Sheet, SheetContent, SheetTrigger } from '../../../../components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
 import { Trash2 } from 'lucide-react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 
@@ -94,7 +94,7 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
       <SheetTrigger className="flex w-full flex-col border-[3px] border-border relative group">
         <div className="flex justify-between items-center cursor-pointer lg:py-6 md:py-4 py-2 lg:px-4 md:px-2 px-1">
           <div className="flex flex-col">
-            <div className="lg:text-2xl md:text-xl flex items-center  space-x-2 text-start font-semibold">
+            <div className="lg:text-4xl md:text-2xl flex items-center  space-x-2 text-start font-semibold font-romannew">
               <h1>{ritual.name}</h1>
             </div>
             {ritual.type === 'DAMAGE' && (
@@ -129,7 +129,14 @@ export default function RitualInfo({ ritual, ritual_cost }: RitualInfoProps) {
         </div> */}
       </SheetTrigger>
 
-      <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col space-y-5 overflow-x-auto `}>
+      <SheetContent
+        className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col space-y-5 overflow-x-auto `}
+        style={{
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        }}
+      >
+        <SheetHeader className="font-semibold w-full flex text-4xl font-romannew">{ritual.name}</SheetHeader>
         <div className="font-extralight text-lg">
           <h3 className={`font-light text-lg w-fit px-1 mb-2 ${elementColor.bg} ${elementColor.text_foreground}`}>
             {formatElement(ritual.element || '')} {ritual.ritualLevel}

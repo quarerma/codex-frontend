@@ -116,7 +116,7 @@ export default function CharacterPage() {
       }}
     >
       <PageSetup className="max-lg:hidden">
-        <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base  h-[5vh] flex">
+        <div className="items-center w-fit space-x-32 2xl:text-4xl xl:text-2xl text-base  font-romannew h-[5vh] flex">
           <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">Character Page</h1>
           <h1 className="flex items-center gap-x-2 font-extralight">
             <div className="w-2 h-2 rounded-full bg-primary"></div>
