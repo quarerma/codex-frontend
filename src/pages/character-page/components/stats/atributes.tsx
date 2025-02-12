@@ -8,7 +8,7 @@ interface AtributeTriangleProps {
 
 function AtributeTriangle({ value, abbreviation }: AtributeTriangleProps) {
   return (
-    <div className="relative flex flex-col  font-inter items-center text-2xl font-light">
+    <div className="relative flex flex-col   items-center text-4xl font-light">
       <div className="relative z-10 pt-3 pb-1 px-5 flex flex-col items-center">
         <h1 className="text-primary">{value}</h1>
         <h1 className="tracking-[0.2rem]">{abbreviation}</h1>

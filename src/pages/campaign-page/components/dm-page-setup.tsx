@@ -43,10 +43,10 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
   // Verificação de carregamento e permissões
   if (!campaign || !user) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Loading</h1>
           <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
         </div>
       </div>
@@ -55,10 +55,10 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
 
   if (!isUserValid) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Você não tem permissão para acessar essa página</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Você não tem permissão para acessar essa página</h1>
         </div>
       </div>
     );
@@ -67,7 +67,7 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
   const formattedCreatedAt = format(new Date(campaign.createdAt), 'dd/MM/yyyy');
 
   return (
-    <div className="w-screen min-h-screen font-oswald bg-dark-bg ">
+    <div className="w-screen min-h-screen  bg-dark-bg ">
       <NavBar />
       <div
         className="flex  text-foreground max-h-[92vh] h-[92vh]  overflow-y-auto "
@@ -84,8 +84,8 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
             scrollbarWidth: 'none',
           }}
         >
-          <div className="items-center flex w-full px-10  justify-between 2xl:text-2xl xl:text-xl text-base h-[5vh] ">
-            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-4xl xl:text-3xl text-lg">Campaign Page</h1>
+          <div className="items-center flex w-full px-10  justify-between 2xl:text-4xl xl:text-3xl text-xl h-[5vh] ">
+            <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-5xl xl:text-5xl text-2xl">Campaign Page</h1>
             <h1 className="flex items-center gap-x-2 font-extralight">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
               <span className="text-primary font-light">Campanha:</span>
@@ -100,7 +100,7 @@ export default function DmPageSetup({ children }: { children: React.ReactNode })
               <span className="text-primary font-light">Criada em:</span>
               {formattedCreatedAt}
             </h1>
-            <h1 onClick={copyToClipboard} className="flex cursor-pointer font-inter items-center gap-x-2 font-extralight">
+            <h1 onClick={copyToClipboard} className="flex cursor-pointer  items-center gap-x-2 font-extralight">
               <span className="text-white font-light">Copiar Id</span>
               <BsCopy />
             </h1>

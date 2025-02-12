@@ -12,17 +12,17 @@ export default function CampaignPortrait({ campaign, isDMing }: CampaignPortrait
   return (
     <Link
       to={`${campaign.id}`}
-      className="bg-dark-bg-secondary w-[95%] hover:drop-shadow-[0_4px_50px_rgba(255,255,0,0.37)] hover:scale-105 duration-300 flex flex-col space-y-1  rounded-2xl border border-primary text-foreground font-romannew px-5 py-5"
+      className="bg-dark-bg-secondary w-[95%] hover:drop-shadow-[0_4px_50px_rgba(255,255,0,0.37)] hover:scale-105 duration-300 flex flex-col space-y-1  rounded-2xl border border-primary text-foreground  px-5 py-5"
     >
       <div className="flex-grow space-y-2">
         <div className="space-y-1">
-          <h1 className="text-4xl text-center">{campaign.name}</h1>
+          <h1 className="text-5xl text-center">{campaign.name}</h1>
           <Separator />
         </div>
-        <h1 className="xl:text-2xl lg:text-lg">{campaign.description}</h1>
+        <h1 className="xl:text-4xl lg:text-2xl">{campaign.description}</h1>
       </div>
 
-      <div className="mt-auto text-xl text-muted-foreground">
+      <div className="mt-auto text-3xl text-muted-foreground">
         {isDMing ? <h1>Mestrando</h1> : <h1>Mestre: {campaign.owner.username}</h1>}
         <h1 className=" ">Criada em: {formattedCreatedAt}</h1>
       </div>

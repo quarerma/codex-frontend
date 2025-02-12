@@ -1,15 +1,7 @@
 import { useCharacterRituals } from './character-rituals';
 import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
 import { useEffect, useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 import { elementValues } from '../../../../types/elements';
 import AddRitualInfo from './add-ritual-info';
 import { getCampaignPossibleRituals, getRituals } from '../../../../api/fetch/rituals';
@@ -41,9 +33,7 @@ export default function AddRitualsModal() {
     }
 
     // Remove the rituals that are already in the character's list
-    filtered = filtered.filter(
-      (ritual) => !characterRituals.find((characterRitual) => characterRitual.ritual.id === ritual.id)
-    );
+    filtered = filtered.filter((ritual) => !characterRituals.find((characterRitual) => characterRitual.ritual.id === ritual.id));
 
     // Only update the state if the filtered rituals have changed
     setFilteredRituals((prevFilteredRituals) => {
@@ -55,7 +45,7 @@ export default function AddRitualsModal() {
   }, [characterRituals, selectedElementToFilter, selectedLevelToFilter, rituals]);
 
   return (
-    <DialogContent className="text-foreground 2xl:w-1/3 xl:w-1/2 max-h-[80vh] h-[80vh] font-oswald  flex flex-col space-y-5   border-primary">
+    <DialogContent className="text-foreground 2xl:w-1/3 xl:w-1/2 max-h-[80vh] h-[80vh]   flex flex-col space-y-5   border-primary">
       <DialogHeader>
         <DialogTitle>Adicionar Ritual</DialogTitle>
       </DialogHeader>

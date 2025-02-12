@@ -38,23 +38,18 @@ export default function RitualPicker({ ritual, setValue, watch }: OriginProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <h1 className="lg:text-3xl md:text-2xl text-base font-semibold">{ritual.name}</h1>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
+      <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2" onClick={() => setExpanded(!expanded)}>
+        <h1 className="lg:text-5xl md:text-4xl text-xl font-semibold">{ritual.name}</h1>
+        <button className="lg:text-5xl text-5xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
 
       <div
-        className={`lg:text-2xl md:text-lg text-base  font-normal flex flex-col space-y-5 overflow-x-auto overflow-y-hidden lg:px-12 md:px-8 px-4 duration-300 transition-max-height  ${
+        className={`lg:text-4xl md:text-2xl text-xl  font-normal flex flex-col space-y-5 overflow-x-auto overflow-y-hidden lg:px-12 md:px-8 px-4 duration-300 transition-max-height  ${
           expanded ? 'max-h-screen lg:mb-16 md:mb-6 mb-4 ' : 'max-h-0 h-0'
         }`}
       >
-        <div className="font-extralight text-lg ">
-          <h3 className={`font-light text-lg w-fit px-1 mb-2 ${elementColor.bg} ${elementColor.text_foreground} `}>
+        <div className="font-extralight text-2xl ">
+          <h3 className={`font-light text-2xl w-fit px-1 mb-2 ${elementColor.bg} ${elementColor.text_foreground} `}>
             {formatElement(ritual.element || '')} {ritual.ritualLevel}
           </h3>
           <div className="space-y-2 flex flex-col">
@@ -66,27 +61,18 @@ export default function RitualPicker({ ritual, setValue, watch }: OriginProps) {
         </div>
 
         <div>
-          <p
-            className="text-[1.1rem] leading-7 font-normal"
-            dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}
-          ></p>
+          <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}></p>
         </div>
         {ritual.discentCastDescription && (
-          <div className="text-lg font-bold">
+          <div className="text-2xl font-bold">
             <h1>Discente (+{ritual.discentCost} PE)</h1>
-            <p
-              className="text-[1.1rem] leading-7 font-normal"
-              dangerouslySetInnerHTML={{ __html: ritual.discentCastDescription }}
-            ></p>
+            <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.discentCastDescription }}></p>
           </div>
         )}
         {ritual.trueCastDescription && (
-          <div className="text-lg font-bold">
+          <div className="text-2xl font-bold">
             <h1>Verdadeiro (+{ritual.trueCost} PE)</h1>
-            <p
-              className="text-[1.1rem] leading-7 font-normal"
-              dangerouslySetInnerHTML={{ __html: ritual.trueCastDescription }}
-            ></p>
+            <p className="text-[1.1rem] leading-7 font-normal" dangerouslySetInnerHTML={{ __html: ritual.trueCastDescription }}></p>
           </div>
         )}
 

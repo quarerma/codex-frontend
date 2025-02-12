@@ -23,8 +23,8 @@ export default function ClassesRegister({ setValue }: CreateComponentProps) {
 
   return selectedClass ? (
     <div className="flex flex-col justify-center items-center space-y-20">
-      <div className="w-full font-oswald font-extralight flex justify-center space-x-20">
-        <Button className="mt-5 text-2xl p-6 rounded-xl" variant={'secondary'} onClick={unSelectClass}>
+      <div className="w-full  font-extralight flex justify-center space-x-20">
+        <Button className="mt-5 text-4xl p-6 rounded-xl" variant={'secondary'} onClick={unSelectClass}>
           Mudar Classe
         </Button>
         <ClassFocus classModel={selectedClass} setValue={setValue} />
@@ -32,7 +32,7 @@ export default function ClassesRegister({ setValue }: CreateComponentProps) {
     </div>
   ) : (
     <div className="flex justify-center  ">
-      <p className="w-[40%] text-2xl leading-10  ml-10 font-light ">
+      <p className="w-[40%] text-4xl leading-10  ml-10 font-light ">
         Sua classe representa o treinamento que você recebeu na Ordem para enfrentar os horrores do Outro Lado. Em termos de jogo, é o seu traço mais essencial, pois define suas habilidades e seu
         papel no grupo de investigadores. O <strong>Ordem Paranormal RPG</strong> apresenta três classes, cada uma representando um arquétipo distinto de heróis em histórias de terror e suspense:
         <br />

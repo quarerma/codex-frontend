@@ -99,7 +99,7 @@ export default function CharacterInventory() {
     inventory && (
       <InventoryContect.Provider value={{ inventory: inventorySlots, setInventory: setInventorySlots, handleAddItem }}>
         <div className="mt-2 flex flex-col space-y-1">
-          <div className="flex text-lg justify-between">
+          <div className="flex text-2xl justify-between">
             <span>
               <span className="text-primary">Limite de Itens:</span> 1 2 3 4
             </span>
@@ -107,13 +107,13 @@ export default function CharacterInventory() {
               <span className="text-primary">Carga Máxima:</span> {currentValue} / {inventory.maxValue}
             </span>
           </div>
-          <div className="flex justify-between items-center">
-            <span>
+          <div className="flex justify-between text-xl items-center">
+            <h1>
               <span className="text-primary">Patente:</span> {formatPatent(inventory.patent)}
-            </span>
-            <span>
+            </h1>
+            <h1>
               <span className="text-primary">Limite de Crédito:</span> {formatCredit(inventory.credit)}
-            </span>
+            </h1>
             <Dialog>
               <DropdownMenu>
                 <DropdownMenuTrigger className="bg-primary text-primary-foreground p-1 mr-2">+ Adicionar</DropdownMenuTrigger>
@@ -130,7 +130,7 @@ export default function CharacterInventory() {
             </Dialog>
           </div>
           {loading ? (
-            <div className="text-center py-10 text-lg italic">Atualizando...</div>
+            <div className="text-center py-10 text-2xl italic">Atualizando...</div>
           ) : inventorySlots.length > 0 ? (
             <div
               className="flex flex-col space-y-1 max-h-[65vh] overflow-y-auto"
@@ -146,7 +146,7 @@ export default function CharacterInventory() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-10 text-3xl italic">Sem itens</div>
+            <div className="text-center py-10 text-5xl italic">Sem itens</div>
           )}
         </div>
       </InventoryContect.Provider>

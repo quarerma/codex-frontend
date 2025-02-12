@@ -63,12 +63,12 @@ export default function DeleteCharacter() {
         <Trash2Icon className="w-6 h-6 text-red-700 cursor-pointer" />
       </AlertDialogTrigger>
       <AlertDialogContent className="text-white border border-border">
-        <AlertDialogHeader className="text-xl">Tem certeza que deseja excluir o personagem?</AlertDialogHeader>
+        <AlertDialogHeader className="text-3xl">Tem certeza que deseja excluir o personagem?</AlertDialogHeader>
         <AlertDialogDescription className="flex flex-col gap-y-5">
-          <span className="text-lg">Essa ação é irreversível e não poderá ser desfeita, você perderá todos os dados do personagem.</span>
+          <span className="text-2xl">Essa ação é irreversível e não poderá ser desfeita, você perderá todos os dados do personagem.</span>
           <div className="space-y-2">
             <h1>Digite o nome do personagem para confirmar:</h1>
-            <Input className="text-base" value={confirmationText} onChange={(e) => setConfirmationText(e.target.value)} placeholder="Nome do personagem" />
+            <Input className="text-xl" value={confirmationText} onChange={(e) => setConfirmationText(e.target.value)} placeholder="Nome do personagem" />
             {error && <span className="text-red-500">{error}</span>}
           </div>
         </AlertDialogDescription>

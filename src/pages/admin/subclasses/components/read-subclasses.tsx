@@ -38,11 +38,11 @@ export default function ReadSubClasses() {
   }, [searchTerm, subclasses, selectedClass]);
 
   return (
-    <div className="bg-dark-bg-secondary font-oswald p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
-      <h1 className="text-3xl font-bold">Visualizar Subclasses</h1>
+    <div className="bg-dark-bg-secondary  p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
+      <h1 className="text-5xl font-bold">Visualizar Subclasses</h1>
 
       <div className="flex flex-col space-y-5">
-        <h2 className="text-2xl">Filtro:</h2>
+        <h2 className="text-4xl">Filtro:</h2>
 
         <Input
           type="text"
@@ -69,7 +69,7 @@ export default function ReadSubClasses() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          {selectedClass && <label className="text-base ml-2 text-primary-foreground font-bold">Subclasses de {selectedClass}</label>}
+          {selectedClass && <label className="text-xl ml-2 text-primary-foreground font-bold">Subclasses de {selectedClass}</label>}
         </div>
       </div>
 

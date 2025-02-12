@@ -87,9 +87,9 @@ export default function CharacterFeats() {
     <CharacterFeatsContext.Provider value={{ characterFeats: localFeats, addFeat, removeFeat }}>
       <div>
         {/* Filters */}
-        <div className="flex justify-between space-x-2 items-center font-oswald text-white/90 pl-2 mt-2 mb-2">
+        <div className="flex justify-between space-x-2 items-center  text-white/90 pl-2 mt-2 mb-2">
           {['todos', 'classe', 'subclasse', 'origem', 'campanha', 'paranormal'].map((type) => (
-            <h1 key={type} className={`cursor-pointer text-lg ${filter === type && 'text-primary/70 underline'}`} onClick={() => setFilter(type as typeof filter)}>
+            <h1 key={type} className={`cursor-pointer text-2xl ${filter === type && 'text-primary/70 underline'}`} onClick={() => setFilter(type as typeof filter)}>
               {type.charAt(0).toUpperCase() + type.slice(1)}
             </h1>
           ))}

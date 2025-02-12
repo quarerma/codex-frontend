@@ -36,9 +36,7 @@ export default function AssignFeatSubclass() {
 
   const characterUpgrades = character_upgrades;
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
   const handleAddUpgrade = (e: React.FormEvent) => {
@@ -104,9 +102,9 @@ export default function AssignFeatSubclass() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Atribuir Poder à Subclasse</h1>
+      <h1 className="text-5xl font-bold">Atribuir Poder à Subclasse</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Selecione a subclasse:</h1>
           <select {...register('subclassId')} className="p-2 border-2 bg-card border-border rounded ml-5 ">
@@ -122,12 +120,7 @@ export default function AssignFeatSubclass() {
         </div>
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Selecione o nível do poder:</h1>
-          <Input
-            type="text"
-            placeholder="Preencha o nível necessário"
-            className="ml-2 w-fit"
-            {...register('levelRequired')}
-          />
+          <Input type="text" placeholder="Preencha o nível necessário" className="ml-2 w-fit" {...register('levelRequired')} />
         </div>
 
         <FeatCreation
@@ -146,11 +139,7 @@ export default function AssignFeatSubclass() {
           <Button type="submit" className="w-1/4">
             Criar Poder de subclasse
           </Button>
-          {pending && (
-            <p className="text-red-500 text-lg mt-2">
-              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
-            </p>
-          )}
+          {pending && <p className="text-red-500 text-2xl mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

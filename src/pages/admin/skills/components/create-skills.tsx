@@ -48,21 +48,16 @@ export default function CreateSkills() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar nova Perícia</h1>
+      <h1 className="text-5xl font-bold">Criar nova Perícia</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Nome:</h1>
           <Input type="text" placeholder="Preencha o nome da perícia" className="ml-2" {...register('name')} />
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[180px]"
-            modules={quillModule}
-            value={description}
-            onChange={(content) => setValue('description', content)}
-          />
+          <ReactQuill className="ml-2 h-[180px]" modules={quillModule} value={description} onChange={(content) => setValue('description', content)} />
         </div>
         <div className="space-y-2 group">
           <select className="p-2 border-2 bg-card border-border rounded ml-5" {...register('atribute')}>
@@ -82,17 +77,11 @@ export default function CreateSkills() {
           <h1>Precisa de kit</h1>
         </div>
         <div className="flex ml-5  items-center space-x-2">
-          <Checkbox
-            {...register('carry_peanalty')}
-            onCheckedChange={(checked) => setValue('carry_peanalty', Boolean(checked))}
-          />
+          <Checkbox {...register('carry_peanalty')} onCheckedChange={(checked) => setValue('carry_peanalty', Boolean(checked))} />
           <h1>Penalidade de carga</h1>
         </div>
         <div className="flex ml-5 items-center space-x-2">
-          <Checkbox
-            {...register('only_trained')}
-            onCheckedChange={(checked) => setValue('only_trained', Boolean(checked))}
-          />
+          <Checkbox {...register('only_trained')} onCheckedChange={(checked) => setValue('only_trained', Boolean(checked))} />
           <h1>Apenas treinado</h1>
         </div>
         <div className="flex ml-5 items-center space-x-2">
@@ -101,7 +90,7 @@ export default function CreateSkills() {
         </div>
 
         <div className="w-full flex justify-center">
-          <Button type="submit" className="text-2xl rounded-xl mt-10 w-1/5">
+          <Button type="submit" className="text-4xl rounded-xl mt-10 w-1/5">
             Criar perícia
           </Button>
         </div>

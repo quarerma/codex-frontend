@@ -32,9 +32,7 @@ export default function CreateOrigin() {
     queryFn: getSkills,
   });
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
   const [currentSkill, setCurrentSkill] = useState<string | 'default'>('default');
@@ -126,30 +124,21 @@ export default function CreateOrigin() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar nova Origem</h1>
+      <h1 className="text-5xl font-bold">Criar nova Origem</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Nome da Origem:</h1>
           <Input type="text" placeholder="Preencha o nome da origem" className="ml-2" {...register('name')} />
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição da Origem:</h1>
-          <ReactQuill
-            value={watch('description')}
-            className="ml-2 h-[180px]"
-            onChange={(content) => setValue('description', content)}
-            modules={quillModule}
-          />
+          <ReactQuill value={watch('description')} className="ml-2 h-[180px]" onChange={(content) => setValue('description', content)} modules={quillModule} />
         </div>
 
         <div className="z-50">
           <h1 className="mb-5">Perícias treinadas</h1>
-          <select
-            value={currentSkill}
-            onChange={(e) => setCurrentSkill(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5 "
-          >
+          <select value={currentSkill} onChange={(e) => setCurrentSkill(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
             <option value="default" disabled>
               Perícias
             </option>
@@ -193,11 +182,7 @@ export default function CreateOrigin() {
           <Button type="submit" className="w-1/4">
             Criar Origem
           </Button>
-          {pending && (
-            <p className="text-red-500 text-lg mt-2">
-              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
-            </p>
-          )}
+          {pending && <p className="text-red-500 text-2xl mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

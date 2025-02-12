@@ -38,8 +38,8 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
   return (
     <div className={`flex h-fit flex-col border-[3px] border-border  `}>
       <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2" onClick={() => setExpanded(!expanded)}>
-        <h1 className={`lg:text-2xl md:text-xl text-base font-semibold`}>{feat.name}</h1>
-        <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
+        <h1 className={`lg:text-4xl md:text-3xl text-xl font-semibold`}>{feat.name}</h1>
+        <button className="lg:text-5xl text-5xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
 
       <div
@@ -47,25 +47,25 @@ export default function AddFeatInfo({ feat }: AddFeatProps) {
           expanded ? 'max-h-screen  mb-6 ' : 'max-h-0 h-0'
         }`}
       >
-        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
+        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-2xl  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
         <div>
-          <h3 className="font-bold text-2xl">Descrição:</h3>
-          <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
+          <h3 className="font-bold text-4xl">Descrição:</h3>
+          <p className="text-xl" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
         </div>
         {feat.afinity && (
           <div>
-            <h3 className="font-bold text-xl">Afinidade:</h3>
-            <p className="text-base">{feat.afinity}</p>
+            <h3 className="font-bold text-3xl">Afinidade:</h3>
+            <p className="text-xl">{feat.afinity}</p>
           </div>
         )}
         {feat.prerequisites && (
           <div>
-            <h3 className="font-bold text-xl">Pré-requisitos:</h3>
-            <p className="text-base">{feat.prerequisites}</p>
+            <h3 className="font-bold text-3xl">Pré-requisitos:</h3>
+            <p className="text-xl">{feat.prerequisites}</p>
           </div>
         )}
         <div className="flex items-center justify-end pt-5">
-          <Button onClick={handleAddFeat} variant={'link'} className="text-primary font-inter">
+          <Button onClick={handleAddFeat} variant={'link'} className="text-primary ">
             Adicionar Poder
           </Button>
         </div>

@@ -180,7 +180,7 @@ export default function CreateCharacter() {
         <h1 className="text-[#E1E1E1]/60   text-5xl tracking-[0.3rem] xl:pl-20 lg:pl-10 font-semibold">Character Builder</h1>
         {campaigns?.length === 0 ? (
           <div className="flex flex-col justify-center items-center py-20 space-y-10">
-            <h1 className="text-3xl">Você não está em nenhuma campanha</h1>
+            <h1 className="text-5xl">Você não está em nenhuma campanha</h1>
             <JoinCampaignButton />
           </div>
         ) : (
@@ -189,7 +189,7 @@ export default function CreateCharacter() {
               {creationNavBar.map((item, index) => (
                 <div key={index} className="flex items-center w-full font-extralight ">
                   <div className="flex flex-col items-center ">
-                    <h1 className={`xl:text-xl 2xl:text-2xl  cursor-pointer hover:scale-105 duration-100`} onClick={() => setActiveComponent(item.value)}>
+                    <h1 className={`xl:text-3xl 2xl:text-4xl  cursor-pointer hover:scale-105 duration-100`} onClick={() => setActiveComponent(item.value)}>
                       {item.name}
                     </h1>
                     {activeComponent === item.value && <div className="w-4 h-4 rounded-full mt-2 bg-primary  "></div>}
@@ -229,7 +229,7 @@ export default function CreateCharacter() {
         )}
         <div className="w-full flex justify-center ">
           {showScrollButton && (
-            <button onClick={scrollToTop} className="fixed bottom-5 justify-center px-8 py-2 text-2xl bg-primary text-primary-foreground rounded-2xl shadow-lg hover:scale-105 duration-300">
+            <button onClick={scrollToTop} className="fixed bottom-5 justify-center px-8 py-2 text-4xl bg-primary text-primary-foreground rounded-2xl shadow-lg hover:scale-105 duration-300">
               Voltar ao Topo
             </button>
           )}

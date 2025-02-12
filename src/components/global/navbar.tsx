@@ -27,15 +27,15 @@ export default function Navbar() {
       {/* Desktop Navbar */}
       <div className="max-lg:hidden">
         <div className="w-screen h-[8vh]"></div>
-        <header className="fixed z-50 top-0 w-screen h-[8vh] font-semibold text-foreground items-center px-20 xl:text-[1.9rem] lg:text-[1.6rem] font-oswald bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
+        <header className="fixed z-50 top-0 w-screen h-[8vh] font-semibold text-foreground items-center px-20 xl:text-[1.9rem] lg:text-[1.6rem]  bg-dark-bg-secondary border-b-[1px] border-primary flex justify-between">
           {/* Brand */}
-          <Link to="/" className="xl:text-5xl lg:text-4xl font-extrabold tracking-widest hover:text-primary-foreground duration-300">
+          <Link to="/" className="xl:text-5xl lg:text-5xl font-extrabold tracking-widest hover:text-primary-foreground duration-300">
             CODEX
           </Link>
 
           {/* Links */}
           {linksMap.map((link, index) => (
-            <Link key={index} to={link.url} className={`hover:text-primary duration-300 ${location.pathname === link.url ? 'font-bold' : ''}`}>
+            <Link key={index} to={link.url} className={`hover:text-primary text-4xl duration-300 ${location.pathname === link.url ? 'font-bold' : ''}`}>
               {link.name}
               {location.pathname === link.url && (
                 <div className="w-full flex justify-center">
@@ -47,7 +47,7 @@ export default function Navbar() {
 
           {/* Admin Link */}
           {user?.role === 'ADMIN' && (
-            <Link to="/admin/dashboard" className="hover:text-primary duration-300">
+            <Link to="/admin/dashboard" className="hover:text-primary duration-300 text-4xl">
               Gerenciar
             </Link>
           )}
@@ -55,7 +55,7 @@ export default function Navbar() {
           {/* Profile */}
           <div onClick={() => setIsProfileModalVisible(!isProfileModalVisible)} className="flex items-center h-full cursor-pointer justify-center gap-x-5">
             <div className="w-[1px] h-[60%] bg-primary"></div>
-            <span className="hover:text-primary  font-romannew text-4xl">{user?.username}</span>
+            <span className="hover:text-primary   text-5xl">{user?.username}</span>
             <div className="w-12 h-12 rounded-full bg-primary"></div>
             {user && (
               <div className="w-fit">
@@ -71,7 +71,7 @@ export default function Navbar() {
         <div className="w-screen h-[6vh]"></div>
         <header className="fixed top-0 w-full h-[6vh] bg-dark-bg-secondary z-50 border-b border-primary px-4 py-2 flex items-center justify-between">
           {/* Brand */}
-          <Link to="/" className="text-3xl font-extrabold tracking-widest text-primary duration-300">
+          <Link to="/" className="text-5xl font-extrabold tracking-widest text-primary duration-300">
             CODEX
           </Link>
 

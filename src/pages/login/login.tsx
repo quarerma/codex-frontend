@@ -62,15 +62,15 @@ export default function LoginPage() {
 
   return (
     <LoginSignup>
-      <h1 className=" -top-5 absolute font-bold w-full text-center md:text-4xl text-3xl">LOGIN</h1>
+      <h1 className=" -top-5 absolute font-bold w-full text-center md:text-5xl text-5xl">LOGIN</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="px-4 w-full flex flex-col space-y-10 mt-16 mb-5  items-center">
         <div className="w-full">
           <Input autoComplete="false" className="rounded-[15px]" type="text" placeholder="Username" {...register('username')} />
-          <label className="text-red-500 text-sm">{errors.username?.message}</label>
+          <label className="text-red-500 text-lg">{errors.username?.message}</label>
         </div>
         <div className="w-full">
           <Input type="password" className="rounded-[15px]" placeholder="Senha" {...register('password')} />
-          <label className="text-red-500 text-sm">{errors.password?.message}</label>
+          <label className="text-red-500 text-lg">{errors.password?.message}</label>
         </div>
 
         {loading ? (
@@ -79,15 +79,15 @@ export default function LoginPage() {
           </div>
         ) : (
           <div className="w-full flex flex-col items-center gap-y-4">
-            <Button type="submit" className="font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]" variant={'default'}>
+            <Button type="submit" className="font-semibold w-[40%] text-4xl px-2 py-1 rounded-[10px]" variant={'default'}>
               Log In
             </Button>
-            {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
+            {loginError && <p className="text-red-500 text-lg">{loginError}</p>}
           </div>
         )}
       </form>
       <div className="w-11/12 h-[1px] bg-border mb-5"></div>
-      <Link to={'/signup'} className=" hover:scale-110 duration-200 transition-transform  mb-5 text-center font-semibold w-[40%] text-2xl px-2 py-1 rounded-[10px]">
+      <Link to={'/signup'} className=" hover:scale-110 duration-200 transition-transform  mb-5 text-center font-semibold w-[40%] text-4xl px-2 py-1 rounded-[10px]">
         Sign Up
       </Link>
     </LoginSignup>

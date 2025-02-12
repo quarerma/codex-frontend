@@ -26,33 +26,27 @@ export default function ReadRituals() {
   }, [searchTerm, rituals]);
 
   return (
-    <div className="bg-dark-bg-secondary font-oswald p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
-      <h1 className="text-3xl font-bold">Visualizar Rituais</h1>
+    <div className="bg-dark-bg-secondary  p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
+      <h1 className="text-5xl font-bold">Visualizar Rituais</h1>
 
       <div className="flex flex-col space-y-5">
-        <h2 className="text-2xl">Filtro:</h2>
+        <h2 className="text-4xl">Filtro:</h2>
 
-        <Input
-          type="text"
-          placeholder="Buscar por nome do ritual"
-          className="p-2 border-2 bg-card border-border rounded  w-full"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <Input type="text" placeholder="Buscar por nome do ritual" className="p-2 border-2 bg-card border-border rounded  w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
 
       <div className="border-2 border-border">
         {filteredRituals.length === 0 ? (
-          <p className="p-5 text-xl">Nenhum ritual encontrado.</p>
+          <p className="p-5 text-3xl">Nenhum ritual encontrado.</p>
         ) : (
           filteredRituals.map((ritual, index) => (
             <div key={index} className="space-y-5 p-5 border-2 border-border">
               <div>
-                <h2 className="text-2xl font-bold">{ritual.name}</h2>
+                <h2 className="text-4xl font-bold">{ritual.name}</h2>
               </div>
               <div>
                 <h3 className="font-bold">Descrição:</h3>
-                <p className="text-base" dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}></p>
+                <p className="text-xl" dangerouslySetInnerHTML={{ __html: ritual.normalCastDescription }}></p>
               </div>
               <div></div>
             </div>

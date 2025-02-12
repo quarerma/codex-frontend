@@ -48,7 +48,7 @@ export default function CharacterPage() {
       ],
       editorProps: {
         attributes: {
-          class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none font-inter',
+          class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none ',
         },
       },
     });
@@ -61,7 +61,7 @@ export default function CharacterPage() {
 
   return (
     <div>
-      <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Character Page</h1>
+      <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Character Page</h1>
       <div ref={editorRef}></div>
     </div>
   );

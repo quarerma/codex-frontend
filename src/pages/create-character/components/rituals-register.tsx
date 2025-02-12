@@ -68,9 +68,9 @@ export default function RitualsRegister({ setValue, watch }: CreateComponentProp
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
-        className="w-[40%] text-2xl px-10 max-h-[60vh]  font-light"
+        className="w-[40%] text-4xl px-10 max-h-[60vh]  font-light"
       >
-        <h1 className="text-3xl">Rituais Selecionados:</h1>
+        <h1 className="text-5xl">Rituais Selecionados:</h1>
         <ul className="mt-2 ml-5 flex flex-col space-y-5">
           {selectedRituals && selectedRituals.length > 0 ? (
             selectedRituals.map((ritual, index) => (
@@ -101,11 +101,11 @@ export default function RitualsRegister({ setValue, watch }: CreateComponentProp
                 placeholder="Buscar por nome..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="placeholder:text-foreground placeholder:text-4xl font-extralight text-3xl bg-transparent w-full focus:outline-none"
+                className="placeholder:text-foreground placeholder:text-5xl font-extralight text-5xl bg-transparent w-full focus:outline-none"
               />
               <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
             </div>
-            <FaSearch className="text-2xl" />
+            <FaSearch className="text-4xl" />
           </div>
           <div className="flex mt-5 items-center  justify-center space-x-5">
             <Select onValueChange={setSelectedElementToFilter} value={selectedElementToFilter}>

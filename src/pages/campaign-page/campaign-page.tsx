@@ -50,16 +50,16 @@ export default function CampaignPage() {
       const toastId = toast('', {
         description: (
           <>
-            <div className="font-oswald ">
-              <h1 className="text-xl tracking-widest">
+            <div className=" ">
+              <h1 className="text-3xl tracking-widest">
                 <span className="font-medium">
                   {data.characterName} - {data.label}
                 </span>
               </h1>
-              <h1 className="text-lg font-semibold">Resultado: {data.result}</h1>
+              <h1 className="text-2xl font-semibold">Resultado: {data.result}</h1>
             </div>
 
-            <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
+            <div className="absolute right-1 top-1 text-3xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
               <IoMdCloseCircleOutline />
             </div>
           </>
@@ -81,8 +81,8 @@ export default function CampaignPage() {
         },
         classNames: {
           toast: 'bg-dark-bg-secondary border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
-          title: 'font-bold text-xl',
-          description: 'font-extralight text-lg',
+          title: 'font-bold text-3xl',
+          description: 'font-extralight text-2xl',
         },
       });
     });
@@ -113,10 +113,10 @@ export default function CampaignPage() {
   // Verificação de carregamento e permissões
   if (!characters || !campaign || !user) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Loading</h1>
           <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
         </div>
       </div>
@@ -125,10 +125,10 @@ export default function CampaignPage() {
 
   if (!isUserValid) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Você não tem permissão para acessar essa página</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Você não tem permissão para acessar essa página</h1>
         </div>
       </div>
     );
@@ -142,8 +142,8 @@ export default function CampaignPage() {
 
   return (
     <PageSetup>
-      <div className="items-center w-fit space-x-32 2xl:text-2xl xl:text-xl text-base h-[5vh] flex">
-        <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-4xl xl:text-3xl text-lg">Campaign Page</h1>
+      <div className="items-center w-fit space-x-32 2xl:text-4xl xl:text-3xl text-xl h-[5vh] flex">
+        <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-5xl xl:text-5xl text-2xl">Campaign Page</h1>
         <h1 className="flex items-center gap-x-2 font-extralight">
           <div className="w-2 h-2 rounded-full bg-primary"></div>
           <span className="text-primary font-light">Campanha:</span>
@@ -167,17 +167,17 @@ export default function CampaignPage() {
           scrollbarWidth: 'none',
         }}
       >
-        <h1 className="text-3xl mt-10 text-white tracking-widest">Personagens Ativos:</h1>
+        <h1 className="text-5xl mt-10 text-white tracking-widest">Personagens Ativos:</h1>
         <div className="grid grid-cols-4 h-full ml-10 auto-rows-[150px] gap-14">
           {characters.map((character) => (
             <CharacterCard key={character.id} character={character} />
           ))}
           <Link
             to={`/create-character/${campaign.id}`}
-            className="bg-dark-bg-secondary items-center w-[95%] hover:scale-105 duration-300 flex rounded-2xl border border-primary text-foreground font-oswald px-5 py-5"
+            className="bg-dark-bg-secondary items-center w-[95%] hover:scale-105 duration-300 flex rounded-2xl border border-primary text-foreground  px-5 py-5"
           >
-            <h1 className="text-3xl text-center flex items-center gap-x-2 justify-center w-full">
-              <IoIosAddCircleOutline className="text-primary text-4xl" /> Criar Personagem
+            <h1 className="text-5xl text-center flex items-center gap-x-2 justify-center w-full">
+              <IoIosAddCircleOutline className="text-primary text-5xl" /> Criar Personagem
             </h1>
           </Link>
         </div>

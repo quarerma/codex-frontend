@@ -147,14 +147,14 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
   return (
     <div className="flex flex-col md:flex-row  max-h-[90vh] justify-center overflow-hidden">
       <div
-        className="w-full md:w-[40%] text-2xl font-light max-h-screen px-5 md:px-20 flex flex-col space-y-5 overflow-auto"
+        className="w-full md:w-[40%] text-4xl font-light max-h-screen px-5 md:px-20 flex flex-col space-y-5 overflow-auto"
         style={{
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}
       >
         <div>
-          <h1 className="text-3xl">Poderes Selecionados:</h1>
+          <h1 className="text-5xl">Poderes Selecionados:</h1>
           <ul className="mt-2 ml-5 flex flex-col space-y-5">
             {selectedFeats ? (
               selectedFeats.map((feat, index) => (
@@ -169,7 +169,7 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
           </ul>
         </div>
         <div>
-          <h1 className="text-3xl">Poderes Padrão:</h1>
+          <h1 className="text-5xl">Poderes Padrão:</h1>
           <div className="mt-2 ml-5 flex flex-col space-y-5">
             <DeafultFeats watch={watch} />
           </div>
@@ -191,11 +191,11 @@ export default function FeatsRegister({ setValue, watch }: CreateComponentProps)
                 placeholder="Buscar por nome..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="placeholder:text-foreground placeholder:text-4xl font-extralight text-3xl bg-transparent w-full focus:outline-none"
+                className="placeholder:text-foreground placeholder:text-5xl font-extralight text-5xl bg-transparent w-full focus:outline-none"
               />
               <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
             </div>
-            <FaSearch className="text-2xl" />
+            <FaSearch className="text-4xl" />
           </div>
           <FeatFilter
             selectedFilter={selectedFilter}

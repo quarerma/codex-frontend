@@ -68,7 +68,7 @@ export default function UpgradeLine({ upgrade, handleRemoveUpgrade, index }: Upg
   return (
     <div className="flex flex-col items-center w-full mt-2">
       <div className="flex items-center w-full">
-        <span className="text-xl text-secondary-foreground mr-2">{upgrade.label}</span>
+        <span className="text-3xl text-secondary-foreground mr-2">{upgrade.label}</span>
         <div className="flex items-center ml-auto">
           {upgrade.require === 'number' ? (
             <div className="w-full flex justify-end">
@@ -154,11 +154,7 @@ function TextInput({ upgrade, setIsModified }: TextInputProps) {
         setIsModified(true);
       }, [selectedAtribute]);
       return (
-        <select
-          value={selectedAtribute}
-          className="p-2 border-2  bg-card border-border rounded ml-auto "
-          onChange={(e) => setSelectedAtribute(e.target.value as string)}
-        >
+        <select value={selectedAtribute} className="p-2 border-2  bg-card border-border rounded ml-auto " onChange={(e) => setSelectedAtribute(e.target.value as string)}>
           <option value="" disabled>
             Atributos
           </option>
@@ -183,11 +179,7 @@ function TextInput({ upgrade, setIsModified }: TextInputProps) {
       }, [selectedSkill]);
 
       return (
-        <select
-          value={selectedSkill}
-          className="p-2 border-2  bg-card border-border rounded ml-5 "
-          onChange={(e) => setSelectedSkill(e.target.value as string)}
-        >
+        <select value={selectedSkill} className="p-2 border-2  bg-card border-border rounded ml-5 " onChange={(e) => setSelectedSkill(e.target.value as string)}>
           <option value="" disabled>
             Perícias
           </option>
@@ -207,11 +199,7 @@ function TextInput({ upgrade, setIsModified }: TextInputProps) {
         setIsModified(true);
       }, [selectedProficiency]);
       return (
-        <select
-          value={selectedProficiency}
-          className="p-2 border-2  bg-card border-border rounded ml-5 "
-          onChange={(e) => setSelectedProficiency(e.target.value as string)}
-        >
+        <select value={selectedProficiency} className="p-2 border-2  bg-card border-border rounded ml-5 " onChange={(e) => setSelectedProficiency(e.target.value as string)}>
           <option value="" disabled>
             Proficiências
           </option>

@@ -22,11 +22,7 @@ interface FormFieldProps {
 const FormField = ({ label, placeholder, register, name, type = 'text', isTextarea = false }: FormFieldProps) => (
   <div className="space-y-2 group">
     <h1 className="group-focus-within:text-primary">{label}</h1>
-    {isTextarea ? (
-      <Textarea placeholder={placeholder} className="ml-2 h-[200px]" {...register(name)} />
-    ) : (
-      <Input type={type} placeholder={placeholder} className="ml-2" {...register(name)} />
-    )}
+    {isTextarea ? <Textarea placeholder={placeholder} className="ml-2 h-[200px]" {...register(name)} /> : <Input type={type} placeholder={placeholder} className="ml-2" {...register(name)} />}
   </div>
 );
 
@@ -77,73 +73,23 @@ export default function CreateClass() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar nova classe</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <h1 className="text-5xl font-bold">Criar nova classe</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <FormField label="Nome:" placeholder="Preencha o nome da classe..." register={register} name="name" />
         <div className="space-y-2 group  h-[300px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[220px]"
-            value={description}
-            onChange={(content) => setValue('description', content)}
-          />
+          <ReactQuill className="ml-2 h-[220px]" value={description} onChange={(content) => setValue('description', content)} />
         </div>
-        <FormField
-          label="Perícias iniciais:"
-          placeholder="Preencha com o número absoluto"
-          register={register}
-          name="number_of_skills"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Vida Iniciais:"
-          placeholder="Preencha os pontos de vida iniciais..."
-          register={register}
-          name="initialHealth"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Vida por Nível:"
-          placeholder="Preencha os pontos de vida por nível..."
-          register={register}
-          name="hitPointsPerLevel"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Esforço Iniciais:"
-          placeholder="Preencha os pontos de esforço iniciais..."
-          register={register}
-          name="initialEffort"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Esforço por Nível:"
-          placeholder="Preencha os pontos de esforço por nível..."
-          register={register}
-          name="effortPointsPerLevel"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Sanidade Iniciais:"
-          placeholder="Preencha os pontos de sanidade iniciais..."
-          register={register}
-          name="initialSanity"
-          type="text"
-        />
-        <FormField
-          label="Pontos de Sanidade por Nível:"
-          placeholder="Preencha os pontos de sanidade por nível..."
-          register={register}
-          name="SanityPointsPerLevel"
-          type="text"
-        />
+        <FormField label="Perícias iniciais:" placeholder="Preencha com o número absoluto" register={register} name="number_of_skills" type="text" />
+        <FormField label="Pontos de Vida Iniciais:" placeholder="Preencha os pontos de vida iniciais..." register={register} name="initialHealth" type="text" />
+        <FormField label="Pontos de Vida por Nível:" placeholder="Preencha os pontos de vida por nível..." register={register} name="hitPointsPerLevel" type="text" />
+        <FormField label="Pontos de Esforço Iniciais:" placeholder="Preencha os pontos de esforço iniciais..." register={register} name="initialEffort" type="text" />
+        <FormField label="Pontos de Esforço por Nível:" placeholder="Preencha os pontos de esforço por nível..." register={register} name="effortPointsPerLevel" type="text" />
+        <FormField label="Pontos de Sanidade Iniciais:" placeholder="Preencha os pontos de sanidade iniciais..." register={register} name="initialSanity" type="text" />
+        <FormField label="Pontos de Sanidade por Nível:" placeholder="Preencha os pontos de sanidade por nível..." register={register} name="SanityPointsPerLevel" type="text" />
         <div className="z-50">
           <h1 className="mb-5">Adicione as proficiências</h1>
-          <select
-            value={currentProficiency}
-            onChange={(e) => setCurrentProficiency(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5"
-          >
+          <select value={currentProficiency} onChange={(e) => setCurrentProficiency(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5">
             <option value="default" disabled>
               Proficiências
             </option>
@@ -162,13 +108,8 @@ export default function CreateClass() {
               {selectedProficiencies.map((proficiency) => (
                 <li key={proficiency.value} className="flex flex-col w-[40%]">
                   <div className="flex w-full justify-between text-start">
-                    <span className="text-lg text-secondary-foreground">{proficiency.label}</span>
-                    <Button
-                      size={'sm'}
-                      variant={'link'}
-                      onClick={() => handleRemoveProficiency(proficiency.value)}
-                      className="ml-2 text-[0.7rem] text-primary right-0"
-                    >
+                    <span className="text-2xl text-secondary-foreground">{proficiency.label}</span>
+                    <Button size={'sm'} variant={'link'} onClick={() => handleRemoveProficiency(proficiency.value)} className="ml-2 text-[0.7rem] text-primary right-0">
                       Remover
                     </Button>
                   </div>
@@ -179,7 +120,7 @@ export default function CreateClass() {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <Button type="submit" className="text-2xl rounded-xl w-1/5">
+          <Button type="submit" className="text-4xl rounded-xl w-1/5">
             Criar Classe
           </Button>
         </div>

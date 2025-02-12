@@ -29,7 +29,7 @@ export default function CampaignPage() {
               scrollbarWidth: 'none',
             }}
           >
-            <h1 className="text-3xl   text-center text-white tracking-widest">Personagens </h1>
+            <h1 className="text-5xl   text-center text-white tracking-widest">Personagens </h1>
             {characters.map((character) => (
               <CharacterCard key={character.id} character={character} />
             ))}

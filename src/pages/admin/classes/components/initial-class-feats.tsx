@@ -15,7 +15,7 @@ export default function ReadInitialFeats({ classId }: InitialFeatProps) {
     <ul className="list-disc pl-6 flex flex-col space-y-5 ">
       {initialFeats.map((feat) => (
         <li key={feat.id}>
-          <h1 className="font-normal text-xl">{feat.name}</h1>
+          <h1 className="font-normal text-3xl">{feat.name}</h1>
           <p className="font-light" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
         </li>
       ))}

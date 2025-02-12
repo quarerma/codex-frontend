@@ -80,14 +80,10 @@ export default function CreateFeats() {
     setElementColor(getElementColor(watch('element')));
   }, [watch('element')]);
 
-  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedCharacterUpgrades, setSelectedCharacterUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentCharacterUpgrade, setCurrentCharacterUpgrade] = useState<string | 'default'>('default');
 
-  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<
-    { label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]
-  >([]);
+  const [selectedAfinityUpgrades, setSelectedAfinityUpgrades] = useState<{ label: string; value: CharacterUpgrade; require: string; isCompleted: boolean }[]>([]);
   const [currentAfinityUpgrade, setCurrentAfinityUpgrade] = useState<string | 'default'>('default');
 
   const handleAddAfinityUpgrade = (e: React.FormEvent) => {
@@ -180,21 +176,16 @@ export default function CreateFeats() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar novo Poder</h1>
+      <h1 className="text-5xl font-bold">Criar novo Poder</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Nome:</h1>
           <Input type="text" placeholder="Preencha o nome da subclasse" className="ml-2" {...register('name')} />
         </div>
         <div className="space-y-2 group  h-[250px]">
           <h1 className="group-focus-within:text-primary">Descrição:</h1>
-          <ReactQuill
-            className="ml-2 h-[180px]"
-            value={description}
-            onChange={(content) => setValue('description', content)}
-            modules={quillModule}
-          />
+          <ReactQuill className="ml-2 h-[180px]" value={description} onChange={(content) => setValue('description', content)} modules={quillModule} />
         </div>
         <div className="space-y-2 group ">
           <h1 className="group-focus-within:text-primary">Pré-requisitos:</h1>
@@ -202,11 +193,7 @@ export default function CreateFeats() {
         </div>
         <div className="z-50">
           <h1 className="mb-5">Modificações no personagem</h1>
-          <select
-            value={currentCharacterUpgrade}
-            onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)}
-            className="p-2 border-2 bg-card border-border rounded ml-5 "
-          >
+          <select value={currentCharacterUpgrade} onChange={(e) => setCurrentCharacterUpgrade(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
             <option value="default" disabled>
               Modificações
             </option>
@@ -219,17 +206,11 @@ export default function CreateFeats() {
           <Button size={'sm'} variant={'ghost'} onClick={handleAddUpgrade} className="ml-2">
             Adicionar
           </Button>
-          <UpgradeList
-            selectedCharacterUpgrades={selectedCharacterUpgrades}
-            handleRemoveUpgrade={handleRemoveUpgrade}
-          />
+          <UpgradeList selectedCharacterUpgrades={selectedCharacterUpgrades} handleRemoveUpgrade={handleRemoveUpgrade} />
         </div>
         <div className="space-y-2">
           <h1 className={`${elementColor.text}`}>Elemento:</h1>
-          <select
-            className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`}
-            {...register('element')}
-          >
+          <select className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`} {...register('element')}>
             {elementValues?.map((c) => (
               <option key={c.label} value={c.value}>
                 {c.label}
@@ -245,11 +226,7 @@ export default function CreateFeats() {
             </div>
             <div className="z-50">
               <h1 className="mb-5">Modificações no personagem</h1>
-              <select
-                value={currentAfinityUpgrade}
-                onChange={(e) => setCurrentAfinityUpgrade(e.target.value as string)}
-                className="p-2 border-2 bg-card border-border rounded ml-5 "
-              >
+              <select value={currentAfinityUpgrade} onChange={(e) => setCurrentAfinityUpgrade(e.target.value as string)} className="p-2 border-2 bg-card border-border rounded ml-5 ">
                 <option value="default" disabled>
                   Modificações
                 </option>
@@ -263,10 +240,7 @@ export default function CreateFeats() {
                 Adicionar
               </Button>
 
-              <UpgradeList
-                selectedCharacterUpgrades={selectedAfinityUpgrades}
-                handleRemoveUpgrade={handleRemoveAfinityUpgrade}
-              />
+              <UpgradeList selectedCharacterUpgrades={selectedAfinityUpgrades} handleRemoveUpgrade={handleRemoveAfinityUpgrade} />
             </div>
           </div>
         )}
@@ -274,11 +248,7 @@ export default function CreateFeats() {
           <Button type="submit" className="w-1/4">
             Criar Poder
           </Button>
-          {pending && (
-            <p className="text-red-500 text-lg mt-2">
-              As seguintes modificações ainda não foram completadas: {pending.join(', ')}
-            </p>
-          )}
+          {pending && <p className="text-red-500 text-2xl mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

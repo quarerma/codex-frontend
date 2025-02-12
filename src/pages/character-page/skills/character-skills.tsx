@@ -109,14 +109,14 @@ const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updat
     const toastId = toast('', {
       description: (
         <>
-          <div className="font-oswald ">
-            <h1 className="text-xl tracking-widest">
+          <div className=" font-romannew">
+            <h1 className="text-3xl tracking-widest">
               Perícia: <span className="font-medium">{skill.name}</span>
             </h1>
-            <h1 className="text-lg font-semibold">Resultado: {result.max}</h1>
+            <h1 className="text-2xl font-semibold">Resultado: {result.max}</h1>
           </div>
 
-          <div className="absolute right-1 top-1 text-xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
+          <div className="absolute right-1 top-1 text-3xl cursor-pointer hover:scale-105 duration-300" onClick={() => dismissToast(toastId)}>
             <IoMdCloseCircleOutline />
           </div>
         </>
@@ -127,9 +127,10 @@ const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updat
       action: {
         label: 'Detalhes',
         onClick: () => triggerOpenDialog(result, toastId),
-      },
-      actionButtonStyle: {
-        color: 'text-black',
+        actionButtonStyle: {
+          fontSize: '2.0rem',
+          padding: '0.5rem 1rem',
+        },
       },
 
       onAutoClose(toast) {
@@ -140,9 +141,10 @@ const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updat
         dismissToast(toast.id);
       },
       classNames: {
-        toast: 'bg-dark-bg-secondary border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
-        title: 'font-bold text-xl',
-        description: 'font-extralight text-lg',
+        toast: 'bg-dark-bg-secondary  border-2 border-white drop-shadow-[0_0px_30px_rgba(255,255,255,100)] text-white  w-full flex flex-1  ', // centers the text
+        title: 'font-bold text-4xl',
+        description: 'font-extralight text-3xl',
+        actionButton: 'bg-primary text-black',
       },
     });
 
@@ -181,7 +183,7 @@ const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updat
   }
   return (
     <tr className="text-center  font-extralight">
-      <td className="text-start max-md:mt-2 md:px-2 flex items-center md:space-x-5 space-x-2 overflow-hidden">
+      <td className="text-start max-md:mt-2 md:px-2 flex  items-center md:space-x-5 space-x-2 overflow-hidden">
         <FaDiceD20 className="text-primary cursor-pointer flex-shrink-0" onClick={handleClick} />
         <Sheet>
           <SheetTrigger>
@@ -243,20 +245,20 @@ export default function CharacterSkills() {
 
   return (
     <div
-      className="overflow-y-auto flex justify-center w-full font-inter"
+      className="overflow-y-auto flex justify-center w-full "
       style={{
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
       }}
     >
-      <table className="w-full table-fixed max-w-[600px] h-fit  md:text-base sm:text-sm text-xs">
+      <table className="w-full table-fixed max-w-[700px] h-fit  md:text-2xl sm:text-lg text-base">
         <thead className="border-0 text-center px-3">
-          <tr className="md:text-lg text-sm text-white/30">
+          <tr className="md:text-2xl text-lg text-white/30">
             <th className="text-center font-extralight w-1/4">Perícia</th>
             <th className="text-center font-extralight">Atributo</th>
             <th className={`text-center font-extralight cursor-pointer ${filterByTrainingLevel ? 'text-primary underline' : ''}`} onClick={() => setFilterByTrainingLevel(!filterByTrainingLevel)}>
               Treinamento
-              <span className="text-xs">
+              <span className="text-xl">
                 {' '}
                 ({num_of_training_skills} / {character.num_of_skills + character.atributes.intelligence})
               </span>

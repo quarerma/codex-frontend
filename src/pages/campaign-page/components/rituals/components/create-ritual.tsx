@@ -121,37 +121,20 @@ export default function CreateRitual() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar novo Ritual</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
-        <RitualInput
-          label="Nome do Ritual"
-          type="text"
-          placeholder="Preencha o nome do ritual"
-          register={register}
-          name="name"
-          required
-        />
+      <h1 className="text-5xl font-bold">Criar novo Ritual</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
+        <RitualInput label="Nome do Ritual" type="text" placeholder="Preencha o nome do ritual" register={register} name="name" required />
         <RitualInput label="Custo do Ritual" type="text" register={register} name="normalCost" required />
         <RitualInput label="Círculo do Ritual" type="text" register={register} name="ritualLevel" required />
         <RitualInput label="Tempo de Execução" type="text" register={register} name="exectutionTime" required />
         <RitualInput label="Resistência" type="text" register={register} name="resistance" required />
 
-        <RitualSelect
-          label="Alcance de Ritual"
-          options={ritualRange}
-          onChange={(value) => setValue('range', value)}
-          name="range"
-        />
+        <RitualSelect label="Alcance de Ritual" options={ritualRange} onChange={(value) => setValue('range', value)} name="range" />
 
         <RitualInput label="Alvos" type="text" register={register} name="target" required />
         <RitualInput label="Duração" type="text" register={register} name="duration" required />
 
-        <RitualSelect
-          label="Elemento"
-          options={elementValues}
-          onChange={(value) => setValue('element', value)}
-          name="element"
-        />
+        <RitualSelect label="Elemento" options={elementValues} onChange={(value) => setValue('element', value)} name="element" />
 
         <RitualSelect
           label="Tipo de Ritual"
@@ -165,19 +148,8 @@ export default function CreateRitual() {
 
         {ritualType === 'DAMAGE' && (
           <>
-            <RitualInput
-              label="Dano do Ritual"
-              type="text"
-              placeholder="Exemplo: 2d10 + 5"
-              register={register}
-              name="normalCastDamage"
-            />
-            <RitualSelect
-              label="Tipo de Dano"
-              options={damageTypes}
-              onChange={(value) => setValue('normalCastDamageType', value)}
-              name="normalCastDamageType"
-            />
+            <RitualInput label="Dano do Ritual" type="text" placeholder="Exemplo: 2d10 + 5" register={register} name="normalCastDamage" />
+            <RitualSelect label="Tipo de Dano" options={damageTypes} onChange={(value) => setValue('normalCastDamageType', value)} name="normalCastDamageType" />
           </>
         )}
 
@@ -190,7 +162,7 @@ export default function CreateRitual() {
 
         <div className="w-full flex items-center justify-between">
           <div className="flex-grow h-[1px] bg-white"></div>
-          <h1 className="text-3xl text-primary whitespace-nowrap mx-4">Versão Discente</h1>
+          <h1 className="text-5xl text-primary whitespace-nowrap mx-4">Versão Discente</h1>
           <div className="flex-grow h-[1px] bg-white"></div>
         </div>
 
@@ -204,25 +176,14 @@ export default function CreateRitual() {
 
         {ritualType === 'DAMAGE' && (
           <>
-            <RitualInput
-              label="Dano da Versão Discente"
-              type="text"
-              placeholder="Exemplo: 2d10 + 5"
-              register={register}
-              name="discentCastDamage"
-            />
-            <RitualSelect
-              label="Tipo de Dano"
-              options={damageTypes}
-              onChange={(value) => setValue('discentCastDamageType', value)}
-              name="discentCastDamageType"
-            />
+            <RitualInput label="Dano da Versão Discente" type="text" placeholder="Exemplo: 2d10 + 5" register={register} name="discentCastDamage" />
+            <RitualSelect label="Tipo de Dano" options={damageTypes} onChange={(value) => setValue('discentCastDamageType', value)} name="discentCastDamageType" />
           </>
         )}
 
         <div className="w-full flex items-center justify-between">
           <div className="flex-grow h-[1px] bg-white"></div>
-          <h1 className="text-3xl whitespace-nowrap mx-4 text-primary">Versão Verdadeira</h1>
+          <h1 className="text-5xl whitespace-nowrap mx-4 text-primary">Versão Verdadeira</h1>
           <div className="flex-grow h-[1px] bg-white"></div>
         </div>
 
@@ -236,33 +197,18 @@ export default function CreateRitual() {
 
         {ritualType === 'DAMAGE' && (
           <>
-            <RitualInput
-              label="Dano da Versão Verdadeira"
-              type="text"
-              placeholder="Exemplo: 2d10 + 5"
-              register={register}
-              name="trueCastDamage"
-            />
-            <RitualSelect
-              label="Tipo de Dano"
-              options={damageTypes}
-              onChange={(value) => setValue('trueCastDamageType', value)}
-              name="trueCastDamageType"
-            />
+            <RitualInput label="Dano da Versão Verdadeira" type="text" placeholder="Exemplo: 2d10 + 5" register={register} name="trueCastDamage" />
+            <RitualSelect label="Tipo de Dano" options={damageTypes} onChange={(value) => setValue('trueCastDamageType', value)} name="trueCastDamageType" />
           </>
         )}
         <div className="w-full flex items-center justify-between">
           <div className="flex-grow h-[1px] bg-white"></div>
-          <h1 className="text-3xl text-primary whitespace-nowrap mx-4">Condições</h1>
+          <h1 className="text-5xl text-primary whitespace-nowrap mx-4">Condições</h1>
           <div className="flex-grow h-[1px] bg-white"></div>
         </div>
 
         <div className="flex space-x-5">
-          <select
-            value={currentCondition}
-            onChange={(e) => setCurrentCondition(e.target.value)}
-            className="p-2 border-2 bg-card border-border rounded ml-5"
-          >
+          <select value={currentCondition} onChange={(e) => setCurrentCondition(e.target.value)} className="p-2 border-2 bg-card border-border rounded ml-5">
             <option value="default" disabled>
               Condições
             </option>
@@ -294,7 +240,7 @@ export default function CreateRitual() {
         </ol>
 
         <div className="flex justify-center">
-          <button type="submit" className="w-1/4 text-2xl rounded-2xl">
+          <button type="submit" className="w-1/4 text-4xl rounded-2xl">
             Criar Ritual
           </button>
         </div>

@@ -9,13 +9,13 @@ interface SkillCheckDeatilProps {
 
 export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProps) {
   return (
-    <DialogContent className="text-foreground  flex font-light flex-col items-start ">
+    <DialogContent className="text-foreground font-romannew  flex font-light flex-col items-start ">
       <DialogHeader>
-        <DialogTitle className="font-light text-2xl pt-5">
+        <DialogTitle className="font-light text-4xl pt-5">
           Detalhes da rolagem de <span className="font-bold">{skill.name}</span>
         </DialogTitle>
       </DialogHeader>
-      <div className="text-xl flex flex-col gap-y-2 w-full">
+      <div className="text-3xl flex flex-col gap-y-2 w-full">
         <div>
           <h1>Atributo Utilizado: {formatAtribute(skill.atribute)?.label}</h1>
         </div>
@@ -57,7 +57,7 @@ export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProp
             </ul>
           </div>
         </div>
-        {roll?.max && <h1 className="text-2xl font-extrabold  text-end">Total: {roll.max}</h1>}
+        {roll?.max && <h1 className="text-4xl font-extrabold  text-end">Total: {roll.max}</h1>}
       </div>
     </DialogContent>
   );

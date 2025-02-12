@@ -4,15 +4,7 @@ import { Atributes } from '../../../../types/character-upgrades';
 import { useEffect, useState } from 'react';
 import { Skills } from '../../../../types/skills';
 import { Input } from '../../../../components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 
 export default function ReadSkills() {
   const { data: skills = [] } = useQuery({
@@ -57,10 +49,10 @@ export default function ReadSkills() {
 
   return (
     <div className="bg-dark-bg-secondary p-5 w-full text-foreground rounded-2xl border-2 border-border space-y-10">
-      <h1 className="text-3xl font-bold">Visualizar Perícias</h1>
+      <h1 className="text-5xl font-bold">Visualizar Perícias</h1>
 
       <div className="flex flex-col space-y-5">
-        <h2 className="text-2xl">Filtro:</h2>
+        <h2 className="text-4xl">Filtro:</h2>
 
         <div className="flex flex-col space-y-2">
           <Select onValueChange={setSelectedAtribute} value={selectedAtribute}>
@@ -79,32 +71,22 @@ export default function ReadSkills() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          {selectedAtribute && (
-            <label className="text-base ml-2 text-primary-foreground font-bold">
-              Filtrando por {formatAtribute(selectedAtribute)}
-            </label>
-          )}
+          {selectedAtribute && <label className="text-xl ml-2 text-primary-foreground font-bold">Filtrando por {formatAtribute(selectedAtribute)}</label>}
         </div>
 
-        <Input
-          type="text"
-          placeholder="Buscar por nome da perícia"
-          className="p-2 border-2 bg-card border-border rounded  w-full"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <Input type="text" placeholder="Buscar por nome da perícia" className="p-2 border-2 bg-card border-border rounded  w-full" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </div>
 
       <div className="border-2 border-border">
         {filteredSkills.length === 0 ? (
-          <p className="p-5 text-xl">Nenhuma habilidade encontrada.</p>
+          <p className="p-5 text-3xl">Nenhuma habilidade encontrada.</p>
         ) : (
           filteredSkills.map((skill) => (
             <div key={skill.name} className="space-y-5 p-5 border-2 border-border">
               <div>
-                <h2 className="text-2xl font-semibold">{skill.name}</h2>
-                {skill.atribute && <p className="text-sm mt-2">Atributo: {formatAtribute(skill.atribute)}</p>}
-                <div className="text-sm mt-1">
+                <h2 className="text-4xl font-semibold">{skill.name}</h2>
+                {skill.atribute && <p className="text-lg mt-2">Atributo: {formatAtribute(skill.atribute)}</p>}
+                <div className="text-lg mt-1">
                   {skill.needs_kit && <p>Precisa de kit</p>}
                   {skill.carry_peanalty && <p>Penalidade de carga</p>}
                   {skill.only_trained && <p>Apenas treinados</p>}
@@ -112,7 +94,7 @@ export default function ReadSkills() {
               </div>
               <div>
                 <h3 className="font-semibold">Descrição:</h3>
-                <p className="text-base" dangerouslySetInnerHTML={{ __html: skill.description }}></p>
+                <p className="text-xl" dangerouslySetInnerHTML={{ __html: skill.description }}></p>
               </div>
             </div>
           ))

@@ -17,14 +17,9 @@ export default function SubclassPick({ subclass, setValue }: ClassProps) {
 
   return (
     <div className={`flex h-fit flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <h1 className="lg:text-3xl md:text-2xl text-base font-semibold">{subclass.name}</h1>
-        <button className="lg:text-4xl text-3xl font-bold">
-          {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-        </button>
+      <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2" onClick={() => setExpanded(!expanded)}>
+        <h1 className="lg:text-5xl md:text-4xl text-xl font-semibold">{subclass.name}</h1>
+        <button className="lg:text-5xl text-5xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
 
       <div
@@ -33,14 +28,14 @@ export default function SubclassPick({ subclass, setValue }: ClassProps) {
         }`}
       >
         <div>
-          <h3 className="font-bold text-2xl">Descrição:</h3>
-          <p className="text-base" dangerouslySetInnerHTML={{ __html: subclass.description }}></p>
+          <h3 className="font-bold text-4xl">Descrição:</h3>
+          <p className="text-xl" dangerouslySetInnerHTML={{ __html: subclass.description }}></p>
         </div>
         <div>
           Poderes de Subclasse:
           <ul>
             {subclass.subclassFeats.map((feat, index) => (
-              <li className="text-base mt-2" key={index}>
+              <li className="text-xl mt-2" key={index}>
                 <h1 className="text-red-500 ">Nex {feat.levelRequired === 20 ? 99 : feat.levelRequired * 5}%:</h1>
                 <div className="flex flex-col space-y-2 ">
                   <h1>{feat.feat.name}:</h1>

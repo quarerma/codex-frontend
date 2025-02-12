@@ -180,9 +180,9 @@ export default function CreateFeats() {
 
   return (
     <div className="bg-dark-bg-secondary flex flex-col space-y-10 p-5 w-full rounded-2xl h-fit border-2 border-border">
-      <h1 className="text-3xl font-bold">Criar novo Poder</h1>
+      <h1 className="text-5xl font-bold">Criar novo Poder</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-xl space-y-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="border-2 border-border p-5 text-3xl space-y-10">
         <div className="space-y-2 group">
           <h1 className="group-focus-within:text-primary">Nome:</h1>
           <Input type="text" placeholder="Preencha o nome da subclasse" className="ml-2" {...register('name')} />
@@ -252,7 +252,7 @@ export default function CreateFeats() {
           <Button type="submit" className="w-1/4">
             Criar Poder
           </Button>
-          {pending && <p className="text-red-500 text-lg mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
+          {pending && <p className="text-red-500 text-2xl mt-2">As seguintes modificações ainda não foram completadas: {pending.join(', ')}</p>}
         </div>
       </form>
     </div>

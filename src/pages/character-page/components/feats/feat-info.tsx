@@ -67,48 +67,48 @@ export default function FeatInfo({ feat, usingAfinity, requiredLevel }: FeatInfo
     <Sheet>
       <SheetTrigger className="flex w-full flex-col border-[3px] border-border relative group">
         <div className="flex justify-between items-center cursor-pointer lg:p-6 md:p-4 p-2 ">
-          <h1 className={`lg:text-4xl md:text-2xl text-base font-semibold font-romannew`}>
+          <h1 className={`lg:text-4xl md:text-2xl text-xl font-semibold `}>
             {feat.name} {requiredLevel && <span>- {requiredLevel}%</span>}
           </h1>
         </div>
         <AiOutlineInfoCircle size={16} className="absolute top-1/2 -translate-y-1/2 right-4" />
       </SheetTrigger>
 
-      <SheetContent className={`lg:text-2xl md:text-lg text-base  font-normal text-white ${elementColor.border} border-l-4 flex flex-col  overflow-x-auto `}>
-        <SheetHeader className="font-semibold w-full flex text-4xl font-romannew">
+      <SheetContent className={`lg:text-4xl font-romannew md:text-2xl text-xl  font-normal text-white ${elementColor.border} border-l-4 flex flex-col  overflow-x-auto `}>
+        <SheetHeader className="font-semibold w-full flex text-4xl ">
           {feat.name} {requiredLevel && ` - ${requiredLevel}%`}
         </SheetHeader>
-        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-lg  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
-        <p className="text-base" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
+        <div>{feat.element !== 'REALITY' && <h3 className={`font-extralight text-3xl  ${elementColor.text}`}>Elemento: {formatElement(feat.element || '')}</h3>}</div>
+        <p className="text-2xl" dangerouslySetInnerHTML={{ __html: feat.description }}></p>
         {feat.afinity && (
           <div>
-            <h3 className="font-semibold text-xl">Afinidade:</h3>
-            <p className="text-base">{feat.afinity}</p>
+            <h3 className="font-semibold text-3xl">Afinidade:</h3>
+            <p className="text-2xl">{feat.afinity}</p>
           </div>
         )}
         {feat.prerequisites && (
           <div>
-            <h3 className="font-semibold text-xl">Pré-requisitos:</h3>
-            <p className="text-base">{feat.prerequisites}</p>
+            <h3 className="font-semibold text-3xl">Pré-requisitos:</h3>
+            <p className="text-2xl">{feat.prerequisites}</p>
           </div>
         )}
-        <div className="flex items-center  pt-5">
+        <div className="flex items-center pt-5 ">
           {feat.afinity && !usingAfinity && (
             <div className="flex w-full   ">
-              <Button variant="link" className=" text-primary " onClick={handleUseAfinity}>
+              <Button variant="link" className=" text-primary  text-2xl font-semibold" onClick={handleUseAfinity}>
                 Usar Afinidade
               </Button>
             </div>
           )}
           {feat.afinity && usingAfinity && (
-            <div className="flex w-full justify-start   ">
-              <Button className="w-fit" onClick={handleUnUseAfinity}>
+            <div className="flex w-full justify-start ">
+              <Button className="w-fit  text-2xl font-semibold" onClick={handleUnUseAfinity}>
                 Parar de usar Afinidade
               </Button>
             </div>
           )}
           {(feat.type === 'GENERAL' || feat.type === 'CUSTOM') && (
-            <Button onClick={handleRemoveFeat} variant={'link'} className="text-red-600 font-inter">
+            <Button onClick={handleRemoveFeat} variant={'link'} className="text-red-600 text-2xl font-semibold">
               Excluir Poder
             </Button>
           )}

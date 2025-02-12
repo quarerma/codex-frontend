@@ -44,7 +44,7 @@ export default function PageSetup({ children, className }: PageSetupProps) {
     return (
       <div className="w-screen min-h-screen flex justify-center items-center bg-dark-bg text-white">
         <div className="flex items-center justify-center space-x-5 text-center">
-          <h1 className="text-3xl font-semibold">Loading...</h1>
+          <h1 className="text-5xl font-semibold">Loading...</h1>
           <div className="w-12 h-12 border-b-4 border-r-4 border-primary rounded-full animate-spin"></div>
         </div>
       </div>
@@ -54,13 +54,13 @@ export default function PageSetup({ children, className }: PageSetupProps) {
   if (!user || !isAuthenticated) {
     return (
       <div className="w-screen min-h-screen flex justify-center items-center bg-dark-bg text-white">
-        <h1 className="text-3xl font-semibold">Você não tem permissão para acessar essa página</h1>
+        <h1 className="text-5xl font-semibold">Você não tem permissão para acessar essa página</h1>
       </div>
     );
   }
 
   return (
-    <div className={cn('max-w-screen min-h-screen font-oswald bg-dark-bg space-y-5', className)}>
+    <div className={cn('max-w-screen min-h-screen  bg-dark-bg space-y-5', className)}>
       <Navbar />
       <div className={cn('flex flex-col h-full text-foreground 2xl:max-h-[87vh] xl:max-h-[85vh] overflow-y-auto 2xl:px-20  xl:px-10  lg:px-5  px-2 mr-2', className)}>{children}</div>
     </div>

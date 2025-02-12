@@ -33,15 +33,15 @@ export default function ViewCharacters() {
               placeholder="Buscar por nome..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className=" placeholder:text-foreground placeholder:text-4xl placeholder:font-extrabold text-3xl  bg-transparent w-full focus:outline-none"
+              className=" placeholder:text-foreground placeholder:text-5xl placeholder:font-extrabold text-5xl  bg-transparent w-full focus:outline-none"
             />
             <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
           </div>
-          <FaSearch className="text-2xl" />
+          <FaSearch className="text-4xl" />
         </div>
         <Link
           to={'/create-character'}
-          className="text-foreground text-2xl  text-center font-semibold px-10 py-1 rounded-xl hover:bg-primary-foreground bg-dark-bg-secondary border-[1px] border-primary"
+          className="text-foreground text-4xl  text-center font-semibold px-10 py-1 rounded-xl hover:bg-primary-foreground bg-dark-bg-secondary border-[1px] border-primary"
         >
           Criar Personagem
         </Link>

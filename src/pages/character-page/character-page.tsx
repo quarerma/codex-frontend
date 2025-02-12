@@ -88,10 +88,10 @@ export default function CharacterPage() {
 
   if (!character || !user)
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Loading</h1>
 
           <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
         </div>
@@ -100,10 +100,10 @@ export default function CharacterPage() {
 
   if (!isUserValid) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <NavBar />
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Você não tem permissão para acessar essa página</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Você não tem permissão para acessar essa página</h1>
         </div>
       </div>
     );
@@ -116,8 +116,8 @@ export default function CharacterPage() {
       }}
     >
       <PageSetup className="max-lg:hidden">
-        <div className="items-center w-fit space-x-32 2xl:text-4xl xl:text-2xl text-base  font-romannew h-[5vh] flex">
-          <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-3xl xl:text-xl text-lg">Character Page</h1>
+        <div className="items-center w-fit space-x-32 2xl:text-4xl xl:text-2xl text-lg   h-[5vh] flex">
+          <h1 className="text-white/30 font-semibold tracking-widest 2xl:text-5xl xl:text-3xl text-2xl">Character Page</h1>
           <h1 className="flex items-center gap-x-2 font-extralight">
             <div className="w-2 h-2 rounded-full bg-primary"></div>
             <span className="text-primary font-light">Campanha:</span>
@@ -156,7 +156,7 @@ export default function CharacterPage() {
               <div className="flex justify-between  2xl:space-x-10 xl:space-x-5">
                 {navBar.map((item) => (
                   <div key={item.value} className="flex flex-col items-center space-y-2">
-                    <h1 onClick={() => setSelected(item.value)} className={`cursor-pointer text-2xl ${selected === item.value ? 'text-primary' : 'text-white/30'}`}>
+                    <h1 onClick={() => setSelected(item.value)} className={`cursor-pointer text-4xl ${selected === item.value ? 'text-primary' : 'text-white/30'}`}>
                       {item.name}
                     </h1>
                     <div className={`w-20 h-1 bg-primary ${selected === item.value ? 'visible' : 'invisible'}`}></div>

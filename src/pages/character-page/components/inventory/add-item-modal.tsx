@@ -1,15 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getPossibleCampaignEquipment } from '../../../../api/fetch/equipment';
 import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../../components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
 
 import { useCharacter } from '../../character-page';
 import AddItemInfo from './add-item-info';
@@ -58,9 +50,9 @@ export default function AddItemModal() {
   }, [equipment, selectedType, itemSource, searchTerm, filteredEquipment]);
 
   return (
-    <DialogContent className="text-foreground  max-h-[80vh] h-[80vh] w-1/2 font-oswald flex flex-col space-y-2   border-primary">
+    <DialogContent className="text-foreground  max-h-[80vh] h-[80vh] w-1/2  flex flex-col space-y-2   border-primary">
       <DialogHeader>
-        <DialogTitle className="text-3xl">Adicionar Item</DialogTitle>
+        <DialogTitle className="text-5xl">Adicionar Item</DialogTitle>
       </DialogHeader>
       <div className="flex w-full">
         <div className="flex-col w-full border-b-2 border-border">
@@ -69,11 +61,11 @@ export default function AddItemModal() {
             placeholder="Buscar por nome..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="placeholder:text-foreground placeholder:text-xl font-extralight text-lg bg-transparent w-full focus:outline-none"
+            className="placeholder:text-foreground placeholder:text-3xl font-extralight text-2xl bg-transparent w-full focus:outline-none"
           />
           <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
         </div>
-        <FaSearch className="text-lg" />
+        <FaSearch className="text-2xl" />
       </div>
       <div className="flex space-x-5">
         <Select defaultValue="all" onValueChange={setSelectedType} value={selectedType}>

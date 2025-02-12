@@ -247,6 +247,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>
-    <RouterProvider router={router} /> <Toaster visibleToasts={5} duration={5000} />
+    <div className="font-romannew">
+      <RouterProvider router={router} /> <Toaster visibleToasts={5} duration={5000} />
+    </div>
   </>
 );

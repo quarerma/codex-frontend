@@ -35,34 +35,26 @@ export default function ManageClasses() {
 
   return (
     <AdminPageSetup>
-      <div className="w-full flex flex-col p-20 font-oswald">
+      <div className="w-full flex flex-col p-20 ">
         <div className="ml-6 sticky -mb-1 ">
           <Button
             variant={'outline'}
             onClick={() => setActiveComponent('create')}
-            className={`px-3 py-2 rounded-t-xl border-2 ${
-              activeComponent === 'create'
-                ? 'bg-dark-bg-secondary border-b-dark-bg-secondary'
-                : 'bg-transparent border-none'
-            }`}
+            className={`px-3 py-2 rounded-t-xl border-2 ${activeComponent === 'create' ? 'bg-dark-bg-secondary border-b-dark-bg-secondary' : 'bg-transparent border-none'}`}
           >
             Criar Classe
           </Button>
           <Button
             variant={'outline'}
             onClick={() => setActiveComponent('read')}
-            className={`px-3 py-2 rounded-t-xl border-2 border-b-dark-bg-secondary  ${
-              activeComponent === 'read' ? 'bg-dark-bg-secondary ' : 'bg-transparent border-none'
-            }`}
+            className={`px-3 py-2 rounded-t-xl border-2 border-b-dark-bg-secondary  ${activeComponent === 'read' ? 'bg-dark-bg-secondary ' : 'bg-transparent border-none'}`}
           >
             Visualizar Classes
           </Button>
           <Button
             variant={'outline'}
             onClick={() => setActiveComponent('add-feats')}
-            className={`px-3 py-2 rounded-t-xl border-2 border-b-dark-bg-secondary  ${
-              activeComponent === 'add-feats' ? 'bg-dark-bg-secondary ' : 'bg-transparent border-none'
-            }`}
+            className={`px-3 py-2 rounded-t-xl border-2 border-b-dark-bg-secondary  ${activeComponent === 'add-feats' ? 'bg-dark-bg-secondary ' : 'bg-transparent border-none'}`}
           >
             Adicionar Poder
           </Button>

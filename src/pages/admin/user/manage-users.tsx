@@ -2,15 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllUsers } from '../../../api/fetch/user';
 import { useState } from 'react';
 import { Button } from '../../../components/ui/button';
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '../../../components/ui/table';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table';
 import AdminPageSetup from '../components/admin-page';
 
 export default function ManageUsers() {
@@ -28,10 +20,10 @@ export default function ManageUsers() {
         <div className="w-full flex flex-col items-center justify-center py-10 ">
           <div className="flex flex-col bg-dark-bg-secondary w-full p-5 border-2 border-border gap-y-10">
             <div className="gap-y-2">
-              <h1 className="text-3xl font-semibold text-left ">Usuários</h1>
-              <h1 className="text-sm text-muted-foreground">Gerencie os usuários</h1>
+              <h1 className="text-5xl font-semibold text-left ">Usuários</h1>
+              <h1 className="text-lg text-muted-foreground">Gerencie os usuários</h1>
             </div>
-            <Table className="text-xl w-full   border-2 border-border">
+            <Table className="text-3xl w-full   border-2 border-border">
               <TableCaption className="mt-10 mb-5">Exibindo {users ? `${users.length}` : '0'} usuários</TableCaption>
               <TableHeader className="border-0">
                 <TableRow>
@@ -53,7 +45,7 @@ export default function ManageUsers() {
           </div>
         </div>
         <div className="w-full flex justify-center">
-          <Button className="w-[20%] text-xl py-7 rounded-xl " variant={'default'} onClick={() => setSearchUsers(true)}>
+          <Button className="w-[20%] text-3xl py-7 rounded-xl " variant={'default'} onClick={() => setSearchUsers(true)}>
             Search Users
           </Button>
         </div>

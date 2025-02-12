@@ -95,18 +95,16 @@ export default function Sidebar() {
         msOverflowStyle: 'none',
         scrollbarWidth: 'none',
       }}
-      className={`${
-        isSidebarOpen ? 'w-96' : 'w-[120px]'
-      } max-h-screen relative overflow-y-scroll duration-500   bg-dark-bg-secondary font-oswald border-r-4 border-border text-foreground`}
+      className={`${isSidebarOpen ? 'w-96' : 'w-[120px]'} max-h-screen relative overflow-y-scroll duration-500   bg-dark-bg-secondary  border-r-4 border-border text-foreground`}
     >
       <div className={`absolute right-0 items-center z-50 px-5 py-3 duration-300 ${isSidebarOpen ? 'rotate-180' : ''}`}>
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-3xl">
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-5xl">
           <FaArrowRightLong />
         </button>
       </div>
       <div className="flex flex-col bg-dark-bg-secondary items-center mt-5 gap-y-2 justify-center sticky top-0">
         {isSidebarOpen ? (
-          <Link to={'/admin/dashboard'} className="text-center   hover:text-primary text-3xl font-bold">
+          <Link to={'/admin/dashboard'} className="text-center   hover:text-primary text-5xl font-bold">
             Dashboard
           </Link>
         ) : (
@@ -117,39 +115,23 @@ export default function Sidebar() {
       {isSidebarOpen ? (
         <div className="flex flex-col  mt-10 gap-y-10 px-5">
           {linksMap.map((link, index) => (
-            <Link
-              key={index}
-              to={link.url}
-              className="text-2xl hover:text-primary flex items-center  gap-x-2 font-semibold transition-colors duration-200"
-            >
+            <Link key={index} to={link.url} className="text-4xl hover:text-primary flex items-center  gap-x-2 font-semibold transition-colors duration-200">
               {link.imageComponent}
               {link.name}
             </Link>
           ))}
-          <Link
-            to={'/login'}
-            onClick={handleLogOut}
-            className="flex items-center gap-x-2  mt-10 mb-10 text-2xl duration-300 transition-colors hover:text-primary-foreground font-semibold  "
-          >
+          <Link to={'/login'} onClick={handleLogOut} className="flex items-center gap-x-2  mt-10 mb-10 text-4xl duration-300 transition-colors hover:text-primary-foreground font-semibold  ">
             <RiLogoutBoxLine /> Sair
           </Link>
         </div>
       ) : (
         <div className="flex flex-col justify-center text-[2.35rem] items-center mt-10 gap-y-10 px-5">
           {linksMap.map((link, index) => (
-            <Link
-              key={index}
-              to={link.url}
-              className=" hover:text-primary flex items-center  gap-x-2 font-semibold transition-colors duration-200"
-            >
+            <Link key={index} to={link.url} className=" hover:text-primary flex items-center  gap-x-2 font-semibold transition-colors duration-200">
               {link.imageComponent}
             </Link>
           ))}
-          <Link
-            to={'/login'}
-            onClick={handleLogOut}
-            className="flex items-center gap-x-2  mt-10 mb-10  duration-300 transition-colors hover:text-primary-foreground font-semibold  "
-          >
+          <Link to={'/login'} onClick={handleLogOut} className="flex items-center gap-x-2  mt-10 mb-10  duration-300 transition-colors hover:text-primary-foreground font-semibold  ">
             <RiLogoutBoxLine />
           </Link>
         </div>

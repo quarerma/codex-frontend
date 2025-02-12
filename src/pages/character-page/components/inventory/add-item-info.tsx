@@ -40,9 +40,9 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
     <div className={`flex flex-col border-[3px] border-border  `}>
       <div className="flex justify-between items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
         <div className="flex ">
-          <h1 className="lg:text-2xl md:text-xl text-base font-semibold">{equipment.name}</h1>
+          <h1 className="lg:text-4xl md:text-3xl text-xl font-semibold">{equipment.name}</h1>
         </div>
-        <button className="lg:text-4xl text-3xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
+        <button className="lg:text-5xl text-5xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
       </div>
       <div onClick={() => setExpanded(!expanded)} className="flex lg:px-6 md:px-4 cursor-pointer px-2 pb-4 pt-4 items-center justify-start space-x-5">
         <span>
@@ -87,12 +87,12 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
       </div>
 
       <div
-        className={`text-lg  tracking-wide font-normal flex flex-col space-y-2 mt-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
+        className={`text-2xl  tracking-wide font-normal flex flex-col space-y-2 mt-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
           expanded ? 'max-h-screen mb-2 ' : 'max-h-0 h-0'
         }`}
       >
         {equipment.type === 'WEAPON' && (
-          <div className="flex  text-white/40 text-base  items-center font-extralight">
+          <div className="flex  text-white/40 text-xl  items-center font-extralight">
             <span>{formatWeaponCategory(equipment.Weapon?.weapon_category || '')}</span>
             <div className="w-[10px] ml-2 mr-2  h-[1px] bg-white/40"></div>
             <span>{formatWeaponType(equipment.Weapon?.weapon_type || '')}</span>
@@ -103,10 +103,10 @@ export default function AddItemInfo({ equipment }: AddItemInfoProps) {
 
         <p dangerouslySetInnerHTML={{ __html: equipment.description }}></p>
         {isLoading ? (
-          <div className="w-4 h-4 rounded-full border-t border-l border-primary animate-spin flex items-center text-sm justify-end pt-5"></div>
+          <div className="w-4 h-4 rounded-full border-t border-l border-primary animate-spin flex items-center text-lg justify-end pt-5"></div>
         ) : (
-          <div className="flex items-center text-sm justify-end pt-5">
-            <Button onClick={handleAddEquipment} variant={'link'} className="text-primary font-inter">
+          <div className="flex items-center text-lg justify-end pt-5">
+            <Button onClick={handleAddEquipment} variant={'link'} className="text-primary ">
               Adicionar Item
             </Button>
           </div>

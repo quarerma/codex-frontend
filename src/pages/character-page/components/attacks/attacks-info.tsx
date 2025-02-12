@@ -28,14 +28,11 @@ export default function AttacksInfo({ attack }: AttacksInfoProps) {
 
   return (
     <div className={`flex flex-col border-[3px] border-border  `}>
-      <div
-        className="flex justify-between w-full items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2"
-        onClick={() => setExpanded(!expanded)}
-      >
+      <div className="flex justify-between w-full items-center cursor-pointer pt-4 lg:px-6 md:px-4 px-2" onClick={() => setExpanded(!expanded)}>
         <div className="flex flex-col">
-          <h1 className="lg:text-xl md:text-lg text-base font-semibold">{attack.name}</h1>
+          <h1 className="lg:text-3xl md:text-2xl text-xl font-semibold">{attack.name}</h1>
           <div className="flex space-x-2">
-            <span className="text-sm font-light">
+            <span className="text-lg font-light">
               Dados:{' '}
               {attack.damage_dies.map((die, index) => (
                 <span key={index}>
@@ -45,7 +42,7 @@ export default function AttacksInfo({ attack }: AttacksInfoProps) {
               ))}
             </span>
             {attack.extra_damage.length > 0 && (
-              <span className="text-sm font-light">
+              <span className="text-lg font-light">
                 - Dados Extra:{' '}
                 {attack.extra_damage.map((extra, index) => (
                   <span key={index}>
@@ -66,30 +63,28 @@ export default function AttacksInfo({ attack }: AttacksInfoProps) {
         </div>
 
         <div className="flex items-center space-x-2">
-          <button className="lg:text-4xl text-3xl font-bold">
-            {expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}
-          </button>
+          <button className="lg:text-5xl text-5xl font-bold">{expanded ? <IoMdArrowDropup /> : <IoMdArrowDropup className="rotate-180" />}</button>
         </div>
       </div>
 
       <div
-        className={`text-lg  tracking-wide font-normal flex flex-col space-y-2 mt-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
+        className={`text-2xl  tracking-wide font-normal flex flex-col space-y-2 mt-5 overflow-x-auto overflow-y-hidden lg:px-8 md:px-4 px-2 duration-300 transition-max-height  ${
           expanded ? 'max-h-screen mb-2 ' : 'max-h-0 h-0'
         }`}
       >
         <div>
           <h1>Modificações / Poderes / Equipamento:</h1>
           {attack.alterations.map((alteration, index) => (
-            <div key={index} className="flex justify-between items-center text-sm">
+            <div key={index} className="flex justify-between items-center text-lg">
               <span>{alteration.featName || alteration.itemName || alteration.modificationName}</span>
             </div>
           ))}
         </div>
-        {/* <div className="flex items-center text-sm justify-between pt-5">
-          <Button variant={'link'} className="text-primary font-inter">
+        {/* <div className="flex items-center text-lg justify-between pt-5">
+          <Button variant={'link'} className="text-primary ">
             Editar Ataque
           </Button>
-          <Button variant={'link'} className="text-red-700 font-inter">
+          <Button variant={'link'} className="text-red-700 ">
             Remover Ataque
           </Button>
         </div> */}

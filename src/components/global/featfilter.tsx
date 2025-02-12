@@ -31,43 +31,28 @@ export const FeatFilter = ({
 }: FeatFilterProps) => {
   return (
     <div className="flex flex-col justify-start mt-2 space-x-5">
-      <div className="flex text-xl space-x-5 items-center">
+      <div className="flex text-3xl space-x-5 items-center">
         <span>Filtrar por:</span>
-        <span
-          onClick={() => setSelectedFilter('all')}
-          className={`cursor-pointer ${selectedFilter === 'all' && 'underline'} hover:scale-105 duration-200`}
-        >
+        <span onClick={() => setSelectedFilter('all')} className={`cursor-pointer ${selectedFilter === 'all' && 'underline'} hover:scale-105 duration-200`}>
           Todos
         </span>
-        <span
-          onClick={() => setSelectedFilter('class')}
-          className={`cursor-pointer ${selectedFilter === 'class' && 'underline'} hover:scale-105 duration-200`}
-        >
+        <span onClick={() => setSelectedFilter('class')} className={`cursor-pointer ${selectedFilter === 'class' && 'underline'} hover:scale-105 duration-200`}>
           Classe
         </span>
-        <span
-          onClick={() => setSelectedFilter('subclass')}
-          className={`cursor-pointer ${selectedFilter === 'subclass' && 'underline'} hover:scale-105 duration-200`}
-        >
+        <span onClick={() => setSelectedFilter('subclass')} className={`cursor-pointer ${selectedFilter === 'subclass' && 'underline'} hover:scale-105 duration-200`}>
           Subclasse
         </span>
         {showCampaign && (
-          <span
-            onClick={() => setSelectedFilter('campaign')}
-            className={`cursor-pointer ${selectedFilter === 'campaign' && 'underline'} hover:scale-105 duration-200`}
-          >
+          <span onClick={() => setSelectedFilter('campaign')} className={`cursor-pointer ${selectedFilter === 'campaign' && 'underline'} hover:scale-105 duration-200`}>
             Campanha
           </span>
         )}
 
-        <span
-          onClick={() => setSelectedFilter('element')}
-          className={`cursor-pointer ${selectedFilter === 'element' && 'underline'} hover:scale-105 duration-200`}
-        >
+        <span onClick={() => setSelectedFilter('element')} className={`cursor-pointer ${selectedFilter === 'element' && 'underline'} hover:scale-105 duration-200`}>
           Elemento
         </span>
       </div>
-      <div className="mt-3 space-x-5 flex items-center text-lg list-outside list-disc">
+      <div className="mt-3 space-x-5 flex items-center text-2xl list-outside list-disc">
         {selectedFilter === 'element' && (
           <Select onValueChange={setSelectedElement} value={selectedElement}>
             <SelectTrigger className="w-[300px]">

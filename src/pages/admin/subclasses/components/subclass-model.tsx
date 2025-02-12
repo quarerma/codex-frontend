@@ -24,23 +24,19 @@ export default function SubclassModel(subclass: Subclass) {
 
   return (
     <div>
-      <div ref={contentRef} className=" p-5 text-xl space-y-10">
+      <div ref={contentRef} className=" p-5 text-3xl space-y-10">
         {/* General Subclass Information */}
         <div className="flex gap-x-2 items-center">
-          <h1 className="text-3xl font-bold">{subclass.name}</h1>
+          <h1 className="text-5xl font-bold">{subclass.name}</h1>
 
-          <FaFilePdf
-            data-html2canvas-ignore
-            onClick={handlePrint}
-            className="text-2xl text-red-500 hover:scale-110 duration-300 cursor-pointer"
-          />
+          <FaFilePdf data-html2canvas-ignore onClick={handlePrint} className="text-4xl text-red-500 hover:scale-110 duration-300 cursor-pointer" />
         </div>
         <p dangerouslySetInnerHTML={{ __html: subclass.description }}></p>
         <div>
           <h2>Poderes de Subclasse:</h2>
           <ul>
             {subclass.subclassFeats.map((feat, index) => (
-              <li className="text-sm mt-2" key={index}>
+              <li className="text-lg mt-2" key={index}>
                 <h1 className="text-red-500 ">Nex {feat.levelRequired === 20 ? 99 : feat.levelRequired * 5}%:</h1>
                 <div className="flex flex-col space-y-2">
                   <h1>{feat.feat.name}:</h1>

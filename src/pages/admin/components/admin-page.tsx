@@ -33,9 +33,9 @@ export default function AdminPageSetup({ children }: React.PropsWithChildren) {
 
   if (isLoading || !token) {
     return (
-      <div className="w-screen min-h-screen font-oswald bg-dark-bg space-y-5">
+      <div className="w-screen min-h-screen  bg-dark-bg space-y-5">
         <div className="flex justify-center items-center h-[70vh] space-x-5">
-          <h1 className="text-white/30 font-semibold tracking-widest text-3xl">Loading</h1>
+          <h1 className="text-white/30 font-semibold tracking-widest text-5xl">Loading</h1>
           <div className="w-10 h-10 border-b-2 border-l-2 border-primary rounded-full animate-spin"></div>
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function AdminPageSetup({ children }: React.PropsWithChildren) {
   }
 
   return (
-    <div className="max-w-screen font-oswald max-h-screen bg-dark-bg text-foreground flex">
+    <div className="max-w-screen  max-h-screen bg-dark-bg text-foreground flex">
       <Sidebar />
       <div className="w-full max-h-screen overflow-y-auto">{children}</div>
     </div>

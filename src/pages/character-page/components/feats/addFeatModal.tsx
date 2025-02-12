@@ -96,9 +96,9 @@ export const AddFeatModal = () => {
   }, [all_feats, searchTerm, selectedFilter, selectedElement, characterFeats, classFeats, isClassFeatsLoading, subclassFeats, isSubclassFeatsLoading]);
 
   return (
-    <DialogContent className="text-foreground  max-h-[80vh] 2xl:w-1/3 xl:w-1/2 h-[80vh] font-oswald flex flex-col space-y-5   border-primary">
+    <DialogContent className="text-foreground  max-h-[80vh] 2xl:w-1/3 xl:w-1/2 h-[80vh]  flex flex-col space-y-5   border-primary">
       <DialogHeader>
-        <DialogTitle className="p-2  text-3xl">Adicionar Poder</DialogTitle>
+        <DialogTitle className="p-2  text-5xl">Adicionar Poder</DialogTitle>
       </DialogHeader>
       <div id="filter">
         <div className="flex w-full">
@@ -108,11 +108,11 @@ export const AddFeatModal = () => {
               placeholder="Buscar por nome..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="placeholder:text-foreground placeholder:text-xl font-extralight text-lg bg-transparent w-full focus:outline-none"
+              className="placeholder:text-foreground placeholder:text-3xl font-extralight text-2xl bg-transparent w-full focus:outline-none"
             />
             <div className="w-full h-[1px] drop-shadow-xl bg-white-text"></div>
           </div>
-          <FaSearch className="text-lg" />
+          <FaSearch className="text-2xl" />
         </div>
         <FeatFilter
           selectedFilter={selectedFilter}
@@ -135,7 +135,7 @@ export const AddFeatModal = () => {
           scrollbarWidth: 'none',
         }}
       >
-        {filteredFeats.length > 0 ? filteredFeats.map((feat) => <AddFeatInfo key={feat.id} feat={feat} />) : <span className=" text-3xl text-center mt-5 mb-5 italic">Nenhum poder encontrado</span>}
+        {filteredFeats.length > 0 ? filteredFeats.map((feat) => <AddFeatInfo key={feat.id} feat={feat} />) : <span className=" text-5xl text-center mt-5 mb-5 italic">Nenhum poder encontrado</span>}
       </div>
     </DialogContent>
   );
