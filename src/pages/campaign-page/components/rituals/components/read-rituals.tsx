@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { getCampaignRituals } from '../../../../../api/fetch/rituals';
-import { Ritual } from '../../../../../types/ritual';
-import { Input } from '../../../../../components/ui/input';
+import { getCampaignRituals } from '@/../api/fetch/rituals';
+import { Ritual } from '@/../types/ritual';
+import { Input } from '@/../components/ui/input';
 import { useParams } from 'react-router-dom';
 
 export default function ReadRituals() {

@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCharacter } from '../../character-page';
-import { getInventory } from '../../../../api/fetch/inventory';
-import { credit, InventorySlot } from '../../../../types/inventory';
-import { patent } from '../../../../types/patent';
-import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
+import { getInventory } from '@/api/fetch/inventory';
+import { credit, InventorySlot } from '@/types/inventory';
+import { patent } from '@/types/patent';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import AddItemModal from './add-item-modal';
 import ItemInfo from './item-info';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { formatCredit, formatPatent } from '../../../../components/format/formatters';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../../components/ui/dropdown-menu';
-import { post } from '../../../../api/axios';
+import { formatCredit, formatPatent } from '@/components/format/formatters';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { post } from '@/api/axios';
 
 const InventoryContect = createContext<{
   inventory: InventorySlot[];

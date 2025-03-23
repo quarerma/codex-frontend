@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { Input } from '../../../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { updateCurrentStat } from '../../../../api/fetch/character';
-import { useCharacter } from '../../character-page';
+import { updateCurrentStat } from '@/api/fetch/character';
+import { useCharacter } from '@/pages/character-page/character-page';
 
 interface StatsProps {
   current_value: number;

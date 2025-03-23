@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { IoMdArrowDropup, IoMdCloseCircleOutline } from 'react-icons/io';
-import { Ritual } from '../../../../types/ritual';
-import { elementValues } from '../../../../types/elements';
+import { Ritual } from '@/types/ritual';
+import { elementValues } from '@/types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
-import { ritualRange } from '../../../../types/range';
-import { Button } from '../../../../components/ui/button';
+import { ritualRange } from '@/types/range';
+import { Button } from '@/components/ui/button';
 import { useCharacter } from '../../character-page';
-import { removeCharacterRitual } from '../../../../api/fetch/character.rituals';
+import { removeCharacterRitual } from '@/api/fetch/character.rituals';
 import { toast } from 'sonner';
 import { rollDamage } from '../dieRoller/roller';
-import { formatDamageType } from '../../../../components/format/formatters';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
+import { formatDamageType } from '@/components/format/formatters';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
 import { Trash2 } from 'lucide-react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 

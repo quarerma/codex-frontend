@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { getSubclasses } from '../../../../api/fetch/subclass';
+import { getSubclasses } from '@/api/fetch/subclass';
 import { useEffect, useState } from 'react';
-import { Subclass } from '../../../../types/sublass';
-import { Input } from '../../../../components/ui/input';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
+import { Subclass } from '@/types/sublass';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import SubclassModel from './subclass-model';
-import { ClassModel } from '../../../../types/class';
-import { get } from '../../../../api/axios';
+import { ClassModel } from '@/types/class';
+import { get } from '@/api/axios';
 
 export default function ReadSubClasses() {
   const { data: subclasses = [] } = useQuery({

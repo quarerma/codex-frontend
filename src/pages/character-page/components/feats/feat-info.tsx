@@ -1,11 +1,11 @@
-import { Feat } from '../../../../types/feat';
-import { elementValues } from '../../../../types/elements';
+import { Feat } from '@/types/feat';
+import { elementValues } from '@/types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import { useCharacter } from '../../character-page';
-import { removeCharacterFeat, unUseFeatAffinity, useFeatAffinity } from '../../../../api/fetch/character.feats';
+import { removeCharacterFeat, unUseFeatAffinity, useFeatAffinity } from '@/api/fetch/character.feats';
 import { useQueryClient } from '@tanstack/react-query';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { useCharacterFeats } from './character-feat';
 

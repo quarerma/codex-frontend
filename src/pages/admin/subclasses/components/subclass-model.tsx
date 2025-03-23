@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Subclass } from '../../../../types/sublass';
+import { Subclass } from '@/types/sublass';
 import { FaFilePdf } from 'react-icons/fa6';
 
 // import html2pdf from 'html2pdf.js';

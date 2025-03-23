@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getSkills } from '../../../../api/fetch/skills';
-import { Atributes } from '../../../../types/character-upgrades';
+import { getSkills } from '@/api/fetch/skills';
+import { Atributes } from '@/types/character-upgrades';
 import { useEffect, useState } from 'react';
-import { Skills } from '../../../../types/skills';
-import { Input } from '../../../../components/ui/input';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
+import { Skills } from '@/types/skills';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function ReadSkills() {
   const { data: skills = [] } = useQuery({

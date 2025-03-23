@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import RitualInfo from './rituals-info';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
-import { elementValues } from '../../../../types/elements';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { elementValues } from '@/types/elements';
 import { useCharacter } from '../../character-page';
-import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
-import { Ritual } from '../../../../types/ritual';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import { Ritual } from '@/types/ritual';
 import AddRitualsModal from './add-rituals-modal';
 
 const CharacterRitualsContext = createContext<{

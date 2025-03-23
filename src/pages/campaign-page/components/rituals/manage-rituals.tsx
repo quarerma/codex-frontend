@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CreateRitual from './components/create-ritual';
 import ReadRituals from './components/read-rituals';
 import DmPageSetup from '../dm-page-setup';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function ManageCampaignRituals() {
   const [activeComponent, setActiveComponent] = useState('create');

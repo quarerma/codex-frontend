@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import CreateFeats from './components/create-feats';
 import ReadFeats from './components/read-feats';
 import DmPageSetup from '../dm-page-setup';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function ManageCampaignFeats() {
   const [activeComponent, setActiveComponent] = useState('create');

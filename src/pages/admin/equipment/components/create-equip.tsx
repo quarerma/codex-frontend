@@ -2,19 +2,19 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
-import { quillModule } from '../../../../../lib/utils';
-import { Input } from '../../../../components/ui/input';
+import { quillModule } from '@/../lib/utils';
+import { Input } from '@/components/ui/input';
 
-import { createEquimentSchema, CreateEquimentSchema } from '../../../../schemas/create.equipment';
-import { handType, itemType, weaponCategory, weaponType } from '../../../../types/equipment';
-import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
+import { createEquimentSchema, CreateEquimentSchema } from '@/schemas/create.equipment';
+import { handType, itemType, weaponCategory, weaponType } from '@/types/equipment';
+import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
 import { useState } from 'react';
 import UpgradeList from '../../components/upgradeList';
-import { Button } from '../../../../components/ui/button';
-import { weaponRange } from '../../../../types/range';
-import { damageTypes } from '../../../../types/damage';
-import { elementValues } from '../../../../types/elements';
-import { createEquipment } from '../../../../api/fetch/equipment';
+import { Button } from '@/components/ui/button';
+import { weaponRange } from '@/types/range';
+import { damageTypes } from '@/types/damage';
+import { elementValues } from '@/types/elements';
+import { createEquipment } from '@/api/fetch/equipment';
 
 export default function CreateEquip() {
   const { handleSubmit, register, setValue, watch, reset } = useForm<CreateEquimentSchema>({

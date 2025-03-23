@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useEffect, useState } from 'react';
 
-import { Input } from '../../../../components/ui/input';
-import { getOrigins } from '../../../../api/fetch/origins';
-import { Origin } from '../../../../types/origin';
+import { Input } from '@/components/ui/input';
+import { getOrigins } from '@/api/fetch/origins';
+import { Origin } from '@/types/origin';
 
 export default function ReadOrigins() {
   const { data: origins = [] } = useQuery({

@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPossibleCampaignEquipment } from '../../../../api/fetch/equipment';
-import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
+import { getPossibleCampaignEquipment } from '@/api/fetch/equipment';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { useCharacter } from '../../character-page';
 import AddItemInfo from './add-item-info';
 import { useEffect, useState } from 'react';
-import { Equipment, itemType } from '../../../../types/equipment';
+import { Equipment, itemType } from '@/types/equipment';
 import { FaSearch } from 'react-icons/fa';
 
 export default function AddItemModal() {

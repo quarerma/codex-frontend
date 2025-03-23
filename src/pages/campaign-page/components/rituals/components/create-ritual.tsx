@@ -1,16 +1,16 @@
 import ReactQuill from 'react-quill';
-import { Input } from '../../../../../components/ui/input';
-import { createRitualsSchema, CreateRitualsSchema } from '../../../../../schemas/create.rituals';
-import { quillModule } from '../../../../../../lib/utils';
+import { Input } from '@/../components/ui/input';
+import { createRitualsSchema, CreateRitualsSchema } from '@/../schemas/create.rituals';
+import { quillModule } from '@/../../lib/utils';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
-import { getConditions } from '../../../../../api/fetch/conditions';
+import { getConditions } from '@/../api/fetch/conditions';
 import { useState } from 'react';
-import { createCampaignRitual } from '../../../../../api/fetch/rituals';
-import { ritualRange } from '../../../../../types/range';
-import { elementValues } from '../../../../../types/elements';
-import { damageTypes } from '../../../../../types/damage';
+import { createCampaignRitual } from '@/../api/fetch/rituals';
+import { ritualRange } from '@/../types/range';
+import { elementValues } from '@/../types/elements';
+import { damageTypes } from '@/../types/damage';
 import { useParams } from 'react-router-dom';
 
 interface RitualInputProps {

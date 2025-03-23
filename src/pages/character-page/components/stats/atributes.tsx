@@ -1,4 +1,4 @@
-import { useCharacter } from '../../character-page';
+import { useCharacter } from '@/pages/character-page/character-page';
 
 interface AtributeTriangleProps {
   value: number;

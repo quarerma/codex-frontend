@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { getSkillByName } from '../../../api/fetch/skills';
-import { SkillCharacter } from '../../../types/skills';
-import { SheetContent, SheetTitle } from '../../../components/ui/sheet';
-import { get } from '../../../api/axios';
+import { getSkillByName } from '@/api/fetch/skills';
+import { SkillCharacter } from '@/types/skills';
+import { SheetContent, SheetTitle } from '@/components/ui/sheet';
+import { get } from '@/api/axios';
 
 interface SkillModalProps {
   skill: SkillCharacter;

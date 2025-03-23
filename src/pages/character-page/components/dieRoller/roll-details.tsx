@@ -1,6 +1,6 @@
-import { formatAtribute, formatTrainingLevel } from '../../../../components/format/formatters';
-import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
-import { SkillCharacter } from '../../../../types/skills';
+import { formatAtribute, formatTrainingLevel } from '@/components/format/formatters';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { SkillCharacter } from '@/types/skills';
 
 interface SkillCheckDeatilProps {
   skill: SkillCharacter;

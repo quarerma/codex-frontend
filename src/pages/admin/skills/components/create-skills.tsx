@@ -4,15 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect } from 'react';
-import { createSkillSchema, CreateSkillSchema } from '../../../../schemas/create.skill';
-import { Atributes } from '../../../../types/character-upgrades';
+import { createSkillSchema, CreateSkillSchema } from '@/schemas/create.skill';
+import { Atributes } from '@/types/character-upgrades';
 import { useQueryClient } from '@tanstack/react-query';
-import { createSkill } from '../../../../api/fetch/skills';
-import { Input } from '../../../../components/ui/input';
-import { quillModule } from '../../../../../lib/utils';
+import { createSkill } from '@/api/fetch/skills';
+import { Input } from '@/components/ui/input';
+import { quillModule } from '@/../lib/utils';
 
-import { Button } from '../../../../components/ui/button';
-import { Checkbox } from '../../../../components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function CreateSkills() {
   const { handleSubmit, register, reset, setValue, watch } = useForm<CreateSkillSchema>({

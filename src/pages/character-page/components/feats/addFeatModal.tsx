@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
-import { getCampaignPossibleFeats, getClassFeats, getFilteredSubClassFeats, getFilteresClassFeats, getSubClassFeats } from '../../../../api/fetch/feats';
-import { Feat } from '../../../../types/feat';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { getCampaignPossibleFeats, getClassFeats, getFilteredSubClassFeats, getFilteresClassFeats, getSubClassFeats } from '@/api/fetch/feats';
+import { Feat } from '@/types/feat';
 import { useEffect, useState } from 'react';
 import AddFeatInfo from './addfeat-info';
-import { getSubclasses } from '../../../../api/fetch/subclass';
+import { getSubclasses } from '@/api/fetch/subclass';
 import { FaSearch } from 'react-icons/fa';
-import { FeatFilter } from '../../../../components/global/featfilter';
+import { FeatFilter } from '@/components/global/featfilter';
 import { useCharacterFeats } from './character-feat';
 import { useCharacter } from '../../character-page';
-import { get } from '../../../../api/axios';
-import { ClassModel } from '../../../../types/class';
+import { get } from '@/api/axios';
+import { ClassModel } from '@/types/class';
 
 export const AddFeatModal = () => {
   const { character } = useCharacter();

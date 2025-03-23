@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { ClassModel, equipmentProficience } from '../../../../types/class';
-import { Input } from '../../../../components/ui/input';
+import { ClassModel, equipmentProficience } from '@/types/class';
+import { Input } from '@/components/ui/input';
 import ReadInitialFeats from './initial-class-feats';
-import { get } from '../../../../api/axios';
+import { get } from '@/api/axios';
 
 const proficiencies = equipmentProficience;
 export function formatProficiencie(value: string) {

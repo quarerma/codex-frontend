@@ -1,19 +1,19 @@
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '../../../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import ReactQuill from 'react-quill';
 import { useState } from 'react';
-import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
-import { Button } from '../../../../components/ui/button';
-import { quillModule } from '../../../../../lib/utils';
+import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
+import { Button } from '@/components/ui/button';
+import { quillModule } from '@/../lib/utils';
 
-import { createOriginSchema, CreateOriginSchema } from '../../../../schemas/create.origin';
+import { createOriginSchema, CreateOriginSchema } from '@/schemas/create.origin';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getSkills } from '../../../../api/fetch/skills';
-import { createOrigin } from '../../../../api/fetch/origins';
-import { Origin } from '../../../../types/origin';
-import FeatCreation from '../../../../components/global/create-feat-simplified';
+import { getSkills } from '@/api/fetch/skills';
+import { createOrigin } from '@/api/fetch/origins';
+import { Origin } from '@/types/origin';
+import FeatCreation from '@/components/global/create-feat-simplified';
 
 export default function CreateOrigin() {
   const { handleSubmit, register, reset, watch, setValue } = useForm<CreateOriginSchema>({

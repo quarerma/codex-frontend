@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import ReadSkills from './components/read-skills';
 import CreateSkills from './components/create-skills';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import DmPageSetup from '../dm-page-setup';
 
 export default function ManageCampaignSkills() {

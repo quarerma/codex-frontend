@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import CreateEquip from './components/create-equip';
 import DmPageSetup from '../dm-page-setup';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function ManageCamapignEquipments() {
   const [activeComponent, setActiveComponent] = useState('create');

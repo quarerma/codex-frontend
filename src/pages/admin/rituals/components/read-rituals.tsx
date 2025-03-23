@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRituals } from '../../../../api/fetch/rituals';
-import { Ritual } from '../../../../types/ritual';
+import { getRituals } from '@/api/fetch/rituals';
+import { Ritual } from '@/types/ritual';
 import { useEffect, useState } from 'react';
-import { Input } from '../../../../components/ui/input';
+import { Input } from '@/components/ui/input';
 
 export default function ReadRituals() {
   const { data: rituals = [] } = useQuery({

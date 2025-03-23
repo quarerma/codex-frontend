@@ -1,18 +1,18 @@
 import { z } from 'zod';
-import FeatCreation from '../../../../components/global/create-feat-simplified';
-import { Button } from '../../../../components/ui/button';
+import FeatCreation from '@/components/global/create-feat-simplified';
+import { Button } from '@/components/ui/button';
 
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { createFeatSchema } from '../../../../schemas/create.feat';
+import { createFeatSchema } from '@/schemas/create.feat';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
+import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
 
-import { Checkbox } from '../../../../components/ui/checkbox';
-import { Input } from '../../../../components/ui/input';
-import { get, post } from '../../../../api/axios';
-import { ClassModel } from '../../../../types/class';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { get, post } from '@/api/axios';
+import { ClassModel } from '@/types/class';
 
 const createClassFeatSchema = z.object({
   classId: z.string().min(1),

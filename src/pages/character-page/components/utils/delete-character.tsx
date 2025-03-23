@@ -1,17 +1,8 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTrigger,
-} from '../../../../components/ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Trash2Icon } from 'lucide-react';
-import { Input } from '../../../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import { useQueryClient } from '@tanstack/react-query';
-import { deleteCharacter } from '../../../../api/fetch/character';
+import { deleteCharacter } from '@/api/fetch/character';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCharacter } from '../../character-page';

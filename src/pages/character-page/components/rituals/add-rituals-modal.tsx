@@ -1,10 +1,10 @@
 import { useCharacterRituals } from './character-rituals';
-import { DialogContent, DialogHeader, DialogTitle } from '../../../../components/ui/dialog';
+import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useEffect, useState } from 'react';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../components/ui/select';
-import { elementValues } from '../../../../types/elements';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { elementValues } from '@/types/elements';
 import AddRitualInfo from './add-ritual-info';
-import { getCampaignPossibleRituals, getRituals } from '../../../../api/fetch/rituals';
+import { getCampaignPossibleRituals, getRituals } from '@/api/fetch/rituals';
 import { useQuery } from '@tanstack/react-query';
 import { useCharacter } from '../../character-page';
 

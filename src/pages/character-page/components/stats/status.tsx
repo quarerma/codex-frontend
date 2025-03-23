@@ -1,10 +1,6 @@
-import { Trash2Icon } from 'lucide-react';
-import { User } from '../../../../types/user';
-
-import { useCharacter } from '../../character-page';
+import { User } from '@/types/user';
+import { useCharacter } from '@/pages/character-page/character-page';
 import StatsInfo from './stats-info';
-
-import { Input } from '../../../../components/ui/input';
 import { useState } from 'react';
 import DeleteCharacter from '../utils/delete-character';
 interface StatusProps {

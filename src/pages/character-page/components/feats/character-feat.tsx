@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import FeatInfo from './feat-info';
-import { Dialog, DialogTrigger } from '../../../../components/ui/dialog';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { AddFeatModal } from './addFeatModal';
 import { useCharacter } from '../../character-page';
-import { Feat } from '../../../../types/feat';
-import { get } from '../../../../api/axios';
+import { Feat } from '@/types/feat';
+import { get } from '@/api/axios';
 import { useQuery } from '@tanstack/react-query';
 
 // Context for Character Feats

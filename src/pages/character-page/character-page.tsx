@@ -6,7 +6,7 @@ import { getUserById } from '../../api/fetch/user';
 import Status from './components/stats/status';
 import CharacterAtributes from './components/stats/atributes';
 
-import CharacterSkills from './skills/character-skills';
+import CharacterSkills from './components/skills/character-skills';
 import CharacterFeats from './components/feats/character-feat';
 import { createContext, useContext, useEffect, useState } from 'react';
 import CharacterRituals from './components/rituals/character-rituals';

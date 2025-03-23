@@ -1,14 +1,14 @@
 import { z } from 'zod';
-import FeatCreation from '../../../../components/global/create-feat-simplified';
-import { Button } from '../../../../components/ui/button';
-import { Input } from '../../../../components/ui/input';
+import FeatCreation from '@/components/global/create-feat-simplified';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { createFeatSchema } from '../../../../schemas/create.feat';
+import { createFeatSchema } from '@/schemas/create.feat';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { character_upgrades, CharacterUpgrade } from '../../../../types/character-upgrades';
-import { assignFeat, getSubclasses } from '../../../../api/fetch/subclass';
+import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
+import { assignFeat, getSubclasses } from '@/api/fetch/subclass';
 
 const createSubClassFeatSchema = z.object({
   subclassId: z.string().min(1),

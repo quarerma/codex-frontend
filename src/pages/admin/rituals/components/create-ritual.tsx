@@ -1,16 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { createRitualsSchema, CreateRitualsSchema } from '../../../../schemas/create.rituals';
+import { createRitualsSchema, CreateRitualsSchema } from '@/schemas/create.rituals';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '../../../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import ReactQuill from 'react-quill';
-import { quillModule } from '../../../../../lib/utils';
-import { ritualRange } from '../../../../types/range';
-import { elementValues } from '../../../../types/elements';
-import { damageTypes } from '../../../../types/damage';
+import { quillModule } from '@/../lib/utils';
+import { ritualRange } from '@/types/range';
+import { elementValues } from '@/types/elements';
+import { damageTypes } from '@/types/damage';
 import { useQuery } from '@tanstack/react-query';
-import { getConditions } from '../../../../api/fetch/conditions';
+import { getConditions } from '@/api/fetch/conditions';
 import { useState } from 'react';
-import { createRitual } from '../../../../api/fetch/rituals';
+import { createRitual } from '@/api/fetch/rituals';
 
 interface RitualInputProps {
   label: string;

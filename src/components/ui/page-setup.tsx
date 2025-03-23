@@ -62,7 +62,7 @@ export default function PageSetup({ children, className }: PageSetupProps) {
   return (
     <div className={cn('max-w-screen min-h-screen  bg-dark-bg space-y-5', className)}>
       <Navbar />
-      <div className={cn('flex flex-col h-full text-foreground 2xl:max-h-[87vh] xl:max-h-[85vh] overflow-y-auto 2xl:px-20  xl:px-10  lg:px-5  px-2 mr-2', className)}>{children}</div>
+      <div className={cn('flex flex-col h-full text-foreground 2xl:max-h-[87vh] xl:max-h-[85vh] overflow-y-auto 2xl:px-20  xl:px-10  lg:px-5  px-5', className)}>{children}</div>
     </div>
   );
 }

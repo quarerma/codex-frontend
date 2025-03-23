@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Input } from '../../../../../components/ui/input';
-import { Feat } from '../../../../../types/feat';
-import { getCampaignFeats, getGeneralFeats } from '../../../../../api/fetch/feats';
+import { Input } from '@/../components/ui/input';
+import { Feat } from '@/../types/feat';
+import { getCampaignFeats, getGeneralFeats } from '@/../api/fetch/feats';
 import { useQuery } from '@tanstack/react-query';
 import { getElementColor } from './create-feats';
-import { elementValues } from '../../../../../types/elements';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../../../../../components/ui/select';
+import { elementValues } from '@/../types/elements';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/../components/ui/select';
 import { useParams } from 'react-router-dom';
 
 export default function ReadFeats() {

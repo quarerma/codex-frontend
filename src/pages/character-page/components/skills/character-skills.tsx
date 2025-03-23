@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Atributes } from '../../../types/character-upgrades';
-import { SkillCharacter, trainingLevels } from '../../../types/skills';
+import { Atributes } from '@/types/character-upgrades';
+import { SkillCharacter, trainingLevels } from '@/types/skills';
 import { FaDiceD20 } from 'react-icons/fa';
-import { useCharacter } from '../character-page';
-import { updateSkillTrainingLevel } from '../../../api/fetch/character.skills';
+import { useCharacter } from '../../character-page';
+import { updateSkillTrainingLevel } from '@/api/fetch/character.skills';
 import SkillModal from './skill-dialog';
-import { Sheet, SheetTrigger } from '../../../components/ui/sheet';
+import { Sheet, SheetTrigger } from '@/components/ui/sheet';
 
-import { AtributesJson } from '../../../types/character';
+import { AtributesJson } from '@/types/character';
 import { toast } from 'sonner';
-import { rollCheck } from '../components/dieRoller/roller';
+import { rollCheck } from '../dieRoller/roller';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
-import { Dialog } from '../../../components/ui/dialog';
-import SkillCheckDetailed from '../components/dieRoller/roll-details';
-import socket from '../../../api/sockets';
+import { Dialog } from '@/components/ui/dialog';
+import SkillCheckDetailed from '../dieRoller/roll-details';
+import socket from '@/api/sockets';
 
 const SkillRow = ({ skill, onUpdate }: { skill: SkillCharacter; onUpdate: (updatedSkill: SkillCharacter) => void }) => {
   const { character } = useCharacter();

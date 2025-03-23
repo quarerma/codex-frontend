@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Attack } from '../../../../types/character';
-import { Button } from '../../../../components/ui/button';
+import { Attack } from '@/types/character';
+import { Button } from '@/components/ui/button';
 import { IoMdArrowDropup } from 'react-icons/io';
-import { weaponRange } from '../../../../types/range';
-import { damageTypes } from '../../../../types/damage';
+import { weaponRange } from '@/types/range';
+import { damageTypes } from '@/types/damage';
 
 interface AttacksInfoProps {
   attack: Attack;

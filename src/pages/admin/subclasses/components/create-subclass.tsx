@@ -6,13 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect } from 'react';
-import { createSubclass } from '../../../../api/fetch/subclass';
-import { CreateSubClassSchema, createSubClassSchema } from '../../../../schemas/create.subclass';
-import { Input } from '../../../../components/ui/input';
-import { Button } from '../../../../components/ui/button';
-import { quillModule } from '../../../../../lib/utils';
-import { get } from '../../../../api/axios';
-import { ClassModel } from '../../../../types/class';
+import { createSubclass } from '@/api/fetch/subclass';
+import { CreateSubClassSchema, createSubClassSchema } from '@/schemas/create.subclass';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { quillModule } from '@/../lib/utils';
+import { get } from '@/api/axios';
+import { ClassModel } from '@/types/class';
 
 export default function CreateSubClasses() {
   const { data: classes } = useQuery({

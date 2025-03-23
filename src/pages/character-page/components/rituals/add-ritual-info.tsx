@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 import { IoMdArrowDropup } from 'react-icons/io';
 
-import { Ritual } from '../../../../types/ritual';
-import { elementValues } from '../../../../types/elements';
+import { Ritual } from '@/types/ritual';
+import { elementValues } from '@/types/elements';
 import { getElementColor } from '../../../admin/feats/components/create-feats';
-import { ritualRange } from '../../../../types/range';
-import { Button } from '../../../../components/ui/button';
+import { ritualRange } from '@/types/range';
+import { Button } from '@/components/ui/button';
 import { useCharacterRituals } from './character-rituals';
 import { useCharacter } from '../../character-page';
-import { assignCharacterRitual } from '../../../../api/fetch/character.rituals';
+import { assignCharacterRitual } from '@/api/fetch/character.rituals';
 
 interface RitualInfoProps {
   ritual: Ritual;

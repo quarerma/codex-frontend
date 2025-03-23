@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getInitialFeats } from '../../../../api/fetch/classes';
+import { getInitialFeats } from '@/api/fetch/classes';
 
 interface InitialFeatProps {
   classId: string;

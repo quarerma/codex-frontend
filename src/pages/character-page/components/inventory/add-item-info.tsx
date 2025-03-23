@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 import { IoMdArrowDropup } from 'react-icons/io';
 
-import { Button } from '../../../../components/ui/button';
-import { Equipment } from '../../../../types/equipment';
-import { addInventoryItem } from '../../../../api/fetch/inventory';
+import { Button } from '@/components/ui/button';
+import { Equipment } from '@/types/equipment';
+import { addInventoryItem } from '@/api/fetch/inventory';
 import { useCharacter } from '../../character-page';
 import { useInventory } from './character-inventory';
-import { formatElement, formatRange, formatWeaponCategory, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '../../../../components/format/formatters';
+import { formatElement, formatRange, formatWeaponCategory, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '@/components/format/formatters';
 
 interface AddItemInfoProps {
   equipment: Equipment;

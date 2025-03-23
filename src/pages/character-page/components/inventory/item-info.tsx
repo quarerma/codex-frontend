@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { Button } from '../../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import DOMPurify from 'dompurify'; // Import DOMPurify
 
-import { removeIventoryItem } from '../../../../api/fetch/inventory';
+import { removeIventoryItem } from '@/api/fetch/inventory';
 import { useCharacter } from '../../character-page';
-import { InventorySlot } from '../../../../types/inventory';
-import { formatElement, formatRange, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '../../../../components/format/formatters';
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '../../../../components/ui/sheet';
+import { InventorySlot } from '@/types/inventory';
+import { formatElement, formatRange, formatWeaponDamageType, formatWeaponHandType, formatWeaponType } from '@/components/format/formatters';
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import ReactQuill from 'react-quill';
-import { post } from '../../../../api/axios';
+import { post } from '@/api/axios';
 
 interface AddItemInfoProps {
   slot: InventorySlot;
