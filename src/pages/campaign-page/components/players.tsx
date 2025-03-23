@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import DmPageSetup from './dm-page-setup';
-import { getCampaignCharacters, getCampaignPlayers } from '../../../api/fetch/campaigns';
+import { getCampaignCharacters, getCampaignPlayers } from '@/api/fetch/campaigns';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 

@@ -1,6 +1,6 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
-import { getClassColor } from '../../pages/create-character/components/feats-register';
-import { elementValues } from '../../types/elements';
+import { getClassColor } from '@/pages/create-character/components/feats-register';
+import { elementValues } from '@/types/elements';
 
 interface FeatFilterProps {
   selectedFilter: string;

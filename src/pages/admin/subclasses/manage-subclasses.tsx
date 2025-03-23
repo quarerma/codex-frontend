@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AdminPageSetup from '../components/admin-page';
 import CreateSubClasses from './components/create-subclass';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import ReadSubClasses from './components/read-subclasses';
 import AssignFeatSubclass from './components/add-feat-subclass';
 

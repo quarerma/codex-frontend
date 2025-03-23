@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import CharacterCard from './char-card';
 import DmPageSetup from './dm-page-setup';
 import { useQuery } from '@tanstack/react-query';
-import { getCampaignCharacters } from '../../../api/fetch/campaigns';
+import { getCampaignCharacters } from '@/api/fetch/campaigns';
 
 export default function CampaignPage() {
   const { id: campaignId } = useParams();

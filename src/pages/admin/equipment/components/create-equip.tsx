@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 
 import { createEquimentSchema, CreateEquimentSchema } from '@/schemas/create.equipment';

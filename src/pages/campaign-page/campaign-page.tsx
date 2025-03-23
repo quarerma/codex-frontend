@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
-import { fetchCampaign, getCampaignCharacters } from '../../api/fetch/campaigns';
-import NavBar from '../../components/global/navbar';
+import { fetchCampaign, getCampaignCharacters } from '@/api/fetch/campaigns';
+import NavBar from '@/components/global/navbar';
 import { format } from 'date-fns';
 
 import CharacterCard from './components/char-card';
 import { IoIosAddCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io';
-import { getUserById } from '../../api/fetch/user';
+import { getUserById } from '@/api/fetch/user';
 import { useEffect, useState } from 'react';
 import DmCampaignPage from './components/dm-campaign-page';
-import PageSetup from '../../components/ui/page-setup';
-import socket from '../../api/sockets';
+import PageSetup from '@/components/ui/page-setup';
+import socket from '@/api/sockets';
 import { toast } from 'sonner';
 
 export default function CampaignPage() {

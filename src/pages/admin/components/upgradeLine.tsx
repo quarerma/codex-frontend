@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../../components/ui/button';
-import { Atributes, CharacterUpgrade } from '../../../types/character-upgrades';
-import { Input } from '../../../components/ui/input';
-import { equipmentProficience } from '../../../types/class';
-import { getSkills } from '../../../api/fetch/skills';
+import { Button } from '@/components/ui/button';
+import { Atributes, CharacterUpgrade } from '@/types/character-upgrades';
+import { Input } from '@/components/ui/input';
+import { equipmentProficience } from '@/types/class';
+import { getSkills } from '@/api/fetch/skills';
 import { useQuery } from '@tanstack/react-query';
 
 interface UpgradeLineProps {

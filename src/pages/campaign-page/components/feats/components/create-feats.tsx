@@ -4,14 +4,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import ReactQuill from 'react-quill';
 import { useEffect, useState } from 'react';
-import { createFeatSchema, CreateFeatSchema } from '@/../schemas/create.feat';
-import { character_upgrades, CharacterUpgrade } from '@/../types/character-upgrades';
-import { createCampaignFeat } from '@/../api/fetch/feats';
-import { Input } from '@/../components/ui/input';
-import { quillModule } from '@/../../lib/utils';
-import { Button } from '@/../components/ui/button';
-import UpgradeList from '@/admin/components/upgradeList';
-import { elementValues } from '@/../types/elements';
+import { createFeatSchema, CreateFeatSchema } from '@/schemas/create.feat';
+import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
+import { createCampaignFeat } from '@/api/fetch/feats';
+import { Input } from '@/components/ui/input';
+import { quillModule } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import UpgradeList from '@/pages/admin/components/upgradeList';
+import { elementValues } from '@/types/elements';
 import { useParams } from 'react-router-dom';
 
 export const getElementColor = (element: string) => {

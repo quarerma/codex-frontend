@@ -1,4 +1,4 @@
-import { CharacterUpgrade } from '../../../types/character-upgrades';
+import { CharacterUpgrade } from '@/types/character-upgrades';
 import UpgradeLine from './upgradeLine';
 
 interface UpgradeListProps {

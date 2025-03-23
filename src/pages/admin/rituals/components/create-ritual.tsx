@@ -3,7 +3,7 @@ import { createRitualsSchema, CreateRitualsSchema } from '@/schemas/create.ritua
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import ReactQuill from 'react-quill';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 import { ritualRange } from '@/types/range';
 import { elementValues } from '@/types/elements';
 import { damageTypes } from '@/types/damage';

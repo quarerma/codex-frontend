@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCampaignSkills } from '@/../api/fetch/skills';
-import { Atributes } from '@/../types/character-upgrades';
+import { getCampaignSkills } from '@/api/fetch/skills';
+import { Atributes } from '@/types/character-upgrades';
 import { useEffect, useState } from 'react';
-import { Skills } from '@/../types/skills';
-import { Input } from '@/../components/ui/input';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/../components/ui/select';
+import { Skills } from '@/types/skills';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useParams } from 'react-router-dom';
 
 export default function ReadSkills() {

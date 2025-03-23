@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import AdminPageSetup from '../components/admin-page';
 import CreateFeats from './components/create-feats';
 import ReadFeats from './components/read-feats';

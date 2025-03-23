@@ -10,7 +10,7 @@ import { createSubclass } from '@/api/fetch/subclass';
 import { CreateSubClassSchema, createSubClassSchema } from '@/schemas/create.subclass';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 import { get } from '@/api/axios';
 import { ClassModel } from '@/types/class';
 

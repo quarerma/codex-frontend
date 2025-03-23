@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllUsers } from '../../../api/fetch/user';
+import { getAllUsers } from '@/api/fetch/user';
 import { useState } from 'react';
-import { Button } from '../../../components/ui/button';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../../../components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AdminPageSetup from '../components/admin-page';
 
 export default function ManageUsers() {

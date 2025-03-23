@@ -6,7 +6,7 @@ import { Button } from '../ui/button';
 import UpgradeList from '../../pages/admin/components/upgradeList';
 import { Input } from '../ui/input';
 import { CharacterUpgrade } from '../../types/character-upgrades';
-import { quillModule } from '../../../lib/utils';
+import { quillModule } from '../../lib/utils';
 import { elementValues } from '../../types/elements';
 
 type FeatCreationProps = {
@@ -91,22 +91,13 @@ const FeatCreation: React.FC<FeatCreationProps> = ({
       {/* Descrição do Poder */}
       <div className="space-y-2 group h-[250px]">
         <h1 className="group-focus-within:text-primary">Descrição do Poder:</h1>
-        <ReactQuill
-          value={watch('feat.description')}
-          className="ml-2 h-[180px]"
-          onChange={(content) => setValue('feat.description', content)}
-          modules={quillModule}
-        />
+        <ReactQuill value={watch('feat.description')} className="ml-2 h-[180px]" onChange={(content) => setValue('feat.description', content)} modules={quillModule} />
       </div>
 
       {/* Modificações no personagem */}
       <div className="z-50">
         <h1 className="mb-5">Modificações no personagem</h1>
-        <select
-          value={currentCharacterUpgrade}
-          onChange={(e) => setCurrentCharacterUpgrade(e.target.value)}
-          className="p-2 border-2 bg-card border-border rounded ml-5"
-        >
+        <select value={currentCharacterUpgrade} onChange={(e) => setCurrentCharacterUpgrade(e.target.value)} className="p-2 border-2 bg-card border-border rounded ml-5">
           <option value="default" disabled>
             Modificações
           </option>
@@ -125,10 +116,7 @@ const FeatCreation: React.FC<FeatCreationProps> = ({
       {/* Elemento */}
       <div className="space-y-2">
         <h1 className={`${elementColor.text}`}>Elemento:</h1>
-        <select
-          className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`}
-          {...register('feat.element')}
-        >
+        <select className={`p-2 border-2 bg-card outline-none ${elementColor.border} rounded ml-5`} {...register('feat.element')}>
           {elementValues?.map((c) => (
             <option key={c.label} value={c.value}>
               {c.label}

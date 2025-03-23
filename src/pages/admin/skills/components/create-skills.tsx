@@ -9,7 +9,7 @@ import { Atributes } from '@/types/character-upgrades';
 import { useQueryClient } from '@tanstack/react-query';
 import { createSkill } from '@/api/fetch/skills';
 import { Input } from '@/components/ui/input';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';

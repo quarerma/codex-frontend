@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import { getUserById } from '../../../api/fetch/user';
-import { fetchCampaign } from '../../../api/fetch/campaigns';
+import { getUserById } from '@/api/fetch/user';
+import { fetchCampaign } from '@/api/fetch/campaigns';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import NavBar from '../../../components/global/navbar';
+import NavBar from '@/components/global/navbar';
 import CampaignSideBar from './campaign-side-bar';
 import { BsCopy } from 'react-icons/bs';
 

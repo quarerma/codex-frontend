@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { elementValues } from '@/types/elements';
 import { Feat } from '@/types/feat';
-import { getElementColor } from '../../../admin/feats/components/create-feats';
+import { getElementColor } from '@/pages/admin/feats/components/create-feats';
 import { IoMdArrowDropup } from 'react-icons/io';
 import { Button } from '@/components/ui/button';
 import { useCharacterFeats } from './character-feat';

@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { conditionsSchema, ConditionsSchema } from '@/schemas/conditions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactQuill from 'react-quill';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { createCondition } from '@/api/fetch/conditions';
 

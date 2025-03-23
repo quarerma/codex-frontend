@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminPageSetup from '../components/admin-page';
 
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import CreateOrigin from './components/create-origin';
 import ReadOrigins from './components/read-origins';
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminPageSetup from '../components/admin-page';
 
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import CreateEquip from './components/create-equip';
 
 export default function ManageEquipments() {

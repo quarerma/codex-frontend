@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminPageSetup from '../components/admin-page';
 
-import { Button } from '../../../components/ui/button';
+import { Button } from '@/components/ui/button';
 import CreateRitual from './components/create-ritual';
 import ReadRituals from './components/read-rituals';
 

@@ -6,7 +6,7 @@ import ReactQuill from 'react-quill';
 import { useState } from 'react';
 import { character_upgrades, CharacterUpgrade } from '@/types/character-upgrades';
 import { Button } from '@/components/ui/button';
-import { quillModule } from '@/../lib/utils';
+import { quillModule } from '@/lib/utils';
 
 import { createOriginSchema, CreateOriginSchema } from '@/schemas/create.origin';
 import { useQuery, useQueryClient } from '@tanstack/react-query';

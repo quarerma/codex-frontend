@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { cn } from '../../../lib/utils'; // ShadCN utility for combining class names
+import { cn } from '../../lib/utils'; // ShadCN utility for combining class names
 import { getUserById } from '../../api/fetch/user';
 import Navbar from '../global/navbar';
 import Cookies from 'js-cookie';
