@@ -9,7 +9,7 @@ interface SkillCheckDeatilProps {
 
 export default function SkillCheckDetailed({ skill, roll }: SkillCheckDeatilProps) {
   return (
-    <DialogContent className="text-foreground font-romannew  flex font-light flex-col items-start ">
+    <DialogContent className="text-foreground font-romannew w-[95%]  flex font-light flex-col items-start ">
       <DialogHeader>
         <DialogTitle className="font-light text-4xl pt-5">
           Detalhes da rolagem de <span className="font-bold">{skill.name}</span>
