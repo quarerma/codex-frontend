@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'RomanNewTimes';
-  src: url('../public/fonts/Roman_New_Times.ttf');
+  src: url('/fonts/Roman_New_Times.ttf');
   font-weight: normal;
   font-style: normal;
 }
